@@ -1,5 +1,5 @@
 # Emanuela-Valeria
-Emanuela Saleggia, Valeria Timmer
+Esame UNIVPM Programmazione ad Oggetti 2021
 
 # Autori 
 - Emanuela Saleggia 50%
