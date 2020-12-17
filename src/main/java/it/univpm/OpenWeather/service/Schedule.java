@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.service;
 
 import java.util.TimerTask;
+import java.util.ArrayList;
 import java.util.Date;
 import it.univpm.OpenWeather.model.*;
 
@@ -16,12 +17,23 @@ public class Schedule {
 	 */
 	public void scheduleAtFixedRate (TimerTask task, Date firstTime, long period) {
 		try {
-			// Creo due città 
+			
+			ArrayList <City> downloadCity = new ArrayList <City>(); 
+			
+			// Creo alcune città 
 			City c1 = new City();
 			c1.getInformation("Ancona", "IT");
-			// Creo due città
+			downloadCity = BuildingCity.Building(c1);
+
+			
 			City c2 = new City();
 			c2.getInformation("Londra", "GB");
+			downloadCity = BuildingCity.Building(c2);
+			
+			City c3 = new City();
+			c3.getInformation("Milano", "IT");
+			downloadCity = BuildingCity.Building(c3);
+			
 			
 		} catch (IllegalArgumentException e) {
 			// Viene lanciata se firstTime.getTime() < 0 o period <= 0
@@ -35,4 +47,6 @@ public class Schedule {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

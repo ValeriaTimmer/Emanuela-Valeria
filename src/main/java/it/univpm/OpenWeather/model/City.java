@@ -1,10 +1,6 @@
 package it.univpm.OpenWeather.model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
-
-import it.univpm.OpenWeather.utils.*;
+import it.univpm.OpenWeather.service.DownloadCity;
 
 /**
  * Classe che modella la città
@@ -33,7 +29,10 @@ public class City {
 	 * Descrizione del meteo della città
 	 */
 	private String weather;
-	
+	/**
+	 * API privata
+	 */
+	private String apiKey;
 	/**
 	 * Costruttore della classe City che inizializza una città
 	 * 
@@ -135,20 +134,20 @@ public class City {
 		this.weather = weather;
 	}
 	/**
-	 * Metodo che prende informazioni dal JSON Parsato dalla classe del package utils
-	 * e completa i campi con le varie informazioni
-	 * 
-	 * @param cityName Nome della città 
-	 * @param stateCode nome dello Stato/Paese della città
-	 */
+	* Metodo che prende informazioni dal JSON parsato dal metodo Parser
+	* e completa i campi con le varie informazioni
+	* 
+	* @param cityName Nome della città 
+	* @param stateCode nome dello Stato/Paese della città
+	*/
 	public void getInformation (String cityName, String stateCode) {
 		// Bisogna gestire le eccezioni
-		JsonParser OpenWeather = new JsonParser(cityName, stateCode);
+		DownloadCity OpenWeather = new DownloadCity(cityName, stateCode, apiKey);
 		OpenWeather.Parser();
 		this.cityName = OpenWeather.getCityName();
 		this.stateCode = OpenWeather.getStateCode();
 		this.humidity = OpenWeather.getHumidity();
 		this.temperature = OpenWeather.getTemperature();
 		this.weather = OpenWeather.getWeather();
-	}
+		}
 }
