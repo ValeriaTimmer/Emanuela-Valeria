@@ -31,7 +31,7 @@ public class Schedule {
 			downloadCity = BuildingCity.Building(c2);
 			
 			City c3 = new City();
-			c3.getInformation("Milano", "IT");
+			c3.getInformation("Berlino", "DE");
 			downloadCity = BuildingCity.Building(c3);
 			
 			

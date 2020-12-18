@@ -109,6 +109,7 @@ public class DownloadCity {
 	public void Parser() {
 		
 		JSONParser parser = new JSONParser();
+		
 		try {
 			
 			// URL di OpenWeather da Parsare
