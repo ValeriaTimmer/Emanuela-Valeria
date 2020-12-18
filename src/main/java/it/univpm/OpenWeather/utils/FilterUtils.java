@@ -5,16 +5,16 @@ import org.json.simple.JSONArray;
 public class FilterUtils {
 	
 	/**
-	 * Array che contiene le città filtrate
+	 * Array che contiene i dati filtrati
 	 */
-	private static JSONArray cityFiltered = new JSONArray();
+	private static JSONArray Filtered = new JSONArray();
 	
 	/**
 	 * Metodo che filtra le città in base al nome e allo stato
 	 * @param array Array di Città
 	 * @param city Nome della città
 	 * @param state Nome dello stato 
-	 * @return
+	 * @return Filtered Ritorna l'array filtrato
 	 */
 	public JSONArray getCityFiltered(JSONArray array, Object city, Object state) {
 		
@@ -28,7 +28,7 @@ public class FilterUtils {
 					
 					JSONObject citta = (JSONObject) o1.get("name");
 					if (o1.get("country").equals((String)state) & citta.get("name").equals((String)city)) {
-						cityFiltered.add(o1);
+						Filtered.add(o1);
 						
 					}
 					
@@ -38,14 +38,50 @@ public class FilterUtils {
 			}
 		}
 		
-		if (cityFiltered.isEmpty()) {
+		if (Filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
-			cityFiltered.add(o2);
+			Filtered.add(o2);
 		}
 		
-		return cityFiltered;
+		return Filtered;
 	}
 	
+	/**
+	 * Metodo che filtra l'umidità e il tempo 
+	 * @param array Array da filtrare
+	 * @param humidity Umidità
+	 * @param weather Descrizione meteo
+	 * @return Filtered Ritorna l'array filtrato
+	 */
+	public JSONArray getHumidityFiltered (JSONArray array, Object humidity, Object weather) {
+		
+		for (Object o : array) {
+			
+			if (o instanceof Object) {
+				
+				JSONObject o1 = (JSONObject) o;
+				
+				try {
+					
+					JSONObject umidita = (JSONObject) o1.get("humidity");
+					if (o1.get("description").equals((String)weather) & umidita.get("humidity").equals((Double)humidity)) {
+						Filtered.add(o1);
+						
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if (Filtered.isEmpty()) {
+			JSONObject o2 = new JSONObject();
+			o2.put("Filtraggio abortito", "");
+			Filtered.add(o2);
+		}
+		return Filtered;
+	}
 
 }

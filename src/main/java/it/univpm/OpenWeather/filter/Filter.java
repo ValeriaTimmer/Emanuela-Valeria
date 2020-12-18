@@ -11,5 +11,12 @@ import org.json.simple.JSONArray;
  */
 public interface Filter <C,S> {
 	
-	abstract JSONArray filtersCity (JSONArray arrayCity, C city, S state);
+	/**
+	 * Metodo che viene implementato dalle singole classi 
+	 * @param arrayCity Array sul quale si applicano i filtri
+	 * @param param1 Primo parametro di filtraggio
+	 * @param param2 Secondo parametro di filtraggio 
+	 * @return Array filtrato
+	 */
+	abstract JSONArray filtersCity (JSONArray arrayCity, C param1, S param2);
 }
