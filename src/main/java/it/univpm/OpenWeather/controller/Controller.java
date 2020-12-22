@@ -1,7 +1,10 @@
 package it.univpm.OpenWeather.controller;
 import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.statistics.*;
+import it.univpm.OpenWeather.utils.StatsUtils;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,11 +41,12 @@ public class Controller {
 	 * Rotta per visualizzare le statistiche elaborate sulle città
 	 * @return Il vettore contenete le statistiche effettuate
 	 *
-	@GetMapping ("/stats")
-	public ResponseEntity <Object> getStats(){
-		return new ResponseEntity <> (c.getStats(), HttpStatus.OK);
+	 */
+	// @GetMapping ("/stats")
+	// public ResponseEntity <Object> getStats(@RequestParam ()){
+	//return new ResponseEntity <> (c.getStats(), HttpStatus.OK);
 	}
-	*/
+	
 	
 	/*
 	 * Rotta per visualizzare i filtri elaborati sulle città
@@ -57,4 +61,4 @@ public class Controller {
 	}
 	*/
 
-}
+

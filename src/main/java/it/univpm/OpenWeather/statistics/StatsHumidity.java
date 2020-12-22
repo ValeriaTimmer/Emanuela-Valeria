@@ -10,7 +10,7 @@ import org.json.simple.JSONArray;
  *
  * @param <T> parametro generico
  */
-public class StatsHumidity implements Stats <Object> {
+public class StatsHumidity implements Stats <Object, Object> {
 	/**
 	 * Array contenente le città
 	 */
@@ -45,7 +45,7 @@ public class StatsHumidity implements Stats <Object> {
 	 * @return l'array delle statistiche effettuate sulle città in base all'umidità
 	 */
 	@Override
-	public JSONArray StatisticsHumidity(JSONArray arrayCity, Object humidity) {
-		return (JSONArray) utils.getStats(this.getHumidity(), humidity);
+	public JSONArray StatisticsHumidity (JSONArray arrayCity, Object humidity, Object period) {
+		return (JSONArray) utils.getStats(this.getHumidity(), humidity, period);
 	}
 }

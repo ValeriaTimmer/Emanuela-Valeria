@@ -1,12 +1,20 @@
 package it.univpm.OpenWeather.service;
 
+import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.Date;
 import it.univpm.OpenWeather.model.*;
+import it.univpm.OpenWeather.utils.*;
 
 public class Schedule {
 	
+	// DateUtils data = new DateUtils(2020, 12, 20);
+	
+	// TimerTaskUtils task = new TimerTaskUtils();
+	
+	// public long period = 3600000;
+
 	/**
 	 * Metodo che pianifica l'attivita specificata per l'esecuzione ripetuta a velocità fissa
 	 * a partire dall'ora specificata
@@ -15,7 +23,7 @@ public class Schedule {
 	 * @param firstTime Prima volta in cui l'attività deve essere eseguita
 	 * @param period Tempo in millisecondi tra le successive esecuzioni di attività
 	 */
-	public void scheduleAtFixedRate (TimerTask task, Date firstTime, long period) {
+	public void scheduleAtFixedRate (TimerTask task, Date data, long period) {
 		try {
 			
 			ArrayList <City> downloadCity = new ArrayList <City>(); 
@@ -47,5 +55,7 @@ public class Schedule {
 			e.printStackTrace();
 		}
 	}
-	
 }
+
+
+

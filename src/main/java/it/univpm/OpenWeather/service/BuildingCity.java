@@ -19,7 +19,7 @@ public class BuildingCity {
 	
 	/**
 	 * Metodo che popola l'arrayLista di tipo City con i dati che ci servono 
-	 * richiama il metodo getInformation della classe DownloadCity
+	 * richiama il metodo getInformation della classe City
 	 *  
 	 * @return lista Ritorna la lista degi dati modellati
 	 */

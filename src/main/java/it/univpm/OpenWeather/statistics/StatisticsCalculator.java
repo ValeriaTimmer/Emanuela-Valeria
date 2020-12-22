@@ -22,7 +22,7 @@ public class StatisticsCalculator {
 	/**
 	 * Contatore
 	 */
-	private double counter;
+	private int counter;
 	/**
 	 * Somma
 	 */
@@ -31,6 +31,7 @@ public class StatisticsCalculator {
 	 * Array che contiene i valori desiderati
 	 */
 	private ArrayList <Double> value;
+	
 	/**
 	 * Costruttore
 	 */
@@ -38,7 +39,7 @@ public class StatisticsCalculator {
 		this.max = Double.MAX_VALUE;
 		this.min = Double.MAX_VALUE;
 		this.sum = 0.0;
-		this.counter = 0.0;
+		this.counter = 0;
 		this.value = new ArrayList<Double>();
 	}
 	
@@ -87,8 +88,10 @@ public class StatisticsCalculator {
 	public void addCounter(Double num) {
 		this.counter++;
 		this.sum += num;
-		if(num>this.max)this.max=num;
-		if(num<this.min)this.min=num;
+		if(num>this.max) 
+			this.max=num;
+		if(num<this.min) 
+			this.min=num;
 		this.value.add(num);
 	}
 }

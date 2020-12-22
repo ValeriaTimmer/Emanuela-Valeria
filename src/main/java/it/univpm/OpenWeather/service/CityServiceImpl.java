@@ -11,7 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CityServiceImpl implements CityService {
+	
 	private static Map <String, City> cityRepo = new HashMap();
+	
 	private final AtomicLong counter = new AtomicLong();
 	
 	public void CityServiceImpl() {
@@ -22,7 +24,7 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	@Override
-	public Collection<City> getCity() {
+	public Collection <City> getCity() {
 		return cityRepo.values();
 	}
 	
