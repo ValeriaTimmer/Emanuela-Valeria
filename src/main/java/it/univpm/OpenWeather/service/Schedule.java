@@ -7,42 +7,64 @@ import java.util.Date;
 import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.utils.*;
 
+/**
+ * Classa che pianifica l'attività specificata da ripetere ogni ora
+ * 
+ * @author Emanuela Saleggia
+ * @author ValeriaTimmer
+ *
+ */
+
 public class Schedule {
 	
-	// DateUtils data = new DateUtils(2020, 12, 20);
-	
-	// TimerTaskUtils task = new TimerTaskUtils();
-	
-	// public long period = 3600000;
-
-	/**
-	 * Metodo che pianifica l'attivita specificata per l'esecuzione ripetuta a velocità fissa
-	 * a partire dall'ora specificata
-	 * 
-	 * @param task Attività da pianificare
-	 * @param firstTime Prima volta in cui l'attività deve essere eseguita
-	 * @param period Tempo in millisecondi tra le successive esecuzioni di attività
-	 */
-	public void scheduleAtFixedRate (TimerTask task, Date data, long period) {
+	{ 
 		try {
+			/**
+			 * Costruttore della classe Date di java.lang.Object che iniziailizza 
+			 * il momento di inizio del metodo
+			 */
+			Date firstTime = new Date(2020, 12, 1);
+	
+			/**
+			 * Costruttore della classe Timer di java.lang.Object
+			 */
+			Timer timer = new Timer();
+	
+			/*
+			 * Costruttore della classe TimerTask che effettua l'override del metodo run
+			 * dell'interfaccia Runnable di java.lang.Object
+			 */
+			TimerTask task = new TimerTask() {
+
+				/*
+				 * Metodo che salva le informazioni delle città scelte in un arrayList
+				 */
+				@Override
+				public void run() {
 			
-			ArrayList <City> downloadCity = new ArrayList <City>(); 
+					ArrayList <City> downloadCity = new ArrayList <City>(); 
 			
-			// Creo alcune città 
-			City c1 = new City();
-			c1.getInformation("Ancona", "IT");
-			downloadCity = BuildingCity.Building(c1);
+					// Creo alcune città 
+					City c1 = new City();
+					c1.getInformation("Ancona", "IT");
+					downloadCity = BuildingCity.Building(c1);
 
 			
-			City c2 = new City();
-			c2.getInformation("Londra", "GB");
-			downloadCity = BuildingCity.Building(c2);
+					City c2 = new City();
+					c2.getInformation("Londra", "GB");
+					downloadCity = BuildingCity.Building(c2);
 			
-			City c3 = new City();
-			c3.getInformation("Berlino", "DE");
-			downloadCity = BuildingCity.Building(c3);
-			
-			
+					City c3 = new City();
+					c3.getInformation("Berlino", "DE");
+					downloadCity = BuildingCity.Building(c3);
+				}
+			};
+	
+			/*
+			 * Metodo che ripete il salvataggio ogni ora, a partire da una data scelta
+			 */
+			timer.scheduleAtFixedRate (task, firstTime, 3600000);
+	
 		} catch (IllegalArgumentException e) {
 			// Viene lanciata se firstTime.getTime() < 0 o period <= 0
 			e.printStackTrace();
