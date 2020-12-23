@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class StatsUtils {
+	
 	/**
 	 * Array che contiene le statistiche
 	 */
@@ -14,6 +15,7 @@ public class StatsUtils {
 	 * Metodo che effettua le statistiche 
 	 * @param array Array sul quale vengono effettuate le statistiche
 	 * @param humidity Umidità
+	 * @param period Periodo
 	 * @return stats Array contenente le statistiche 
 	 */
 	public JSONArray getStats(JSONArray array, Object humidity, Object period) {

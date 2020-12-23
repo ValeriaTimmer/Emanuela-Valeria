@@ -4,7 +4,7 @@ import it.univpm.OpenWeather.utils.StatsUtils;
 
 import org.json.simple.JSONArray;
 /**
- * Interfaccia per le statistiche
+ * Classe che implementa l'interfaccia per le statistiche
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
@@ -22,7 +22,7 @@ public class StatsHumidity implements Stats <Object, Object> {
 	private StatsUtils utils;
 	
 	/**
-	 * costruttore
+	 * Costruttore
 	 * @param array della città
 	 */
 	public StatsHumidity(JSONArray array) {
