@@ -13,4 +13,9 @@ import java.util.Collection;
 public interface CityService {
 	
 	public abstract Collection <City> getCity();
+	
+	public abstract Collection <City> getStatistics();
+	
+	public abstract Collection <City> getFiltered(String param1, String param2, String param3);
+	
 }

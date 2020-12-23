@@ -73,6 +73,7 @@ public class FilterUtils {
 				try {
 					
 					JSONObject umidita = (JSONObject) o1.get("humidity");
+					
 					if (o1.get("description").equals((String)weather) & umidita.get("humidity").equals((Double)humidity)) {
 						Filtered.add(o1);
 						

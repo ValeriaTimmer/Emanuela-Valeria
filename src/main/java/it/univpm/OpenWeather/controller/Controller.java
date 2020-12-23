@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,20 +46,24 @@ public class Controller {
 	// @GetMapping ("/stats")
 	// public ResponseEntity <Object> getStats(@RequestParam ()){
 	//return new ResponseEntity <> (c.getStats(), HttpStatus.OK);
-	}
 	
 	
-	/*
-	 * Rotta per visualizzare i filtri elaborati sulle città
-	 * @return Il vettore delle città filtrate
-	@GetMapping ("/filters")
-	public Object getFilter (@RequestMapping JSONObject bodyFilter){
-		try {
-			
-		} catch() {
-			
-		}
+	
+	/**
+	 * Metodo che gestisce la POST nella rotta "/filters/humidityweather"
+	 * @param from Valore minimo dell'intervallo di umidità
+	 * @param to Valore massimo dell'intervallo di umidità
+	 * @param weather Tipo di meteo richiesto
+	 * @param filter Body del filtro richiesto
+	 * @return ArrayList contenente i valori filtrati
+	 */
+	@RequestMapping (value = "/filters/humidityweather", method = RequestMethod.POST)
+	public ResponseEntity<Object> getFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
+			@RequestParam (value = "to", defaultValue = "100.0") String to, 
+			@RequestParam (value = "weather", defaultValue = "") String weather,
+			@RequestBody String filter) {
+		return new ResponseEntity<> (c.getFiltered (from, to, weather), HttpStatus.OK);
 	}
-	*/
+}
 
 
