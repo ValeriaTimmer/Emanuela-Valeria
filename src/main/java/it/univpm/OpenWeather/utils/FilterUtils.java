@@ -15,7 +15,7 @@ public class FilterUtils {
 	/**
 	 * Array che contiene i dati filtrati
 	 */
-	private static JSONArray Filtered = new JSONArray();
+	private static JSONArray filtered = new JSONArray();
 	
 	/**
 	 * Metodo che filtra le città in base al nome e allo stato
@@ -36,7 +36,7 @@ public class FilterUtils {
 					
 					JSONObject citta = (JSONObject) o1.get("name");
 					if (o1.get("country").equals((String)state) & citta.get("name").equals((String)city)) {
-						Filtered.add(o1);
+						filtered.add(o1);
 						
 					}
 					
@@ -46,13 +46,13 @@ public class FilterUtils {
 			}
 		}
 		
-		if (Filtered.isEmpty()) {
+		if (filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
-			Filtered.add(o2);
+			filtered.add(o2);
 		}
 		
-		return Filtered;
+		return filtered;
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public class FilterUtils {
 					JSONObject umidita = (JSONObject) o1.get("humidity");
 					
 					if (o1.get("description").equals((String)weather) & umidita.get("humidity").equals((Double)humidity)) {
-						Filtered.add(o1);
+						filtered.add(o1);
 						
 					}
 					
@@ -85,12 +85,12 @@ public class FilterUtils {
 			}
 		}
 		
-		if (Filtered.isEmpty()) {
+		if (filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
-			Filtered.add(o2);
+			filtered.add(o2);
 		}
-		return Filtered;
+		return filtered;
 	}
 
 }

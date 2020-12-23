@@ -1,6 +1,10 @@
 package it.univpm.OpenWeather.utils;
 
+import it.univpm.OpenWeather.model.City;
 import it.univpm.OpenWeather.statistics.*;
+
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -9,7 +13,7 @@ public class StatsUtils {
 	/**
 	 * Array che contiene le statistiche
 	 */
-	private static JSONArray stats = new JSONArray();
+	private static JSONArray stats = new JSONArray ();
 	
 	/**
 	 * Metodo che effettua le statistiche 

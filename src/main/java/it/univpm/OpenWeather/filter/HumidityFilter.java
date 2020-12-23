@@ -16,11 +16,11 @@ public class HumidityFilter implements Filter <Object, Object> {
 	/**
 	 * Array da filtrare
 	 */
-	public JSONArray arrayCity;
+	private JSONArray arrayCity;
 	/**
 	 * Variabile che richiama il metodo della classe FilterUtils
 	 */
-	public FilterUtils utils;
+	private FilterUtils utils;
 	/**
 	 * Costruttore 
 	 * @param array Array da filtrare
