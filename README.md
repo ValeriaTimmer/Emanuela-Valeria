@@ -1,5 +1,5 @@
 # Emanuela-Valeria
-Esame UNIVPM Programmazione ad Oggetti gennaio2021
+Esame UNIVPM Programmazione ad Oggetti gennaio 2021
 
 # Autori 
 - Emanuela Saleggia 50%
@@ -15,3 +15,7 @@ Esame UNIVPM Programmazione ad Oggetti gennaio2021
 
 ## - UseCaseDiagram
 ![Schermata 2020-12-16 alle 16 36 37](https://user-images.githubusercontent.com/75066505/102387556-cfface00-3fd0-11eb-830d-dce24ca7ded2.png)
+
+## - ClassDiagram
+
+# Package Main
