@@ -2,7 +2,7 @@ package it.univpm.OpenWeather.service;
 
 import java.util.ArrayList;
 
-import it.univpm.OpenWeather.model.*;
+import it.univpm.OpenWeather.model.City;
 
 /**
  * Classe per la creazione degli arraylist di tipo City 
@@ -15,7 +15,7 @@ public class BuildingCity {
 	/**
 	 * ArrayList che contiene tutti i dati delle città modellati
 	 */
-	private static ArrayList <City> lista = new ArrayList<City>();
+	private static ArrayList <City> list = new ArrayList<City>();
 	
 	/**
 	 * Metodo che popola l'arrayLista di tipo City con i dati che ci servono 
@@ -24,8 +24,8 @@ public class BuildingCity {
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
 	public static ArrayList <City> Building (City c){
-		lista.add(c);
-		return lista;
+		list.add(c);
+		return list;
 	}
 	
 }

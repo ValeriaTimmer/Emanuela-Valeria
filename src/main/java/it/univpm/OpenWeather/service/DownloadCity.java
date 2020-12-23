@@ -1,14 +1,10 @@
 package it.univpm.OpenWeather.service;
 
-import it.univpm.OpenWeather.service.*;
-
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 

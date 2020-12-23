@@ -2,6 +2,14 @@ package it.univpm.OpenWeather.utils;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
+/**
+ * Classe che implemeta i metodi di filtraggio
+ * utilizzati dalle classi del package.filter
+ * 
+ * @author Emanuela Saleggia
+ * @author ValeriaTimmer
+ *
+ */
 public class FilterUtils {
 	
 	/**

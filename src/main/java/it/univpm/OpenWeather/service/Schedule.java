@@ -4,8 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.Date;
-import it.univpm.OpenWeather.model.*;
-import it.univpm.OpenWeather.utils.*;
+import it.univpm.OpenWeather.model.City;
 
 /**
  * Classa che pianifica l'attività specificata da ripetere ogni ora
@@ -22,7 +21,11 @@ public class Schedule {
 			/**
 			 * Costruttore della classe Date di java.lang.Object che iniziailizza 
 			 * il momento di inizio del metodo
+			 * 
+			 * @Deprecated : Alloca un oggetto Date e lo inizializza in modo che rappresenti la mezzanotte, 
+			 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
 			 */
+			@Deprecated
 			Date firstTime = new Date(2020, 12, 1);
 	
 			/**
@@ -38,13 +41,18 @@ public class Schedule {
 
 				/*
 				 * Metodo che salva le informazioni delle città scelte in un arrayList
+				 * Effettua l'override del metodo run() della classe TimerTask
 				 */
 				@Override
 				public void run() {
-			
+					
+					/*
+					 * ArrayList sul quale verranno salvate le informazioni utilizzando
+					 * il metodo Building della classe BuildingCity 
+					*/
 					ArrayList <City> downloadCity = new ArrayList <City>(); 
 			
-					// Creo alcune città 
+					// Città 
 					City c1 = new City();
 					c1.getInformation("Ancona", "IT");
 					downloadCity = BuildingCity.Building(c1);
@@ -61,7 +69,7 @@ public class Schedule {
 			};
 	
 			/*
-			 * Metodo che ripete il salvataggio ogni ora, a partire da una data scelta
+			 * Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
 			 */
 			timer.scheduleAtFixedRate (task, firstTime, 3600000);
 	

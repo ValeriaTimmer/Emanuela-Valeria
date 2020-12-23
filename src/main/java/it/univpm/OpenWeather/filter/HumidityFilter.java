@@ -3,7 +3,7 @@ package it.univpm.OpenWeather.filter;
 import it.univpm.OpenWeather.utils.FilterUtils;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 
 /**
  * Classe che implementa l'interfaccia Filter
@@ -39,7 +39,8 @@ public class HumidityFilter implements Filter <Object, Object> {
 	}
 	
 	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * Metodo che effettua l'override del metodo dell'interfaccia e richiama il 
+	 * metodo della classe FilterUtils
 	 * @return Ritorna l'array filtrato 
 	 */
 	@Override

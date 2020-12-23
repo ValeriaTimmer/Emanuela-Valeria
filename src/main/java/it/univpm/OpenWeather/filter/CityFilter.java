@@ -20,7 +20,7 @@ public class CityFilter implements Filter <Object, Object> {
 	private JSONArray arrayCity;
 	
 	/**
-	 * variabile usata per richiamare il metodo della classe FilterUtils
+	 * Variabile usata per richiamare il metodo della classe FilterUtils
 	 */
 	private FilterUtils utils;
 	
