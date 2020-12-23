@@ -11,11 +11,12 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
  e all'umidità di una determinata città. L'applicazione effettuerà inoltre statistiche
  utilizzando tali informazioni. 
 
-# UML
+## UML
 
-## - UseCaseDiagram
+# UseCaseDiagram
 ![Schermata 2020-12-16 alle 16 36 37](https://user-images.githubusercontent.com/75066505/102387556-cfface00-3fd0-11eb-830d-dce24ca7ded2.png)
 
-## - ClassDiagram
+# ClassDiagram
 
-# Package Main
+- Package Main
+![Schermata 2020-12-23 alle 17 52 39](https://user-images.githubusercontent.com/75066505/103020235-57ec5500-4548-11eb-8c4c-8a45fec021eb.png)
