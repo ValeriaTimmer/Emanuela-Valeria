@@ -46,7 +46,7 @@ public class FilterUtils {
 			}
 		}
 		
-		if (filtered.isEmpty()) {
+		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
 			filtered.add(o2);
@@ -56,13 +56,15 @@ public class FilterUtils {
 	}
 	
 	/**
-	 * Metodo che filtra l'umidità e il tempo 
+	 * Metodo che filtra l'umidità compresa tra due valori 
 	 * @param array Array da filtrare
-	 * @param humidity Umidità
-	 * @param weather Descrizione meteo
+	 * @param humidity1 Valore minimo dell'intervallo di umidità 
+	 * @param humidity2 Valore massimo dell'intervallo di umidità
 	 * @return Filtered Ritorna l'array filtrato
+	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
+	 * un oggetto Number che può essere convertito a numero
 	 */
-	public JSONArray getHumidityFiltered (JSONArray array, Object humidity, Object weather) {
+	public JSONArray getHumidityFiltered (JSONArray array, Object humidity1, Object humidity2) throws RuntimeException {
 		
 		for (Object o : array) {
 			
@@ -72,9 +74,9 @@ public class FilterUtils {
 				
 				try {
 					
-					JSONObject umidita = (JSONObject) o1.get("humidity");
+					Double umidita = (Double) o1.get("humidity");
 					
-					if (o1.get("description").equals((String)weather) & umidita.get("humidity").equals((Double)humidity)) {
+					if(umidita >= (Double) humidity1 && umidita <= (Double)humidity2) {
 						filtered.add(o1);
 						
 					}
@@ -85,7 +87,47 @@ public class FilterUtils {
 			}
 		}
 		
-		if (filtered.isEmpty()) {
+		if (filtered == null || filtered.isEmpty()) {
+			JSONObject o2 = new JSONObject();
+			o2.put("Filtraggio abortito", "");
+			filtered.add(o2);
+		}
+		return filtered;
+	}
+	
+	/**
+	 * Metodo che filtra la temperatura compresa tra due valori
+	 * @param array Array da filtrare
+	 * @param temp1 Valore minimo dell'intervallo di temperatura
+	 * @param temp2 Valore massimo dell'intervallo di temperatura
+	 * @return filtered Ritorna l'array filtrato 
+	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
+	 * un oggetto Number che può essere convertito a numero
+	 */
+	public JSONArray getTemperatureFiltered (JSONArray array, Object temp1, Object temp2) throws RuntimeException {
+		
+		for (Object o : array) {
+			
+			if (o instanceof Object) {
+				
+				JSONObject o1 = (JSONObject) o;
+				
+				try {
+					
+					Double umidita = (Double) o1.get("humidity");
+					
+					if(umidita >= (Double) temp1 && umidita <= (Double) temp2) {
+						filtered.add(o1);
+						
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
 			filtered.add(o2);

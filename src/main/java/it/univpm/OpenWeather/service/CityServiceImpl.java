@@ -49,7 +49,7 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getFiltered(String param1, String param2, String param3){
+	public Collection <City> getFiltered (String param1, String param2){
 		return cityRepo.values();
 	}
 

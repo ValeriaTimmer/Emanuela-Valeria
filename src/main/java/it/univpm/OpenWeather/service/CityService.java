@@ -16,6 +16,6 @@ public interface CityService {
 	
 	public abstract Collection <City> getStatistics();
 	
-	public abstract Collection <City> getFiltered(String param1, String param2, String param3);
+	public abstract Collection <City> getFiltered (String param1, String param2);
 	
 }

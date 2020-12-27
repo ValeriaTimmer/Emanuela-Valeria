@@ -34,7 +34,7 @@ public class DownloadCity {
 	/**
 	 * Umidità della città in percentuale
 	 */
-	protected int humidity;
+	protected double humidity;
 	/**
 	 * Temperatura della città in kelvin
 	 */
@@ -80,7 +80,7 @@ public class DownloadCity {
 	 * Metodo Getter dell'umidità della città
 	 * @return humidity Ritorna l'umidità della città
 	 */
-	public int getHumidity() {
+	public double getHumidity() {
 		return humidity;
 	}
 	/**

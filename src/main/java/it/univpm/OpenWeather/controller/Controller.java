@@ -50,19 +50,17 @@ public class Controller {
 	
 	
 	/**
-	 * Metodo che gestisce la POST nella rotta "/filters/humidityweather"
+	 * Metodo che gestisce la POST nella rotta "/filters/humidity"
 	 * @param from Valore minimo dell'intervallo di umidità
 	 * @param to Valore massimo dell'intervallo di umidità
-	 * @param weather Tipo di meteo richiesto
 	 * @param filter Body del filtro richiesto
 	 * @return ArrayList contenente i valori filtrati
 	 */
-	@RequestMapping (value = "/filters/humidityweather", method = RequestMethod.POST)
+	@RequestMapping (value = "/filters/humidity", method = RequestMethod.POST)
 	public ResponseEntity<Object> getFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
 			@RequestParam (value = "to", defaultValue = "100.0") String to, 
-			@RequestParam (value = "weather", defaultValue = "") String weather,
 			@RequestBody String filter) {
-		return new ResponseEntity<> (c.getFiltered (from, to, weather), HttpStatus.OK);
+		return new ResponseEntity<> (c.getFiltered (from, to), HttpStatus.OK);
 	}
 }
 

@@ -16,7 +16,7 @@ public interface Filter <C,S> {
 	 * @param arrayCity Array sul quale si applicano i filtri
 	 * @param param1 Primo parametro di filtraggio
 	 * @param param2 Secondo parametro di filtraggio 
-	 * @return Array filtrato
+	 * @return Array filtrato mediante i parametri specificati
 	 */
 	abstract JSONArray filtersCity (JSONArray arrayCity, C param1, S param2);
 }

@@ -20,7 +20,7 @@ public class City {
 	/**
 	 * Umidità della città in percentuale
 	 */
-	private int humidity;
+	private double humidity;
 	/**
 	 * Temperatura della città in kelvin
 	 */
@@ -42,7 +42,7 @@ public class City {
 	 * @param temp Temperatura della città
 	 * @param weather Descrizione del meteo della città
 	 */
-	public City(String name, String country, int humidity, double temp, String weather) {
+	public City(String name, String country, double humidity, double temp, String weather) {
 		this.cityName = name;
 		this.stateCode = country;
 		this.humidity = humidity;
@@ -90,7 +90,7 @@ public class City {
 	 * Metodo Getter dell'umidità della città
 	 * @return humidity Ritorna l'umidità della città in percentuale
 	 */
-	public int getHumidity() {
+	public double getHumidity() {
 		return humidity;
 	}
 
