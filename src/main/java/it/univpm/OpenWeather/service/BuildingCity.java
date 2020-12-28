@@ -7,7 +7,7 @@ import it.univpm.OpenWeather.model.City;
 /**
  * Classe per la creazione degli arraylist di tipo City 
  * 
- * @author ValeriaTimmer
+ * @author Valeria Timmer
  * @author Emanuela Saleggia
  */
 public class BuildingCity {

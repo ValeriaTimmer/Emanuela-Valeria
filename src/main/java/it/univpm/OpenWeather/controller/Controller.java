@@ -1,18 +1,15 @@
 package it.univpm.OpenWeather.controller;
-import it.univpm.OpenWeather.model.*;
+
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.statistics.*;
-import it.univpm.OpenWeather.utils.StatsUtils;
 
-import org.json.simple.JSONArray;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
@@ -30,12 +27,15 @@ public class Controller {
 	CityService c;
 	
 	/**
-	 * Rotta per visualizzare le città
-	 * @return Il vettore contenente le città
+	 * Metodo che gestisce la GET nella rotta "/cities"
+	 * @return Lista delle città filtrate 
+	 * @throws IOException Se ci sono problemi di I/O
 	 */
-	@GetMapping ("/cities")
-	public ResponseEntity <Object> getCity(){
-		return new ResponseEntity <>(c.getCity(), HttpStatus.OK);
+	@RequestMapping (value = "/cities", method = RequestMethod.POST)
+	public ResponseEntity <Object> getCityFiltered(@RequestParam (value = "city", defaultValue = "null")String city,
+			@RequestParam (value = "state", defaultValue = "null") String state,
+			@RequestBody String filter) throws IOException {
+		return new ResponseEntity <>(c.getCityFiltered(city, state), HttpStatus.OK);
 		}
 	
 	/**
@@ -54,13 +54,29 @@ public class Controller {
 	 * @param from Valore minimo dell'intervallo di umidità
 	 * @param to Valore massimo dell'intervallo di umidità
 	 * @param filter Body del filtro richiesto
-	 * @return ArrayList contenente i valori filtrati
+	 * @return Lista contenente i valori filtrati
+	 * @throws IOException Se ci sono problemi di I/O
 	 */
 	@RequestMapping (value = "/filters/humidity", method = RequestMethod.POST)
-	public ResponseEntity<Object> getFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
+	public ResponseEntity<Object> getHumidityFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
 			@RequestParam (value = "to", defaultValue = "100.0") String to, 
-			@RequestBody String filter) {
-		return new ResponseEntity<> (c.getFiltered (from, to), HttpStatus.OK);
+			@RequestBody String filter) throws IOException {
+		return new ResponseEntity<> (c.getHumidityFiltered (from, to), HttpStatus.OK);
+	}
+	
+	/**
+	 * Metodo che gestisce la POST nella rotta "/filters/temperature"
+	 * @param from Valore minimo dell'intervallo di temperatura
+	 * @param to Valore massimo dell'intervallo di temperatura
+	 * @param filter Body del filtro richiesto
+	 * @return Lista contenete i valori filtrati
+	 * @throws IOException Se ci sono problemi di I/O
+	 */
+	@RequestMapping (value = "/filters/temperature", method = RequestMethod.POST)
+	public ResponseEntity <Object> getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253,15") String from,
+			@RequestParam (value = "to", defaultValue = "318,15") String to,
+			@RequestBody String filter) throws IOException {
+		return new ResponseEntity<> (c.getTemperatureFiltered(from, to), HttpStatus.OK);
 	}
 }
 

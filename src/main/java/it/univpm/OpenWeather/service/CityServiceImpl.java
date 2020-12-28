@@ -1,56 +1,88 @@
 package it.univpm.OpenWeather.service;
+import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.filter.*;
-import java.util.Collection;
+import it.univpm.OpenWeather.statistics.*;
 
-import org.springframework.stereotype.Service;
+import org.json.simple.JSONArray;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
 
 /**
  * Classe che implementa l'interfaccia
  * 
  * @author Emanuela Saleggia
- * @author ValeriaTimmer
+ * @author Valeria Timmer
  *
  */
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private static Map <String, City> cityRepo = new HashMap();
+	private static Map <String,DownloadCity> cityRepo = new HashMap<>();
 	
 	/**
-	 * Costruttore della classe 
+	 * Variabile della classe CityFiltered
 	 */
-	public void CityServiceImpl() {
-		//City c = new City();
-		//c.setCityName(toString());
-		//c.setStateCode(toString());
-		//cityRepo.put(c.getCityName() + c.getStateCode(), c);
+	private CityFilter cityFilter;
+	
+	/**
+	 * Variabile della classe HumidityFiltered
+	 */
+	private HumidityFilter humFilter;
+	
+	/**
+	 * Variabile della classe TemperatureFiltered
+	 */
+	private TemperatureFilter tempFilter;
+	
+	/**
+	 * Variabile della classe StatsHumidity
+	 */
+	private StatsHumidity statsHum;
+	
+	/**
+	 * Costruttore della classe
+	 */
+	public CityServiceImpl() {
+		super();
+		DownloadCity arrayDownloaded = new DownloadCity();
+		cityRepo.put (arrayDownloaded.getApiKey(), arrayDownloaded);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getCity() {
-		return cityRepo.values();
+	public Collection <City> getCityFiltered(String city, String state) {
+		return cityFilter.filtersCity (cityFilter.getCity(), city, state);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override 
-	public Collection <City> getStatistics(){
-		return cityRepo.values();
+	public Collection <City> getStatisticsFiltered(String hum, String period){
+		return statsHum.StatisticsHumidity(statsHum.getHumidity(), hum, period);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getFiltered (String param1, String param2){
-		return cityRepo.values();
+	public Collection <City> getHumidityFiltered (String param1, String param2){
+		return humFilter.filtersCity(humFilter.getHumidity(), param1, param2);
+	}
+	
+	/**
+	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 */
+	@Override
+	public Collection <City> getTemperatureFiltered (String param1, String param2){
+		return tempFilter.filtersCity(tempFilter.getTemperature(), param1, param2);
 	}
 
 }

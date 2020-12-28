@@ -18,35 +18,42 @@ import org.json.simple.parser.ParseException;
  * Humidity, Temperature, Weather
  * I campi cityName e stateCode vengono passati come argomento
  * 
- * @author ValeriaTimmer
+ * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
  */
 public class DownloadCity {
+	
 	/*
 	 * Nome della città
 	 */
 	protected String cityName;
+	
 	/*
 	 * Nome del paese/stato della città
 	 */
 	protected String stateCode;
+	
 	/**
 	 * Umidità della città in percentuale
 	 */
 	protected double humidity;
+	
 	/**
 	 * Temperatura della città in kelvin
 	 */
 	 protected double temperature;
-	/**
+	
+	 /**
 	 * Descrizione del meteo della città
 	 */
 	protected String weather;
+	
 	/**
-	 * API privata 
+	 * Chiave API privata 
 	 */
 	private String apiKey;
+	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
 	 * 
@@ -59,6 +66,11 @@ public class DownloadCity {
 		this.stateCode = Code;
 		this.apiKey = apiKey;
 	}
+	
+	/**
+	 * Costruttore senza parametri
+	 */
+	public DownloadCity() {}
 	
 	/**
 	 * Metodo Getter del nome della città
@@ -97,6 +109,14 @@ public class DownloadCity {
 	 */
 	public String getWeather() {
 		return weather;
+	}
+	
+	/**
+	 * Metodo Getter della chiave API privata
+	 * @return apiKey Ritorna la chiave API privata
+	 */
+	public String getApiKey() {
+		return apiKey;
 	}
 	
 	/**

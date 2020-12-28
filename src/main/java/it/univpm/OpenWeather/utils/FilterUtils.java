@@ -1,4 +1,7 @@
 package it.univpm.OpenWeather.utils;
+
+import it.univpm.OpenWeather.service.*;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
@@ -19,7 +22,7 @@ public class FilterUtils {
 	
 	/**
 	 * Metodo che filtra le città in base al nome e allo stato
-	 * @param array Array di Città
+	 * @param array Array da filtrare
 	 * @param city Nome della città
 	 * @param state Nome dello stato 
 	 * @return Filtered Ritorna l'array filtrato

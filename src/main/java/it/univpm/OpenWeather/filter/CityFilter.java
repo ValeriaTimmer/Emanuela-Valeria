@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.filter;
 
 import it.univpm.OpenWeather.utils.*;
+import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONArray;
 

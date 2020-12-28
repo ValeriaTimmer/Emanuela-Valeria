@@ -16,7 +16,10 @@ import it.univpm.OpenWeather.model.City;
 
 public class Schedule {
 	
-	{ 
+	/**
+	 * Costruttore della classe 
+	 */
+	public Schedule() { 
 		try {
 			/**
 			 * Costruttore della classe Date di java.lang.Object che iniziailizza 
@@ -85,6 +88,7 @@ public class Schedule {
 			e.printStackTrace();
 		}
 	}
+	
 }
 
 
