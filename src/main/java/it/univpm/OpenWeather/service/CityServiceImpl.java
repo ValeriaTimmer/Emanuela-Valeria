@@ -45,12 +45,11 @@ public class CityServiceImpl implements CityService {
 	private StatsHumidity statsHum;
 	
 	/**
-	 * Costruttore della classe
+	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
-	public CityServiceImpl() {
-		super();
-		DownloadCity arrayDownloaded = new DownloadCity();
-		cityRepo.put (arrayDownloaded.getApiKey(), arrayDownloaded);
+	@Override
+	public void createCity (DownloadCity city) {
+		cityRepo.put (city.getApiKey(), city);
 	}
 	
 	/**
