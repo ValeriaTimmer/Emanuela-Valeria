@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private static Map <String,DownloadCity> cityRepo = new HashMap<>();
+	private static Map <String, Schedule > cityRepo = new HashMap<>();
 	
 	/**
 	 * Variabile della classe CityFiltered
@@ -48,8 +48,8 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public void createCity (DownloadCity city) {
-		cityRepo.put (city.getApiKey(), city);
+	public void createCity (Schedule city) {
+		cityRepo.put (city.Scheduler(), city);
 	}
 	
 	/**

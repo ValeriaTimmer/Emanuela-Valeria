@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public interface CityService {
 	
-	public abstract void createCity(DownloadCity city);
+	public abstract void createCity(Schedule city);
 	
 	/**
 	 * Metodo che permette di selezionare le città filtrate

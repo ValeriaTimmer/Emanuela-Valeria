@@ -16,11 +16,19 @@ import it.univpm.OpenWeather.model.City;
 
 public class Schedule {
 	
+	/*
+	 * ArrayList sul quale verranno salvate le informazioni utilizzando
+	 * il metodo Building della classe BuildingCity 
+	*/
+	ArrayList <City> downloadCity = new ArrayList <City>();
+	
 	/**
-	 * Costruttore della classe 
+	 * Metodo che effettua il salvataggio dei dati in un ArraList
 	 */
-	public Schedule() { 
+	public void ToSchedule() { 
+		
 		try {
+			
 			/**
 			 * Costruttore della classe Date di java.lang.Object che iniziailizza 
 			 * il momento di inizio del metodo
@@ -49,13 +57,7 @@ public class Schedule {
 				@Override
 				public void run() {
 					
-					/*
-					 * ArrayList sul quale verranno salvate le informazioni utilizzando
-					 * il metodo Building della classe BuildingCity 
-					*/
-					ArrayList <City> downloadCity = new ArrayList <City>(); 
-			
-					// Città 
+					// Città di cui vogliamo salvare le informazioni
 					City c1 = new City();
 					c1.getInformation("Ancona", "IT");
 					downloadCity = BuildingCity.Building(c1);
@@ -68,6 +70,10 @@ public class Schedule {
 					City c3 = new City();
 					c3.getInformation("Berlino", "DE");
 					downloadCity = BuildingCity.Building(c3);
+					
+					City c4 = new City();
+					c4.getInformation("Roma", "IT");
+					downloadCity = BuildingCity.Building(c4);
 				}
 			};
 	
@@ -87,6 +93,18 @@ public class Schedule {
 			// Viene lanciata se task o fistTime sono null
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Metodo che ritorna l'ArrayList con le informazioni salvate ogni ora
+	 * 
+	 * @param c Variabile della classe City
+	 * @return downloadCity ArrayList con le informazioni salvate
+	 */
+	public String Scheduler (){
+		Schedule s = new Schedule();
+		s.ToSchedule();
+		return downloadCity.toString();
 	}
 	
 }

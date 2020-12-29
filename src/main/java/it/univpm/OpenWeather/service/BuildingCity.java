@@ -20,7 +20,8 @@ public class BuildingCity {
 	/**
 	 * Metodo che popola l'arrayLista di tipo City con i dati che ci servono 
 	 * richiama il metodo getInformation della classe City
-	 *  
+	 * 
+	 * @param c Variabile della classe City
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
 	public static ArrayList <City> Building (City c){

@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.filter;
 
 import org.json.simple.JSONArray;
+import it.univpm.OpenWeather.service.DownloadCity;
 
 /**
  * Interfaccia per la gestione dei filtri

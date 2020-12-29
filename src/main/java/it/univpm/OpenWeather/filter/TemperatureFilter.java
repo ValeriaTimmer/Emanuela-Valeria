@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.filter;
 import org.json.simple.JSONArray;
 
 import it.univpm.OpenWeather.utils.FilterUtils;
+import it.univpm.OpenWeather.service.DownloadCity;
 
 public class TemperatureFilter implements Filter <Object, Object> {
 	/**

@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.filter;
 
 import it.univpm.OpenWeather.utils.FilterUtils;
+import it.univpm.OpenWeather.service.DownloadCity;
 
 import org.json.simple.JSONArray;
 
