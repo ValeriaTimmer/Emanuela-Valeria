@@ -81,6 +81,22 @@ public class Controller {
 			@RequestBody String filter) throws IOException {
 		return new ResponseEntity<> (c.getTemperatureFiltered(from, to), HttpStatus.OK);
 	}
+	
+	/**
+	 * Metodo che gestisce la POST nella rotta "/filter/weather"
+	 * @param city nome della città
+	 * @param weather tempo della città
+	 * @param filter Body del filtro richiesto
+	 * @return Lista contenente i valori filtrati
+	 * @throws IOException se ci sono problemi di I/O
+	 */
+	@RequestMapping(value = "/filters/weather", method = RequestMethod.POST)
+	public ResponseEntity <Object> getWeatherFiltered (@RequestParam (value = "city", defaultValue ="null")String weather,
+			@RequestParam(value = "weather", defaultValue = "null")String city,
+			@RequestBody String filter) throws IOException {
+		return new ResponseEntity<> (c.getWeatherFiltered(city,weather), HttpStatus.OK);
+	}
+			
 }
 
 

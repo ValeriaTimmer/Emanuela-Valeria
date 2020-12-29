@@ -52,7 +52,7 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Variabile della classe WeatherFiltered
 	 */
-	//private WeatherFiltered weatherFilter;
+	private WeatherFilter weatherFilter;
 	
 	/**
 	 * Variabile della classe Schedule
@@ -106,8 +106,8 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
-	//@Override
-	//public Collection <City> getWeatherFiltered (String weather, String city){
-	// return weatherFilter.filtersCity(weatherFilter.getWeather(), weather, city);
-
+	@Override
+	public Collection <City> getWeatherFiltered (String weather, String city){
+	 return weatherFilter.filtersCity(weatherFilter.getWeather(), weather, city);
+	}
 }

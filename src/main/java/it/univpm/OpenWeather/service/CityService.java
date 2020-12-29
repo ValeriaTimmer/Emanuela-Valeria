@@ -53,6 +53,6 @@ public interface CityService {
 	 * @param city Nome della città
 	 * @return insieme delle città filtrate
 	 */
-	// public abstract Collection <City> getWeatherFiltered (String weather, String city);
+	 public abstract Collection <City> getWeatherFiltered (String weather, String city);
 	
 }

@@ -117,9 +117,9 @@ public class FilterUtils {
 				
 				try {
 					
-					Double umidita = (Double) o1.get("humidity");
+					Double temperatura = (Double) o1.get("temperature");
 					
-					if(umidita >= (Double) temp1 && umidita <= (Double) temp2) {
+					if(temperatura >= (Double) temp1 && temperatura <= (Double) temp2) {
 						filtered.add(o1);
 						
 					}
@@ -131,6 +131,33 @@ public class FilterUtils {
 		}
 		
 		if (filtered == null || filtered.isEmpty()) {
+			JSONObject o2 = new JSONObject();
+			o2.put("Filtraggio abortito", "");
+			filtered.add(o2);
+		}
+		return filtered;
+	}
+	
+	public JSONArray getWeatherFiltered(JSONArray array, Object weather, Object city) throws RuntimeException {
+		for(Object o:array) {
+			
+			if(o instanceof Object) {
+				
+				JSONObject o1 = (JSONObject) o;
+				
+				try {
+					
+					JSONObject tempo = (JSONObject) o1.get("description");
+					if(o1.get("name").equals((String)city) & tempo.get("description").equals((String)weather)) {
+						filtered.add(o1);
+					}
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if(filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
 			filtered.add(o2);
