@@ -74,7 +74,7 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override 
 	public Collection <City> getStatisticsHumidity(String hum, String period){
-		return statsHum.StatisticsHumidity(statsHum.getHumidity(), hum, period);
+		return statsHum.Statistics(statsHum.getHumidity(), hum, period);
 	}
 	
 	//@Override

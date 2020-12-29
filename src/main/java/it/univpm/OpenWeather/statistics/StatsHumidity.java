@@ -1,33 +1,29 @@
 package it.univpm.OpenWeather.statistics;
 
-import it.univpm.OpenWeather.utils.StatsUtils;
+import it.univpm.OpenWeather.utils.StatsUtilsHumidity;
 
 import org.json.simple.JSONArray;
 /**
- * Classe che implementa l'interfaccia per le statistiche
+ * Classe che richiama la classe astratta per le statistiche riguardanti l'umidità
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
  * @param <T> parametro generico
  */
-public class StatsHumidity implements Stats <Object, Object> {
-	/**
-	 * Array contenente le città
-	 */
-	private JSONArray arrayCity;
+public class StatsHumidity extends Stats <Object, Object> {
 	
 	/**
 	 * Variabile utilizzata per richiamare il metodo della classe StatsUtils
 	 */
-	private StatsUtils utils;
+	private StatsUtilsHumidity utils;
 	
 	/**
 	 * Costruttore
 	 * @param array della città
 	 */
 	public StatsHumidity(JSONArray array) {
-		this.arrayCity = array;
-		this.utils = new StatsUtils();
+		super(array);
+		this.utils = new StatsUtilsHumidity();
 	}
 	
 	/**
@@ -45,7 +41,7 @@ public class StatsHumidity implements Stats <Object, Object> {
 	 * @return l'array delle statistiche effettuate sulle città in base all'umidità
 	 */
 	@Override
-	public JSONArray StatisticsHumidity (JSONArray arrayCity, Object humidity, Object period) {
+	public JSONArray Statistics(JSONArray arrayCity, Object humidity, Object period) {
 		return (JSONArray) utils.getStats(this.getHumidity(), humidity, period);
 	}
 }

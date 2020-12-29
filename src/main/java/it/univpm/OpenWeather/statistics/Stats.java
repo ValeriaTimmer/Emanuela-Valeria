@@ -9,16 +9,27 @@ import org.json.simple.JSONArray;
  *
  * @param <T> parametro generico
  */
-public interface Stats <T, P> {
-		
+public abstract class Stats <T, P> {
+	/**
+	 * array contenente le città
+	 */
+     protected JSONArray arrayCity;
+    
+    /**
+     * costruttore
+     * @param arrayCity
+     */
+     public Stats(JSONArray arrayCity) {
+    	this.arrayCity = arrayCity;
+     }
 		/**
 		 * Metodo astratto che viene implementato a seconda dell'esigenza
 		 * @param arrayCity Array contenente le città
-		 * @param humidity Umidità su quale si effettua la statistica
+		 * @param parameter parametro(umidità/temperatura) sul quale si effettua la statistica
 		 * @param period Periodo sul quale si vuole effettuare la statistica
-		 * @return ritorna l'array contenente le statistiche effettuate sull'umidità
+		 * @return ritorna l'array contenente le statistiche effettuate
 		 */
 		
-	abstract JSONArray StatisticsHumidity(JSONArray arrayCity, T humidity, P period);
+	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P period);
 		
 }

@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class StatsUtils {
+public class StatsUtilsHumidity {
 	
 	/**
-	 * Array che contiene le statistiche
+	 * Array che contiene le statistiche riguardanti l'umidità
 	 */
 	private static JSONArray stats = new JSONArray ();
 	
 	/**
 	 * Metodo che effettua le statistiche 
-	 * @param array Array sul quale vengono effettuate le statistiche
+	 * @param array Array sul quale vengono effettuate le statistiche 
 	 * @param humidity Umidità
 	 * @param period Periodo
 	 * @return stats Array contenente le statistiche 
