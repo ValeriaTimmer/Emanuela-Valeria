@@ -29,7 +29,7 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche della temperatura
 	 * @return insieme delle statistiche effettute sulla temperatura
 	 */
-	//public abstract Collection <City> getStatisticsTemperature (String temp, String period);
+	public abstract Collection <City> getStatisticsTemperature (String temp, String period);
 	
 	/**
 	 * Metodo che permette di selezionare le città in base all'umidità
