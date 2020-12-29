@@ -20,7 +20,7 @@ public class Schedule {
 	 * ArrayList sul quale verranno salvate le informazioni utilizzando
 	 * il metodo Building della classe BuildingCity 
 	*/
-	ArrayList <City> downloadCity = new ArrayList <City>();
+	public ArrayList <City> downloadCity = new ArrayList <City>();
 	
 	/**
 	 * Metodo che effettua il salvataggio dei dati in un ArraList

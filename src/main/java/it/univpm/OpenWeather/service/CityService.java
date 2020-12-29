@@ -47,4 +47,12 @@ public interface CityService {
 	 */
 	public abstract Collection <City> getTemperatureFiltered (String param1, String param2);
 	
+	/**
+	 * Metodo che permette di selezionare la tipologia di meteo e la città
+	 * @param weather Tipo di meteo scelto
+	 * @param city Nome della città
+	 * @return insieme delle città filtrate
+	 */
+	// public abstract Collection <City> getWeatherFiltered (String weather, String city);
+	
 }
