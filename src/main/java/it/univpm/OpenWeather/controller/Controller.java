@@ -42,15 +42,32 @@ public class Controller {
 		}
 	
 	/**
-	 * Rotta per visualizzare le statistiche elaborate sulle città
+	 * Rotta per visualizzare le statistiche elaborate sull'umidità
+	 * @param hum Parametro sul quale vengono effettuate le statistiche
+	 * @param period Periodo nel quale si vogliono effettuare le statistiche
 	 * @return Il vettore contenete le statistiche effettuate
-	 *
+	 * @throws IOException Se ci sono problemi di I/O
 	 */
-	// @GetMapping ("/stats")
-	// public ResponseEntity <Object> getStats(@RequestParam ()){
-	//return new ResponseEntity <> (c.getStats(), HttpStatus.OK);
+	@RequestMapping (value = "/stats/humidity", method = RequestMethod.GET)
+	public ResponseEntity <Object> getStatisticsHumidity (@RequestParam (value = "humidity", defaultValue = "humidity") String hum,
+			@RequestParam (value = "perid", defaultValue = "1") String period,
+			@RequestBody String filter) throws IOException{
+		return new ResponseEntity <> (c.getStatisticsHumidity(hum, period), HttpStatus.OK);
+	}
 	
-	
+	/**
+	 * Rotta per visualizzare le statistiche elaborate sulla temperatura
+	 * @param temp Parametro sul quale vengono effettuate le statistiche
+	 * @param period Periodo nel quale si vogliono effettuare le statistiche
+	 * @return Il vettore contenete le statistiche effettuate
+	 * @throws IOException Se ci sono problemi di I/O
+	 */
+	@RequestMapping (value = "/stats/temperature", method = RequestMethod.GET)
+	public ResponseEntity <Object> getStatisticsTemperature (@RequestParam (value = "temperature", defaultValue = "temperature") 
+			String temp,@RequestParam (value = "perid", defaultValue = "1") String period,
+			@RequestBody String filter) throws IOException{
+		return new ResponseEntity <> (c.getStatisticsTemperature(temp, period), HttpStatus.OK);
+	}
 	
 	/**
 	 * Metodo che gestisce la POST nella rotta "/filters/humidity"
