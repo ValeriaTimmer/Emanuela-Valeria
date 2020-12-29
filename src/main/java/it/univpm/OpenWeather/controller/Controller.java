@@ -27,11 +27,14 @@ public class Controller {
 	CityService c;
 	
 	/**
-	 * Metodo che gestisce la GET nella rotta "/cities"
+	 * Metodo che gestisce la POST nella rotta "/cities"
+	 * @param city Nome della città da filtrare
+	 * @param state Sigla dello stato da filtrare
+	 * @param filter Body del filtro richiesto
 	 * @return Lista delle città filtrate 
 	 * @throws IOException Se ci sono problemi di I/O
 	 */
-	@RequestMapping (value = "/cities", method = RequestMethod.POST)
+	@RequestMapping (value = "/filters/cities", method = RequestMethod.POST)
 	public ResponseEntity <Object> getCityFiltered(@RequestParam (value = "city", defaultValue = "null")String city,
 			@RequestParam (value = "state", defaultValue = "null") String state,
 			@RequestBody String filter) throws IOException {
@@ -73,8 +76,8 @@ public class Controller {
 	 * @throws IOException Se ci sono problemi di I/O
 	 */
 	@RequestMapping (value = "/filters/temperature", method = RequestMethod.POST)
-	public ResponseEntity <Object> getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253,15") String from,
-			@RequestParam (value = "to", defaultValue = "318,15") String to,
+	public ResponseEntity <Object> getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253.15") String from,
+			@RequestParam (value = "to", defaultValue = "318.15") String to,
 			@RequestBody String filter) throws IOException {
 		return new ResponseEntity<> (c.getTemperatureFiltered(from, to), HttpStatus.OK);
 	}

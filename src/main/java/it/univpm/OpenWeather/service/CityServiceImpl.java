@@ -45,11 +45,15 @@ public class CityServiceImpl implements CityService {
 	private StatsHumidity statsHum;
 	
 	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * Variabile della classe Schedule
 	 */
-	@Override
-	public void createCity (Schedule city) {
-		cityRepo.put (city.Scheduler(), city);
+	private Schedule s;
+	
+	/**
+	 * Costruttore della classe CityServiceImpl
+	 */
+	public CityServiceImpl() {
+		cityRepo.put(s.Scheduler(), s);
 	}
 	
 	/**

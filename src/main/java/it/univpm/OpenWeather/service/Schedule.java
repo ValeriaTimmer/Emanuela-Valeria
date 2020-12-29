@@ -96,12 +96,12 @@ public class Schedule {
 	}
 	
 	/**
-	 * Metodo che ritorna l'ArrayList con le informazioni salvate ogni ora
+	 * Metodo che ritorna l'ArrayList sotto forma di stringa con le informazioni salvate ogni ora
 	 * 
 	 * @param c Variabile della classe City
 	 * @return downloadCity ArrayList con le informazioni salvate
 	 */
-	public String Scheduler (){
+	public String Scheduler () {
 		Schedule s = new Schedule();
 		s.ToSchedule();
 		return downloadCity.toString();
