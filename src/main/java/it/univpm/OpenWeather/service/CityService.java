@@ -20,10 +20,16 @@ public interface CityService {
 	public abstract Collection <City> getCityFiltered(String city, String state);
 	
 	/**
-	 * Metodo che permette di selezionare le statistiche filtrate
-	 * @return insieme delle statistiche effettute
+	 * Metodo che permette di selezionare le statistiche dell'umidità
+	 * @return insieme delle statistiche effettute sull'umidità
 	 */
-	public abstract Collection <City> getStatisticsFiltered(String hum, String period);
+	public abstract Collection <City> getStatisticsHumidity(String hum, String period);
+	
+	/**
+	 * Metodo che permette di selezionare le statistiche della temperatura
+	 * @return insieme delle statistiche effettute sulla temperatura
+	 */
+	//public abstract Collection <City> getStatisticsTemperature (String temp, String period);
 	
 	/**
 	 * Metodo che permette di selezionare le città in base all'umidità

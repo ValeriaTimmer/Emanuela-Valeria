@@ -45,6 +45,11 @@ public class CityServiceImpl implements CityService {
 	private StatsHumidity statsHum;
 	
 	/**
+	 * Variabile della classe StatsTemperature
+	 */
+	//private StatsTemperature statsTemp;
+	
+	/**
 	 * Variabile della classe Schedule
 	 */
 	private Schedule s;
@@ -68,9 +73,14 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override 
-	public Collection <City> getStatisticsFiltered(String hum, String period){
+	public Collection <City> getStatisticsHumidity(String hum, String period){
 		return statsHum.StatisticsHumidity(statsHum.getHumidity(), hum, period);
 	}
+	
+	//@Override
+	//public Collection <City> getStatisticsTemperature (String temp, String period){
+	//	return statsTemp.StatisticsTemperature(statsTemp.getTemperature(), temp, period);
+	//}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
