@@ -14,6 +14,12 @@ import java.util.Collection;
 public interface CityService {
 	
 	/**
+	 * Metodo che seleziona tutti i dati
+	 * @return insieme di tutti i dati 
+	 */
+	public abstract Collection <City> getMetadata();
+	
+	/**
 	 * Metodo che permette di selezionare le città filtrate
 	 * @return insieme delle città filtrate
 	 */

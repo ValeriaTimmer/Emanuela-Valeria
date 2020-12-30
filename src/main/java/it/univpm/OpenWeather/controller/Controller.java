@@ -1,7 +1,7 @@
 package it.univpm.OpenWeather.controller;
 
 import it.univpm.OpenWeather.service.*;
-import it.univpm.OpenWeather.statistics.*;
+import it.univpm.OpenWeather.exception.*;
 
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,44 @@ public class Controller {
 	CityService c;
 	
 	/**
-	 * Metodo che gestisce la POST nella rotta "/cities"
+	 * Rotta che gestisce la chiamata della rotta "GET/metadata"
+	 * @return Il vettore contenete i metadati
+	 */
+	@RequestMapping (value = "metadata", method = RequestMethod.GET)
+	public ResponseEntity <Object> getMetadata(){
+		return new ResponseEntity<> (c.getMetadata(), HttpStatus.OK);
+	}
+	
+	/**
+	 * Rotta che gestisce la chiamata della rotta "POST/stats/humidity"
+	 * @param hum Parametro sul quale vengono effettuate le statistiche
+	 * @param period Periodo nel quale si vogliono effettuare le statistiche
+	 * @return Il vettore contenete le statistiche effettuate
+	 * @throws IOException Se ci sono problemi di I/O
+	 */
+	@RequestMapping (value = "/stats/humidity", method = RequestMethod.POST)
+	public ResponseEntity <Object> getStatisticsHumidity (@RequestParam (value = "humidity", defaultValue = "humidity") String hum,
+			@RequestParam (value = "perid", defaultValue = "1") String period,
+			@RequestBody String filter) throws StatsNotFoundException {
+		return new ResponseEntity <> (c.getStatisticsHumidity(hum, period), HttpStatus.OK);
+	}
+	
+	/**
+	 * Metodo che gestisce la chiamata della rotta "POST/stats/temperature"
+	 * @param temp Parametro sul quale vengono effettuate le statistiche
+	 * @param period Periodo nel quale si vogliono effettuare le statistiche
+	 * @return Il vettore contenete le statistiche effettuate
+	 * @throws IOException Se ci sono problemi di I/O
+	 */
+	@RequestMapping (value = "/stats/temperature", method = RequestMethod.POST)
+	public ResponseEntity <Object> getStatisticsTemperature (@RequestParam (value = "temperature", defaultValue = "temperature") 
+			String temp,@RequestParam (value = "perid", defaultValue = "1") String period,
+			@RequestBody String filter) throws StatsNotFoundException {
+		return new ResponseEntity <> (c.getStatisticsTemperature(temp, period), HttpStatus.OK);
+	}
+	
+	/**
+	 * Metodo che gestisce la chiamata della rotta "POST/filters/cities"
 	 * @param city Nome della città da filtrare
 	 * @param state Sigla dello stato da filtrare
 	 * @param filter Body del filtro richiesto
@@ -37,40 +74,12 @@ public class Controller {
 	@RequestMapping (value = "/filters/cities", method = RequestMethod.POST)
 	public ResponseEntity <Object> getCityFiltered(@RequestParam (value = "city", defaultValue = "null")String city,
 			@RequestParam (value = "state", defaultValue = "null") String state,
-			@RequestBody String filter) throws IOException {
+			@RequestBody String filter) throws FilterNotFoundException {
 		return new ResponseEntity <>(c.getCityFiltered(city, state), HttpStatus.OK);
-		}
-	
-	/**
-	 * Rotta per visualizzare le statistiche elaborate sull'umidità
-	 * @param hum Parametro sul quale vengono effettuate le statistiche
-	 * @param period Periodo nel quale si vogliono effettuare le statistiche
-	 * @return Il vettore contenete le statistiche effettuate
-	 * @throws IOException Se ci sono problemi di I/O
-	 */
-	@RequestMapping (value = "/stats/humidity", method = RequestMethod.GET)
-	public ResponseEntity <Object> getStatisticsHumidity (@RequestParam (value = "humidity", defaultValue = "humidity") String hum,
-			@RequestParam (value = "perid", defaultValue = "1") String period,
-			@RequestBody String filter) throws IOException{
-		return new ResponseEntity <> (c.getStatisticsHumidity(hum, period), HttpStatus.OK);
 	}
 	
 	/**
-	 * Rotta per visualizzare le statistiche elaborate sulla temperatura
-	 * @param temp Parametro sul quale vengono effettuate le statistiche
-	 * @param period Periodo nel quale si vogliono effettuare le statistiche
-	 * @return Il vettore contenete le statistiche effettuate
-	 * @throws IOException Se ci sono problemi di I/O
-	 */
-	@RequestMapping (value = "/stats/temperature", method = RequestMethod.GET)
-	public ResponseEntity <Object> getStatisticsTemperature (@RequestParam (value = "temperature", defaultValue = "temperature") 
-			String temp,@RequestParam (value = "perid", defaultValue = "1") String period,
-			@RequestBody String filter) throws IOException{
-		return new ResponseEntity <> (c.getStatisticsTemperature(temp, period), HttpStatus.OK);
-	}
-	
-	/**
-	 * Metodo che gestisce la POST nella rotta "/filters/humidity"
+	 * Metodo che gestisce la chiamata della rotta "POST/filters/humidity"
 	 * @param from Valore minimo dell'intervallo di umidità
 	 * @param to Valore massimo dell'intervallo di umidità
 	 * @param filter Body del filtro richiesto
@@ -80,12 +89,12 @@ public class Controller {
 	@RequestMapping (value = "/filters/humidity", method = RequestMethod.POST)
 	public ResponseEntity<Object> getHumidityFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
 			@RequestParam (value = "to", defaultValue = "100.0") String to, 
-			@RequestBody String filter) throws IOException {
+			@RequestBody String filter) throws FilterNotFoundException {
 		return new ResponseEntity<> (c.getHumidityFiltered (from, to), HttpStatus.OK);
 	}
 	
 	/**
-	 * Metodo che gestisce la POST nella rotta "/filters/temperature"
+	 * Metodo che gestisce la chiamata della rotta "POST/filters/temperature"
 	 * @param from Valore minimo dell'intervallo di temperatura
 	 * @param to Valore massimo dell'intervallo di temperatura
 	 * @param filter Body del filtro richiesto
@@ -95,12 +104,12 @@ public class Controller {
 	@RequestMapping (value = "/filters/temperature", method = RequestMethod.POST)
 	public ResponseEntity <Object> getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253.15") String from,
 			@RequestParam (value = "to", defaultValue = "318.15") String to,
-			@RequestBody String filter) throws IOException {
+			@RequestBody String filter) throws FilterNotFoundException {
 		return new ResponseEntity<> (c.getTemperatureFiltered(from, to), HttpStatus.OK);
 	}
 	
 	/**
-	 * Metodo che gestisce la POST nella rotta "/filter/weather"
+	 * Metodo che gestisce la chiamata della rotta "POST/filter/weather"
 	 * @param city nome della città
 	 * @param weather tempo della città
 	 * @param filter Body del filtro richiesto
@@ -110,7 +119,7 @@ public class Controller {
 	@RequestMapping(value = "/filters/weather", method = RequestMethod.POST)
 	public ResponseEntity <Object> getWeatherFiltered (@RequestParam (value = "city", defaultValue ="null")String weather,
 			@RequestParam(value = "weather", defaultValue = "null")String city,
-			@RequestBody String filter) throws IOException {
+			@RequestBody String filter) throws FilterNotFoundException {
 		return new ResponseEntity<> (c.getWeatherFiltered(city,weather), HttpStatus.OK);
 	}
 			

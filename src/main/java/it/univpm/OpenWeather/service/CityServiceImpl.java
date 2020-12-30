@@ -4,6 +4,7 @@ import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.statistics.*;
 
+
 import org.json.simple.JSONArray;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private static Map <String, Schedule > cityRepo = new HashMap<>();
+	private static Map <String, City> cityRepo = new HashMap<>();
 	
 	/**
 	 * Variabile della classe CityFiltered
@@ -63,9 +64,17 @@ public class CityServiceImpl implements CityService {
 	 * Costruttore della classe CityServiceImpl
 	 */
 	public CityServiceImpl() {
-		cityRepo.put(s.Scheduler(), s);
+		City c = new City();
+		cityRepo.put(s.Scheduler(), c);
 	}
 	
+	/**
+	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 */
+	@Override
+	public Collection <City> getMetadata(){
+		return cityRepo.values();
+	}
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
@@ -78,7 +87,7 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override 
-	public Collection <City> getStatisticsHumidity(String hum, String period){
+	public Collection <City> getStatisticsHumidity(String hum, String period) {
 		return statsHum.Statistics(statsHum.getHumidity(), hum, period);
 	}
 	
