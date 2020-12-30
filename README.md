@@ -56,7 +56,7 @@ Le statistiche saranno effettuate su:
 ![Schermata 2020-12-30 alle 19 50 16](https://user-images.githubusercontent.com/75066505/103375107-94382c00-4ad9-11eb-84e0-f03036ef7976.png)
 
 ### Package Utils
-![utils](https://user-images.githubusercontent.com/75066510/103297122-eef95700-49f7-11eb-9d70-973349080970.png)
+![Schermata 2020-12-30 alle 20 30 54](https://user-images.githubusercontent.com/75066505/103376858-0dd21900-4ade-11eb-9cc7-7e3ea915338b.png)
 
 ### Package Exception
 ![Schermata 2020-12-30 alle 19 56 27](https://user-images.githubusercontent.com/75066505/103375000-3c012a00-4ad9-11eb-9eef-96c2fb775a93.png)
