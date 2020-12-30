@@ -8,8 +8,30 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
 # SpringBoot REST API OpenWeather OOP
  L'applicazione utilizza l'API **Call 5 day / 3 hour forecast data** di OpenWeather
  e ne manipola i dati con lo scopo di ottenere informazioni riguardo alle previsioni
- e all'umidità di una determinata città. L'applicazione effettuerà inoltre statistiche
- utilizzando tali informazioni. 
+ e all'umidità di una determinata città. 
+ In partiolare l'applicazione sarà in grado di: 
+ - Restituire dei metadati in formato JSON 
+ - Restituire dei dati filtrati in formato JSON
+ - Restituire delle statistiche su alcuni dati in formato JSON 
+ 
+## Filtri 
+Il filtraggio dei dati avviene in base:
+ - Nome della città e stato 
+ - Intervalli di umidità (in percentuale)
+ - Intervalli di temperatura (misurati in Kelvin) 
+ - Descrizione metereologica e nome della città
+
+## Statistiche
+Le statistiche riguardano: 
+- Valore minimo
+- Valore massimo
+- Media
+- Varianza
+
+Le statistiche saranno effettuate su:
+ - Umidità
+ - Temperatura
+
 
 # UML
 
@@ -38,3 +60,9 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
 
 ### Package Exception
 ![Schermata 2020-12-30 alle 11 29 37](https://user-images.githubusercontent.com/75066505/103345692-5a900280-4a92-11eb-9514-7c29df5b2387.png)
+
+# Rotte Applicazione
+Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
+differiscono in base alle diverse rotte mostrate nella tabella sottostante
+
+
