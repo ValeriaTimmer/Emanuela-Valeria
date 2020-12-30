@@ -27,6 +27,7 @@ Le statistiche riguardano:
 - Valore massimo
 - Media
 - Varianza
+
 Le statistiche saranno effettuate su:
  - Umidità
  - Temperatura
