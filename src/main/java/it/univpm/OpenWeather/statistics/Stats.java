@@ -30,6 +30,6 @@ public abstract class Stats <T, P> {
 		 * @return ritorna l'array contenente le statistiche effettuate
 		 */
 		
-	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P period);
+	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P from);
 		
 }

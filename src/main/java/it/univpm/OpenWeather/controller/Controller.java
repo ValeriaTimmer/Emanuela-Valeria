@@ -41,27 +41,30 @@ public class Controller {
 	 * @param period Periodo nel quale si vogliono effettuare le statistiche
 	 * @return Il vettore contenete le statistiche effettuate
 	 * @throws IOException Se ci sono problemi di I/O
-	 */
+	 *
 	@RequestMapping (value = "/stats/humidity", method = RequestMethod.POST)
-	public ResponseEntity <Object> getStatisticsHumidity (@RequestParam (value = "humidity", defaultValue = "humidity") String hum,
-			@RequestParam (value = "perid", defaultValue = "1") String period,
-			@RequestBody String filter) throws StatsNotFoundException {
-		return new ResponseEntity <> (c.getStatisticsHumidity(hum, period), HttpStatus.OK);
+	public ResponseEntity <Object> getStatisticsHumidity ( @RequestParam (value = "from", defaultValue = "null") String from,
+			@RequestParam (value = "to", defaultValue = "null") String to,
+			@RequestBody String filter) throws StatsNotFoundException, DataFormatException {
+		return new ResponseEntity <> (c.getStatisticsHumidity("humidity", from, to), HttpStatus.OK);
 	}
-	
+	/
+	 * 
+	 */
 	/**
 	 * Metodo che gestisce la chiamata della rotta "POST/stats/temperature"
 	 * @param temp Parametro sul quale vengono effettuate le statistiche
 	 * @param period Periodo nel quale si vogliono effettuare le statistiche
 	 * @return Il vettore contenete le statistiche effettuate
 	 * @throws IOException Se ci sono problemi di I/O
-	 */
+	 *
 	@RequestMapping (value = "/stats/temperature", method = RequestMethod.POST)
-	public ResponseEntity <Object> getStatisticsTemperature (@RequestParam (value = "temperature", defaultValue = "temperature") 
-			String temp,@RequestParam (value = "perid", defaultValue = "1") String period,
-			@RequestBody String filter) throws StatsNotFoundException {
-		return new ResponseEntity <> (c.getStatisticsTemperature(temp, period), HttpStatus.OK);
+	public ResponseEntity <Object> getStatisticsTemperature ( @RequestParam (value = "from", defaultValue = "null") String from,
+			@RequestParam (value = "to", defaultValue = "null") String to,
+			@RequestBody String filter) throws StatsNotFoundException, DataFormatException {
+		return new ResponseEntity <> (c.getStatisticsTemperature("temperature", from, to), HttpStatus.OK);
 	}
+	/
 	
 	/**
 	 * Metodo che gestisce la chiamata della rotta "POST/filters/cities"
