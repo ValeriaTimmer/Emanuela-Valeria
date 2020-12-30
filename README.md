@@ -38,3 +38,9 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
 
 ### Package Exception
 ![Schermata 2020-12-30 alle 11 29 37](https://user-images.githubusercontent.com/75066505/103345692-5a900280-4a92-11eb-9514-7c29df5b2387.png)
+
+# Rotte Applicazione
+Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
+differiscono in base alle diverse rotte mostrate nella tabella sottostante
+
+
