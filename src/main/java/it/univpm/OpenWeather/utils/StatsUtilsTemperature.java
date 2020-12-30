@@ -2,6 +2,7 @@ package it.univpm.OpenWeather.utils;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import java.util.Date;
 
 import it.univpm.OpenWeather.statistics.StatisticsCalculator;
 
@@ -18,7 +19,7 @@ public class StatsUtilsTemperature {
 	 * @param period Periodo
 	 * @return stats Array contenente le statistiche 
 	 */
-	public JSONArray getStats(JSONArray array, Object temperature, Object period) {
+	public JSONArray getStats(JSONArray array, Object temperature, Object from, Object to) {
 		
 		JSONObject objectStats = new JSONObject();
 		
@@ -26,7 +27,14 @@ public class StatsUtilsTemperature {
 		
 		Double temperatura = (Double) temperature;
 		
-		Integer periodo = (Integer) period;
+		Date data1 = (Date) from;
+		
+		Date data2 = (Date) to;
+		
+		/**DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+        String datainiziale= formatoData.format(data1);
+        String datafinale= formatoData.format(data2);
+        */
 		
 		for (Object o : array) {
 			

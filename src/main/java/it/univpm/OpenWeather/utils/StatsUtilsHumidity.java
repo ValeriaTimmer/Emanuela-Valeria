@@ -2,6 +2,9 @@ package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.model.City;
 import it.univpm.OpenWeather.statistics.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.util.Locale;
 
 import java.util.ArrayList;
 
@@ -22,7 +25,7 @@ public class StatsUtilsHumidity {
 	 * @param period Periodo
 	 * @return stats Array contenente le statistiche 
 	 */
-	public JSONArray getStats(JSONArray array, Object humidity, Object period) {
+	public JSONArray getStats(JSONArray array, Object humidity, Object from, Object to) {
 		
 		JSONObject objectStats = new JSONObject();
 		
@@ -30,9 +33,17 @@ public class StatsUtilsHumidity {
 		
 		Double umidita = (Double) humidity;
 		
-		Integer periodo = (Integer) period;
+		Date data1 = (Date) from;
+		
+		Date data2 = (Date)to;
+		
+		/**DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+        String datainiziale= formatoData.format(data1);
+        String datafinale= formatoData.format(data2);
+        */
 		
 		for (Object o : array) {
+			
 			
 			if (o instanceof Object) {
 				

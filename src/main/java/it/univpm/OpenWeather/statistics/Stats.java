@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
  *
  * @param <T> parametro generico
  */
-public abstract class Stats <T, P> {
+public abstract class Stats <T, P, Q> {
 	/**
 	 * array contenente le città
 	 */
@@ -26,10 +26,11 @@ public abstract class Stats <T, P> {
 		 * Metodo astratto che viene implementato a seconda dell'esigenza
 		 * @param arrayCity Array contenente le città
 		 * @param parameter parametro(umidità/temperatura) sul quale si effettua la statistica
-		 * @param period Periodo sul quale si vuole effettuare la statistica
+		 * @param from data d'inizio del periodo sul quale si effettuano le statistiche
+		 * @param to data di fine del periodo sul quale si effettuano le statistiche
 		 * @return ritorna l'array contenente le statistiche effettuate
 		 */
 		
-	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P from);
+	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P from, Q to);
 		
 }

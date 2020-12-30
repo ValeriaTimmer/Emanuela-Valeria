@@ -10,7 +10,7 @@ import org.json.simple.JSONArray;
  */
 
 
-public class StatsTemperature extends Stats<Object,Object> {
+public class StatsTemperature extends Stats<Object, Object, Object> {
 	/**
 	 * Variabile utilizzata per richiamare il metodo della classe StatsUtilsTemperature
 	 */
@@ -37,12 +37,13 @@ public class StatsTemperature extends Stats<Object,Object> {
 	 * metodo che effettua l'override del metodo delle classe astratta
 	 * @param arrayCity array delle città
 	 * @param temperature temperatura
-	 * @param period periodo
+	 * @param from data d'inizio del periodo su cui si effettuano le statistiche
+	 * @param to data di fine del periodo su cui si effettuano le statistiche
 	 * @return l'array delle statistiche sulle città in base alla temperatura
 	 */
 	@Override
-	public JSONArray Statistics(JSONArray arrayCity, Object temperature, Object period) {
-		return(JSONArray) utils.getStats(arrayCity, temperature, period);
+	public JSONArray Statistics(JSONArray arrayCity, Object temperature, Object from, Object to) {
+		return(JSONArray) utils.getStats(arrayCity, temperature, from, to);
 	}
 
 	

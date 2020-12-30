@@ -10,7 +10,7 @@ import org.json.simple.JSONArray;
  *
  * @param <T> parametro generico
  */
-public class StatsHumidity extends Stats <Object, Object> {
+public class StatsHumidity extends Stats <Object, Object, Object> {
 	
 	/**
 	 * Variabile utilizzata per richiamare il metodo della classe StatsUtils
@@ -38,10 +38,12 @@ public class StatsHumidity extends Stats <Object, Object> {
 	 * Metodo che effettua l'override dell'interfaccia
 	 * @param ArrayCity array delle città
 	 * @param Humidity umidità
+	 * @param from data d'inizio del periodo su cui si effettuano le statistiche
+	 * @param to data di fine del periodo su cui si effettuano le statistiche
 	 * @return l'array delle statistiche effettuate sulle città in base all'umidità
 	 */
 	@Override
-	public JSONArray Statistics(JSONArray arrayCity, Object humidity, Object period) {
-		return (JSONArray) utils.getStats(this.getHumidity(), humidity, period);
+	public JSONArray Statistics(JSONArray arrayCity, Object humidity, Object from,Object to) {
+		return (JSONArray) utils.getStats(this.getHumidity(), humidity, from, to);
 	}
 }

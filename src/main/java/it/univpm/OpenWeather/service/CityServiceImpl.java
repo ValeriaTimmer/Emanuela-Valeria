@@ -87,13 +87,13 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override 
-	public Collection <City> getStatisticsHumidity(String hum, String period) {
-		return statsHum.Statistics(statsHum.getHumidity(), hum, period);
+	public Collection <City> getStatisticsHumidity(String hum, String datainiziale, String datafinale ) {
+		return statsHum.Statistics(statsHum.getHumidity(), hum, datainiziale, datafinale );
 	}
 	
 	@Override
-	public Collection <City> getStatisticsTemperature (String temp, String period){
-		return statsTemp.Statistics(statsTemp.getTemperature(), temp, period);
+	public Collection <City> getStatisticsTemperature (String temp, String datainiziale, String datafinale){
+		return statsTemp.Statistics(statsTemp.getTemperature(), temp, datainiziale, datafinale);
 	}
 	
 	/**
