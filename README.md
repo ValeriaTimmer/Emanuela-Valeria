@@ -47,7 +47,7 @@ Le statistiche saranno effettuate su:
 ![Schermata 2020-12-23 alle 17 53 15](https://user-images.githubusercontent.com/75066505/103020437-ab5ea300-4548-11eb-9f12-024db0a67abb.png)
 
 ### Package Filter
-![Schermata 2020-12-30 alle 11 11 57](https://user-images.githubusercontent.com/75066505/103345506-dd648d80-4a91-11eb-9372-4035426a6fab.png)
+![Schermata 2020-12-30 alle 19 50 49](https://user-images.githubusercontent.com/75066505/103375044-67841480-4ad9-11eb-94ff-cca8c853bb99.png)
 
 ### Package Service
 ![Schermata 2020-12-29 alle 13 03 42](https://user-images.githubusercontent.com/75066505/103282543-6ae2a780-49d6-11eb-87aa-2652c1d23b5e.png)
