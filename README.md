@@ -59,7 +59,7 @@ Le statistiche saranno effettuate su:
 ![utils](https://user-images.githubusercontent.com/75066510/103297122-eef95700-49f7-11eb-9d70-973349080970.png)
 
 ### Package Exception
-![Schermata 2020-12-30 alle 11 29 37](https://user-images.githubusercontent.com/75066505/103345692-5a900280-4a92-11eb-9514-7c29df5b2387.png)
+![Schermata 2020-12-30 alle 19 56 27](https://user-images.githubusercontent.com/75066505/103375000-3c012a00-4ad9-11eb-9eef-96c2fb775a93.png)
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
