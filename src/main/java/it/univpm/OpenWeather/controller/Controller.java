@@ -2,13 +2,18 @@ package it.univpm.OpenWeather.controller;
 
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.filter.*;
+import it.univpm.OpenWeather.model.*;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -22,6 +27,8 @@ import org.springframework.http.HttpStatus;
  */
 @RestController
 public class Controller {
+
+	private DownloadCity d;
 	
 	@Autowired
 	CityService c;
@@ -75,13 +82,24 @@ public class Controller {
 	 * @return Lista delle città filtrate 
 	 * @throws IOException Se ci sono problemi di I/O
 	 */
-	@RequestMapping (value = "/filters/cities", method = RequestMethod.POST)
+	/*@RequestMapping (value = "/filters/cities", method = RequestMethod.POST)
 	public ResponseEntity <Object> getCityFiltered(@RequestParam (value = "city", defaultValue = "null")String city,
 			@RequestParam (value = "state", defaultValue = "null") String state,
 			@RequestBody String filter) throws FilterNotFoundException {
 		return new ResponseEntity <>(c.getCityFiltered(city, state), HttpStatus.OK);
 	}
+	*/
 	
+	@PostMapping("/cities")
+	public JSONArray getCityFiltered(@RequestBody JSONObject body) throws FilterNotFoundException {
+		JSONArray array = new JSONArray();
+		array = d.Parser();
+		String citta = (String) body.get("city");
+		String stato = (String) body.get("state");
+	    CityFilter c = new CityFilter(array);
+	    JSONArray arrayCity = c.filtersCity(array,citta,stato);
+	    return arrayCity;
+	}
 	/**
 	 * Metodo che gestisce la chiamata della rotta "POST/filters/humidity"
 	 * @param from Valore minimo dell'intervallo di umidità

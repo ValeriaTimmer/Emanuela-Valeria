@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 	
+	
 	private static Map <JSONArray, City> cityRepo = new HashMap<>();
 	
 	/**
@@ -50,13 +51,17 @@ public class CityServiceImpl implements CityService {
 	 */
 	private WeatherFilter weatherFilter;
 	
+	private City c;
+	
+	private DownloadCity d;
+	
 	
 	/**
 	 * Costruttore della classe CityServiceImpl
 	 */
 	public CityServiceImpl() throws ParseException {
-		City c = new City();
-		DownloadCity d = new DownloadCity();
+		this.c = new City();
+		this.d = new DownloadCity();
 		cityRepo.put(d.Parser(),c);
 	}
 	

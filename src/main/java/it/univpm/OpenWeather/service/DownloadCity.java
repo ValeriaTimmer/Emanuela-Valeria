@@ -63,6 +63,7 @@ public class DownloadCity {
 	
 	private ArrayList<City> array;
 	
+	private JSONArray download;
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
 	 * 
@@ -91,13 +92,13 @@ public class DownloadCity {
 			try {
 			
 				// URL di OpenWeather da Parsare
-				URL OW = new URL ("api.openweathermap.org/data/2.5/forecast?q=" + this.cityName + 
-				"," + this.stateCode + "&appid=" + "20fde6cbf830453bd9f2066b10f681ce");
+				URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + this.cityName + 
+				"," + this.stateCode + "&appid=" + "bed1a816d94554cecab782b0804bec47");
 				HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
 				yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 			
 				BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
-			
+			    
 				String inputLine;
 				
 				// Creo un ciclo while che controlla che il mio contenuto di input non sia vuoto
@@ -202,13 +203,14 @@ public class DownloadCity {
 				}
 			}
 			in.close();
+				
+			}
+		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
+				
 		
-		JSONArray download = new JSONArray();
-		download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-					
-		return download;
+		//return download;
 			
-		}
+		
 		
 		} catch (FileNotFoundException e) {
 		e.printStackTrace();
@@ -218,6 +220,6 @@ public class DownloadCity {
 		e.printStackTrace();
 		}
 		
-			return null;
+		return download;
 	}
 }
