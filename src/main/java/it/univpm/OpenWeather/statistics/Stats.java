@@ -13,9 +13,9 @@ import it.univpm.OpenWeather.utils.StatsUtils;
  */
 public class Stats <T, P, Q> {
 	/**
-	 * array contenente le città
+	 * Array contenente le città
 	 */
-     protected JSONArray arrayCity;
+     private JSONArray arrayCity;
      
      /**
  	 * Variabile utilizzata per richiamare il metodo della classe StatsUtilsTemperature

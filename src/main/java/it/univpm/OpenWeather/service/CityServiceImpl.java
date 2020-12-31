@@ -4,7 +4,7 @@ import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.statistics.*;
 
-
+import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private static Map <String, City> cityRepo = new HashMap<>();
+	private static Map <JSONArray, City> cityRepo = new HashMap<>();
 	
 	/**
 	 * Variabile della classe CityFiltered
@@ -50,18 +50,14 @@ public class CityServiceImpl implements CityService {
 	 */
 	private WeatherFilter weatherFilter;
 	
-	/**
-	 * Variabile della classe Schedule
-	 */
-	private Schedule s;
 	
 	/**
 	 * Costruttore della classe CityServiceImpl
 	 */
-	public CityServiceImpl() {
-		s = new Schedule();
+	public CityServiceImpl() throws ParseException {
 		City c = new City();
-		cityRepo.put(s.Scheduler(), c);
+		DownloadCity d = new DownloadCity();
+		cityRepo.put(d.Parser(),c);
 	}
 	
 	/**
