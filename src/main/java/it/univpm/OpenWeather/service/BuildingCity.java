@@ -11,7 +11,7 @@ import it.univpm.OpenWeather.model.City;
  * @author Emanuela Saleggia
  */
 public class BuildingCity {
-	
+
 	/**
 	 * ArrayList che contiene tutti i dati delle città modellati
 	 */
@@ -24,7 +24,8 @@ public class BuildingCity {
 	 * @param c Variabile della classe City
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
-	public static ArrayList <City> Building (City c){
+	public static ArrayList <City> Building (String city, String state, double hum, double temp, String weather){
+		City c = new City (city, state, hum, temp, weather);
 		list.add(c);
 		return list;
 	}

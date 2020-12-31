@@ -29,13 +29,7 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche dell'umidità
 	 * @return insieme delle statistiche effettute sull'umidità
 	 */
-	public abstract Collection <City> getStatisticsHumidity(String hum, String datainiziale, String datafinale);
-	
-	/**
-	 * Metodo che permette di selezionare le statistiche della temperatura
-	 * @return insieme delle statistiche effettute sulla temperatura
-	 */
-	public abstract Collection <City> getStatisticsTemperature (String temp, String datainiziale, String datafinale);
+	public abstract Collection <City> getStatistics(String type, String datainiziale, String datafinale);
 	
 	/**
 	 * Metodo che permette di selezionare le città in base all'umidità

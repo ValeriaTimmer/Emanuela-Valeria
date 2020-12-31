@@ -2,6 +2,8 @@ package it.univpm.OpenWeather.statistics;
 
 import org.json.simple.JSONArray;
 
+import it.univpm.OpenWeather.utils.StatsUtils;
+
 /**
  * Interfaccia per le statistiche
  * @author Valeria Timmer
@@ -9,11 +11,16 @@ import org.json.simple.JSONArray;
  *
  * @param <T> parametro generico
  */
-public abstract class Stats <T, P, Q> {
+public class Stats <T, P, Q> {
 	/**
 	 * array contenente le città
 	 */
      protected JSONArray arrayCity;
+     
+     /**
+ 	 * Variabile utilizzata per richiamare il metodo della classe StatsUtilsTemperature
+ 	 */
+ 	private StatsUtils utils;
     
     /**
      * costruttore
@@ -21,16 +28,27 @@ public abstract class Stats <T, P, Q> {
      */
      public Stats(JSONArray arrayCity) {
     	this.arrayCity = arrayCity;
+    	this.utils = new StatsUtils();
      }
-		/**
-		 * Metodo astratto che viene implementato a seconda dell'esigenza
-		 * @param arrayCity Array contenente le città
-		 * @param parameter parametro(umidità/temperatura) sul quale si effettua la statistica
-		 * @param from data d'inizio del periodo sul quale si effettuano le statistiche
-		 * @param to data di fine del periodo sul quale si effettuano le statistiche
-		 * @return ritorna l'array contenente le statistiche effettuate
-		 */
+     
+     /**
+ 	 * Metodo Getter degli array delle città
+ 	 * @return ArrayCity ritorna l'array delle città
+ 	 */
+ 	 public JSONArray getArray() {
+ 		return arrayCity;
+ 	}
+	/**
+	* Metodo astratto che viene implementato a seconda dell'esigenza
+	* @param arrayCity Array contenente le città
+	* @param parameter parametro(umidità/temperatura) sul quale si effettua la statistica
+	* @param from data d'inizio del periodo sul quale si effettuano le statistiche
+	* @param to data di fine del periodo sul quale si effettuano le statistiche
+	* @return ritorna l'array contenente le statistiche effettuate
+	*/
 		
-	abstract JSONArray Statistics(JSONArray arrayCity, T parameter, P from, Q to);
+	public JSONArray Statistics (JSONArray arrayCity, T parameter, P from, Q to) {
+		return(JSONArray) utils.getStats(arrayCity, parameter, from, to);
+	}
 		
 }

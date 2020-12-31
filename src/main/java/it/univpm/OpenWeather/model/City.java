@@ -139,7 +139,7 @@ public class City {
 	* 
 	* @param cityName Nome della città 
 	* @param stateCode nome dello Stato/Paese della città
-	*/
+	*
 	public void getInformation (String cityName, String stateCode) {
 		// Bisogna gestire le eccezioni
 		DownloadCity OpenWeather = new DownloadCity(cityName, stateCode, apiKey);
@@ -150,4 +150,5 @@ public class City {
 		this.temperature = OpenWeather.getTemperature();
 		this.weather = OpenWeather.getWeather();
 		}
+	*/
 }

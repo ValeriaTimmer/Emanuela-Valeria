@@ -59,21 +59,21 @@ public class Schedule {
 					
 					// Città di cui vogliamo salvare le informazioni
 					City c1 = new City();
-					c1.getInformation("Ancona", "IT");
-					downloadCity = BuildingCity.Building(c1);
+					//c1.getInformation("Ancona", "IT");
+					//downloadCity = BuildingCity.Building(c1);
 
 			
 					City c2 = new City();
-					c2.getInformation("Londra", "GB");
-					downloadCity = BuildingCity.Building(c2);
+					//c2.getInformation("Londra", "GB");
+					//downloadCity = BuildingCity.Building(c2);
 			
 					City c3 = new City();
-					c3.getInformation("Berlino", "DE");
-					downloadCity = BuildingCity.Building(c3);
+					//c3.getInformation("Berlino", "DE");
+					//downloadCity = BuildingCity.Building(c3);
 					
 					City c4 = new City();
-					c4.getInformation("Roma", "IT");
-					downloadCity = BuildingCity.Building(c4);
+					//c4.getInformation("Roma", "IT");
+					//downloadCity = BuildingCity.Building(c4);
 				}
 			};
 	
