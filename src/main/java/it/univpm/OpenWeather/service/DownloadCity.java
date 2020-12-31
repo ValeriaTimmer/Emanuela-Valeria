@@ -61,6 +61,8 @@ public class DownloadCity {
 	 */
 	private String apiKey;
 	
+	private ArrayList<City> array;
+	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
 	 * 
@@ -98,7 +100,6 @@ public class DownloadCity {
 			
 				String inputLine;
 				
-			
 				// Creo un ciclo while che controlla che il mio contenuto di input non sia vuoto
 				while ((inputLine = in.readLine()) != null) {
 				
@@ -117,7 +118,7 @@ public class DownloadCity {
 				// list) del JSON: Parse del contenuto dell'array weather
 				JSONArray arr2 = (JSONArray) list.get("weather");
 				
-				ArrayList <City> array = new ArrayList <City> ();
+				array = new ArrayList<City>();
 				
 				// Loop per ogni item dell'array list
 				for (Object obj1 : arr) {
@@ -174,9 +175,9 @@ public class DownloadCity {
 								@Override
 								public void run() {
 									
-									//if ((cityName.equals("Ancona") & stateCode.equals("IT")) |
-											//cityName.equals("Londra") & stateCode.equals("GB")) 
-										//array = BuildingCity.Building (cityName, stateCode, humidity, temperature, weather);
+									if ((cityName.equals("Ancona") & stateCode.equals("IT")) |
+											cityName.equals("Londra") & stateCode.equals("GB")) 
+										array = BuildingCity.Building (cityName, stateCode, humidity, temperature, weather);
 								
 								}
 							 };
