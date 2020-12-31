@@ -144,12 +144,12 @@ public class DownloadCity {
 							this.cityName = (String) city.get("name");
 							this.stateCode = (String) city.get ("country");
 						
-						} catch (Exception e) {
+						    } catch (Exception e) {
 							// Errore nel prelevamento dei parametri 
 								e.printStackTrace();
-							}			
+							 }			
 						
-						try {
+						 try {
 							
 							/**
 							 * Costruttore della classe Date di java.lang.Object che iniziailizza 
@@ -206,16 +206,16 @@ public class DownloadCity {
 					}
 				}
 
-			in.close();
+			    in.close();
 				
 			
-		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
+		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 				
 		
-		//return download;
+		        //return download;
 				in.close();
 
-			}
+			    }
 				JSONArray download = new JSONArray();
 				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 					
@@ -223,13 +223,13 @@ public class DownloadCity {
 			
 				
 		
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			    } catch (FileNotFoundException e) {
+				  e.printStackTrace();
+			    } catch (IOException e) {
+				  e.printStackTrace();
+			    } catch (ParseException e) {
+				  e.printStackTrace();
+			    }
 		
 		return download;
 	}
