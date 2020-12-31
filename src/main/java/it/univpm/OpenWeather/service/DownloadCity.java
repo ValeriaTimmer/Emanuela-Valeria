@@ -61,7 +61,10 @@ public class DownloadCity {
 	 */
 	private String apiKey;
 	
-	private ArrayList<City> array;
+	/**
+	 * ArrayList che viene popolato con i dati desiderati
+	 */
+	private ArrayList <City> array;
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -100,7 +103,7 @@ public class DownloadCity {
 			
 				String inputLine;
 				
-				// Creo un ciclo while che controlla che il mio contenuto di input non sia vuoto
+				// Criclo while che controlla che il contenuto di input non sia vuoto
 				while ((inputLine = in.readLine()) != null) {
 				
 				
@@ -136,15 +139,15 @@ public class DownloadCity {
 								JSONObject op2 = (JSONObject) obj2;
 								this.weather = (String) op2.get("description");
 								}
+						
+							this.cityName = (String) city.get("name");
+							this.stateCode = (String) city.get ("country");
+						
 						} catch (Exception e) {
-						// Errore nel prelevamento dei parametri 
-							e.printStackTrace();
-						}
-				
-				
-						this.cityName = (String) city.get("name");
-						this.stateCode = (String) city.get ("country");
-									
+							// Errore nel prelevamento dei parametri 
+								e.printStackTrace();
+							}			
+						
 						try {
 							
 							/**
@@ -197,26 +200,27 @@ public class DownloadCity {
 						} catch (NullPointerException e) {
 							// Viene lanciata se task o fistTime sono null
 							e.printStackTrace();
-					}
+						}
 				
+					}
 				}
-			}
-			in.close();
-		
-		JSONArray download = new JSONArray();
-		download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-					
-		return download;
 			
-		}
+				in.close();
 		
-		} catch (FileNotFoundException e) {
-		e.printStackTrace();
-		} catch (IOException e) {
-		e.printStackTrace();
-		} catch (ParseException e) {
-		e.printStackTrace();
-		}
+				JSONArray download = new JSONArray();
+				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
+					
+				return download;
+			
+				}
+		
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		
 			return null;
 	}

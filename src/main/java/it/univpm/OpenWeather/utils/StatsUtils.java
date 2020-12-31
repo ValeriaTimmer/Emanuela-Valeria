@@ -3,6 +3,8 @@ package it.univpm.OpenWeather.utils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.Date;
+import java.text.DateFormat;
+import java.util.*;
 
 import it.univpm.OpenWeather.statistics.StatisticsCalculator;
 
@@ -27,18 +29,21 @@ public class StatsUtils {
 		
 		StatisticsCalculator calc = new StatisticsCalculator();
 		
-		// Possiamo aggiungere un'eccezione se data1 < data2
-		
 		Date data1 = (Date) from;
 		
 		Date data2 = (Date) to;
 		
-		/**
-		 * DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-        	String datainiziale= formatoData.format(data1);
-        	String datafinale= formatoData.format(data2);
-        */
-		
+		/*
+		 * Metodo che permette di ottenere la data formattata con lo stile di formattazione specificato 
+		 * per le impostazioni internazionali predefinite
+		 * - DateFormat.SHORT indica che la data è completamente numerica
+		 * - Locale.ITALY indica che la data sarà nella forma dd/m/yyyy
+		 */
+		DateFormat formatoData = DateFormat.getDateInstance (DateFormat.SHORT, Locale.ITALY);
+        
+		String datainiziale = formatoData.format(data1);
+        
+		String datafinale = formatoData.format(data2);
 		
 		for (Object o : array) {
 			

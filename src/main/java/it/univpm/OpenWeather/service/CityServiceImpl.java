@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private static Map <JSONArray, City> cityRepo = new HashMap<>();
+	private static Map <JSONArray, DownloadCity> cityRepo = new HashMap<>();
 	
 	/**
 	 * Variabile della classe CityFiltered
@@ -55,23 +55,22 @@ public class CityServiceImpl implements CityService {
 	 * Costruttore della classe CityServiceImpl
 	 */
 	public CityServiceImpl() throws ParseException {
-		City c = new City();
 		DownloadCity d = new DownloadCity();
-		cityRepo.put(d.Parser(),c);
+		cityRepo.put(d.Parser(),d);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getMetadata(){
+	public Collection <DownloadCity> getMetadata(){
 		return cityRepo.values();
 	}
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getCityFiltered(String city, String state) {
+	public Collection <DownloadCity> getCityFiltered(String city, String state) {
 		return cityFilter.filtersCity (cityFilter.getCity(), city, state);
 	}
 	
@@ -79,14 +78,14 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override 
-	public Collection <City> getStatistics(String type, String datainiziale, String datafinale ) {
+	public Collection <DownloadCity> getStatistics(String type, String datainiziale, String datafinale ) {
 		return stats.Statistics (stats.getArray(), type, datainiziale, datafinale );
 	}
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getHumidityFiltered (String param1, String param2){
+	public Collection <DownloadCity> getHumidityFiltered (String param1, String param2){
 		return humFilter.filtersCity(humFilter.getHumidity(), param1, param2);
 	}
 	
@@ -94,7 +93,7 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getTemperatureFiltered (String param1, String param2){
+	public Collection <DownloadCity> getTemperatureFiltered (String param1, String param2){
 		return tempFilter.filtersCity(tempFilter.getTemperature(), param1, param2);
 	}
 	
@@ -102,7 +101,7 @@ public class CityServiceImpl implements CityService {
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 */
 	@Override
-	public Collection <City> getWeatherFiltered (String weather, String city){
+	public Collection <DownloadCity> getWeatherFiltered (String weather, String city){
 	 return weatherFilter.filtersCity(weatherFilter.getWeather(), weather, city);
 	}
 }
