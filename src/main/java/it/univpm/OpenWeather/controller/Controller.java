@@ -4,7 +4,9 @@ import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.model.*;
+import it.univpm.OpenWeather.statistics.*;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.IOException;
@@ -25,6 +27,8 @@ import org.springframework.http.HttpStatus;
  * @author Valeria Timmer
  *
  */
+
+
 @RestController
 public class Controller {
 
@@ -37,65 +41,58 @@ public class Controller {
 	 * Rotta che gestisce la chiamata della rotta "GET/metadata"
 	 * @return Il vettore contenete i metadati
 	 */
-	@RequestMapping (value = "metadata", method = RequestMethod.GET)
-	public ResponseEntity <Object> getMetadata(){
-		return new ResponseEntity<> (c.getMetadata(), HttpStatus.OK);
+	@RequestMapping (value = "/metadata", method = RequestMethod.GET)
+	public ResponseEntity<Object> getMetadata(){
+		return new ResponseEntity<>(c.getMetadata(), HttpStatus.OK);
 	}
 	
 	/**
 	 * Rotta che gestisce la chiamata della rotta "POST/stats"
-	 * @param hum Parametro sul quale vengono effettuate le statistiche
-	 * @param period Periodo nel quale si vogliono effettuare le statistiche
-	 * @return Il vettore contenete le statistiche effettuate
-	 * @throws IOException Se ci sono problemi di I/O
+	 * @param type Parametro sul quale vengono effettuate le statistiche
+	 * @param from Data iniziale da quando si vogliono far partire le statistiche
+	 * @param to Data finale entro il quale si vogliono visualizzare le statistiche
+	 * @return JSONArray contenente le statistiche
+	 * @throws StatsNotFoundException Eccezione personalizzata 
+	 * @throws DataFormatException Eccezione personalizzata
+	 * @throws UrlException Eccezione personalizzata 
 	 */
-	@RequestMapping (value = "/stats", method = RequestMethod.POST)
-	public ResponseEntity <Object> getStatisticsHumidity (@RequestParam (value = "type", defaultValue = "humidity") String type, 
+	@GetMapping (value = "/stats")
+	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
 			@RequestParam (value = "from", defaultValue = "null") String from,
-			@RequestParam (value = "to", defaultValue = "null") String to,
-			@RequestBody String filter) throws StatsNotFoundException, DataFormatException {
-		return new ResponseEntity <> (c.getStatistics(type, from, to), HttpStatus.OK);
+			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
+	UrlException {
+		return c.getStats(type, from, to);
 	}
 	
 	/**
 	 * Metodo che gestisce la chiamata della rotta "POST/filters/cities"
 	 * @param city Nome della città da filtrare
 	 * @param state Sigla dello stato da filtrare
-	 * @param filter Body del filtro richiesto
-	 * @return Lista delle città filtrate 
-	 * @throws IOException Se ci sono problemi di I/O
+	 * @return Città filtrate
+	 * @throws FilterNotFoundException Eccezione personalizzata
+	 * @throws UrlException Eccezione personalizzata 
 	 */
-	/*@RequestMapping (value = "/filters/cities", method = RequestMethod.POST)
-	public ResponseEntity <Object> getCityFiltered(@RequestParam (value = "city", defaultValue = "null")String city,
-			@RequestParam (value = "state", defaultValue = "null") String state,
-			@RequestBody String filter) throws FilterNotFoundException {
-		return new ResponseEntity <>(c.getCityFiltered(city, state), HttpStatus.OK);
+	@PostMapping("/filters/cities")
+	public JSONArray getCityFiltered(@RequestParam (value = "city", defaultValue = "null") String city,
+			@RequestParam (value = "state", defaultValue = "null") String state) 
+					throws FilterNotFoundException, UrlException {
+		return c.getCityFiltered(city, state);
 	}
-	*/
 	
-	@PostMapping("/cities")
-	public JSONArray getCityFiltered(@RequestBody JSONObject body) throws FilterNotFoundException {
-		JSONArray array = new JSONArray();
-		array = d.Parser();
-		String citta = (String) body.get("city");
-		String stato = (String) body.get("state");
-	    CityFilter c = new CityFilter(array);
-	    JSONArray arrayCity = c.filtersCity(array,citta,stato);
-	    return arrayCity;
-	}
+	
 	/**
 	 * Metodo che gestisce la chiamata della rotta "POST/filters/humidity"
 	 * @param from Valore minimo dell'intervallo di umidità
 	 * @param to Valore massimo dell'intervallo di umidità
 	 * @param filter Body del filtro richiesto
-	 * @return Lista contenente i valori filtrati
-	 * @throws IOException Se ci sono problemi di I/O
+	 * @return Umidità filtrata 
+	 * @throws FilterNotFoundException Eccezione personalizzata
+	 * @throws UrlException Eccezione personalizzata 
 	 */
-	@RequestMapping (value = "/filters/humidity", method = RequestMethod.POST)
-	public ResponseEntity<Object> getHumidityFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
-			@RequestParam (value = "to", defaultValue = "100.0") String to, 
-			@RequestBody String filter) throws FilterNotFoundException {
-		return new ResponseEntity<> (c.getHumidityFiltered (from, to), HttpStatus.OK);
+	@PostMapping (value = "/filters/humidity")
+	public JSONArray getHumidityFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
+			@RequestParam (value = "to", defaultValue = "100.0") String to) throws FilterNotFoundException, UrlException {
+		return c.getHumidityFiltered(from, to);
 	}
 	
 	/**
@@ -106,11 +103,10 @@ public class Controller {
 	 * @return Lista contenete i valori filtrati
 	 * @throws IOException Se ci sono problemi di I/O
 	 */
-	@RequestMapping (value = "/filters/temperature", method = RequestMethod.POST)
-	public ResponseEntity <Object> getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253.15") String from,
-			@RequestParam (value = "to", defaultValue = "318.15") String to,
-			@RequestBody String filter) throws FilterNotFoundException {
-		return new ResponseEntity<> (c.getTemperatureFiltered(from, to), HttpStatus.OK);
+	@PostMapping (value = "/filters/temperature")
+	public JSONArray getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253.15") String from,
+			@RequestParam (value = "to", defaultValue = "318.15") String to) throws FilterNotFoundException, UrlException {
+		return c.getTemperatureFiltered (from, to);
 	}
 	
 	/**
@@ -121,11 +117,10 @@ public class Controller {
 	 * @return Lista contenente i valori filtrati
 	 * @throws IOException se ci sono problemi di I/O
 	 */
-	@RequestMapping(value = "/filters/weather", method = RequestMethod.POST)
-	public ResponseEntity <Object> getWeatherFiltered (@RequestParam (value = "city", defaultValue ="null")String weather,
-			@RequestParam(value = "weather", defaultValue = "null")String city,
-			@RequestBody String filter) throws FilterNotFoundException {
-		return new ResponseEntity<> (c.getWeatherFiltered(city,weather), HttpStatus.OK);
+	@PostMapping (value = "/filters/weather")
+	public JSONArray getWeatherFiltered (@RequestParam (value = "city", defaultValue ="null")String weather,
+			@RequestParam(value = "weather", defaultValue = "null")String city) throws FilterNotFoundException, UrlException {
+		return c.getWeatherFiltered(city,weather);
 	}
 			
 }

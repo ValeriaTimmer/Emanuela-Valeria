@@ -1,15 +1,6 @@
 package it.univpm.OpenWeather.exception;
 
-import java.io.IOException;
-
-/**
- * Classe di eccezione personalizzata per le statistiche
- * 
- * @author Emanuela Saleggia
- * @author Valeria Timmer
- *
- */
-public class StatsNotFoundException extends IOException{
+public class UrlException extends Exception {
 	
 	/**
 	 * Numero che viene utilizzato durante la deserializzazione per verificare che il mittente 
@@ -20,11 +11,9 @@ public class StatsNotFoundException extends IOException{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Costruttore
-	 */
-	public StatsNotFoundException () {
+	public UrlException() {
 		super();
-		System.out.println ("Errore: La statistisca non è esistente!");
+		System.out.println ("Errore di connesione al sito");
 	}
+
 }

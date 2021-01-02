@@ -1,7 +1,8 @@
 package it.univpm.OpenWeather.service;
 
 import it.univpm.OpenWeather.model.*;
-import it.univpm.OpenWeather.utils.ParsingJSON;
+import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.utils.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -88,7 +89,7 @@ public class DownloadCity {
 	/**
 	 * Metodo che permette di Parsare i campi desiderati del JSON 
 	 */
-	public JSONArray Parser() {
+	public JSONArray Parser() throws UrlException {
 		
 		JSONParser parser = new JSONParser();
 		

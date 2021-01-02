@@ -1,6 +1,5 @@
 package it.univpm.OpenWeather.model;
 
-import it.univpm.OpenWeather.service.DownloadCity;
 
 /**
  * Classe che modella la città

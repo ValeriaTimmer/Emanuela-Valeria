@@ -1,7 +1,7 @@
 package it.univpm.OpenWeather.statistics;
 
 import org.json.simple.JSONArray;
-
+import java.util.HashMap;
 import it.univpm.OpenWeather.utils.StatsUtils;
 
 /**
