@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -23,23 +24,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CityServiceImpl implements CityService {
-	
+	/**
+	 * Array contente i dati salvati
+	 */
 	JSONArray array = new JSONArray();
 	
-	private City c;
-	
-	private DownloadCity d;
-	
-	
 	/**
-	 * Costruttore della classe CityServiceImpl
-	 *
-	public CityServiceImpl() throws NoClassDefFoundError , UrlException {
-		this.c = new City();
-		this.d = new DownloadCity();
-		cityRepo.put(d.Parser(),c);
+	 * Costruttore che inizializza il JSONArray
+	 * @param download Variabile della classe DownloadCity
+	 * @throws UrlException Eccezione personalizzata
+	 */
+	@Autowired
+	public CityServiceImpl(DownloadCity download) throws UrlException{
+		this.array = download.Parser();
 	}
-	*/
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -55,23 +53,24 @@ public class CityServiceImpl implements CityService {
 		c.put("var", "Contiene il valore della varianza dell'umidità o della temperatura in base al periodo scelto");
 		return c ;
 	}
+	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return c JSONArray contenente le città filtrate per nome e stato
 	 */
 	@Override
-	public JSONArray getCityFiltered(String city, String state) throws UrlException {
-		array = d.Parser();
-		CityFilter c = new CityFilter (array);
+	public JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException {
+		CityFilter c = new CityFilter (this.array);
 		return c.filtersCity (c.getCity(), city, state);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return JSONArray contenente le statistiche filtrate
 	 */
 	@Override 
-	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException{
-		array = d.Parser();
-		Stats s = new Stats(array);
+	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException, ClassNotFoundException{
+		Stats s = new Stats(this.array);
 		if (type.equals("humidity")) {
 			JSONArray statsHum = s.Statistics (s.getArray(), "humidity", datainiziale, datafinale);
 			return  statsHum; 
@@ -82,33 +81,34 @@ public class CityServiceImpl implements CityService {
 		}
 		return null;
 	}
+	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return h JSONArray contenete le umidità filtrate
 	 */
 	@Override
-	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException {
-		array = d.Parser();
-		HumidityFilter h = new HumidityFilter (array);
+	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
+		HumidityFilter h = new HumidityFilter (this.array);
 		return h.filtersCity(h.getHumidity(), param1, param2);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return t JSONArray contenete le temperature filtrate
 	 */
 	@Override
-	public JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException {
-		array = d.Parser();
-		TemperatureFilter t = new TemperatureFilter(array);
+	public JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
+		TemperatureFilter t = new TemperatureFilter(this.array);
 		return t.filtersCity(t.getTemperature(), param1, param2);
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return w JSONArray contenente le città filtrate per tipo di meteo 
 	 */
 	@Override
-	public JSONArray getWeatherFiltered (String weather, String city) throws UrlException {
-		array = d.Parser();
-		WeatherFilter w = new WeatherFilter(array);
+	public JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException {
+		WeatherFilter w = new WeatherFilter(this.array);
 		return w.filtersCity (w.getWeather(), weather, city);
 	}
 }

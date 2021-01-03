@@ -132,23 +132,5 @@ public class City {
 	public void setWeather(String weather) {
 		this.weather = weather;
 	}
-	/**
-	* Metodo che prende informazioni dal JSON parsato dal metodo Parser
-	* e completa i campi con le varie informazioni
-	* 
-	* @param cityName Nome della città 
-	* @param stateCode nome dello Stato/Paese della città
 	
-	public void getInformation (String cityName, String stateCode) {
-		// Bisogna gestire le eccezioni
-		DownloadCity OpenWeather = new DownloadCity(cityName, stateCode, apiKey);
-		OpenWeather.Parser();
-		/*this.cityName = OpenWeather.getCityName();
-		this.stateCode = OpenWeather.getStateCode();
-		this.humidity = OpenWeather.getHumidity();
-		this.temperature = OpenWeather.getTemperature();
-		this.weather = OpenWeather.getWeather();
-		
-		}
-	    */
 }

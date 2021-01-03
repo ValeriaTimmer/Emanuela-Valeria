@@ -34,6 +34,7 @@ import org.json.simple.parser.ParseException;
  *
  */
 public class DownloadCity {
+	
 	/*
 	 * Nome della città
 	 */
@@ -52,11 +53,13 @@ public class DownloadCity {
 	/**
 	 * Temperatura della città in kelvin
 	 */
-	 private double temperature;
-	 /**
+	private double temperature;
+	
+	/**
 	 * Descrizione del meteo della città
 	 */
 	private String weather;
+	
 	/**
 	 * Chiave API privata 
 	 */
@@ -67,14 +70,17 @@ public class DownloadCity {
 	 */
 	private ArrayList <City> array;
 	
+	/**
+	 * JSONArray con i dati parsati
+	 */
 	private JSONArray download;
+	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
 	 * 
 	 * @param Name Nome della città
 	 * @param Code Sigla dello Stato/Paese della città
 	 */
-	
 	public DownloadCity (String Name, String Code, String apiKey) {
 		this.cityName = Name;
 		this.stateCode = Code;
@@ -160,7 +166,7 @@ public class DownloadCity {
 							 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
 							 */
 							@Deprecated
-							Date firstTime = new Date(2020, 12, 1);
+							Date firstTime = new Date(2021, 1, 3);
 					
 							/**
 							 * Costruttore della classe Timer di java.lang.Object
@@ -212,18 +218,13 @@ public class DownloadCity {
 			
 		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 				
-		
-		        //return download;
 				in.close();
 
 			    }
 				JSONArray download = new JSONArray();
 				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-					
-				//return download;
-			
+
 				
-		
 			    } catch (FileNotFoundException e) {
 				  e.printStackTrace();
 			    } catch (IOException e) {
