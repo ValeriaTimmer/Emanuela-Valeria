@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.text.ParseException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,14 @@ public class CityServiceImpl implements CityService {
 	 * @param download Variabile della classe DownloadCity
 	 * @throws UrlException Eccezione personalizzata
 	 */
-	@Autowired
-	public CityServiceImpl(DownloadCity download) throws UrlException{
+	public CityServiceImpl(DownloadCity download) throws UrlException {
+		try {
 		this.array = download.Parser();
+		} catch (IllegalStateException e) {
+			System.out.println ("Errore Scheduler");
+			System.out.println ("Messaggio: " + e.getMessage());
+			System.out.println ("Causa: " + e.getCause());
+		}
 	}
 	
 	/**
@@ -69,7 +75,8 @@ public class CityServiceImpl implements CityService {
 	 * @return JSONArray contenente le statistiche filtrate
 	 */
 	@Override 
-	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException, ClassNotFoundException{
+	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException, ClassNotFoundException,
+	 DataFormatException, ParseException {
 		Stats s = new Stats(this.array);
 		if (type.equals("humidity")) {
 			JSONArray statsHum = s.Statistics (s.getArray(), "humidity", datainiziale, datafinale);

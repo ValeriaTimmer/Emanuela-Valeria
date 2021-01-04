@@ -4,7 +4,7 @@ import it.univpm.OpenWeather.model.City;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
-import java.util.Collection;
+import java.text.ParseException;
 import org.json.simple.JSONArray;
 
 /**
@@ -33,7 +33,8 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
 	 */
-	public abstract JSONArray getStats(String type, String datainiziale, String datafinale) throws UrlException, ClassNotFoundException;
+	public abstract JSONArray getStats(String type, String datainiziale, String datafinale) throws UrlException, ClassNotFoundException,
+	DataFormatException, ParseException;
 	
 	/**
 	 * Metodo che permette di selezionare in base a degli intervalli di umidità scelti (in percentuale)

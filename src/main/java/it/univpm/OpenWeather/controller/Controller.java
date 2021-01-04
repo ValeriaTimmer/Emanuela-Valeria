@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.controller;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 
+import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,11 @@ public class Controller {
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
 	 */
-	@GetMapping (value = "/stats")
+	@PostMapping (value = "/stats")
 	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
 			@RequestParam (value = "from", defaultValue = "null") String from,
 			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
-	UrlException, ClassNotFoundException {
+	UrlException, ClassNotFoundException, ParseException {
 		return c.getStats(type, from, to);
 	}
 	

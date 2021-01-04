@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author Valeria Timmer
  *
  */
-public class StatsNotFoundException extends IOException{
+public class StatsNotFoundException extends ClassNotFoundException{
 	
 	/**
 	 * Numero che viene utilizzato durante la deserializzazione per verificare che il mittente 

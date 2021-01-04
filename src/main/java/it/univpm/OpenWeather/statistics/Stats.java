@@ -1,8 +1,9 @@
 package it.univpm.OpenWeather.statistics;
 
 import org.json.simple.JSONArray;
-import java.util.HashMap;
+import java.text.ParseException;
 import it.univpm.OpenWeather.utils.StatsUtils;
+import it.univpm.OpenWeather.exception.*;
 
 /**
  * Interfaccia per le statistiche
@@ -47,7 +48,7 @@ public class Stats <T, P, Q> {
 	* @return ritorna l'array contenente le statistiche effettuate
 	*/
 		
-	public JSONArray Statistics (JSONArray arrayCity, T parameter, P from, Q to) {
+	public JSONArray Statistics (JSONArray arrayCity, T parameter, P from, Q to) throws DataFormatException, ParseException {
 		return(JSONArray) utils.getStats(arrayCity, parameter, from, to);
 	}
 		

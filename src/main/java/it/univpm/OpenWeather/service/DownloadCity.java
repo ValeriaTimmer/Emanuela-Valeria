@@ -204,7 +204,9 @@ public class DownloadCity {
 						} catch (IllegalStateException e) {
 							// Viene lanciata se l'attività era già pianificata o annullata,
 							// il timer è stato annullato o il thread del timer è stato terminato
-							e.printStackTrace();
+							System.out.println ("Errore Scheduler");
+							System.out.println ("Messaggio: " + e.getMessage());
+							System.out.println ("Causa: " + e.getCause());
 						} catch (NullPointerException e) {
 							// Viene lanciata se task o fistTime sono null
 							e.printStackTrace();
@@ -223,16 +225,21 @@ public class DownloadCity {
 			    }
 				JSONArray download = new JSONArray();
 				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-
+				array.clear();
+				return download;
 				
 			    } catch (FileNotFoundException e) {
-				  e.printStackTrace();
+			    	e.printStackTrace();
 			    } catch (IOException e) {
-				  e.printStackTrace();
+			    	System.out.println ("Errore di I/O");
+				  	System.out.println ("Messaggio: " + e.getMessage());
+				  	System.out.println ("Causa: " + e.getCause());
 			    } catch (ParseException e) {
-				  e.printStackTrace();
+			    	System.out.println ("Errore di Parsing");
+					System.out.println ("Messaggio: " + e.getMessage());
+					System.out.println ("Causa: " + e.getCause());
 			    }
 		
-		return download;
+			return null;
 	}
 }
