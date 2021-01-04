@@ -74,6 +74,23 @@ POST |/filters/humidity | from, to | Restituisce le previsioni in base agli int
 POST |/filters/temperature | from, to | Restituisce le previsioni delle città in base agli intervalli di temperatura (kelvin) richiesti
 POST |/filters/weather | weather, city | Restituisce le previsioni delle città in base ad una descrizione meteo desiderata
 
+## Parametri delle statistiche
+"Type" indica il parametro su cui si effettuano le statistiche, che possono perciò riguardate la temperatura o l'umidità
+"From" indica  la data di inizio del periodo su cui si effettuano le statistiche
+"to" indica la data di fine del periodo su cui si effettuano le statistiche
+
+##Parametri dei filters/cities
+"city" è il parametro che indica il nome della città
+"state"  è il parametro che indica il codice dello stato in cui si trova la città
+
+##Parametri dei filters/humidity
+"from" indica il  primo valore  dell'intervallo preso in considerazione
+"to" indica il valore finale dell'intervallo preso in considerazione
+
+## Parametri dei filters/temperature
+"from" indica il primo valore dell'intervallo preso in considera
+"to" indica il valore finale dell'intervallo preso in considerazione
+
 
 
 
