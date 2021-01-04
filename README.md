@@ -59,26 +59,21 @@ Le statistiche saranno effettuate su:
 ![Schermata 2020-12-31 alle 11 41 12](https://user-images.githubusercontent.com/75066505/103407810-4581a500-4b60-11eb-970e-e761b444123d.png)
 
 ### Package Exception
-![Schermata 2020-12-30 alle 19 56 27](https://user-images.githubusercontent.com/75066505/103375000-3c012a00-4ad9-11eb-9eef-96c2fb775a93.png)
+![Schermata 2021-01-04 alle 08 48 19](https://user-images.githubusercontent.com/75066505/103512819-b9c28e00-4e69-11eb-919a-602b9b290dc6.png)
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
 differiscono in base alle diverse rotte mostrate nella tabella sottostante
 
-TIPO | ROTTA | DESCRIZIONE
------|-------|------------
-GET  |/metadata | Restituisce i metadata 
------|----------|-----------------------
-POST |/stats | Effettua le statistiche relative ai parametri richiesti (umidità/temperatura, periodo di tempo)
------|----------|---------------------------------------------------------------------------------------------
-POST |/filters/cities | Restituisce le previsioni in base al nome della città e dello stato
------|----------------|--------------------------------------------------------------------
-POST |/filters/humidity | Restituisce le previsioni in base agli intervalli di umidità richiesti
------|------------------|------------------------------------------------------------------------
-POST |/filters/temperature | Restituisce le previsioni delle città in base agli intervalli di temperatura (kelvin) richiesti
------|---------------------|------------------------------------------------------------------------------------------------
-POST |/filters/weather | Restituisce le previsioni delle città in base ad una descrizione meteo desiderata
------|-----------------|-----------------------------------------------------------------------------------
+TIPO | ROTTA | PARAMETRI | DESCRIZIONE
+-----|-------|-----------|------------
+GET  |/metadata | - | Restituisce i metadata 
+POST |/stats | type, from, to | Effettua le statistiche relative ai parametri richiesti 
+POST |/filters/cities | city, state | Restituisce le previsioni in base al nome della città e dello stato
+POST |/filters/humidity | from, to | Restituisce le previsioni in base agli intervalli di umidità richiesti
+POST |/filters/temperature | from, to | Restituisce le previsioni delle città in base agli intervalli di temperatura (kelvin) richiesti
+POST |/filters/weather | weather, city | Restituisce le previsioni delle città in base ad una descrizione meteo desiderata
+
 
 
 
