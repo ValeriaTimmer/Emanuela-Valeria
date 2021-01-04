@@ -79,15 +79,15 @@ POST |/filters/weather | weather, city | Restituisce le previsioni delle città
 "From" indica  la data di inizio del periodo su cui si effettuano le statistiche
 "to" indica la data di fine del periodo su cui si effettuano le statistiche
 
-##Parametri dei filters/cities
+## Parametri filters/cities
 "city" è il parametro che indica il nome della città
 "state"  è il parametro che indica il codice dello stato in cui si trova la città
 
-##Parametri dei filters/humidity
+## Parametri filters/humidity
 "from" indica il  primo valore  dell'intervallo preso in considerazione
 "to" indica il valore finale dell'intervallo preso in considerazione
 
-## Parametri dei filters/temperature
+## Parametri filters/temperature
 "from" indica il primo valore dell'intervallo preso in considera
 "to" indica il valore finale dell'intervallo preso in considerazione
 
