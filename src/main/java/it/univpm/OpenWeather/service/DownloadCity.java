@@ -37,6 +37,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DownloadCity {
 	
+	/*
+	 * Stringa con Url da parsare
+	 */
 	public static String url = "https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47";
 	
 	/*
@@ -94,7 +97,6 @@ public class DownloadCity {
 	/**
 	 * Costruttore senza parametri
 	 */
-	//@Bean
 	public DownloadCity() {}
 	
 	/**
@@ -103,148 +105,145 @@ public class DownloadCity {
 	@Bean
 	public JSONArray Parser() throws UrlException {
 		
-		JSONParser parser = new JSONParser();
-		
-			try {
-			
-				// URL di OpenWeather da Parsare
-				URL OW = new URL (url);
-				HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
-				yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-			
-				BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
-			    
-				String inputLine;
-				
-				// Criclo while che controlla che il contenuto di input non sia vuoto
-				while ((inputLine = in.readLine()) != null) {
-				
-				// Analizzo l'oggetto city del JSON: Parse del contenuto dell'oggetto city
-				JSONObject city = (JSONObject) parser.parse("city");
-				
-				// Analizzo l'oggetto list del JSON: Parse del contenuto dell'oggetto list
-				JSONArray list = (JSONArray) parser.parse("list");
-				
-				// Analizzo l'array list del JSON: Parse del contenuto dell'array list
-				//JSONArray arr = (JSONArray) list.get("list");
-				
-				// Analizzo l'array weather (oggetto dell'array
-				// list) del JSON: Parse del contenuto dell'array weather
-				JSONArray arr2 = (JSONArray) parser.parse("weather");
-				
-				array = new ArrayList<City>();
-				
-				// Loop per ogni item dell'array list
-				for (Object obj1 : list) {
+		try {
+				try {			
+					/**
+					 * Costruttore della classe Date di java.lang.Object che iniziailizza 
+					 * il momento di inizio del metodo
+					 * 
+					 * @Deprecated : Alloca un oggetto Date e lo inizializza in modo che rappresenti la mezzanotte, 
+					 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
+					 */
+					@Deprecated
+					Date firstTime = new Date(2021, 1, 3);
 					
-					if (obj1 instanceof JSONObject) {
+					/**
+					 * Costruttore della classe Timer di java.lang.Object
+					 */
+					Timer timer = new Timer();
 					
-						JSONObject op = (JSONObject) obj1;
-					
-						try {
-						    JSONObject main = (JSONObject) op.get("main");
-							this.humidity = Double.parseDouble(main.get ("humidity").toString());
-							this.temperature = Double.parseDouble(main.get("temp").toString());
-							
-							for (Object obj2 : arr2) {
-								JSONObject op2 = (JSONObject) obj2;
-								this.weather = (String) op2.get("description");
-								}
-						    
-	
-						    } catch (Exception e) {
-							// Errore nel prelevamento dei parametri 
-								e.printStackTrace();
-							 }
-					      }
-				        }
-					    try {
-						    this.cityName = (String) city.get("name");
-						    this.stateCode = (String) city.get ("country");
-					    }
-					       catch(Exception e) {
-					    	   e.printStackTrace();
-					       }
-				         
-						
-						 try {
-							
-							/**
-							 * Costruttore della classe Date di java.lang.Object che iniziailizza 
-							 * il momento di inizio del metodo
-							 * 
-							 * @Deprecated : Alloca un oggetto Date e lo inizializza in modo che rappresenti la mezzanotte, 
-							 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
-							 */
-							@Deprecated
-							Date firstTime = new Date(2021, 1, 3);
-					
-							/**
-							 * Costruttore della classe Timer di java.lang.Object
-							 */
-							Timer timer = new Timer();
-					
-							/*
-							 * Costruttore della classe TimerTask che effettua l'override del metodo run
-							 * dell'interfaccia Runnable di java.lang.Object
-							 */
-							TimerTask task = new TimerTask() {
+					/*
+					 * Costruttore della classe TimerTask che effettua l'override del metodo run
+					 * dell'interfaccia Runnable di java.lang.Object
+					 */
+					TimerTask task = new TimerTask() {
 
-								/*
-								 * Metodo che salva le informazioni delle città scelte in un arrayList
-								 * Effettua l'override del metodo run() della classe TimerTask
-								 */
-								@Override
-								public void run() {
-									
-									 /*((cityName.equals("Ancona") & stateCode.equals("IT")) |
-											cityName.equals("Londra") & stateCode.equals("GB")) */
-										array = BuildingCity.Building ("Ancona", "IT", humidity, temperature, weather);
+					/*
+					 * Metodo che salva le informazioni delle città scelte in un arrayList
+					 * Effettua l'override del metodo run() della classe TimerTask
+					 */
+						@Override
+						public void run() {
+							try {
 								
+								// URL di OpenWeather da Parsare
+								URL OW = new URL (url);
+								HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
+								yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+							
+								BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
+							    
+								String inputLine;
+								
+								// Criclo while che controlla che il contenuto di input non sia vuoto
+								while ((inputLine = in.readLine()) != null) {  
+									
+									JSONParser parser = new JSONParser();
+									
+									// Analizzo l'oggetto city del JSON: Parse del contenuto dell'oggetto city
+									JSONObject city = (JSONObject) parser.parse("city");
+								
+									// Analizzo l'oggetto list del JSON: Parse del contenuto dell'oggetto list
+									JSONArray list = (JSONArray) parser.parse("list");
+												
+									array = new ArrayList<City>();
+								
+									// Loop per ogni item dell'array list
+									for (Object obj1 : list) {
+									
+										if (obj1 instanceof JSONObject) {
+									
+											JSONObject op = (JSONObject) obj1;
+									
+											try {
+										    
+												JSONObject main = (JSONObject) op.get("main");
+											
+												Double hum = (Double) main.get ("humidity");
+												humidity = hum;
+												
+												Double temp = (Double) main.get("temp");
+												temperature = temp;
+											
+												JSONObject w = (JSONObject) op.get("weather");
+											
+												String description = (String) w.get("description");
+												weather = description;
+										
+												} catch (Exception e) {
+													// Errore nel prelevamento dei parametri 
+													e.printStackTrace();
+												}
+										}
+									}
+									    
+									try {
+									
+										String name = (String) city.get("name");
+										cityName = name;
+										
+										String country = (String) city.get ("country");
+										stateCode = country;
+									   
+									} catch(Exception e) {
+										e.printStackTrace();
+									}
+						
+							array = BuildingCity.Building ("Ancona", "IT", humidity, temperature, weather);
+							
+							in.close();
 								}
-							 };
+							} catch (FileNotFoundException e) {
+						    	e.printStackTrace();
+						    } catch (IOException e) {
+						    	System.out.println ("Errore di I/O");
+							  	System.out.println ("Messaggio: " + e.getMessage());
+							  	System.out.println ("Causa: " + e.getCause());
+						    } catch (ParseException e) {
+						    	System.out.println ("Errore di Parsing:");
+								System.out.println ("Messaggio: " + e.getMessage());
+								System.out.println ("Causa: " + e.getCause());
+						    }
+						}
+					};
 					
-							/*
-							 * Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
-							 */
-							timer.scheduleAtFixedRate (task, firstTime, 3600000);
+					/*
+					* Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
+					 */
+					timer.scheduleAtFixedRate (task, firstTime, 3600000);
 					
-						} catch (IllegalArgumentException e) {
+					} catch (IllegalArgumentException e) {
 							// Viene lanciata se firstTime.getTime() < 0 o period <= 0
 							e.printStackTrace();
-						} catch (IllegalStateException e) {
+					} catch (IllegalStateException e) {
 							// Viene lanciata se l'attività era già pianificata o annullata,
 							// il timer è stato annullato o il thread del timer è stato terminato
 							System.out.println ("Errore Scheduler");
 							System.out.println ("Messaggio: " + e.getMessage());
 							System.out.println ("Causa: " + e.getCause());
-						} catch (NullPointerException e) {
+					} catch (NullPointerException e) {
 							// Viene lanciata se task o fistTime sono null
 							e.printStackTrace();
-						}
+					}
 				
 		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-				
-			    }
-				in.close();
-				/*JSONArray download = new JSONArray();
-				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
-				*/
-				array.clear();
-				return download;
-				
-			    } catch (FileNotFoundException e) {
-			    	e.printStackTrace();
-			    } catch (IOException e) {
-			    	System.out.println ("Errore di I/O");
-				  	System.out.println ("Messaggio: " + e.getMessage());
-				  	System.out.println ("Causa: " + e.getCause());
-			    } catch (ParseException e) {
-			    	System.out.println ("Errore di Parsing");
-					System.out.println ("Messaggio: " + e.getMessage());
-					System.out.println ("Causa: " + e.getCause());
-			    }
+		        return download;
 		
-			return null;
-	}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+				
+		return null;
+	}			
 }

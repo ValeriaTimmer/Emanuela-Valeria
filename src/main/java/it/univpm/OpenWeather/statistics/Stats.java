@@ -57,7 +57,14 @@ public class Stats <T, P, Q> {
  	 public JSONArray getArray() {
  		return arrayCity;
  	}
- 	 
+ 	/**
+ 	 * 
+ 	 * @param from
+ 	 * @param to
+ 	 * @return
+ 	 * @throws DataFormatException
+ 	 * @throws ParseException
+ 	 */
  	public static long getPeriod (String from, String to) throws DataFormatException, ParseException {
 		if (today.before(dateFrom)) 
 			throw new DataFormatException();
