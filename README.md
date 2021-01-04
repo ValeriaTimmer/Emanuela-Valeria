@@ -50,7 +50,7 @@ Le statistiche saranno effettuate su:
 ![Schermata 2020-12-30 alle 19 50 49](https://user-images.githubusercontent.com/75066505/103375044-67841480-4ad9-11eb-94ff-cca8c853bb99.png)
 
 ### Package Service
-![Schermata 2020-12-29 alle 13 03 42](https://user-images.githubusercontent.com/75066505/103282543-6ae2a780-49d6-11eb-87aa-2652c1d23b5e.png)
+![Schermata 2021-01-04 alle 08 26 52](https://user-images.githubusercontent.com/75066505/103511229-e6c17180-4e66-11eb-8ad3-af0e69d064e0.png)
 
 ### Package Statistics
 ![Schermata 2020-12-31 alle 12 02 08](https://user-images.githubusercontent.com/75066505/103407865-6ba74500-4b60-11eb-80f7-e18568592a45.png)
@@ -64,5 +64,21 @@ Le statistiche saranno effettuate su:
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
 differiscono in base alle diverse rotte mostrate nella tabella sottostante
+
+TIPO | ROTTA | DESCRIZIONE
+-----|-------|------------
+GET  |/metadata | Restituisce i metadata 
+-----|----------|-----------------------
+POST |/stats | Effettua le statistiche relative ai parametri richiesti (umidità/temperatura, periodo di tempo)
+-----|----------|---------------------------------------------------------------------------------------------
+POST |/filters/cities | Restituisce le previsioni in base al nome della città e dello stato
+-----|----------------|--------------------------------------------------------------------
+POST |/filters/humidity | Restituisce le previsioni in base agli intervalli di umidità richiesti
+-----|------------------|------------------------------------------------------------------------
+POST |/filters/temperature | Restituisce le previsioni delle città in base agli intervalli di temperatura (kelvin) richiesti
+-----|---------------------|------------------------------------------------------------------------------------------------
+POST |/filters/weather | Restituisce le previsioni delle città in base ad una descrizione meteo desiderata
+-----|-----------------|-----------------------------------------------------------------------------------
+
 
 
