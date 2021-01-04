@@ -94,6 +94,7 @@ public class Stats <T, P, Q> {
  	 * metodo che verifica le previsioni
  	 * @return
  	 */
+	/*
  	public boolean verificaPrevisioni( Double humidity, Double temperature, String from, String to)throws DataFormatException, ParseException {
  		JSONArray d1 = date(datainiziale, data_di_oggi);
  		for(Object ob: d1) {
@@ -102,7 +103,7 @@ public class Stats <T, P, Q> {
  				return true;}
  		      return false;
  	}
- 	
+ 	*/
  	 
 	/**
 	* Metodo astratto che viene implementato a seconda dell'esigenza
