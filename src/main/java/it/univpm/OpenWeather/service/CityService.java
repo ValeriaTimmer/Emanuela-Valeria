@@ -6,6 +6,7 @@ import it.univpm.OpenWeather.exception.*;
 import java.util.HashMap;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
+import org.springframework.stereotype.Service;
 
 /**
  * Interfaccia 

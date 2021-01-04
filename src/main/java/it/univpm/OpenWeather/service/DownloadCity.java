@@ -23,7 +23,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
  * Humidity, Temperature, Weather
@@ -33,7 +34,10 @@ import org.json.simple.parser.ParseException;
  * @author Emanuela Saleggia
  *
  */
+@Configuration
 public class DownloadCity {
+	
+	public static String url = "https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47";
 	
 	/*
 	 * Nome della città
@@ -90,11 +94,13 @@ public class DownloadCity {
 	/**
 	 * Costruttore senza parametri
 	 */
+	//@Bean
 	public DownloadCity() {}
 	
 	/**
 	 * Metodo che permette di Parsare i campi desiderati del JSON 
 	 */
+	@Bean
 	public JSONArray Parser() throws UrlException {
 		
 		JSONParser parser = new JSONParser();
@@ -102,8 +108,7 @@ public class DownloadCity {
 			try {
 			
 				// URL di OpenWeather da Parsare
-				URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + this.cityName + 
-				"," + this.stateCode + "&appid=" + "bed1a816d94554cecab782b0804bec47");
+				URL OW = new URL (url);
 				HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
 				yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 			
@@ -114,47 +119,53 @@ public class DownloadCity {
 				// Criclo while che controlla che il contenuto di input non sia vuoto
 				while ((inputLine = in.readLine()) != null) {
 				
-				
-				
 				// Analizzo l'oggetto city del JSON: Parse del contenuto dell'oggetto city
 				JSONObject city = (JSONObject) parser.parse("city");
 				
 				// Analizzo l'oggetto list del JSON: Parse del contenuto dell'oggetto list
-				JSONObject list = (JSONObject) parser.parse("list");
+				JSONArray list = (JSONArray) parser.parse("list");
 				
 				// Analizzo l'array list del JSON: Parse del contenuto dell'array list
-				JSONArray arr = (JSONArray) list.get("list");
+				//JSONArray arr = (JSONArray) list.get("list");
 				
 				// Analizzo l'array weather (oggetto dell'array
 				// list) del JSON: Parse del contenuto dell'array weather
-				JSONArray arr2 = (JSONArray) list.get("weather");
+				JSONArray arr2 = (JSONArray) parser.parse("weather");
 				
 				array = new ArrayList<City>();
 				
 				// Loop per ogni item dell'array list
-				for (Object obj1 : arr) {
+				for (Object obj1 : list) {
 					
 					if (obj1 instanceof JSONObject) {
 					
 						JSONObject op = (JSONObject) obj1;
 					
 						try {
-						
-							this.humidity = Double.parseDouble(op.get ("humidity").toString());
-							this.temperature = Double.parseDouble(op.get("temp").toString());
+						    JSONObject main = (JSONObject) op.get("main");
+							this.humidity = Double.parseDouble(main.get ("humidity").toString());
+							this.temperature = Double.parseDouble(main.get("temp").toString());
 							
 							for (Object obj2 : arr2) {
 								JSONObject op2 = (JSONObject) obj2;
 								this.weather = (String) op2.get("description");
 								}
-						
-							this.cityName = (String) city.get("name");
-							this.stateCode = (String) city.get ("country");
-						
+						    
+	
 						    } catch (Exception e) {
 							// Errore nel prelevamento dei parametri 
 								e.printStackTrace();
-							 }			
+							 }
+					      }
+				        }
+					    try {
+						    this.cityName = (String) city.get("name");
+						    this.stateCode = (String) city.get ("country");
+					    }
+					       catch(Exception e) {
+					    	   e.printStackTrace();
+					       }
+				         
 						
 						 try {
 							
@@ -186,9 +197,9 @@ public class DownloadCity {
 								@Override
 								public void run() {
 									
-									if ((cityName.equals("Ancona") & stateCode.equals("IT")) |
-											cityName.equals("Londra") & stateCode.equals("GB")) 
-										array = BuildingCity.Building (cityName, stateCode, humidity, temperature, weather);
+									 /*((cityName.equals("Ancona") & stateCode.equals("IT")) |
+											cityName.equals("Londra") & stateCode.equals("GB")) */
+										array = BuildingCity.Building ("Ancona", "IT", humidity, temperature, weather);
 								
 								}
 							 };
@@ -212,19 +223,13 @@ public class DownloadCity {
 							e.printStackTrace();
 						}
 				
-					}
-				}
-
-			    in.close();
-				
-			
 		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 				
-				in.close();
-
 			    }
-				JSONArray download = new JSONArray();
+				in.close();
+				/*JSONArray download = new JSONArray();
 				download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
+				*/
 				array.clear();
 				return download;
 				

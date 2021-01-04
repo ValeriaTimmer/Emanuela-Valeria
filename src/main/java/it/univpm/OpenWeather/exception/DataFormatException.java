@@ -18,11 +18,11 @@ public class DataFormatException extends Exception{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * costruttore
+	 * Costruttore
 	 */
 	public DataFormatException() {
 		super();
 		System.out.println("Errore: formato dati!");
 	}
-
+	
 }

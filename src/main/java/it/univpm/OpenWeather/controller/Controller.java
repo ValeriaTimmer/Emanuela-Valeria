@@ -26,8 +26,8 @@ import org.springframework.http.HttpStatus;
 @RestController
 public class Controller {
 	
-	@Autowired
-	CityService c;
+	@Autowired(required=true)
+	CityServiceImpl c;
 	
 	/**
 	 * Rotta che gestisce la chiamata della rotta "GET/metadata"

@@ -14,7 +14,8 @@ import java.text.ParseException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Classe che implementa l'interfaccia
@@ -30,14 +31,17 @@ public class CityServiceImpl implements CityService {
 	 */
 	JSONArray array = new JSONArray();
 	
+	DownloadCity d = new DownloadCity();
 	/**
 	 * Costruttore che inizializza il JSONArray
 	 * @param download Variabile della classe DownloadCity
 	 * @throws UrlException Eccezione personalizzata
 	 */
+	
 	public CityServiceImpl(DownloadCity download) throws UrlException {
 		try {
-		this.array = download.Parser();
+		this.d = download;
+		this.array = d.Parser();
 		} catch (IllegalStateException e) {
 			System.out.println ("Errore Scheduler");
 			System.out.println ("Messaggio: " + e.getMessage());

@@ -1,7 +1,6 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.model.*;
-
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
