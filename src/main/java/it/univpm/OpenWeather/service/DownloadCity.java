@@ -70,7 +70,7 @@ public class DownloadCity {
 	/**
 	 * Chiave API privata 
 	 */
-	private String apiKey;
+	private static String apiKey;
 	
 	/**
 	 * ArrayList che viene popolato con i dati desiderati
@@ -81,6 +81,11 @@ public class DownloadCity {
 	 * JSONArray con i dati parsati
 	 */
 	private JSONArray download;
+	
+	private static String getApiKey () {
+		return apiKey;
+	}
+	
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -115,7 +120,7 @@ public class DownloadCity {
 					 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
 					 */
 					@Deprecated
-					Date firstTime = new Date(2021, 1, 3);
+					Date firstTime = new Date(2021, 01, 01);
 					
 					/**
 					 * Costruttore della classe Timer di java.lang.Object
@@ -154,7 +159,7 @@ public class DownloadCity {
 								
 									JSONArray list = (JSONArray) parser.parse("list");
 												
-									array = new ArrayList<City>();
+									array = new ArrayList <City>();
 								
 									for (Object obj1 : list) {
 									
@@ -196,10 +201,11 @@ public class DownloadCity {
 										e.printStackTrace();
 									}
 						
-							array = BuildingCity.Building ("Ancona", "IT", humidity, temperature, weather);
+									array = BuildingCity.Building (cityName, stateCode, humidity, temperature, weather);
 							
-							in.close();
+									in.close();
 								}
+							
 							} catch (FileNotFoundException e) {
 						    	e.printStackTrace();
 						    } catch (IOException e) {
@@ -239,8 +245,7 @@ public class DownloadCity {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-				
+		
 		return null;
 	}			
 }

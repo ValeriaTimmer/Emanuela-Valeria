@@ -5,6 +5,7 @@ import it.univpm.OpenWeather.exception.*;
 
 import java.text.ParseException;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Rotta che gestisce la chiamata della rotta "POST/stats"
+	 * Rotta che gestisce la chiamata della rotta "GET/stats"
 	 * @param type Parametro sul quale vengono effettuate le statistiche
 	 * @param from Data iniziale da quando si vogliono far partire le statistiche
 	 * @param to Data finale entro il quale si vogliono visualizzare le statistiche
@@ -49,22 +50,14 @@ public class Controller {
 	 * @throws StatsNotFoundException Eccezione personalizzata 
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
-	 *
-	@PostMapping (value = "/stats")
-	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
-			@RequestParam (value = "from", defaultValue = "null") String from,
-			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
-	UrlException, ClassNotFoundException, ParseException {
-		return c.getStats(type, from, to);
-	}
 	*/
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.GET)
-	public ResponseEntity<Object> getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
-			@RequestParam (value = "from", defaultValue = "null") String from,
-			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
+	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
+			@RequestParam (value = "from", defaultValue = "") String from,
+			@RequestParam (value = "to", defaultValue = "") String to) throws StatsNotFoundException, DataFormatException,
 	UrlException, ClassNotFoundException, ParseException {
-		return new ResponseEntity<> (c.getStats(type, from, to), HttpStatus.OK);
+		return c.getStats(type, from, to);
 	}
 	
 	/**
@@ -75,10 +68,11 @@ public class Controller {
 	 * @throws FilterNotFoundException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
 	 */
-	@PostMapping("/filters/cities")
-	public JSONArray getCityFiltered(@RequestParam (value = "city", defaultValue = "null") String city,
-			@RequestParam (value = "state", defaultValue = "null") String state) 
-					throws FilterNotFoundException, UrlException, ClassNotFoundException {
+	@RequestMapping(value = "/filters/cities", method = RequestMethod.POST)
+	public JSONArray getCityFiltered(@RequestBody JSONObject body) 
+			throws FilterNotFoundException, UrlException, ClassNotFoundException {
+		String city = (String) body.get("city");
+		String state = (String) body.get("country");
 		return c.getCityFiltered(city, state);
 	}
 	
@@ -91,11 +85,15 @@ public class Controller {
 	 * @throws FilterNotFoundException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
 	 */
-	@PostMapping (value = "/filters/humidity")
-	public JSONArray getHumidityFiltered (@RequestParam (value ="from", defaultValue = "0.0") String from,
-			@RequestParam (value = "to", defaultValue = "100.0") String to) throws FilterNotFoundException, UrlException,
+	@RequestMapping (value = "/filters/humidity", method = RequestMethod.POST)
+	public JSONArray getHumidityFiltered (@RequestBody JSONObject body) throws FilterNotFoundException, UrlException,
 	ClassNotFoundException {
-		return c.getHumidityFiltered(from, to);
+		String from = (String) body.get("from");
+		String to = (String) body.get("to");
+		if ((from == null | to == null) && (from.compareTo(to) > 0))
+			return null;
+		else  
+			return c.getHumidityFiltered(from, to);
 	}
 	
 	/**
@@ -106,11 +104,15 @@ public class Controller {
 	 * @throws FilterNotFoundException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata
 	 */
-	@PostMapping (value = "/filters/temperature")
-	public JSONArray getTemperatureFiltered (@RequestParam (value = "from", defaultValue = "253.15") String from,
-			@RequestParam (value = "to", defaultValue = "318.15") String to) throws FilterNotFoundException, UrlException,
+	@RequestMapping (value = "/filters/temperature", method = RequestMethod.POST)
+	public JSONArray getTemperatureFiltered (@RequestBody JSONObject body) throws FilterNotFoundException, UrlException,
 	ClassNotFoundException {
-		return c.getTemperatureFiltered (from, to);
+		String from = (String) body.get("from");
+		String to = (String) body. get("to");
+		if ((from == null | to == null) && (from.compareTo(to) > 0))
+			return null;
+		else  
+			return c.getTemperatureFiltered (from, to);
 	}
 	
 	/**
@@ -121,10 +123,11 @@ public class Controller {
 	 * @throws FilterNotFoundException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata
 	 */
-	@PostMapping (value = "/filters/weather")
-	public JSONArray getWeatherFiltered (@RequestParam (value = "city", defaultValue ="null")String weather,
-			@RequestParam(value = "weather", defaultValue = "null")String city) throws FilterNotFoundException, UrlException,
+	@RequestMapping (value = "/filters/weather", method = RequestMethod.POST)
+	public JSONArray getWeatherFiltered (@RequestBody JSONObject body) throws FilterNotFoundException, UrlException,
 	ClassNotFoundException {
+		String city = (String) body.get("city");
+		String weather = (String) body.get("description");
 		return c.getWeatherFiltered(city,weather);
 	}
 			
