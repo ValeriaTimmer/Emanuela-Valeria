@@ -4,9 +4,11 @@ import org.json.simple.JSONArray;
 import java.text.ParseException;
 import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
+import java.util.HashMap;
 
 import java.util.Date;
 import java.util.Locale;
+import java.time.LocalDate;
 import java.text.DateFormat;
 
 
@@ -64,7 +66,7 @@ public class Stats {
  	 * @return
  	 * @throws DataFormatException
  	 * @throws ParseException
- 	 */
+ 	 
  	public static long getPeriod (String from, String to) throws DataFormatException, ParseException {
 		if (today.before(dateFrom)) 
 			throw new DataFormatException();
@@ -79,7 +81,7 @@ public class Stats {
 	 * @return d Vettore contenente le date
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
-	 */
+	 
 	public static JSONArray date (String from, String to) throws DataFormatException, ParseException{
 		JSONArray d = new JSONArray();
 		Long period = getPeriod(from, to);
@@ -93,7 +95,7 @@ public class Stats {
  	/**
  	 * metodo che verifica le previsioni
  	 * @return
- 	 */
+ 	 
  	public boolean verificaPrevisioni( Double humidity, Double temperature, String from, String to) 
  			throws DataFormatException, ParseException {
  		JSONArray d1 = date(datainiziale, data_di_oggi);

@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDate;
 import java.text.ParseException;
 
 import org.springframework.stereotype.Service;
@@ -86,16 +87,16 @@ public class CityServiceImpl implements CityService {
 	 * @return JSONArray contenente le statistiche filtrate
 	 */
 	@Override 
-	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException, ClassNotFoundException,
+	public JSONArray getStats (String type, String from, String to ) throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
 		CityServiceImpl service = new CityServiceImpl();
 		Stats s = new Stats(service.getArray());
 		if (type.equals("humidity")) {
-			JSONArray statsHum = s.Statistics (s.getArray(), "humidity", datainiziale, datafinale);
+			JSONArray statsHum =s.Statistics (s.getArray(), "humidity", from, to);
 			return  statsHum; 
 		}
 		else if (type.equals("temperature")) {
-			JSONArray statsTemp = s.Statistics(s.getArray(), "temperature", datainiziale, datafinale);
+			JSONArray statsTemp = s.Statistics(s.getArray(), "temperature", from,to);
 			return statsTemp;
 		}
 		return null;

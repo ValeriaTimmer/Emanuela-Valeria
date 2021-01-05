@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 
 /**
  * Interfaccia 
@@ -34,7 +35,7 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
 	 */
-	public abstract JSONArray getStats(String type, String datainiziale, String datafinale) throws UrlException, ClassNotFoundException,
+	public abstract JSONArray getStats(String type, String from, String to) throws UrlException, ClassNotFoundException,
 	DataFormatException, ParseException;
 	
 	/**

@@ -5,9 +5,12 @@ import it.univpm.OpenWeather.exception.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.text.ParseException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Date;
+import java.util.Calendar;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
@@ -41,7 +44,7 @@ public class StatsUtils {
 	 * @return String data odierna
 	 */
 	private static String today() {
-		Date today = new Date();
+		Calendar today = Calendar.getInstance();
 		return formatoData.format(today);
 	}
 	
@@ -50,7 +53,7 @@ public class StatsUtils {
 	 * @return String data di ieri
 	 */
 	private static String yesterday() {
-		Date yesterday = new Date();
+		Calendar yesterday = Calendar.getInstance();
 		return formatoData.format(yesterday);
 	}
 	
@@ -100,8 +103,8 @@ public class StatsUtils {
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
 	 */
-	public static JSONArray date (String from, String to) throws DataFormatException, ParseException{
-		JSONArray d = new JSONArray();
+	public static ArrayList<String> date (String from, String to) throws DataFormatException, ParseException{
+		ArrayList<String> d = new ArrayList<String>();
 		Long period = getPeriod(from, to);
 		for (int i=0; i<=period; i++) {
 			d.add(formatoData.format(dateFrom));
@@ -131,7 +134,7 @@ public class StatsUtils {
 		
         String datafinale = formatoData.format(to);
         
-        JSONArray allDates = date(datainiziale, datafinale);
+        ArrayList<String> allDates = date(datainiziale, datafinale);
 		
 		for (Object o : array) {
 			

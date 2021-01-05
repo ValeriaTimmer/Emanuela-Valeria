@@ -4,6 +4,7 @@ import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import java.util.ArrayList;
 
 /**
  * Classe che implemeta i metodi di filtraggio
@@ -18,7 +19,7 @@ public class FilterUtils {
 	/**
 	 * Array che contiene i dati filtrati
 	 */
-	private static JSONArray filtered = new JSONArray();
+	private static ArrayList<JSONObject> filtered = new ArrayList<JSONObject>();
 	
 	/**
 	 * Metodo che filtra le città in base al nome e allo stato
@@ -27,7 +28,7 @@ public class FilterUtils {
 	 * @param state Nome dello stato 
 	 * @return Filtered Ritorna l'array filtrato
 	 */
-	public JSONArray getCityFiltered(JSONArray array, Object city, Object state) {
+	public ArrayList<JSONObject> getCityFiltered(JSONArray array, Object city, Object state) {
 		
 		for (Object o : array) {
 			
@@ -67,7 +68,7 @@ public class FilterUtils {
 	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
 	 * un oggetto Number che può essere convertito a numero
 	 */
-	public JSONArray getHumidityFiltered (JSONArray array, Object humidity1, Object humidity2) throws RuntimeException {
+	public ArrayList<JSONObject> getHumidityFiltered (JSONArray array, Object humidity1, Object humidity2) throws RuntimeException {
 		
 		for (Object o : array) {
 			
@@ -107,7 +108,7 @@ public class FilterUtils {
 	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
 	 * un oggetto Number che può essere convertito a numero
 	 */
-	public JSONArray getTemperatureFiltered (JSONArray array, Object temp1, Object temp2) throws RuntimeException {
+	public ArrayList<JSONObject> getTemperatureFiltered (JSONArray array, Object temp1, Object temp2) throws RuntimeException {
 		
 		for (Object o : array) {
 			
@@ -138,7 +139,7 @@ public class FilterUtils {
 		return filtered;
 	}
 	
-	public JSONArray getWeatherFiltered(JSONArray array, Object weather, Object city) throws RuntimeException {
+	public ArrayList<JSONObject> getWeatherFiltered(JSONArray array, Object weather, Object city) throws RuntimeException {
 		for(Object o:array) {
 			
 			if(o instanceof Object) {

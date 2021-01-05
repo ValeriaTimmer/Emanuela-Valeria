@@ -1,5 +1,4 @@
 package it.univpm.OpenWeather.controller;
-
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.time.LocalDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import java.util.HashMap;
 
 /**
  *  Rappresenta la classe che gestisce le chiamate al server
@@ -55,9 +56,10 @@ public class Controller {
 	@RequestMapping (value = "/stats", method = RequestMethod.GET)
 	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
 			@RequestParam (value = "from", defaultValue = "") String from,
-			@RequestParam (value = "to", defaultValue = "") String to) throws StatsNotFoundException, DataFormatException,
+			@RequestParam(value = "to", defaultValue = "") String to)
+			throws StatsNotFoundException, DataFormatException,
 	UrlException, ClassNotFoundException, ParseException {
-		return c.getStats(type, from, to);
+		return c.getStats(type,from,to);
 	}
 	
 	/**
