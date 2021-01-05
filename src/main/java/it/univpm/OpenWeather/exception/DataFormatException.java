@@ -1,12 +1,15 @@
 package it.univpm.OpenWeather.exception;
 
+import java.io.IOException;
+
 /**
+ * Classe che gestisce l'eccezione che segnala che si è
+ * verificato un errore di formato dati
  * @author Valeria Timmer
  * @author Emanuela Saleggia
- * classe che gestisce l'eccezione che segnala che si è
- * verificato un errore di formato dati
+ * 
  */
-public class DataFormatException extends Exception{
+public class DataFormatException extends IOException {
 	
 	/**
 	 * Numero che viene utilizzato durante la deserializzazione per verificare che il mittente 

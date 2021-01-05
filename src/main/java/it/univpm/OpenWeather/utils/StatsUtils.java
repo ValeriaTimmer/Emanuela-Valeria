@@ -7,7 +7,9 @@ import org.json.simple.JSONObject;
 import java.text.ParseException;
 import java.util.Vector;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.Locale;
+import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
 
@@ -30,9 +32,9 @@ public class StatsUtils {
 	private static Date dateTo;
 	
 	/**
-	 *  DateFormat per il parsing della data in formato: "dd-MM-yyyy"
+	 *  DateFormat per il parsing della data in formato: "dd/MM/yy"
 	 */
-	private static DateFormat formatoData = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+	private static DateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 	
 	/**
 	 * Metodo che genera la data odierna
@@ -85,8 +87,7 @@ public class StatsUtils {
 	 */
 	public static long getPeriod (String from, String to) throws DataFormatException, ParseException {
 		dateCheck(from, to);
-		if (dateTo.before(dateFrom)) 
-			throw new DataFormatException();
+		if (dateTo.before(dateFrom)) throw new DataFormatException();
 		return ((dateTo.getTime()- dateFrom.getTime()) / (24*60*60*1000));
 	}
 	
@@ -109,7 +110,6 @@ public class StatsUtils {
 		return d;
 	}
 	
-	
 	/**
 	 * Metodo che effettua le statistiche 
 	 * @param array Array sul quale vengono effettuate le statistiche
@@ -118,20 +118,18 @@ public class StatsUtils {
 	 * @param from Data dal quale si vogliono effettuare le statistiche
 	 * @param to Data fino al quale si vogliono effettuare le statistiche
 	 * @return stats Array contenente le statistiche 
+	 * @throws DataFormatException Eccezione personalizzata
+	 * @throws ParseException Errore di parsing
 	 */
-	public JSONArray getStats(JSONArray array, Object type, Object from, Object to) throws DataFormatException, ParseException{
+	public JSONArray getStats(JSONArray array, String type, String from, String to) throws DataFormatException, ParseException{
 		
 		JSONObject objectStats = new JSONObject();
 		
 		StatisticsCalculator calc = new StatisticsCalculator();
-			
-		Date data1 = (Date) from;
+
+		String datainiziale = formatoData.format(from);
 		
-		Date data2 = (Date) to;
-		
-		String datainiziale = formatoData.format(data1);
-        
-        String datafinale = formatoData.format(data2);
+        String datafinale = formatoData.format(to);
         
         JSONArray allDates = date(datainiziale, datafinale);
 		
@@ -142,29 +140,27 @@ public class StatsUtils {
 				JSONObject o1 = new JSONObject();
 				
 				try {
-					
-					String tipo = (String) type;
-					
-					if (tipo.equals("temperature")) {
+						
+					if (type.equals("temperature")) {
 						
 						for (Object obj1 : allDates) {
 							
 							if (obj1 instanceof Object) {
 							
-								type = (Double) o1.get("temperature");
-								calc.addCounter((Double)type);
+								Double value = (Double) o1.get("temperature");
+								calc.addCounter(value);
 								
 							}
 						}
 					}
-					else if (tipo.equals("humidity")) {
+					else if (type.equals("humidity")) {
 						
 						for (Object obj2 : allDates) {
 							
 							if (obj2 instanceof Object) {
 								
-								type = (Double) o1.get("humidity");
-								calc.addCounter((Double)type);
+								Double value = (Double) o1.get("humidity");
+								calc.addCounter(value);
 								
 							}
 						}

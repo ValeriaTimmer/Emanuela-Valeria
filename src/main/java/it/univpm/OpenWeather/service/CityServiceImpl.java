@@ -26,27 +26,29 @@ import org.springframework.context.annotation.Configuration;
  */
 @Service
 public class CityServiceImpl implements CityService {
+	
 	/**
 	 * Array contente i dati salvati
 	 */
 	JSONArray array = new JSONArray();
 	
-	DownloadCity d = new DownloadCity();
 	/**
-	 * Costruttore che inizializza il JSONArray
-	 * @param download Variabile della classe DownloadCity
-	 * @throws UrlException Eccezione personalizzata
+	 * Variabile di tipo DownloadCity
 	 */
+	DownloadCity d = new DownloadCity();
 	
-	public CityServiceImpl(DownloadCity download) throws UrlException {
-		try {
-		this.d = download;
-		this.array = d.Parser();
-		} catch (IllegalStateException e) {
-			System.out.println ("Errore Scheduler");
-			System.out.println ("Messaggio: " + e.getMessage());
-			System.out.println ("Causa: " + e.getCause());
-		}
+	/**
+	 * Costruttore
+	 */
+	public CityServiceImpl() {}
+	
+	/**
+	 * Metodo che inizializza 
+	 * @return
+	 * @throws UrlException
+	 */
+	public JSONArray getArray() throws UrlException {
+		return this.array = d.Parser();
 	}
 	
 	/**
@@ -57,6 +59,10 @@ public class CityServiceImpl implements CityService {
 	public HashMap <String, String > getMetadata(){
 		HashMap <String, String> c = new HashMap <String,String>();
 		c.put("city", "Contiene il nome della città");
+		c.put("country", "Contiene la sigla dello stato corrispondente alla città");
+		c.put("humidity", "Contiene il valore dell'umidità in percentuale");
+		c.put("temp", "Contiene il valore della temperatura in kelvin");
+		c.put("description", "Contiene la descrizione del meteo della città");
 		c.put("min", "Contiene il valore minimo dell'umidità o della temperatura in base al periodo scelto");
 		c.put("max", "Contiene il valore massimo dell'umidità o della temperatura in base al periodo scelto");
 		c.put("avg", "Contiene il valore medio dell'umidità o della temperatura in base al periodo scelto");
@@ -70,7 +76,8 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override
 	public JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException {
-		CityFilter c = new CityFilter (this.array);
+		CityServiceImpl service = new CityServiceImpl();
+		CityFilter c = new CityFilter (service.getArray());
 		return c.filtersCity (c.getCity(), city, state);
 	}
 	
@@ -81,7 +88,8 @@ public class CityServiceImpl implements CityService {
 	@Override 
 	public JSONArray getStats (String type, String datainiziale, String datafinale ) throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
-		Stats s = new Stats(this.array);
+		CityServiceImpl service = new CityServiceImpl();
+		Stats s = new Stats(service.getArray());
 		if (type.equals("humidity")) {
 			JSONArray statsHum = s.Statistics (s.getArray(), "humidity", datainiziale, datafinale);
 			return  statsHum; 
@@ -99,7 +107,8 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override
 	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
-		HumidityFilter h = new HumidityFilter (this.array);
+		CityServiceImpl service = new CityServiceImpl();
+		HumidityFilter h = new HumidityFilter (service.getArray());
 		return h.filtersCity(h.getHumidity(), param1, param2);
 	}
 	
@@ -109,7 +118,8 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override
 	public JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
-		TemperatureFilter t = new TemperatureFilter(this.array);
+		CityServiceImpl service = new CityServiceImpl();
+		TemperatureFilter t = new TemperatureFilter(service.getArray());
 		return t.filtersCity(t.getTemperature(), param1, param2);
 	}
 	
@@ -119,7 +129,8 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override
 	public JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException {
-		WeatherFilter w = new WeatherFilter(this.array);
+		CityServiceImpl service = new CityServiceImpl();
+		WeatherFilter w = new WeatherFilter(service.getArray());
 		return w.filtersCity (w.getWeather(), weather, city);
 	}
 }

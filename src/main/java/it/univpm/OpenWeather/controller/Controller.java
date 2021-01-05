@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.ResponseEntity;
@@ -48,13 +49,22 @@ public class Controller {
 	 * @throws StatsNotFoundException Eccezione personalizzata 
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
-	 */
+	 *
 	@PostMapping (value = "/stats")
 	public JSONArray getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
 			@RequestParam (value = "from", defaultValue = "null") String from,
 			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
 	UrlException, ClassNotFoundException, ParseException {
 		return c.getStats(type, from, to);
+	}
+	*/
+	
+	@RequestMapping (value = "/stats", method = RequestMethod.GET)
+	public ResponseEntity<Object> getStats (@RequestParam (value = "type", defaultValue = "humidity") String type, 
+			@RequestParam (value = "from", defaultValue = "null") String from,
+			@RequestParam (value = "to", defaultValue = "null") String to) throws StatsNotFoundException, DataFormatException,
+	UrlException, ClassNotFoundException, ParseException {
+		return new ResponseEntity<> (c.getStats(type, from, to), HttpStatus.OK);
 	}
 	
 	/**

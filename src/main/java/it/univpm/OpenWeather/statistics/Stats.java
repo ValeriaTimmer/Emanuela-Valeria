@@ -6,13 +6,12 @@ import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
 
 /**
- * Interfaccia per le statistiche
+ * Classe per le statistiche
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
- * @param <T> parametro generico
  */
-public class Stats <T, P, Q> {
+public class Stats {
 	/**
 	 * Array contenente le città
 	 */
@@ -24,7 +23,7 @@ public class Stats <T, P, Q> {
  	private StatsUtils utils;
     
     /**
-     * costruttore
+     * Costruttore
      * @param arrayCity
      */
      public Stats(JSONArray arrayCity) {
@@ -39,16 +38,19 @@ public class Stats <T, P, Q> {
  	 public JSONArray getArray() {
  		return arrayCity;
  	}
-	/**
+	
+ 	 /**
 	* Metodo astratto che viene implementato a seconda dell'esigenza
 	* @param arrayCity Array contenente le città
-	* @param parameter parametro(umidità/temperatura) sul quale si effettua la statistica
-	* @param from data d'inizio del periodo sul quale si effettuano le statistiche
-	* @param to data di fine del periodo sul quale si effettuano le statistiche
+	* @param parameter Parametro(umidità/temperatura) sul quale si effettua la statistica
+	* @param from Data d'inizio del periodo sul quale si effettuano le statistiche
+	* @param to Data di fine del periodo sul quale si effettuano le statistiche
 	* @return ritorna l'array contenente le statistiche effettuate
+	* @throws DataFormatException Eccezione personalizzata
+	* @throws ParseException Errore di parsing
 	*/
-		
-	public JSONArray Statistics (JSONArray arrayCity, T parameter, P from, Q to) throws DataFormatException, ParseException {
+	public JSONArray Statistics (JSONArray arrayCity, String parameter, String from, String to) throws DataFormatException, 
+	ParseException {
 		return(JSONArray) utils.getStats(arrayCity, parameter, from, to);
 	}
 		

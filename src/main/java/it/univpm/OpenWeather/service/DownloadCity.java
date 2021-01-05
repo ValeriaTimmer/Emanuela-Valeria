@@ -149,16 +149,13 @@ public class DownloadCity {
 								while ((inputLine = in.readLine()) != null) {  
 									
 									JSONParser parser = new JSONParser();
-									
-									// Analizzo l'oggetto city del JSON: Parse del contenuto dell'oggetto city
+								
 									JSONObject city = (JSONObject) parser.parse("city");
 								
-									// Analizzo l'oggetto list del JSON: Parse del contenuto dell'oggetto list
 									JSONArray list = (JSONArray) parser.parse("list");
 												
 									array = new ArrayList<City>();
 								
-									// Loop per ogni item dell'array list
 									for (Object obj1 : list) {
 									
 										if (obj1 instanceof JSONObject) {
