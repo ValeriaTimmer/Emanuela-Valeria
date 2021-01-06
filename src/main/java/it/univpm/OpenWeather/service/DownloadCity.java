@@ -93,10 +93,9 @@ public class DownloadCity {
 	 * @param Name Nome della città
 	 * @param Code Sigla dello Stato/Paese della città
 	 */
-	public DownloadCity (String Name, String Code, String apiKey) {
+	public DownloadCity (String Name, String Code) {
 		this.cityName = Name;
 		this.stateCode = Code;
-		this.apiKey = apiKey;
 	}
 	
 	/**
@@ -223,7 +222,7 @@ public class DownloadCity {
 					/*
 					* Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
 					 */
-					timer.scheduleAtFixedRate (task, firstTime, 3600000);
+					timer.scheduleAtFixedRate (task, firstTime, 30000);
 					
 					} catch (IllegalArgumentException e) {
 							// Viene lanciata se firstTime.getTime() < 0 o period <= 0

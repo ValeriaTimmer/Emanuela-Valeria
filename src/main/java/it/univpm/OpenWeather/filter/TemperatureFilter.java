@@ -1,4 +1,6 @@
+
 package it.univpm.OpenWeather.filter;
+
 
 import org.json.simple.JSONArray;
 
@@ -40,7 +42,9 @@ public class TemperatureFilter implements Filter <Object, Object> {
 	 */
 	@Override
 	public JSONArray filtersCity (JSONArray arrayTemperature, Object temp1, Object temp2) {
-		return (JSONArray) utils.getTemperatureFiltered(this.getTemperature(), temp1, temp2);
+		//return (JSONArray) utils.getTemperatureFiltered(this.getTemperature(), temp1, temp2);
+		return arrayTemperature;
 	}
 	
 }
+

@@ -1,7 +1,6 @@
 package it.univpm.OpenWeather.filter;
 
 import org.json.simple.JSONArray;
-import it.univpm.OpenWeather.service.DownloadCity;
 
 /**
  * Interfaccia per la gestione dei filtri
@@ -19,5 +18,6 @@ public interface Filter <C,S> {
 	 * @param param2 Secondo parametro di filtraggio 
 	 * @return Array filtrato mediante i parametri specificati
 	 */
-	abstract JSONArray filtersCity (JSONArray arrayCity, C param1, S param2);
+	abstract JSONArray filtersCity (JSONArray arrayCity, C city, S period);
+	
 }

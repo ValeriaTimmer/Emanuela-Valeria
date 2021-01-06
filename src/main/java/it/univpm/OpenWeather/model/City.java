@@ -33,7 +33,7 @@ public class City {
 	 */
 	private String apiKey;
 	/**
-	 * Costruttore della classe City che inizializza una città
+	 * Costruttore 
 	 * 
 	 * @param name Nome della città
 	 * @param country Paese/Stato della città
@@ -48,6 +48,18 @@ public class City {
 		this.temperature = temp;
 		this.weather = weather;
 	}
+	
+	/**
+	 * Costruttore
+	 * 
+	 * @param name Nome della città
+	 * @param country Paese/Stato della città
+	 */
+	public City(String name, String country) {
+		this.cityName = name;
+		this.stateCode = country;
+	}
+	
 	/**
 	 * Costruttore di default
 	 */

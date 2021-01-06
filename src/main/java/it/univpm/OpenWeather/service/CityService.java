@@ -35,8 +35,8 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
 	 */
-	public abstract JSONArray getStats(String type, String from, String to) throws UrlException, ClassNotFoundException,
-	DataFormatException, ParseException;
+	public abstract JSONArray getStats(String city, String state, String type, String from, String to) 
+			throws UrlException, ClassNotFoundException, DataFormatException, ParseException;
 	
 	/**
 	 * Metodo che permette di selezionare in base a degli intervalli di umidità scelti (in percentuale)

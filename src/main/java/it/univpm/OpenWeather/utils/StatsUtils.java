@@ -1,121 +1,42 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.model.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Date;
-import java.util.Calendar;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.Locale;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 
-
-import it.univpm.OpenWeather.statistics.StatisticsCalculator;
-
+/**
+ * Classe che gestisce le statistiche
+ * 
+ * @author Emanuela Saleggia 
+ * @author Valeria Timmer
+ *
+ */
 public class StatsUtils {
+	
 	/**
 	 * Array che contiene le statistiche riguardanti la temperatura
 	 */
 	private static JSONArray stats = new JSONArray ();
 	
 	/**
-	 * Data di inizio
+	 * Calcolatore di statistiche
 	 */
-	private static Date dateFrom;
+	StatisticsCalculator calc = new StatisticsCalculator();
 	
 	/**
-	 * Data di fine
+	 * Variabile della classe DateUtils
 	 */
-	private static Date dateTo;
-	
-	/**
-	 *  DateFormat per il parsing della data in formato: "dd/MM/yy"
-	 */
-	private static DateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
-	
-	/**
-	 * Metodo che genera la data odierna
-	 * @return String data odierna
-	 */
-	private static String today() {
-		Calendar today = Calendar.getInstance();
-		return formatoData.format(today);
-	}
-	
-	/**
-	 * Metodo che genera la data di ieri
-	 * @return String data di ieri
-	 */
-	private static String yesterday() {
-		Calendar yesterday = Calendar.getInstance();
-		return formatoData.format(yesterday);
-	}
-	
-	/**
-	 * Metodo che verifica se le date sono state inserite correttamente
-	 * Se non sono state inserite, assumono il valore della data di ieri (from) e di oggi (to)
-	 * @param from Data iniziale
-	 * @param to Data finale
-	 * @throws DataFormatException Eccezione personalizzata 
-	 * @throws ParseException Errore di parsing
-	 */
-	private static void dateCheck (String from, String to) throws DataFormatException, ParseException {	
-		
-		if (from.equals("") && to.equals("")) {
-			from = yesterday();
-			to = today();
-		}
-		else if (to.equals("")) {
-			to = today();
-		}
-		
-		dateFrom = formatoData.parse(from);
-		dateTo = formatoData.parse(to);
+	private DateUtils d;
 
-	}
-	
 	/**
-	 * Metodo che ritorna il valore del periodo in base alle date inserite
-	 * @param from Data iniziale
-	 * @param to Data finale
-	 * @return Periodo 
-	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di parsing
-	 */
-	public static long getPeriod (String from, String to) throws DataFormatException, ParseException {
-		dateCheck(from, to);
-		if (dateTo.before(dateFrom)) throw new DataFormatException();
-		return ((dateTo.getTime()- dateFrom.getTime()) / (24*60*60*1000));
-	}
-	
-	/**
-	 * Metodo che inserisce in un vettore le date comprese tra 
-	 * la data di inizio e la data di fine
-	 * @param from Data iniziale
-	 * @param to Data finale
-	 * @return d Vettore contenente le date
-	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di parsing
-	 */
-	public static ArrayList<String> date (String from, String to) throws DataFormatException, ParseException{
-		ArrayList<String> d = new ArrayList<String>();
-		Long period = getPeriod(from, to);
-		for (int i=0; i<=period; i++) {
-			d.add(formatoData.format(dateFrom));
-			dateFrom.setTime(dateFrom.getTime()+(24*60*60*1000));
-		}
-		return d;
-	}
-	
-	/**
-	 * Metodo che effettua le statistiche 
+	 * Metodo che effettua le statistiche su umidità o temperatura
 	 * @param array Array sul quale vengono effettuate le statistiche
+	 * @param city Nome della città
+	 * @param state Nome dello stato 
 	 * @param type Tipo di dato sul quale si vogliono effettuare le statistiche
 	 * (temperature / humidity)
 	 * @param from Data dal quale si vogliono effettuare le statistiche
@@ -124,17 +45,14 @@ public class StatsUtils {
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
 	 */
-	public JSONArray getStats(JSONArray array, String type, String from, String to) throws DataFormatException, ParseException{
+	public JSONArray getStats(JSONArray array, String city, String state, String type, String from, String to) 
+			throws DataFormatException, ParseException{
 		
 		JSONObject objectStats = new JSONObject();
 		
-		StatisticsCalculator calc = new StatisticsCalculator();
-
-		String datainiziale = formatoData.format(from);
-		
-        String datafinale = formatoData.format(to);
+        ArrayList<String> allDates = d.date(from, to);
         
-        ArrayList<String> allDates = date(datainiziale, datafinale);
+        City c = new City(city, state);
 		
 		for (Object o : array) {
 			
@@ -143,8 +61,10 @@ public class StatsUtils {
 				JSONObject o1 = new JSONObject();
 				
 				try {
-						
-					if (type.equals("temperature")) {
+					
+					switch (type) {
+					
+					case "temperature":
 						
 						for (Object obj1 : allDates) {
 							
@@ -152,11 +72,12 @@ public class StatsUtils {
 							
 								Double value = (Double) o1.get("temperature");
 								calc.addCounter(value);
-								
 							}
 						}
-					}
-					else if (type.equals("humidity")) {
+						
+						break;
+					
+					case "humidity": 
 						
 						for (Object obj2 : allDates) {
 							
@@ -164,11 +85,11 @@ public class StatsUtils {
 								
 								Double value = (Double) o1.get("humidity");
 								calc.addCounter(value);
-								
 							}
 						}
-						
+						break;
 					}
+
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -178,6 +99,9 @@ public class StatsUtils {
 		
 		try {
 			
+			objectStats.put("city", city);
+			objectStats.put("state", state);
+			objectStats.put("type", type);
 			objectStats.put ("min", calc.getMin());
 			objectStats.put ("max", calc.getMax());
 			objectStats.put ("avg", calc.getAverage());

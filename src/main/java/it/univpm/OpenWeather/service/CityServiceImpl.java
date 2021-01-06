@@ -87,19 +87,19 @@ public class CityServiceImpl implements CityService {
 	 * @return JSONArray contenente le statistiche filtrate
 	 */
 	@Override 
-	public JSONArray getStats (String type, String from, String to ) throws UrlException, ClassNotFoundException,
+	public JSONArray getStats (String city, String state, String type, String from, String to ) 
+			throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
+		
 		CityServiceImpl service = new CityServiceImpl();
+		
 		Stats s = new Stats(service.getArray());
-		if (type.equals("humidity")) {
-			JSONArray statsHum =s.Statistics (s.getArray(), "humidity", from, to);
-			return  statsHum; 
-		}
-		else if (type.equals("temperature")) {
-			JSONArray statsTemp = s.Statistics(s.getArray(), "temperature", from,to);
-			return statsTemp;
-		}
-		return null;
+		
+		City c = new City(city, state);
+		
+		JSONArray stats = s.Statistics(s.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
+		
+		return stats;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class CityServiceImpl implements CityService {
 	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
 		CityServiceImpl service = new CityServiceImpl();
 		HumidityFilter h = new HumidityFilter (service.getArray());
-		return h.filtersCity(h.getHumidity(), param1, param2);
+		return h.filtersCity(h.getArray(), param1, param2);
 	}
 	
 	/**

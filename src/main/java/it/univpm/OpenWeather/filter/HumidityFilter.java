@@ -35,7 +35,7 @@ public class HumidityFilter implements Filter <Object, Object> {
 	 * Metodo Getter dell'array 
 	 * @return arrayCity Ritorna l'array
 	 */
-	public JSONArray getHumidity() {
+	public JSONArray getArray() {
 		return arrayHumidity;
 	}
 	
@@ -45,8 +45,8 @@ public class HumidityFilter implements Filter <Object, Object> {
 	 * @return Ritorna l'array filtrato 
 	 */
 	@Override
-	public JSONArray filtersCity (JSONArray arrayHumidity, Object humidity1, Object humidity2) {
-		return (JSONArray) utils.getHumidityFiltered (this.getHumidity(), humidity1, humidity2);
+	public JSONArray filtersCity (JSONArray arrayHumidity, Object city, Object period) {
+		return (JSONArray) utils.getHumidityFiltered (this.getArray(), city, period);
 	}
 
 }

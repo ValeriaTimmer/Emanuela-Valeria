@@ -21,13 +21,15 @@ public class FilterUtils {
 	 */
 	private static ArrayList<JSONObject> filtered = new ArrayList<JSONObject>();
 	
+	
+	
 	/**
 	 * Metodo che filtra le città in base al nome e allo stato
 	 * @param array Array da filtrare
 	 * @param city Nome della città
 	 * @param state Nome dello stato 
 	 * @return Filtered Ritorna l'array filtrato
-	 */
+	 *
 	public ArrayList<JSONObject> getCityFiltered(JSONArray array, Object city, Object state) {
 		
 		for (Object o : array) {
@@ -58,17 +60,18 @@ public class FilterUtils {
 		
 		return filtered;
 	}
+	*/
 	
 	/**
 	 * Metodo che filtra l'umidità compresa tra due valori 
 	 * @param array Array da filtrare
-	 * @param humidity1 Valore minimo dell'intervallo di umidità 
-	 * @param humidity2 Valore massimo dell'intervallo di umidità
+	 * @param city Città su cui si vuole applicare il filtro
+	 * @param fromTo Intervallo di filtraggio
 	 * @return Filtered Ritorna l'array filtrato
 	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
 	 * un oggetto Number che può essere convertito a numero
 	 */
-	public ArrayList<JSONObject> getHumidityFiltered (JSONArray array, Object humidity1, Object humidity2) throws RuntimeException {
+	public ArrayList<JSONObject> getHumidityFiltered (JSONArray array, Object city, Object period) throws RuntimeException {
 		
 		for (Object o : array) {
 			
@@ -78,11 +81,13 @@ public class FilterUtils {
 				
 				try {
 					
-					Double umidita = (Double) o1.get("humidity");
+					String cities = (String) o1.get("city");
 					
-					if(umidita >= (Double) humidity1 && umidita <= (Double)humidity2) {
-						filtered.add(o1);
+					if (city.equals(cities)) {
 						
+						Double hum = (Double) o1.get("humidity");
+						
+							filtered.add(o1);
 					}
 					
 				} catch (Exception e) {
@@ -107,7 +112,7 @@ public class FilterUtils {
 	 * @return filtered Ritorna l'array filtrato 
 	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
 	 * un oggetto Number che può essere convertito a numero
-	 */
+	 *
 	public ArrayList<JSONObject> getTemperatureFiltered (JSONArray array, Object temp1, Object temp2) throws RuntimeException {
 		
 		for (Object o : array) {
@@ -165,5 +170,5 @@ public class FilterUtils {
 		}
 		return filtered;
 	}
-
+*/
 }

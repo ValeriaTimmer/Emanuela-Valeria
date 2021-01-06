@@ -1,4 +1,4 @@
-package it.univpm.OpenWeather.statistics;
+package it.univpm.OpenWeather.utils;
 
 import java.util.ArrayList;
 import java.lang.Math;
