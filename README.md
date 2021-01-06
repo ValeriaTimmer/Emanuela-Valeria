@@ -11,16 +11,9 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
  e all'umidità di una determinata città. 
  In partiolare l'applicazione sarà in grado di: 
  - Restituire dei metadati in formato JSON 
- - Restituire dei dati filtrati in formato JSON
  - Restituire delle statistiche su alcuni dati in formato JSON 
+ - Restituire statistiche riguardo il numero di previsioni azzeccate in formato JSON
  
-## Filtri 
-Il filtraggio dei dati avviene in base:
- - Nome della città e stato 
- - Intervalli di umidità (in percentuale)
- - Intervalli di temperatura (misurati in Kelvin) 
- - Descrizione metereologica e nome della città
-
 ## Statistiche
 Le statistiche riguardano: 
 - Valore minimo
@@ -29,8 +22,13 @@ Le statistiche riguardano:
 - Varianza
 
 Le statistiche saranno effettuate su:
- - Umidità
+ - Umidità 
  - Temperatura
+
+Le statistiche riguardanti le previsioni azzeccate sono effettuate in base ad una soglia
+di errore ed in base ai giorni di predizione (da 1 a 5).
+
+Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodicità desiderata.
 
 
 # UML
@@ -65,32 +63,21 @@ Le statistiche saranno effettuate su:
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
 differiscono in base alle diverse rotte mostrate nella tabella sottostante
 
-TIPO | ROTTA | PARAMETRI | DESCRIZIONE
------|-------|-----------|------------
-GET  |/metadata | - | Restituisce i metadata 
-POST |/stats | type, from, to | Effettua le statistiche relative ai parametri richiesti 
-POST |/filters/cities | city, state | Restituisce le previsioni in base al nome della città e dello stato
-POST |/filters/humidity | from, to | Restituisce le previsioni in base agli intervalli di umidità richiesti
-POST |/filters/temperature | from, to | Restituisce le previsioni delle città in base agli intervalli di temperatura (kelvin) richiesti
-POST |/filters/weather | weather, city | Restituisce le previsioni delle città in base ad una descrizione meteo desiderata
+TIPO | ROTTA | DESCRIZIONE
+-----|-------|------------
+GET  |/metadata | Restituisce i metadata 
+POST |/stats  | Effettua le statistiche in base a parametri scelti dall'utente 
+POST |/forecast | Effettua le statistiche riguardo le previsioni meteoreologiche in base a paramtri scelti dall'utente
 
-### Parametri delle statistiche:
-"Type" indica il parametro su cui si effettuano le statistiche, che possono perciò riguardate la temperatura o l'umidità.
-"From" indica  la data di inizio del periodo su cui si effettuano le statistiche.
-"to" indica la data di fine del periodo su cui si effettuano le statistiche.
+### Parametri richiesti:
+Per visualizzare le statistiche desiderate viene richiesto all'utente di inserire alcuni parametri: 
+- "city" : nome della città 
+- "country" : sigla dello stato della città (es. "IT" per "ITALY")
+- "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori "humidity" o "temperature"
+- "from" : data di inizio
+- "to": data di fine
 
-### Parametri filters/cities
-"city" è il parametro che indica il nome della città.
-"state"  è il parametro che indica il codice dello stato in cui si trova la città.
-
-### Parametri filters/humidity
-"from" indica il  primo valore  dell'intervallo preso in considerazione.
-"to" indica il valore finale dell'intervallo preso in considerazione.
-
-### Parametri filters/temperature
-"from" indica il primo valore dell'intervallo preso in considera.
-"to" indica il valore finale dell'intervallo preso in considerazione.
-
-
-
-
+Per visualizzare le statistiche riguardo le previsioni metereologiche viene richiesto all'utente di inserire alcuni paramtri:
+- "city" : nome della città
+- "country" : sigla dello stato della città (es. "IT" per "ITALY")
+- "period" : numero di giorni di predizione. Può assumere valori da 1 a 5
