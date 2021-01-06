@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import java.text.ParseException;
 import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.service.*;
 import java.util.HashMap;
 
 import java.util.Date;
@@ -20,10 +21,6 @@ import java.text.SimpleDateFormat;
  *
  */
 public class Stats {
-	/**
-	 * Array contenente le città
-	 */
-     private JSONArray arrayCity;
      
      /**
  	 * Variabile utilizzata per richiamare il metodo della classe StatsUtils
@@ -34,8 +31,7 @@ public class Stats {
      * Costruttore
      * @param arrayCity
      */
-     public Stats(JSONArray arrayCity) {
-    	this.arrayCity = arrayCity;
+     public Stats(){
     	this.utils = new StatsUtils();
      }
      
@@ -43,10 +39,7 @@ public class Stats {
  	 * Metodo Getter degli array delle città
  	 * @return ArrayCity ritorna l'array delle città
  	 */
- 	 public JSONArray getArray() {
- 		return arrayCity;
- 	}
-
+ 	
  	/**
 	* Metodo astratto che viene implementato a seconda dell'esigenza
 	* @param arrayCity Array contenente le città
@@ -57,9 +50,9 @@ public class Stats {
 	* @throws DataFormatException Eccezione personalizzata
 	* @throws ParseException Errore di parsing
 	*/
-	public JSONArray Statistics (JSONArray arrayCity, String city, String state, String parameter, String from, String to) throws DataFormatException, 
-	ParseException {
-		return(JSONArray) utils.getStats(arrayCity, city, state, parameter, from, to);
+	public JSONArray Statistics (JSONArray array, String city, String state, String parameter, String from, String to) throws DataFormatException, 
+	ParseException, UrlException {
+		return(JSONArray) utils.getStats(utils.getArray(), city, state, parameter, from, to);
 	}
 		
 }

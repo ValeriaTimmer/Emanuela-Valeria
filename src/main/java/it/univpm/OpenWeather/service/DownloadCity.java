@@ -101,7 +101,10 @@ public class DownloadCity {
 	/**
 	 * Costruttore senza parametri
 	 */
-	public DownloadCity() {}
+	public DownloadCity() {
+		this.download = new JSONArray();
+		this.array = new ArrayList<City>();
+	}
 	
 	/**
 	 * Metodo che permette di Parsare i campi desiderati del JSON 
@@ -157,8 +160,6 @@ public class DownloadCity {
 									JSONObject city = (JSONObject) parser.parse("city");
 								
 									JSONArray list = (JSONArray) parser.parse("list");
-												
-									array = new ArrayList <City>();
 								
 									for (Object obj1 : list) {
 									
@@ -240,11 +241,12 @@ public class DownloadCity {
 				
 		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 		        return download;
-		
+		        
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		return null;
+		
 	}			
 }

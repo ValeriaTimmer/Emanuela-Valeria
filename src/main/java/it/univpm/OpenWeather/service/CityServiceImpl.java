@@ -4,6 +4,7 @@ import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.statistics.*;
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.utils.*;
 
 
 import org.json.simple.JSONArray;
@@ -28,29 +29,28 @@ import org.springframework.context.annotation.Configuration;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	/**
-	 * Array contente i dati salvati
-	 */
-	JSONArray array = new JSONArray();
+	private City c;
 	
-	/**
-	 * Variabile di tipo DownloadCity
-	 */
-	DownloadCity d = new DownloadCity();
+	private Stats s;
+	
+	private StatsUtils u;
+	
+	private JSONArray stats;
 	
 	/**
 	 * Costruttore
 	 */
-	public CityServiceImpl() {}
+	public CityServiceImpl() {
+		this.s = new Stats();
+		this.u = new StatsUtils();
+		this.stats = new JSONArray();
+	}
 	
 	/**
 	 * Metodo che inizializza 
 	 * @return
 	 * @throws UrlException
 	 */
-	public JSONArray getArray() throws UrlException {
-		return this.array = d.Parser();
-	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -74,14 +74,14 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return c JSONArray contenente le città filtrate per nome e stato
-	 */
+	 
 	@Override
 	public JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException {
 		CityServiceImpl service = new CityServiceImpl();
 		CityFilter c = new CityFilter (service.getArray());
 		return c.filtersCity (c.getCity(), city, state);
 	}
-	
+	*/
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return JSONArray contenente le statistiche filtrate
@@ -91,13 +91,9 @@ public class CityServiceImpl implements CityService {
 			throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
 		
-		CityServiceImpl service = new CityServiceImpl();
+		this.c = new City(city, state);
 		
-		Stats s = new Stats(service.getArray());
-		
-		City c = new City(city, state);
-		
-		JSONArray stats = s.Statistics(s.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
+	    stats = s.Statistics(u.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
 		
 		return stats;
 	}
@@ -105,18 +101,18 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return h JSONArray contenete le umidità filtrate
-	 */
+	 
 	@Override
 	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
 		CityServiceImpl service = new CityServiceImpl();
 		HumidityFilter h = new HumidityFilter (service.getArray());
 		return h.filtersCity(h.getArray(), param1, param2);
 	}
-	
+	*/
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return t JSONArray contenete le temperature filtrate
-	 */
+	 
 	@Override
 	public JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
 		CityServiceImpl service = new CityServiceImpl();
@@ -127,11 +123,12 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return w JSONArray contenente le città filtrate per tipo di meteo 
-	 */
+	 
 	@Override
 	public JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException {
 		CityServiceImpl service = new CityServiceImpl();
 		WeatherFilter w = new WeatherFilter(service.getArray());
 		return w.filtersCity (w.getWeather(), weather, city);
 	}
+	*/
 }

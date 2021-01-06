@@ -28,9 +28,9 @@ public class DateUtils {
 	private static Date dateTo;
 	
 	/**
-	 *  DateFormat per il parsing della data in formato: "dd/MM/yy"
+	 *  DateFormat per il parsing della data in formato: "dd/MM/yyyy"
 	 */
-	private static DateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	
 	/**
 	 * Metodo che genera la data odierna

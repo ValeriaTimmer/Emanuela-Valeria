@@ -2,11 +2,13 @@ package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.model.*;
+import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Classe che gestisce le statistiche
@@ -16,6 +18,16 @@ import java.util.ArrayList;
  *
  */
 public class StatsUtils {
+	
+	/**
+	 * array contenente le città
+	 */
+	 private JSONArray arrayCity;
+	 
+	 /**
+	  * oggetto della classe DownloadCity
+	  */
+	 private DownloadCity d;
 	
 	/**
 	 * Array che contiene le statistiche riguardanti la temperatura
@@ -28,9 +40,21 @@ public class StatsUtils {
 	StatisticsCalculator calc = new StatisticsCalculator();
 	
 	/**
+	  * costruttore
+	  */
+	 public StatsUtils() {
+		 this.arrayCity = new JSONArray();
+		 d = new DownloadCity();
+	 }
+	
+	public JSONArray getArray() throws UrlException{
+ 		this.arrayCity = d.Parser();
+ 		return arrayCity;
+ 	}
+	/**
 	 * Variabile della classe DateUtils
 	 */
-	private DateUtils d;
+	//private DateUtils d;
 
 	/**
 	 * Metodo che effettua le statistiche su umidità o temperatura
@@ -50,13 +74,13 @@ public class StatsUtils {
 		
 		JSONObject objectStats = new JSONObject();
 		
-        ArrayList<String> allDates = d.date(from, to);
+        ArrayList<String> allDates = DateUtils.date(from, to);
         
         City c = new City(city, state);
 		
 		for (Object o : array) {
 			
-			if (o instanceof Object) {
+			if (o instanceof JSONArray) {
 				
 				JSONObject o1 = new JSONObject();
 				

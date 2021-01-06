@@ -29,7 +29,7 @@ public interface CityService {
 	 * Metodo che permette di selezionare le città filtrate
 	 * @return JSONArray delle città filtrate
 	 */
-	public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
+	//public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
 	
 	/**
 	 * Metodo che permette di selezionare le statistiche 
@@ -44,7 +44,7 @@ public interface CityService {
 	 * @param param2 Estremo superiore dell'intervallo di umidità
 	 * @return JSONArray delle città filtrato
 	 */
-	public abstract JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
+	//public abstract JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
 	
 	/**
 	 * Metodo che permette di selezionare in base a degli intervalli di temperatura scelti (in kelvin)
@@ -52,7 +52,7 @@ public interface CityService {
 	 * @param param2 Estremo superiore dell'intervallo di temperatura 
 	 * @return JSONArray filtrato
 	 */
-	public abstract JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
+	//public abstract JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
 	
 	/**
 	 * Metodo che permette di selezionare la tipologia di meteo e la città
@@ -60,6 +60,6 @@ public interface CityService {
 	 * @param city Nome della città
 	 * @return JSONArray delle città filtrate
 	 */
-	 public abstract JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException;
+	 //public abstract JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException;
 	
 }
