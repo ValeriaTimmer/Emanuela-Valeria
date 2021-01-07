@@ -16,9 +16,11 @@ import java.time.LocalDate;
 import java.text.ParseException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Classe che implementa l'interfaccia
@@ -31,25 +33,30 @@ import org.springframework.context.annotation.Configuration;
 public class CityServiceImpl implements CityService {
 	
 	/**
-	 * Variabile della classe Stats
-	 */
-	private Stats s;
-	
-	/**
 	 * Variabile della classe DownloadCity
 	 */
 	private DownloadCity d = new DownloadCity();
 	
+	/**
+	@Scheduled (fixedRate = 1000)
+	private void ScheduleFixedRateTask() throws UrlException {
+		this.array = this.d.Parser();
+	}
+	*/
+	
+	JSONArray array = new JSONArray();
 	
 	/**
 	 * Costruttore
 	 */
 	public CityServiceImpl() throws UrlException {
-		JSONArray arr = new JSONArray();
-		arr = d.Parser();
-		this.s = new Stats(arr);
+		//this.array = d.Parser();
 	}
 	
+	/**
+	 * Variabile della classe Stats
+	 */
+	//private Stats s = new Stats();
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -91,6 +98,10 @@ public class CityServiceImpl implements CityService {
 	public HashMap <String, String> getStats (String city, String state, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
+		
+		this.array = d.Parser();
+		
+		Stats s = new Stats(this.array);
 		
 		City c = new City (city, state);
 		

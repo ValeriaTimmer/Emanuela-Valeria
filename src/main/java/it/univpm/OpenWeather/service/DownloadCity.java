@@ -16,7 +16,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
@@ -27,7 +29,8 @@ import org.springframework.web.client.RestTemplate;
  * @author Emanuela Saleggia
  *
  */
-@Configuration
+
+@Component
 public class DownloadCity {
 	
 	/*
@@ -101,11 +104,12 @@ public class DownloadCity {
 	/**
 	 * Metodo che permette di Parsare i campi desiderati del JSON 
 	 */
-	@Bean
+	
+	@Scheduled (fixedRate = 3600000)
 	public JSONArray Parser() throws UrlException {
 		
 		try {
-				try {			
+				//try {			
 					/**
 					 * Costruttore della classe Date di java.lang.Object che iniziailizza 
 					 * il momento di inizio del metodo
@@ -113,27 +117,24 @@ public class DownloadCity {
 					 * @Deprecated : Alloca un oggetto Date e lo inizializza in modo che rappresenti la mezzanotte, 
 					 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
 					 */
-					@Deprecated
-					Date firstTime = new Date(2021, 01, 01);
+					//@Deprecated
+					//Date firstTime = new Date(2021, 01, 01);
 					
 					/**
 					 * Costruttore della classe Timer di java.lang.Object
 					 */
-					Timer timer = new Timer();
-					
+					//Timer timer = new Timer();
 					/*
 					 * Costruttore della classe TimerTask che effettua l'override del metodo run
 					 * dell'interfaccia Runnable di java.lang.Object
 					 */
-					TimerTask task = new TimerTask() {
-
+					//TimerTask task = new TimerTask() {
 					/*
 					 * Metodo che salva le informazioni delle città scelte in un arrayList
 					 * Effettua l'override del metodo run() della classe TimerTask
 					 */
-						@Override
-						public void run() {
-							//try {
+						//@Override
+					//public void run() { 
 								
 								// URL di OpenWeather da Parsare
 								//URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"," + stateCode +"&appid=" + DownloadCity.getApiKey());
@@ -213,12 +214,12 @@ public class DownloadCity {
 								System.out.println ("Messaggio: " + e.getMessage());
 								System.out.println ("Causa: " + e.getCause());
 						    }
-						}
-					};
+						//}
+					//};
 					
 					/*
 					* Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
-					 */
+					 *
 					timer.scheduleAtFixedRate (task, firstTime, 30000);
 					
 					} catch (IllegalArgumentException e) {
@@ -233,9 +234,9 @@ public class DownloadCity {
 					} catch (NullPointerException e) {
 							// Viene lanciata se task o fistTime sono null
 							e.printStackTrace();
-					}
-				
-		        this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
+					}*/
+		        
+				this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(array));
 		        return download;
 		        
 		} catch (ParseException e) {
@@ -244,5 +245,7 @@ public class DownloadCity {
 		
 		return null;
 		
-	}			
+	}
+	
+	
 }

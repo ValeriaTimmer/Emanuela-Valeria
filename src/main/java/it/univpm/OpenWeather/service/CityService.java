@@ -1,12 +1,14 @@
 package it.univpm.OpenWeather.service;
 
 import it.univpm.OpenWeather.model.City;
+
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 /**
@@ -16,7 +18,6 @@ import java.time.LocalDate;
  * @author ValeriaTimmer
  *
  */
-
 public interface CityService {
 	
 	/**

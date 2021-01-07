@@ -7,6 +7,7 @@ package it.univpm.OpenWeather.model;
  * @author Emanuela Saleggia
  */
 
+
 public class City {
 	/*
 	 * Nome della città
