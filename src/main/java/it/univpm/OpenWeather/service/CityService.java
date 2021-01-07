@@ -35,7 +35,7 @@ public interface CityService {
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
 	 */
-	public abstract JSONArray getStats(String city, String state, String type, String from, String to) 
+	public abstract HashMap <String, String> getStats(String city, String state, String type, String from, String to) 
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException;
 	
 	/**

@@ -1,7 +1,6 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.exception.*;
-import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONArray;
@@ -19,20 +18,20 @@ import java.util.HashMap;
  */
 public class StatsUtils {
 	
-	/**
-	 * array contenente le città
-	 */
-	 private JSONArray arrayCity;
-	 
 	 /**
-	  * oggetto della classe DownloadCity
+	  * Oggetto della classe DownloadCity
 	  */
 	 private DownloadCity d;
+	 
+	 /**
+	  * ArrayList sul quale vengono i dati scelti su cui si effettuano le statistiche
+	  */
+	 private static ArrayList <Double> arr = new ArrayList<Double>();
 	
 	/**
-	 * Array che contiene le statistiche riguardanti la temperatura
+	 * Array che contiene le statistiche 
 	 */
-	private static JSONArray stats = new JSONArray ();
+	//private JSONArray stats = new JSONArray ();
 	
 	/**
 	 * Calcolatore di statistiche
@@ -40,24 +39,75 @@ public class StatsUtils {
 	StatisticsCalculator calc = new StatisticsCalculator();
 	
 	/**
-	  * costruttore
-	  */
+	  * Costruttore
+	  *
 	 public StatsUtils() {
 		 this.arrayCity = new JSONArray();
-		 d = new DownloadCity();
 	 }
 	
-	public JSONArray getArray() throws UrlException{
+	 /**
+	  * Metodo Getter dell'array parsato
+	  * @return arraCity Ritorna l'array con i dati parsati
+	  *
+	public JSONArray getArray() throws UrlException {
  		this.arrayCity = d.Parser();
  		return arrayCity;
  	}
-	/**
-	 * Variabile della classe DateUtils
 	 */
-	//private DateUtils d;
-
+	
 	/**
-	 * Metodo che effettua le statistiche su umidità o temperatura
+	 * Metodo che preleva i dati desiderati e li salva in un ArrayList
+	 * @param array Array contenente i dati da analizzare
+	 * @param type Tipo di dato da analizzare (humidity/temperature)
+	 * @param from Data di inizio
+	 * @param to Data di fine
+	 * @return arr ArrayList che contiene i dati sui quali vengono effettuate le statistiche
+	 * @throws DataFormatException Eccezione personalizzata
+	 * @throws ParseException Errore di Parsing
+	 */
+	public ArrayList<Double> getValues (JSONArray array, String type, String from, String to)
+	throws DataFormatException, ParseException {
+		
+		ArrayList <String> allDates = DateUtils.date(from, to);
+		
+		try {
+	        
+        	for (String d : allDates) {
+		
+        		for (Object o : array) {
+			
+        			if (o instanceof JSONArray) {
+				
+        				JSONObject o1 = new JSONObject();
+				
+        					if (type.equals ("temperature")) {
+							
+								Double value1 = (Double) o1.get("temperature");
+								arr.add(value1);
+														
+        					}
+					
+        					if (type.equals("humidity")){ 
+						
+								Double value2 = (Double) o1.get("humidity");
+								arr.add(value2);
+        					}
+        			}
+				
+        		}
+        
+        	}
+        
+        } catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return arr;
+		
+	}
+	
+	/**
+	 * Metodo inserisce le statistiche su un' HashMap
 	 * @param array Array sul quale vengono effettuate le statistiche
 	 * @param city Nome della città
 	 * @param state Nome dello stato 
@@ -65,73 +115,24 @@ public class StatsUtils {
 	 * (temperature / humidity)
 	 * @param from Data dal quale si vogliono effettuare le statistiche
 	 * @param to Data fino al quale si vogliono effettuare le statistiche
-	 * @return stats Array contenente le statistiche 
+	 * @return stats HashMap che contiene i dati delle statistiche 
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
 	 */
-	public JSONArray getStats(JSONArray array, String city, String state, String type, String from, String to) 
+	public HashMap<String, String> getStats (JSONArray array, String city, String state, String type, String from, String to) 
 			throws DataFormatException, ParseException{
 		
-		JSONObject objectStats = new JSONObject();
-		
-        ArrayList<String> allDates = DateUtils.date(from, to);
-        
-        City c = new City(city, state);
-		
-		for (Object o : array) {
-			
-			if (o instanceof JSONArray) {
-				
-				JSONObject o1 = new JSONObject();
-				
-				try {
-					
-					switch (type) {
-					
-					case "temperature":
-						
-						for (Object obj1 : allDates) {
-							
-							if (obj1 instanceof Object) {
-							
-								Double value = (Double) o1.get("temperature");
-								calc.addCounter(value);
-							}
-						}
-						
-						break;
-					
-					case "humidity": 
-						
-						for (Object obj2 : allDates) {
-							
-							if (obj2 instanceof Object) {
-								
-								Double value = (Double) o1.get("humidity");
-								calc.addCounter(value);
-							}
-						}
-						break;
-					}
-
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-				
-		}
+		HashMap <String, String> stats = new HashMap <String, String>();
 		
 		try {
 			
-			objectStats.put("city", city);
-			objectStats.put("state", state);
-			objectStats.put("type", type);
-			objectStats.put ("min", calc.getMin());
-			objectStats.put ("max", calc.getMax());
-			objectStats.put ("avg", calc.getAverage());
-			objectStats.put ("var", calc.getVariance());
-		
-			stats.add(objectStats);
+			stats.put("city", city);
+			stats.put("state", state);
+			stats.put("type", type);
+			stats.put ("min", calc.getMin(this.getValues(array, type, from, to)).toString());
+			stats.put ("max", calc.getMax(this.getValues(array, type, from, to)).toString());
+			stats.put ("avg", calc.getAverage(this.getValues(array, type, from, to)).toString());
+			stats.put ("var", calc.getVariance(this.getValues(array, type, from, to)).toString());
 		
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

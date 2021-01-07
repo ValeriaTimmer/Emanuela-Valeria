@@ -4,15 +4,6 @@ import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
@@ -23,8 +14,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
  * Humidity, Temperature, Weather
@@ -36,11 +29,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class DownloadCity {
-	
-	/*
-	 * Stringa con Url da parsare
-	 */
-	public static String url = "https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47";
 	
 	/*
 	 * Nome della città
@@ -82,6 +70,10 @@ public class DownloadCity {
 	 */
 	private JSONArray download;
 	
+	/**
+	 * Metodo Getter statico dell'apiKey
+	 * @return apiKey Valore della chiave api
+	 */
 	private static String getApiKey () {
 		return apiKey;
 	}
@@ -141,22 +133,22 @@ public class DownloadCity {
 					 */
 						@Override
 						public void run() {
-							try {
+							//try {
 								
 								// URL di OpenWeather da Parsare
-								URL OW = new URL (url);
-								HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
-								yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+								//URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"," + stateCode +"&appid=" + DownloadCity.getApiKey());
+								//HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
+								//yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 							
-								BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
+								//BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
 							    
-								String inputLine;
+								//String inputLine;
 								
 								// Criclo while che controlla che il contenuto di input non sia vuoto
-								while ((inputLine = in.readLine()) != null) {  
+								//while ((inputLine = in.readLine()) != null) {  
 									
 									JSONParser parser = new JSONParser();
-								
+				/**
 									JSONObject city = (JSONObject) parser.parse("city");
 								
 									JSONArray list = (JSONArray) parser.parse("list");
@@ -171,16 +163,13 @@ public class DownloadCity {
 										    
 												JSONObject main = (JSONObject) op.get("main");
 											
-												Double hum = (Double) main.get ("humidity");
-												humidity = hum;
+												humidity = (Double) main.get ("humidity");
 												
-												Double temp = (Double) main.get("temp");
-												temperature = temp;
+												temperature = (Double) main.get("temp");
 											
 												JSONObject w = (JSONObject) op.get("weather");
 											
-												String description = (String) w.get("description");
-												weather = description;
+												weather = (String) w.get("description");
 										
 												} catch (Exception e) {
 													// Errore nel prelevamento dei parametri 
@@ -191,27 +180,34 @@ public class DownloadCity {
 									    
 									try {
 									
-										String name = (String) city.get("name");
-										cityName = name;
+										cityName = (String) city.get("name");
 										
-										String country = (String) city.get ("country");
-										stateCode = country;
+										stateCode = (String) city.get ("country");
 									   
 									} catch(Exception e) {
 										e.printStackTrace();
 									}
-						
+						*/
+									JSONObject obj = null;
+									RestTemplate rest = new RestTemplate();
+									String s = rest.getForObject ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"," + stateCode 
+											+"&appid=" + DownloadCity.getApiKey(), String.class);
+									try {
+										
+										obj = (JSONObject) parser.parse(s);
+										cityName = (String) obj.get("name");
+										stateCode = (String) obj.get("country");
+										JSONObject main = (JSONObject) obj.get("main");
+										humidity = (Double) main.get("humidity");
+										temperature = (Double) main.get("temp");
+										JSONObject w = (JSONObject) main.get("weather");
+										weather = (String) w.get("description");
+										
 									array = BuildingCity.Building (cityName, stateCode, humidity, temperature, weather);
 							
-									in.close();
-								}
+									//in.close();
+								//}
 							
-							} catch (FileNotFoundException e) {
-						    	e.printStackTrace();
-						    } catch (IOException e) {
-						    	System.out.println ("Errore di I/O");
-							  	System.out.println ("Messaggio: " + e.getMessage());
-							  	System.out.println ("Causa: " + e.getCause());
 						    } catch (ParseException e) {
 						    	System.out.println ("Errore di Parsing:");
 								System.out.println ("Messaggio: " + e.getMessage());

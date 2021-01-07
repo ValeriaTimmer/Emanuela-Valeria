@@ -11,6 +11,7 @@ import org.json.simple.JSONArray;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.time.LocalDate;
 import java.text.ParseException;
 
@@ -29,28 +30,26 @@ import org.springframework.context.annotation.Configuration;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	private City c;
-	
+	/**
+	 * Variabile della classe Stats
+	 */
 	private Stats s;
 	
-	private StatsUtils u;
+	/**
+	 * Variabile della classe DownloadCity
+	 */
+	private DownloadCity d = new DownloadCity();
 	
-	private JSONArray stats;
 	
 	/**
 	 * Costruttore
 	 */
-	public CityServiceImpl() {
-		this.s = new Stats();
-		this.u = new StatsUtils();
-		this.stats = new JSONArray();
+	public CityServiceImpl() throws UrlException {
+		JSONArray arr = new JSONArray();
+		arr = d.Parser();
+		this.s = new Stats(arr);
 	}
 	
-	/**
-	 * Metodo che inizializza 
-	 * @return
-	 * @throws UrlException
-	 */
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -64,11 +63,13 @@ public class CityServiceImpl implements CityService {
 		c.put("humidity", "Contiene il valore dell'umidità in percentuale");
 		c.put("temp", "Contiene il valore della temperatura in kelvin");
 		c.put("description", "Contiene la descrizione del meteo della città");
+		c.put("from", "Data iniziale del periodo scelto");
+		c.put("to", "Data finale del periodo scelto");
 		c.put("min", "Contiene il valore minimo dell'umidità o della temperatura in base al periodo scelto");
 		c.put("max", "Contiene il valore massimo dell'umidità o della temperatura in base al periodo scelto");
 		c.put("avg", "Contiene il valore medio dell'umidità o della temperatura in base al periodo scelto");
 		c.put("var", "Contiene il valore della varianza dell'umidità o della temperatura in base al periodo scelto");
-		return c ;
+		return c;
 	}
 	
 	/**
@@ -87,15 +88,14 @@ public class CityServiceImpl implements CityService {
 	 * @return JSONArray contenente le statistiche filtrate
 	 */
 	@Override 
-	public JSONArray getStats (String city, String state, String type, String from, String to ) 
+	public HashMap <String, String> getStats (String city, String state, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
 		
-		this.c = new City(city, state);
+		City c = new City (city, state);
 		
-	    stats = s.Statistics(u.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
+		return  s.Statistics(s.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
 		
-		return stats;
 	}
 	
 	/**

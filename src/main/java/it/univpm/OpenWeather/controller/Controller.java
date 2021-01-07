@@ -56,15 +56,15 @@ public class Controller {
 	*/
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.POST)
-	public JSONArray getStats (@RequestBody JSONObject body)
-			throws StatsNotFoundException, DataFormatException,
-	UrlException, ClassNotFoundException, ParseException {
+	public HashMap <String, String> getStats (@RequestParam (value = "apiKey", defaultValue = "") String apiKey,
+			@RequestBody JSONObject body)
+			throws StatsNotFoundException, DataFormatException, UrlException, ClassNotFoundException, ParseException {
 		String city = (String) body.get("city");
 		String state = (String) body.get("country");
 		String type = (String) body.get("type");
 		String from = (String) body.get("from");
 		String to = (String) body.get("to");
-		return c.getStats(city, state, type,from, to);
+		return c.getStats(city, state, type, from, to);
 	}
 	
 	/**
