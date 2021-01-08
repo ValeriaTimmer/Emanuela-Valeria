@@ -99,13 +99,11 @@ public class CityServiceImpl implements CityService {
 			throws UrlException, ClassNotFoundException,
 	 DataFormatException, ParseException {
 		
-		this.array = d.Parser();
+		DownloadCity d1 = new DownloadCity(city, state);
 		
-		Stats s = new Stats(this.array);
+		Stats s = new Stats(d1.OpenWeatherParser());
 		
-		City c = new City (city, state);
-		
-		return  s.Statistics(s.getArray(), c.getCityName(), c.getStateCode(), type, from, to);
+		return  s.Statistics(s.getArray(), d1.getCityName() , d1.getStateCode(), type, from, to);
 		
 	}
 	

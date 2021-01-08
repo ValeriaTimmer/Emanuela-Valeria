@@ -2,21 +2,20 @@ package it.univpm.OpenWeather.controller;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 
+import java.util.HashMap;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import java.time.LocalDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import java.util.HashMap;
+
 
 /**
  *  Rappresenta la classe che gestisce le chiamate al server
@@ -29,7 +28,7 @@ import java.util.HashMap;
 @RestController
 public class Controller {
 	
-	@Autowired(required=true)
+	@Autowired
 	CityServiceImpl c;
 	
 	/**
@@ -56,15 +55,17 @@ public class Controller {
 	*/
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.POST)
-	public HashMap <String, String> getStats (@RequestParam (value = "apiKey", defaultValue = "") String apiKey,
-			@RequestBody JSONObject body)
+	public HashMap <String, String> getStats (@RequestBody JSONObject body)
 			throws StatsNotFoundException, DataFormatException, UrlException, ClassNotFoundException, ParseException {
-		String city = (String) body.get("city");
-		String state = (String) body.get("country");
-		String type = (String) body.get("type");
-		String from = (String) body.get("from");
-		String to = (String) body.get("to");
+		
+			String city = (String) body.get("city");
+			String state = (String) body.get("country");
+			String type = (String) body.get("type");
+			String from = (String) body.get("from");
+			String to = (String) body.get("to");
+		
 		return c.getStats(city, state, type, from, to);
+		
 	}
 	
 	/**

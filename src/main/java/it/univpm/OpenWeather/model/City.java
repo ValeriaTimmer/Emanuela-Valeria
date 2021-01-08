@@ -1,6 +1,5 @@
 package it.univpm.OpenWeather.model;
 
-
 /**
  * Classe che modella la città
  * @author Valeria Timmer

@@ -76,7 +76,7 @@ public class StatsUtils {
 		
         		for (Object o : array) {
 			
-        			if (o instanceof JSONArray) {
+        			if (o instanceof JSONObject) {
 				
         				JSONObject o1 = new JSONObject();
 				

@@ -61,7 +61,7 @@ public class DateUtils {
 	private static void dateCheck (String from, String to) throws DataFormatException, ParseException {	
 		
 		if (from.equals("") && to.equals("")) {
-			from = yesterday();
+			from = today();
 			to = today();
 		}
 		else if (to.equals("")) {
