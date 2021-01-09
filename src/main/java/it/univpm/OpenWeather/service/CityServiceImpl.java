@@ -101,7 +101,9 @@ public class CityServiceImpl implements CityService {
 		
 		DownloadCity d1 = new DownloadCity(city, state);
 		
-		Stats s = new Stats(d1.OpenWeatherParser());
+		String file = d1.getFileName();
+		
+		Stats s = new Stats(d1.caricaFile(file));
 		
 		return  s.Statistics(s.getArray(), d1.getCityName() , d1.getStateCode(), type, from, to);
 		

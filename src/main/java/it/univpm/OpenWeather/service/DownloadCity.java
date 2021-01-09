@@ -86,10 +86,16 @@ public class DownloadCity {
 	 */
 	private JSONArray download;
 	
+	private String fileName = "file.json";
+	
 	/**
 	 * File su cui vengono salvati i dati
 	 */
-	File file = new File ("file.json");
+	File file = new File (fileName);
+	
+	public String getFileName() {
+		return this.fileName;
+	}
 	
 	/**
 	 * Metodo Getter statico dell'apiKey
@@ -201,7 +207,6 @@ public class DownloadCity {
 	 * Metodo che permette di salvare un JSONArray in un file binario
 	 * 
 	 * @param nome_file Nome del file su cui voglio salvare il JSONArray
-	 * @param isArray Verifica se l'oggetto passato è un JSONArray
 	 */
 	@Bean
 	public void salvaFile (String nome_file) throws UrlException {
@@ -212,6 +217,25 @@ public class DownloadCity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Metodo che permette di leggere i dati da un file
+	 * 
+	 * @param nome_file Nome del file da cui leggere il JSONArray
+	 */
+	@Bean 
+	public JSONArray caricaFile (String nome_file) {
+		try {
+			ObjectInputStream file_input = new ObjectInputStream (new BufferedInputStream (new FileInputStream(nome_file)));
+			this.download = (JSONArray) file_input.readObject();
+			return this.download;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
