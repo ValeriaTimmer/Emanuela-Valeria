@@ -62,7 +62,7 @@ public class Controller {
 	public HashMap <String, String> getStats (@RequestBody JSONObject body)
 			throws StatsNotFoundException, UrlException, ClassNotFoundException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		
-		    c = new CityServiceImpl();
+		    this.c = new CityServiceImpl();
 			String city = (String) body.get("city");
 			String state = (String) body.get("country");
 			String type = (String) body.get("type");

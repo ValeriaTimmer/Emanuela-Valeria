@@ -6,7 +6,7 @@ import it.univpm.OpenWeather.statistics.*;
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
 
-
+import java.net.MalformedURLException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class CityServiceImpl implements CityService {
 	
 	private Stats s;
 	
-	private JSONObject obj;
+	private JSONObject obj = new JSONObject();
 	
 	/**
 	 * Variabile della classe DownloadCity
@@ -52,7 +52,8 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Costruttore
 	 */
-	public CityServiceImpl() throws UrlException {
+	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
+	ClassNotFoundException {
 		this.o = new ArrayList<Integer>();
 		this.d = new DownloadCity();
 	}
@@ -105,17 +106,12 @@ public class CityServiceImpl implements CityService {
 	public HashMap <String, String> getStats (String city, String state, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
-		
-		this.d = new DownloadCity(city, state);
-		
+		this.d = new DownloadCity (city, state);
 		this.obj = d.chiamataAPI();
-		
 		d.salvaFile(d.getFile());
-		
 		d.ScheduledAtFixedRate();
-		
 		this.array = d.caricaFile(d.getFile());
-
+		
 		this.s = new Stats(array);
 		//this.obj = d1.caricaFile(file);
 		//String file = d.getFileName();

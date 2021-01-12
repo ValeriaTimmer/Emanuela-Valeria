@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
 import java.util.Scanner;
+import java.nio.file.Files;
 
 import org.json.simple.JSONValue;
 //import org.json.simple.JSONObject;
@@ -30,6 +31,7 @@ import java.lang.reflect.Array;
 import java.lang.Number;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.StandardOpenOption;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
@@ -111,7 +113,7 @@ public class DownloadCity {
 	public DownloadCity (String Name, String Code) {
 		this.cityName = Name;
 		this.stateCode = Code;
-		this.obj = new JSONObject();
+		//this.obj = new JSONObject();
 	}
 	
 	/**
@@ -236,8 +238,8 @@ public class DownloadCity {
 	@Bean
 	public void salvaFile (File file) throws UrlException, ParseException {
 		try {
-			PrintWriter file_output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-			file_output.println(chiamataAPI());
+			FileWriter file_output = new FileWriter (file, true);
+			file_output.append(chiamataAPI().toJSONString());
 			file_output.close();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -258,9 +260,15 @@ public class DownloadCity {
 		
 		ArrayList <City> list = new ArrayList<City>();
 		file = getFile();
+		
 		BufferedReader input_file = new BufferedReader(new FileReader(file));
-		String str = input_file.readLine();
-		this.obj = (JSONObject) JSONValue.parseWithException(str);
+		
+		String str = "";
+		
+		while ((str = input_file.readLine()) != null){
+
+		JSONObject obj = (JSONObject) JSONValue.parseWithException(str);
+		
 		JSONObject citta = (JSONObject) obj.get("city");
 		this.cityName = (String) citta.get("name");
 		this.stateCode = (String) citta.get("country");
@@ -289,9 +297,11 @@ public class DownloadCity {
 				  }
 			  }
 		  }
-		input_file.close();
+		
+		
 		
 		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
+		}
 		/*  JSONObject dati = new JSONObject();
 		  dati.put("citta", this.getCityName());
 		  dati.put("country",this.getStateCode());

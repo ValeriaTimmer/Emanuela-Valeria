@@ -41,7 +41,7 @@ public class Stats {
       * Metodo Getter dell'array con i dati 
       * @return arr Array contenete i dati
       */
-     public JSONArray  getArray () {
+     public JSONArray getArray () {
     	 return arr;
      }
      
