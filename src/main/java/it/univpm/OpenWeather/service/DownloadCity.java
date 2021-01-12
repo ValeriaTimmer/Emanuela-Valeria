@@ -100,7 +100,6 @@ public class DownloadCity {
 	 */
 	File file = new File ("file.json");
 
-	private JSONArray list;
 	
 	
 	/**
@@ -211,7 +210,7 @@ public class DownloadCity {
 					/*
 					* Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
 					 */
-					timer.scheduleAtFixedRate (task, firstTime, 360000);
+					timer.scheduleAtFixedRate (task, firstTime, 30000);
 					
 					} catch (IllegalArgumentException e) {
 							// Viene lanciata se firstTime.getTime() < 0 o period <= 0
@@ -256,17 +255,20 @@ public class DownloadCity {
 	 */
 	
 	public JSONArray caricaFile (File file) throws FileNotFoundException, IOException, ParseException, ClassNotFoundException {
-		  file = getFile();
-		  BufferedReader input_file = new BufferedReader(new FileReader(file));
-		  String str = input_file.readLine();
-		  this.obj = (JSONObject) JSONValue.parseWithException(str);
-		  JSONObject citta = (JSONObject) obj.get("city");
-		  this.cityName = (String) citta.get("name");
-		  this.stateCode = (String) citta.get("country");
-		  JSONArray lista = (JSONArray) obj.get("list");
+		
+		ArrayList <City> list = new ArrayList<City>();
+		file = getFile();
+		BufferedReader input_file = new BufferedReader(new FileReader(file));
+		String str = input_file.readLine();
+		this.obj = (JSONObject) JSONValue.parseWithException(str);
+		JSONObject citta = (JSONObject) obj.get("city");
+		this.cityName = (String) citta.get("name");
+		this.stateCode = (String) citta.get("country");
+		JSONArray lista = (JSONArray) obj.get("list");
          
 		  
 		  for(Object ob: lista)
+		 
 		  {
 			  if(ob instanceof JSONObject)
 			  {
@@ -287,29 +289,34 @@ public class DownloadCity {
 				  }
 			  }
 		  }
-		  input_file.close();
-		  JSONObject dati = new JSONObject();
+		input_file.close();
+		
+		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
+		/*  JSONObject dati = new JSONObject();
 		  dati.put("citta", this.getCityName());
 		  dati.put("country",this.getStateCode());
 		  dati.put("humidity",this.humidity);
 		  dati.put("temperature", this.temperature);
 		  dati.put("tempo", this.weather);
 		  this.download.add(dati);
-		  return this.download;
+		  */
+		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
+		return this.download;
 	}
 	
 	
 	/**
 	 * Metodo che effettua il Parsing dal sito di OpenWeather
 	 * 
-	 * @return JSONArray contenete i dati desiderati
+	 * @return JSONObject contenete i dati parsati
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws IOException 
+	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
 	 */
 	public JSONObject chiamataAPI() throws UrlException, ParseException, MalformedURLException, IOException {
 		
-			URLConnection openConnection = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" + getCityName() + "," + getStateCode() + "&appid=" + getApiKey() ).openConnection();
+			URLConnection openConnection = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" +
+					getCityName() + "," + getStateCode() + "&appid=" + getApiKey() ).openConnection();
 			InputStream in = openConnection.getInputStream();
 			
 			String informazioni = "";
