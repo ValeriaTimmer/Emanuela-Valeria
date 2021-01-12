@@ -167,6 +167,12 @@ public class DownloadCity {
 		return weather;
 	}
 
+	/**
+	 * metodo per convertire la temperatura da Kelvin in Celsius
+	 */
+	public int getTemperaturaInCelsius(double temperatura) {
+		return (int)(temperatura - 273.15);
+	}
 
 	/**
 	 * Metodo che permette di salvare i dati ogni ora
@@ -285,7 +291,8 @@ public class DownloadCity {
 				  //String hum = (String) main.get("humidity");
 				  //String temp = (String) main.get("temp");
 				  this.humidity = Double.parseDouble(main.get("humidity").toString());
-				  this.temperature = Double.parseDouble(main.get("temp").toString());
+				  Double temp = Double.parseDouble(main.get("temp").toString());
+				  this.temperature = this.getTemperaturaInCelsius(temp);
 				  JSONArray weather = (JSONArray) op.get("weather");
 				  for(Object o: weather)
 				  {
