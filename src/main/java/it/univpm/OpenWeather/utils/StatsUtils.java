@@ -93,10 +93,16 @@ public class StatsUtils{
      						this.setArray(arr);
      					}
      					
-     				}
+     					if(type.equals("temperature")) {
+     						Double value = (Double) o1.get("temperature");
+     						this.arr.add(value);
+     						this.setArray(arr);
+     					
+     				 }
      			}
 						
-        	}
+        	 }
+	    }
 	}
 	
 	/**
