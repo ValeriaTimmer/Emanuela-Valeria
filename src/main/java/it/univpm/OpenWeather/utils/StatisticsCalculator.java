@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
 import java.util.ArrayList;
+import java.util.Vector;
 import java.lang.Math;
 
 /**
@@ -14,24 +15,24 @@ public class StatisticsCalculator {
 	/**
      * Valore minimo
      */
-	private static double min;
+	private double min;
 	/**
 	 * Valore massimo
 	 */
-	private static double max;
+	private double max;
 	/**
 	 * Somma
 	 */
-	private static double sum;
+	private double sum;
 	
 	/**
 	 * Costruttore
 	 *
 	 */
 	public StatisticsCalculator() {
-		max = -Double.MAX_VALUE;
-		min = Double.MAX_VALUE;
-		sum = 0.0;
+		this.max = -Double.MAX_VALUE;
+		this.min = Double.MAX_VALUE;
+		this.sum = 0.0;
 	}
 	
 	/**
@@ -39,7 +40,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il minimo
 	 * @return min Ritorna il valore minimo
 	 */
-	public Double getMin (ArrayList <Double> a) {
+	public Double getMin (ArrayList <Integer> a) {
 		for (int i = 0; i < a.size(); i++)
 			if (a.get(i) < min)
 				min = a.get(i);
@@ -51,7 +52,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il massimo
 	 * @return max Ritorna il valore massimo
 	 */
-	public Double getMax(ArrayList <Double> a) {
+	public Double getMax(ArrayList <Integer> a) {
 		for (int i = 0; i< a.size(); i++)
 			if (a.get(i) > max)
 				max = a.get(i);
@@ -71,7 +72,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la media
 	 * @return valore Double della media
 	 */
-	public Double getAverage (ArrayList <Double> a) {
+	public Double getAverage (ArrayList <Integer> a) {
 		for (int i = 0; i < a.size(); i++)
 			sum += a.get(i);
 		return (Double) sum/a.size();
@@ -82,7 +83,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la varianza
 	 * @return valore Double della varianza
 	 */
-	public Double getVariance (ArrayList <Double> a) {
+	public Double getVariance (ArrayList <Integer> a) {
 		Double avg = getAverage(a);
 		Double eps = 0.0;
 		for (int i = 0; i < a.size(); i++)

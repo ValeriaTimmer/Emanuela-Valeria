@@ -3,6 +3,8 @@ import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -50,14 +52,17 @@ public class Controller {
 	 * @param to Data finale entro il quale si vogliono visualizzare le statistiche
 	 * @return JSONArray contenente le statistiche
 	 * @throws StatsNotFoundException Eccezione personalizzata 
-	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata 
+	 * @throws org.json.simple.parser.ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.POST)
 	public HashMap <String, String> getStats (@RequestBody JSONObject body)
-			throws StatsNotFoundException, DataFormatException, UrlException, ClassNotFoundException, ParseException {
+			throws StatsNotFoundException, UrlException, ClassNotFoundException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		
+		    c = new CityServiceImpl();
 			String city = (String) body.get("city");
 			String state = (String) body.get("country");
 			String type = (String) body.get("type");

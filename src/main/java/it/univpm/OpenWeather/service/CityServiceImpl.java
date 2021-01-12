@@ -8,12 +8,15 @@ import it.univpm.OpenWeather.utils.*;
 
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.time.LocalDate;
 import java.text.ParseException;
+import java.io.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
@@ -32,25 +35,26 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Service
 public class CityServiceImpl implements CityService {
 	
+	File file = new File("file.json");
+	
+	private Stats s;
+	
 	/**
 	 * Variabile della classe DownloadCity
 	 */
-	private DownloadCity d = new DownloadCity();
+	private DownloadCity d;
 	
-	/**
-	@Scheduled (fixedRate = 1000)
-	private void ScheduleFixedRateTask() throws UrlException {
-		this.array = this.d.Parser();
-	}
-	*/
+	private JSONArray array;
 	
-	JSONArray array = new JSONArray();
+	private ArrayList<Integer> o;
+	
 	
 	/**
 	 * Costruttore
 	 */
 	public CityServiceImpl() throws UrlException {
-		//this.array = d.Parser();
+		this.o = new ArrayList<Integer>();
+		this.d = new DownloadCity();
 	}
 	
 	/**
@@ -93,19 +97,28 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return JSONArray contenente le statistiche filtrate
+	 * @throws org.json.simple.parser.ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	@Override 
 	public HashMap <String, String> getStats (String city, String state, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
-	 DataFormatException, ParseException {
+	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		
-		DownloadCity d1 = new DownloadCity(city, state);
+		this.d = new DownloadCity(city, state);
 		
-		String file = d1.getFileName();
+		this.array = d.caricaFile(file);
+
+		this.s = new Stats(array);
+		//this.obj = d1.caricaFile(file);
+		//String file = d.getFileName();
 		
-		Stats s = new Stats(d1.caricaFile(file));
+		//this.array_finale = d1.caricaFile(file);
 		
-		return  s.Statistics(s.getArray(), d1.getCityName() , d1.getStateCode(), type, from, to);
+		
+		
+		return  s.Statistics(s.getArray(), d.getCityName() , d.getStateCode(), type, from, to);
 		
 	}
 	

@@ -5,6 +5,8 @@ import it.univpm.OpenWeather.model.City;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
@@ -35,9 +37,12 @@ public interface CityService {
 	/**
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
+	 * @throws org.json.simple.parser.ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	public abstract HashMap <String, String> getStats(String city, String state, String type, String from, String to) 
-			throws UrlException, ClassNotFoundException, DataFormatException, ParseException;
+			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException;
 	
 	/**
 	 * Metodo che permette di selezionare in base a degli intervalli di umidità scelti (in percentuale)

@@ -5,27 +5,36 @@ import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Iterator;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
+import java.util.Scanner;
 
 import org.json.simple.JSONValue;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
+import java.lang.Number;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+
 import javax.net.ssl.HttpsURLConnection;
 
 import org.springframework.context.annotation.Bean;
@@ -46,6 +55,14 @@ import org.springframework.web.client.RestTemplate;
 
 public class DownloadCity {
 	
+	private City c;
+	
+	private JSONObject obj;
+	
+	private JSONObject main;
+	
+	private JSONArray download;
+	
 	/*
 	 * Nome della città
 	 */
@@ -59,71 +76,32 @@ public class DownloadCity {
 	/**
 	 * Umidità della città in percentuale
 	 */
-	private double humidity;
+	private Integer humidity;
 	
 	/**
 	 * Temperatura della città in kelvin
 	 */
-	private double temperature;
+	//private double temperature;
 	
 	/**
 	 * Descrizione del meteo della città
 	 */
-	private String weather;
+	//private String weather;
 	
 	/**
 	 * Chiave API privata 
 	 */
-	private static String apiKey = "f1c4f31f5fec01d08254bfc5d2b0a250";
+	//private static String apiKey = "bed1a816d94554cecab782b0804bec47";
 	
-	/**
-	 * ArrayList che viene popolato con i dati desiderati
-	 */
-	private ArrayList <City> array;
-	
-	/**
-	 * JSONArray con i dati parsati
-	 */
-	private JSONArray download;
-	
-	private String fileName = "file.json";
+	//private String path = "‪C://Users//Emanuela//file.json.txt";
 	
 	/**
 	 * File su cui vengono salvati i dati
 	 */
-	File file = new File (fileName);
+	File file = new File ("file.json");
+
+	private JSONArray list;
 	
-	public String getFileName() {
-		return this.fileName;
-	}
-	
-	/**
-	 * Metodo Getter statico dell'apiKey
-	 * @return apiKey Valore della chiave api
-	 */
-	private static String getApiKey () {
-		return apiKey;
-	}
-	
-	public String getCityName () {
-		return cityName;
-	}
-	
-	public String getStateCode () {
-		return stateCode;
-	}
-	
-	public Double getHumidity () {
-		return humidity;
-	}
-	
-	public Double getTemperature () {
-		return temperature;
-	}
-	
-	public String getWeather () {
-		return weather;
-	}
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -134,22 +112,63 @@ public class DownloadCity {
 	public DownloadCity (String Name, String Code) {
 		this.cityName = Name;
 		this.stateCode = Code;
+		this.obj = new JSONObject();
 	}
 	
 	/**
-	 * Costruttore senza parametri
+	 * costruttore senza parametri
 	 */
 	public DownloadCity() {
-		this.download = new JSONArray();
-		this.array = new ArrayList<City>();
 	}
 	
+	/**
+	 * Metodo Getter statico dell'apiKey
+	 * @return apiKey Valore della chiave api
+	 */
+	/*
+	private static String getApiKey () {
+		return apiKey;
+	}
+	*/
+	public String getCityName () {
+		return cityName;
+	}
+	
+	public String getStateCode () {
+		return stateCode;
+	}
+	
+	public Integer getHumidity () {
+		return humidity;
+	}
+	
+	public void setHumidity(int humidity){
+		this.humidity = humidity;
+	}
+	
+	public JSONObject getArray() {
+		return obj;
+	}
+	
+	public void setArray(JSONObject obj) {
+		this.obj = obj;
+	}
+	/*
+	public Double getTemperature () {
+		return temperature;
+	}
+	/*
+	public String getWeather () {
+		return weather;
+	}
+*/
+
 	/**
 	 * Metodo che permette di salvare i dati ogni ora
 	 */
 	@Bean
 	public void ScheduledAtFixedRate() throws UrlException {
-				try {			
+		try {			
 
 					/**
 					 * Costruttore della classe Date di java.lang.Object che iniziailizza 
@@ -176,8 +195,10 @@ public class DownloadCity {
 						@Override
 					public void run(){ 
 							try {
-								salvaFile(file.toString());
+								salvaFile();
 							} catch (UrlException e) {
+								e.printStackTrace();
+							} catch (ParseException e) {
 								e.printStackTrace();
 							}
 						}
@@ -207,14 +228,15 @@ public class DownloadCity {
 	 * Metodo che permette di salvare un JSONArray in un file binario
 	 * 
 	 * @param nome_file Nome del file su cui voglio salvare il JSONArray
+	 * @throws ParseException 
 	 */
 	@Bean
-	public void salvaFile (String nome_file) throws UrlException {
+	public void salvaFile () throws UrlException, ParseException {
 		try {
-		ObjectOutputStream file_output = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (nome_file)));
-		file_output.writeObject(OpenWeatherParser()); //Scrive il JSONArray Parsato
-		file_output.close();
-		} catch (IOException e) {
+			PrintWriter file_output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			file_output.println(OpenWeatherParser());
+			file_output.close();
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -223,19 +245,18 @@ public class DownloadCity {
 	 * Metodo che permette di leggere i dati da un file
 	 * 
 	 * @param nome_file Nome del file da cui leggere il JSONArray
+	 * @throws ParseException 
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
-	@Bean 
-	public JSONArray caricaFile (String nome_file) {
-		try {
-			ObjectInputStream file_input = new ObjectInputStream (new BufferedInputStream (new FileInputStream(nome_file)));
-			this.download = (JSONArray) file_input.readObject();
-			return this.download;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
+	
+	public JSONArray caricaFile (File file) throws FileNotFoundException, IOException, ParseException, ClassNotFoundException {
+		  Scanner input_file = new Scanner(new BufferedReader(new FileReader(file)));
+		  String str = input_file.nextLine();
+		  this.download = (JSONArray) JSONValue.parseWithException(str);
+		  input_file.close();
+		  return this.download;
 	}
 	
 	/**
@@ -243,16 +264,63 @@ public class DownloadCity {
 	 * 
 	 * @return JSONArray contenete i dati desiderati
 	 * @throws UrlException Eccezione personalizzata
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
-	public JSONArray OpenWeatherParser() throws UrlException {
+	public JSONArray OpenWeatherParser() throws UrlException, ParseException, MalformedURLException, IOException {
 		
-		try {
+			URLConnection openConnection = new URL("https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47").openConnection();
+			InputStream in = openConnection.getInputStream();
+			
+			String informazioni = "";
+			String inputLine = "";
+			
+			try {
+				InputStreamReader inR = new InputStreamReader( in );
+				BufferedReader buf = new BufferedReader( inR );
+				
+				while(( inputLine = buf.readLine())!=null){
+					informazioni += inputLine;
+					this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
+					JSONObject citta = (JSONObject) obj.get("city");
+					  this.cityName = (String) citta.get("name");
+					  this.stateCode = (String) citta.get("country");
+					  JSONArray lista = (JSONArray) obj.get("list");
+                     
+					  
+					  for(Object ob: lista)
+					  {
+						  if(ob instanceof JSONObject)
+						  {
+							  this.main = (JSONObject) ob;
+							  Iterator<Integer> iter = this.main.keySet().iterator();
+							  while(iter.hasNext()) { 
+								  this.humidity = (Integer) main.get("humidity");
+							  }
+						  }
+					  }
+				}
+			}finally {
+				in.close();
+			}
+					  
+					  JSONObject dati = new JSONObject();
+					  dati.put("citta", this.cityName);
+					  dati.put("country",this.stateCode);
+					  dati.put("humidity",this.humidity);
+					  this.download.add(dati);
+				
+			return download;
+			//this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
+			//return obj;
+		/*
+     try {
 			
 			try {
 		
 				JSONParser parser = new JSONParser();
 		
-				URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"," + stateCode +"&appid=" + DownloadCity.getApiKey());
+				URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47");
 				HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
 				yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 					
@@ -271,11 +339,11 @@ public class DownloadCity {
 						
 						JSONObject op = (JSONObject) obj;
 						JSONObject main = (JSONObject) op.get("main");
-							humidity = (Double) main.get("humidity");
-							temperature = (Double) main.get("temp");
-						JSONObject w = (JSONObject) main.get("weather");
-							weather = (String) w.get("description");
-						
+						Integer humidity = (Integer) main.get("humidity");
+							//temperature = (Double) main.get("temp");
+						//JSONObject w = (JSONObject) main.get("weather");
+							//weather = (String) w.get("description");
+						this.setHumidity(humidity);
 					}
 						
 						
@@ -291,10 +359,9 @@ public class DownloadCity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-					
-			array = BuildingCity.Building(getCityName(), getStateCode(), getHumidity(), getTemperature(), getWeather());
 			
-			this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(this.array));
+			JSONArray download = new JSONArray();
+			download = (JSONArray) ;
 	        return download;
 	        
 		} catch (ParseException e) {
@@ -304,7 +371,7 @@ public class DownloadCity {
 		return null;
 		
 	}
-	
-	
+	*/
+	}
 }
 
