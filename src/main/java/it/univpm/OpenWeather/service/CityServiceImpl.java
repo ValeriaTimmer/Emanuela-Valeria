@@ -35,9 +35,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Service
 public class CityServiceImpl implements CityService {
 	
-	File file = new File("file.json");
-	
 	private Stats s;
+	
+	private JSONObject obj;
 	
 	/**
 	 * Variabile della classe DownloadCity
@@ -108,7 +108,13 @@ public class CityServiceImpl implements CityService {
 		
 		this.d = new DownloadCity(city, state);
 		
-		this.array = d.caricaFile(file);
+		this.obj = d.chiamataAPI();
+		
+		d.salvaFile(d.getFile());
+		
+		d.ScheduledAtFixedRate();
+		
+		this.array = d.caricaFile(d.getFile());
 
 		this.s = new Stats(array);
 		//this.obj = d1.caricaFile(file);

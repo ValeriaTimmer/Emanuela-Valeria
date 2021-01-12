@@ -40,7 +40,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il minimo
 	 * @return min Ritorna il valore minimo
 	 */
-	public Double getMin (ArrayList <Integer> a) {
+	public Double getMin (ArrayList <Double> a) {
 		for (int i = 0; i < a.size(); i++)
 			if (a.get(i) < min)
 				min = a.get(i);
@@ -52,7 +52,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il massimo
 	 * @return max Ritorna il valore massimo
 	 */
-	public Double getMax(ArrayList <Integer> a) {
+	public Double getMax(ArrayList <Double> a) {
 		for (int i = 0; i< a.size(); i++)
 			if (a.get(i) > max)
 				max = a.get(i);
@@ -72,7 +72,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la media
 	 * @return valore Double della media
 	 */
-	public Double getAverage (ArrayList <Integer> a) {
+	public Double getAverage (ArrayList <Double> a) {
 		for (int i = 0; i < a.size(); i++)
 			sum += a.get(i);
 		return (Double) sum/a.size();
@@ -83,7 +83,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la varianza
 	 * @return valore Double della varianza
 	 */
-	public Double getVariance (ArrayList <Integer> a) {
+	public Double getVariance (ArrayList <Double> a) {
 		Double avg = getAverage(a);
 		Double eps = 0.0;
 		for (int i = 0; i < a.size(); i++)

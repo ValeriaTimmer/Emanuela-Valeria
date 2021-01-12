@@ -33,8 +33,8 @@ public class Forecasts {
 	 */
 	public void returnValues (City c) {
 		
-		int hum = c.getHumidity();
-		//Double temp = c.getTemperature();
+		Double hum = c.getHumidity();
+		Double temp = c.getTemperature();
 		String description = c.getWeather();
 				
 	}

@@ -26,7 +26,7 @@ public class StatsUtils{
 	 /**
 	  * ArrayList sul quale vengono i dati scelti su cui si effettuano le statistiche
 	  */
-	 private ArrayList <Integer> arr;
+	 private ArrayList <Double> arr;
 	
 	/** 
 	 * Array che contiene le statistiche 
@@ -42,7 +42,7 @@ public class StatsUtils{
 	  * Costruttore
 	  */
 	 public StatsUtils() {
-		 this.arr = new ArrayList<Integer>();
+		 this.arr = new ArrayList<Double>();
 		 this.calc = new StatisticsCalculator();
 		 this.stats = new HashMap<String,String>();
 	 }
@@ -59,11 +59,11 @@ public class StatsUtils{
  	}
 	*/
 	 
-	 public ArrayList<Integer> getArray(){
+	 public ArrayList<Double> getArray(){
 		 return arr;
 	 }
 	 
-	 public void setArray(ArrayList<Integer> array) {
+	 public void setArray(ArrayList<Double> array) {
 		 this.arr = array;
 	 }
 	
@@ -88,7 +88,7 @@ public class StatsUtils{
      				if(o instanceof JSONObject) {
      					JSONObject o1 = (JSONObject) o;
      					if(type.equals("humidity")) {
-     						Integer value2 = (Integer) o1.get("humidity");
+     						Double value2 = (Double) o1.get("humidity");
      						this.arr.add(value2);
      						this.setArray(arr);
      					}
