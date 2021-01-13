@@ -234,8 +234,8 @@ public class DownloadCity {
 	@Bean
 	public void salvaFile (File file) throws UrlException, ParseException {
 		try {
-			PrintWriter file_output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-			file_output.println(this.download);
+			FileWriter file_output = new FileWriter(file,true);
+			file_output.append(this.download.toString());
 			file_output.close();
 		}catch (IOException e) {
 			e.printStackTrace();
