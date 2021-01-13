@@ -107,10 +107,11 @@ public class CityServiceImpl implements CityService {
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		this.d = new DownloadCity (city, state);
-		this.obj = d.chiamataAPI();
+		//this.obj = d.chiamataAPI();
+		this.array = d.chiamataAPI();
 		d.salvaFile(d.getFile());
 		d.ScheduledAtFixedRate();
-		this.array = d.caricaFile(d.getFile());
+		//this.array = d.caricaFile(d.getFile());
 		
 		this.s = new Stats(array);
 		//this.obj = d1.caricaFile(file);

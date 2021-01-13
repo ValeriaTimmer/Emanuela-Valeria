@@ -7,6 +7,7 @@ import it.univpm.OpenWeather.utils.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.Iterator;
 import java.util.Date;
 import java.util.Timer;
@@ -22,18 +23,11 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.lang.Number;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.StandardOpenOption;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
@@ -57,11 +51,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class DownloadCity {
 	
-	private City c;
-	
 	private JSONObject obj;
-	
-	private JSONObject main;
 	
 	private JSONArray download;
 	
@@ -113,7 +103,7 @@ public class DownloadCity {
 	public DownloadCity (String Name, String Code) {
 		this.cityName = Name;
 		this.stateCode = Code;
-		//this.obj = new JSONObject();
+		this.obj = new JSONObject();
 	}
 	
 	/**
@@ -244,8 +234,8 @@ public class DownloadCity {
 	@Bean
 	public void salvaFile (File file) throws UrlException, ParseException {
 		try {
-			FileWriter file_output = new FileWriter (file, true);
-			file_output.append(chiamataAPI().toJSONString());
+			PrintWriter file_output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			file_output.println(this.download);
 			file_output.close();
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -262,18 +252,20 @@ public class DownloadCity {
 	 * @throws ClassNotFoundException 
 	 */
 	
+	/*
 	public JSONArray caricaFile (File file) throws FileNotFoundException, IOException, ParseException, ClassNotFoundException {
-		
+
 		ArrayList <City> list = new ArrayList<City>();
+		
 		file = getFile();
 		
-		BufferedReader input_file = new BufferedReader(new FileReader(file));
+        BufferedReader input_file = new BufferedReader(new FileReader(file));
 		
 		String str = "";
 		
 		while ((str = input_file.readLine()) != null){
-
-		JSONObject obj = (JSONObject) JSONValue.parseWithException(str);
+		
+		this.obj = (JSONObject) JSONValue.parseWithException(str);
 		
 		JSONObject citta = (JSONObject) obj.get("city");
 		this.cityName = (String) citta.get("name");
@@ -306,7 +298,6 @@ public class DownloadCity {
 		  }
 		
 		
-		
 		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
 		}
 		/*  JSONObject dati = new JSONObject();
@@ -316,11 +307,11 @@ public class DownloadCity {
 		  dati.put("temperature", this.temperature);
 		  dati.put("tempo", this.weather);
 		  this.download.add(dati);
-		  */
+		  
 		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
 		return this.download;
 	}
-	
+	*/
 	
 	/**
 	 * Metodo che effettua il Parsing dal sito di OpenWeather
@@ -330,119 +321,76 @@ public class DownloadCity {
 	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
 	 */
-	public JSONObject chiamataAPI() throws UrlException, ParseException, MalformedURLException, IOException {
+	public JSONArray chiamataAPI() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 			URLConnection openConnection = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" +
 					getCityName() + "," + getStateCode() + "&appid=" + getApiKey() ).openConnection();
 			InputStream in = openConnection.getInputStream();
 			
-			String informazioni = "";
+			//String informazioni = "";
 			String inputLine = "";
 			
-			try {
 				InputStreamReader inR = new InputStreamReader( in );
 				BufferedReader buf = new BufferedReader( inR );
+				ArrayList<City> list = new ArrayList<City>();
 				
 				while(( inputLine = buf.readLine())!=null){
+				/*
 					informazioni += inputLine;
 				}
 			}finally {
 				in.close();
 			}
-					this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
-					/*
+				this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
+				return obj;
+				*/
+					this.obj = (JSONObject) JSONValue.parseWithException(inputLine);
+					
 					JSONObject citta = (JSONObject) obj.get("city");
-					  this.cityName = (String) citta.get("name");
-					  this.stateCode = (String) citta.get("country");
-					  JSONArray lista = (JSONArray) obj.get("list");
-                     
+					this.cityName = (String) citta.get("name");
+					this.stateCode = (String) citta.get("country");
+					JSONArray lista = (JSONArray) obj.get("list");
+			     
 					  
 					  for(Object ob: lista)
+					 
 					  {
 						  if(ob instanceof JSONObject)
 						  {
-							  this.main = (JSONObject) ob;
-							  Iterator<Integer> iter = this.main.keySet().iterator();
-							  while(iter.hasNext()) { 
-								  this.humidity = (Integer) main.get("humidity");
+							  JSONObject op = (JSONObject) ob;
+							  JSONObject main = (JSONObject) op.get("main");
+							  //String hum = (String) main.get("humidity");
+							  //String temp = (String) main.get("temp");
+							  this.humidity = Double.parseDouble(main.get("humidity").toString());
+							  Double temp = Double.parseDouble(main.get("temp").toString());
+							  this.temperature = this.getTemperaturaInCelsius(temp);
+							  JSONArray weather = (JSONArray) op.get("weather");
+							  for(Object o: weather)
+							  {
+								  if(o instanceof JSONObject)
+								  {
+									  JSONObject op2 = (JSONObject)o;
+									  this.weather = (String) op2.get("description");
+								  }
 							  }
 						  }
 					  }
-				}
-			}finally {
-				in.close();
-			}
-					  
-					  JSONObject dati = new JSONObject();
-					  dati.put("citta", this.cityName);
-					  dati.put("country",this.stateCode);
+					
+					
+					list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
+				    }
+					/*  JSONObject dati = new JSONObject();
+					  dati.put("citta", this.getCityName());
+					  dati.put("country",this.getStateCode());
 					  dati.put("humidity",this.humidity);
+					  dati.put("temperature", this.temperature);
+					  dati.put("tempo", this.weather);
 					  this.download.add(dati);
-				
-			return download;
-			//this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
-			 * */
-			 
-			return obj;
-		/*
-     try {
-			
-			try {
-		
-				JSONParser parser = new JSONParser();
-		
-				URL OW = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=Ancona,IT&appid=bed1a816d94554cecab782b0804bec47");
-				HttpsURLConnection yc = (HttpsURLConnection) OW.openConnection();
-				yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+					  */
+			  this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
+			  return this.download;
 					
-				BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
-				String inputLine;
-		
-			
-				while ((inputLine = in.readLine()) != null) {
-						
-					JSONObject city = (JSONObject) parser.parse("city");
-					JSONObject list = (JSONObject) parser.parse("list");
-					
-					JSONArray l = (JSONArray) list.get("list");
-						
-					for (Object obj : l) {
-						
-						JSONObject op = (JSONObject) obj;
-						JSONObject main = (JSONObject) op.get("main");
-						Integer humidity = (Integer) main.get("humidity");
-							//temperature = (Double) main.get("temp");
-						//JSONObject w = (JSONObject) main.get("weather");
-							//weather = (String) w.get("description");
-						this.setHumidity(humidity);
-					}
-						
-						
-					cityName = (String) city.get("name");
-					stateCode = (String) city.get("country");
-					
-					in.close();
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();		
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			
-			JSONArray download = new JSONArray();
-			download = (JSONArray) ;
-	        return download;
-	        
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-		
-	}
-	*/
-	}
-}
+	}	
+
 
