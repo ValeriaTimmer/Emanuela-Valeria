@@ -22,18 +22,15 @@ import java.net.MalformedURLException;
  */
 public class StatsUtils{
 	
-	
+	/**
+	 * HashMap che contiene i valori richiesti
+	 */
 	private HashMap<String,String> stats;
 	 
 	 /**
 	  * ArrayList sul quale vengono i dati scelti su cui si effettuano le statistiche
 	  */
 	 private ArrayList <Double> arr;
-	
-	/** 
-	 * Array che contiene le statistiche 
-	 */
-	//private JSONArray stats = new JSONArray ();
 	
 	/**
 	 * Calcolatore di statistiche
@@ -79,7 +76,7 @@ public class StatsUtils{
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
 	 */
-	public void getValues (ArrayList <City> list, String type, String from, String to)
+	public ArrayList<Double> getValues (JSONArray list, String type, String from, String to)
 	throws DataFormatException, ParseException {
 		
 		ArrayList <String> allDates = DateUtils.date(from, to);
@@ -87,24 +84,33 @@ public class StatsUtils{
         	for (int i=0; i< allDates.size(); i++) {
         		 
         		 for(Object o: list) {
+        			 
      				if(o instanceof JSONObject) {
+     					
      					JSONObject o1 = (JSONObject) o;
-     					if(type.equals("humidity")) {
-     						Double value2 = (Double) o1.get("humidity");
-     						this.arr.add(value2);
-     						this.setArray(arr);
+     					String data = (String) o1.get("date");
+     					
+     					if(data.compareTo(from)>=0) {
+     						if(data.compareTo(to)<=0) {
+                         
+     					   if(type.equals("humidity")) {
+     						  Double value2 = (Double) o1.get("humidity");
+     						  this.arr.add(value2);
+     						  this.setArray(arr);
+     					    }
+     					
+     					    if(type.equals("temperature")) {
+     						    Double value = (Double) o1.get("temperature");
+     						    this.arr.add(value);
+     						    this.setArray(arr);
      					}
-     					
-     					if(type.equals("temperature")) {
-     						Double value = (Double) o1.get("temperature");
-     						this.arr.add(value);
-     						this.setArray(arr);
-     					
      				 }
+     			  }
      			}
 						
         	 }
 	    }
+        return arr;
 	}
 	
 	/**
@@ -122,20 +128,18 @@ public class StatsUtils{
 	 * @throws IOException 
 	 * @throws MalformedURLException 
 	 */
-	public HashMap<String, String> getStats(ArrayList <City> list, String city, String type, String from, String to) 
+	public HashMap<String, String> getStats(JSONArray list, String city, String type, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
 		
-		//HashMap <String, String> stats = new HashMap <String, String>();
-		this.getValues(list, type, from, to);
 		
 		try {
 			
 			stats.put("city", city);
 			stats.put("type", type);
-			stats.put ("min", calc.getMin(getArray()).toString());
-			stats.put ("max", calc.getMax(getArray()).toString());
-			stats.put ("avg", calc.getAverage(getArray()).toString());
-			stats.put ("var", calc.getVariance(getArray()).toString());
+			stats.put ("min", calc.getMin(this.getValues(list, type, from, to)).toString());
+			stats.put ("max", calc.getMax(this.getValues(list, type, from, to)).toString());
+			stats.put ("avg", calc.getAverage(this.getValues(list, type, from, to)).toString());
+			stats.put ("var", calc.getVariance(this.getValues(list, type, from, to)).toString());
 		
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

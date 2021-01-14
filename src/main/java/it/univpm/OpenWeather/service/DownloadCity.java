@@ -174,7 +174,7 @@ public class DownloadCity {
 							this.humidity = Double.parseDouble(main.get("humidity").toString());
 							Double temp = Double.parseDouble(main.get("temp").toString());
 							this.temperature = this.getTemperaturaInCelsius(temp);
-							//this.date = (String) op.get("dt_txt");
+							this.date = (String) op.get("dt_txt");
 							JSONArray weather = (JSONArray) op.get("weather");
 							
 							for(Object o1: weather)
@@ -192,7 +192,7 @@ public class DownloadCity {
 		
 		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.weather);
 		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-		obj.put ("date", DateUtils.today());
+		obj.put ("date", this.date);
 		download.add(obj);
 		return this.download;
 	

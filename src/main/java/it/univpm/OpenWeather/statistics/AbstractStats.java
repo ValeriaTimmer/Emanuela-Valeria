@@ -21,13 +21,13 @@ public abstract class AbstractStats {
 	/**
 	 * array contenente i dati
 	 */
-	protected ArrayList <City> arr;
+	protected JSONArray arr;
 	
 	/**
 	 * costruttore
 	 * @param array
 	 */
-	public AbstractStats (ArrayList<City> array) {
+	public AbstractStats (JSONArray array) {
 		this.arr = array;
 	}
 	
@@ -35,7 +35,7 @@ public abstract class AbstractStats {
 	 * metodo getter dell'array con i dati
 	 * @return arr array contenente i dati
 	 */
-	public ArrayList<City> getArray() {
+	public JSONArray getArray() {
 		return this.arr;
 	}
 	
@@ -54,5 +54,5 @@ public abstract class AbstractStats {
 	 * @throws UrlException 
 	 * @throws ParseException 
 	 */
-	public abstract HashMap<String,String> Statistics(ArrayList <City> list, String city, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+	public abstract HashMap<String,String> Statistics(JSONArray list, String city, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 }

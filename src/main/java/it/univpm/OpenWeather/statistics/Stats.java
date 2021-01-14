@@ -28,7 +28,7 @@ public class Stats extends AbstractStats{
      * Costruttore
      * @param arrayCity
      */
-     public Stats(ArrayList<City> array){
+     public Stats(JSONArray array){
     	super(array);
     	this.utils = new StatsUtils();
      }
@@ -48,7 +48,7 @@ public class Stats extends AbstractStats{
  	 * @throws IOException 
  	 * @throws MalformedURLException 
 	*/
-	public HashMap <String, String> Statistics (ArrayList <City> list, String city, String parameter, String from, String to) 
+	public HashMap <String, String> Statistics (JSONArray list, String city, String parameter, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
 		return utils.getStats(getArray(), city, parameter, from, to);
 	}

@@ -1,13 +1,19 @@
 package it.univpm.OpenWeather.utils;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import it.univpm.OpenWeather.service.*;
 
 import it.univpm.OpenWeather.exception.DataFormatException;
+import it.univpm.OpenWeather.exception.UrlException;
 
 /**
  * Classe che gestisce le date
@@ -43,6 +49,20 @@ public class DateUtils {
 		today.clear (Calendar.SECOND);
 		Date todayDate = today.getTime();
 		return formatoData.format(todayDate);
+	}
+	
+	public static String getDate() throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
+		DownloadCity d = new DownloadCity();
+		Parser p = new Parser();
+		String data = "";
+		JSONArray array = d.Parsing(p.caricaFile(Config.getName()));
+		for(Object o:array) {
+			if(o instanceof JSONObject) {
+				JSONObject ob = (JSONObject)o;
+				data = (String) ob.get("date");
+			}
+		}
+		return formatoData.format(data);
 	}
 	
 	/**
