@@ -7,6 +7,7 @@ import it.univpm.OpenWeather.exception.*;
 import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public interface CityService {
 	 */
 	//public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
 	
-	public abstract HashMap <String, String> getData (String city) throws IllegalArgumentException;
+	public abstract HashMap <String, String> getData (String city)  throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 	/**
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
@@ -43,7 +44,7 @@ public interface CityService {
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	public abstract HashMap <String, String> getStats(String city, String state, String type, String from, String to) 
+	public abstract HashMap <String, String> getStats(String city, String type, String from, String to) 
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException;
 	
 	//public abstract HashMap <String, String> getForecasts (String city, String state);

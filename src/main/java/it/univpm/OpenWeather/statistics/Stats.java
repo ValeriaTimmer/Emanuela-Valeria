@@ -48,9 +48,9 @@ public class Stats extends AbstractStats{
  	 * @throws IOException 
  	 * @throws MalformedURLException 
 	*/
-	public HashMap <String, String> Statistics (ArrayList <City> list, String city, String state, String parameter, String from, String to) 
+	public HashMap <String, String> Statistics (ArrayList <City> list, String city, String parameter, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
-		return utils.getStats(getArray(), city, state, parameter, from, to);
+		return utils.getStats(getArray(), city, parameter, from, to);
 	}
 		
 }

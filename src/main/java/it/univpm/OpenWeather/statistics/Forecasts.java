@@ -44,7 +44,7 @@ public class Forecasts {
  	 * @return
  	 */
  	 
- 	public boolean verificaPrevisioni (JSONArray array, String city, String country, long period) 
+ 	public boolean verificaPrevisioni (JSONArray array, String city, long period) 
  			throws DataFormatException, ParseException {
  		
  		ArrayList <String> d1 = new ArrayList<String>();
@@ -55,7 +55,7 @@ public class Forecasts {
  		
  		d1 = dateUtils.date(from.toString(), to.toString());
  		
- 		City c = new City (city, country);
+ 		City c = new City (city);
  		
  		for (Object o: array) {
  			

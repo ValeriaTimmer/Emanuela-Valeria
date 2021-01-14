@@ -12,10 +12,6 @@ public class City {
 	 * Nome della città
 	 */
 	private String cityName;
-	/*
-	 * Nome del paese/stato della città
-	 */
-	private String stateCode;
 	/**
 	 * Umidità della città in percentuale
 	 */
@@ -36,14 +32,12 @@ public class City {
 	 * Costruttore 
 	 * 
 	 * @param name Nome della città
-	 * @param country Paese/Stato della città
 	 * @param humidity Umidità della città
 	 * @param temp Temperatura della città
 	 * @param weather Descrizione del meteo della città
 	 */
-	public City(String name, String country, double humidity, double temperature, String weather) {
+	public City(String name, double humidity, double temperature, String weather) {
 		this.cityName = name;
-		this.stateCode = country;
 		this.humidity = humidity;
 		this.temperature = temperature;
 		this.weather = weather;
@@ -55,9 +49,8 @@ public class City {
 	 * @param name Nome della città
 	 * @param country Paese/Stato della città
 	 */
-	public City(String name, String country) {
+	public City(String name) {
 		this.cityName = name;
-		this.stateCode = country;
 	}
 	
 	/**
@@ -81,21 +74,6 @@ public class City {
 		this.cityName = cityName;
 	}
 
-	/**
-	 * Metodo Getter del nome del Paese/Stato della città
-	 * @return stateCode Ritorna il codice (sigla) del Paese/Stato della città
-	 */
-	public String getStateCode() {
-		return stateCode;
-	}
-
-	/**
-	 * Metodo Setter del nome del Paese/Stato della città
-	 * @param stateCode Codice (sigla) del Paese/Stato della città
-	 */
-	public void setStateCode(String stateCode) {
-		this.stateCode = stateCode;
-	}
 	
 	/**
 	 * Metodo Getter dell'umidità della città

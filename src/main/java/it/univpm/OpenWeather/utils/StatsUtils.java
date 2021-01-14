@@ -122,7 +122,7 @@ public class StatsUtils{
 	 * @throws IOException 
 	 * @throws MalformedURLException 
 	 */
-	public HashMap<String, String> getStats(ArrayList <City> list, String city, String state, String type, String from, String to) 
+	public HashMap<String, String> getStats(ArrayList <City> list, String city, String type, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
 		
 		//HashMap <String, String> stats = new HashMap <String, String>();
@@ -131,7 +131,6 @@ public class StatsUtils{
 		try {
 			
 			stats.put("city", city);
-			stats.put("state", state);
 			stats.put("type", type);
 			stats.put ("min", calc.getMin(getArray()).toString());
 			stats.put ("max", calc.getMax(getArray()).toString());

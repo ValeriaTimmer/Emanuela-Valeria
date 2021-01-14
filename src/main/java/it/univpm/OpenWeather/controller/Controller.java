@@ -5,6 +5,7 @@ import it.univpm.OpenWeather.exception.*;
 import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -43,8 +44,8 @@ public class Controller {
 		return new ResponseEntity<>(c.getMetadata(), HttpStatus.OK);
 	}
 	
-	@RequestMapping (value = "/data", method = RequestMethod.GET)
-	public ResponseEntity <Object> getData(@RequestBody JSONObject city){
+	@RequestMapping (value = "/data", method = RequestMethod.POST)
+	public ResponseEntity <Object> getData(@RequestBody JSONObject city) throws UrlException, IllegalArgumentException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
 		return new ResponseEntity<>(c.getData(city.toString()), HttpStatus.OK);
 	}
 	
@@ -69,12 +70,11 @@ public class Controller {
 		
 		    this.c = new CityServiceImpl();
 			String city = (String) body.get("city");
-			String state = (String) body.get("country");
 			String type = (String) body.get("type");
 			String from = (String) body.get("from");
 			String to = (String) body.get("to");
 		
-		return c.getStats(city, state, type, from, to);
+		return c.getStats(city, type, from, to);
 		
 	}
 	

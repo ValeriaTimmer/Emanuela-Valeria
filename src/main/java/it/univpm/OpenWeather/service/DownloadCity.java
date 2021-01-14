@@ -88,26 +88,13 @@ public class DownloadCity {
 	private String weather;
 	
 	/**
-	 * Chiave API privata 
-	 */
-	private static String apiKey = "bed1a816d94554cecab782b0804bec47";
-	
-	//private String path = "‪C://Users//Emanuela//file.json.txt";
-	
-	/**
-	 * File su cui vengono salvati i dati
-	 */
-	File file = new File ("fileValue.json");
-	
-	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
 	 * 
 	 * @param Name Nome della città
 	 * @param Code Sigla dello Stato/Paese della città
 	 */
-	public DownloadCity (String Name, String Code) {
+	public DownloadCity (String Name) {
 		this.cityName = Name;
-		this.stateCode = Code;
 		this.obj = new JSONObject();
 		this.p = new Parser();
 	}
@@ -118,26 +105,11 @@ public class DownloadCity {
 	public DownloadCity() {
 	}
 	
-	/**
-	 * Metodo Getter statico dell'apiKey
-	 * @return apiKey Valore della chiave api
-	 */
-	
-	private static String getApiKey () {
-		return apiKey;
-	}
-	
-	public File getFile() {
-		return this.file;
-	}
 	
 	public String getCityName () {
 		return cityName;
 	}
 	
-	public String getStateCode () {
-		return stateCode;
-	}
 	
 	public double getHumidity () {
 		return humidity;
@@ -190,7 +162,6 @@ public class DownloadCity {
 					
 			JSONObject citta = (JSONObject) obj.get("city");
 				this.cityName = (String) citta.get("name");
-				this.stateCode = (String) citta.get("country");
 			JSONArray lista = (JSONArray) obj.get("list");
 			     
 			for(Object ob: lista)
@@ -219,7 +190,7 @@ public class DownloadCity {
 				
 			}	
 		
-		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
+		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.weather);
 		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
 		obj.put ("date", DateUtils.today());
 		download.add(obj);

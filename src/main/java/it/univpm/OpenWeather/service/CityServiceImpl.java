@@ -46,11 +46,9 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Variabile della classe DownloadCity
 	 */
-	private DownloadCity d;
+	private City c;
 	
 	private JSONArray array;
-	
-	private ArrayList<City> o;
 	
 	private DataBase dB = new DataBase();
 	
@@ -60,7 +58,6 @@ public class CityServiceImpl implements CityService {
 	 */
 	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
 	ClassNotFoundException {
-		this.o = new ArrayList<City>();
 	}
 	
 	/**
@@ -90,7 +87,7 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	@Override 
-	public HashMap<String,String> getData(String city) throws IllegalArgumentException { 
+	public HashMap<String,String> getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
 		HashMap <String, String> data = new HashMap <String, String>();
 		data.put("Data", dB.getAllData(city).toString());
 		return data;
@@ -114,16 +111,16 @@ public class CityServiceImpl implements CityService {
 	 * @throws FileNotFoundException 
 	 */
 	@Override 
-	public HashMap <String, String> getStats (String city, String state, String type, String from, String to ) 
+	public HashMap <String, String> getStats (String city, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
-		this.d = new DownloadCity (city, state);
+		this.c = new City(city);
 		DataBase dB = new DataBase ();
-		this.o = dB.getAllData(city);
+		this.array = dB.getAllData(city);
 		
 		//this.array = d.caricaFile(d.getFile());
 		
-		this.s = new Stats(this.o);
+		this.s = new Stats(this.array);
 		//this.obj = d1.caricaFile(file);
 		//String file = d.getFileName();
 		
@@ -131,7 +128,7 @@ public class CityServiceImpl implements CityService {
 		
 		
 		
-		return  s.Statistics(s.getArray(), d.getCityName() , d.getStateCode(), type, from, to);
+		return  s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		
 	}
 	

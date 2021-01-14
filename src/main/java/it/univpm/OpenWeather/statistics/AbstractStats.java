@@ -54,5 +54,5 @@ public abstract class AbstractStats {
 	 * @throws UrlException 
 	 * @throws ParseException 
 	 */
-	public abstract HashMap<String,String> Statistics(ArrayList <City> list, String city,String state, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+	public abstract HashMap<String,String> Statistics(ArrayList <City> list, String city, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 }
