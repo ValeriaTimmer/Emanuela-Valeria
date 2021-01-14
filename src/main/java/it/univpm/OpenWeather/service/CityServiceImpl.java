@@ -90,7 +90,7 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	@Override 
-	public HashMap<String,String> getData(String city) { 
+	public HashMap<String,String> getData(String city) throws IllegalArgumentException { 
 		HashMap <String, String> data = new HashMap <String, String>();
 		data.put("Data", dB.getAllData(city).toString());
 		return data;

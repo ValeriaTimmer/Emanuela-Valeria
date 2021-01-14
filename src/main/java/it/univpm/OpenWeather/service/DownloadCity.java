@@ -177,8 +177,7 @@ public class DownloadCity {
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
-	 */
-	@Bean 
+	 */ 
 	public JSONArray Parsing (JSONArray val) throws UrlException, ParseException, MalformedURLException, IOException {
 				
 		ArrayList<City> list = new ArrayList<City>();
@@ -222,7 +221,10 @@ public class DownloadCity {
 		
 		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
 		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-		return download;
+		obj.put ("date", DateUtils.today());
+		download.add(obj);
+		return this.download;
+	
 	}
 }
 

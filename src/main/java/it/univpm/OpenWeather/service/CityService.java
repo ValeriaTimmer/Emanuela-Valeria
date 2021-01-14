@@ -35,7 +35,7 @@ public interface CityService {
 	 */
 	//public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
 	
-	public abstract HashMap <String, String> getData (String city);
+	public abstract HashMap <String, String> getData (String city) throws IllegalArgumentException;
 	/**
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 

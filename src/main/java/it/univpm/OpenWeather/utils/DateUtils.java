@@ -38,7 +38,11 @@ public class DateUtils {
 	 */
 	public static String today() {
 		Calendar today = Calendar.getInstance();
-		return formatoData.format(today);
+		today.clear (Calendar.HOUR);
+		today.clear (Calendar.MINUTE);
+		today.clear (Calendar.SECOND);
+		Date todayDate = today.getTime();
+		return formatoData.format(todayDate);
 	}
 	
 	/**

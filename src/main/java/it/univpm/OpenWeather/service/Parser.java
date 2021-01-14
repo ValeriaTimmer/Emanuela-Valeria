@@ -61,7 +61,6 @@ public class Parser {
 	}
 	
 
-
 	public void chiamataAPI (String cityName) {
 		
 		try {
