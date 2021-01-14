@@ -49,7 +49,7 @@ public class Forecasts {
  		
  		ArrayList <String> d1 = new ArrayList<String>();
  	
- 		LocalDate to = LocalDate.parse(dateUtils.today());
+ 		LocalDate to = LocalDate.parse (dateUtils.today());
  	 		
  		LocalDate from = to.minusDays(period);
  		
@@ -68,13 +68,6 @@ public class Forecasts {
  				Double hum = (Double) obj1.get("humidity");
  				Double temp = (Double) obj1.get("temperature");
  				String descr = (String) obj1.get("weather");
- 				
- 				// DA FINIRE! 
- 				/*
- 				 * Idea è di confrontare gli elementi per ogni singolo giorno e incrementare un contatore
- 				 * Se sono uguali i++ --> Return i
- 				 * Se sono diversi subito i = 0 --> Previsioni sbagliate 
- 				 */
  			
  				} catch (Exception e) {
  					e.printStackTrace();

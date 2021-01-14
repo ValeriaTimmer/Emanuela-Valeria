@@ -2,12 +2,14 @@ package it.univpm.OpenWeather.statistics;
 
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.utils.*;
+import it.univpm.OpenWeather.model.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import org.json.simple.JSONArray;
+import java.util.ArrayList;
 /**
  * classe astratta che serve per calcolare le statistiche 
  * @author Valeria Timmer
@@ -19,13 +21,13 @@ public abstract class AbstractStats {
 	/**
 	 * array contenente i dati
 	 */
-	protected JSONArray arr;
+	protected ArrayList <City> arr;
 	
 	/**
 	 * costruttore
 	 * @param array
 	 */
-	public AbstractStats(JSONArray array) {
+	public AbstractStats (ArrayList<City> array) {
 		this.arr = array;
 	}
 	
@@ -33,7 +35,7 @@ public abstract class AbstractStats {
 	 * metodo getter dell'array con i dati
 	 * @return arr array contenente i dati
 	 */
-	public JSONArray getArray() {
+	public ArrayList<City> getArray() {
 		return this.arr;
 	}
 	
@@ -52,5 +54,5 @@ public abstract class AbstractStats {
 	 * @throws UrlException 
 	 * @throws ParseException 
 	 */
-	public abstract HashMap<String,String> Statistics(JSONArray array, String city,String state, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+	public abstract HashMap<String,String> Statistics(ArrayList <City> list, String city,String state, String parameter, String from, String to ) throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 }

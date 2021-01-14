@@ -43,6 +43,11 @@ public class Controller {
 		return new ResponseEntity<>(c.getMetadata(), HttpStatus.OK);
 	}
 	
+	@RequestMapping (value = "/data", method = RequestMethod.GET)
+	public ResponseEntity <Object> getData(@RequestBody JSONObject city){
+		return new ResponseEntity<>(c.getData(city.toString()), HttpStatus.OK);
+	}
+	
 	/**
 	 * Rotta che gestisce la chiamata della rotta "POST/stats"
 	 * @param city Nome della città

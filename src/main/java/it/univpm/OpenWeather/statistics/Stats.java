@@ -4,9 +4,11 @@ import org.json.simple.JSONArray;
 import java.text.ParseException;
 import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.model.*;
 import java.util.HashMap;
 import java.io.*;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 
 /**
@@ -26,7 +28,7 @@ public class Stats extends AbstractStats{
      * Costruttore
      * @param arrayCity
      */
-     public Stats(JSONArray array){
+     public Stats(ArrayList<City> array){
     	super(array);
     	this.utils = new StatsUtils();
      }
@@ -46,7 +48,7 @@ public class Stats extends AbstractStats{
  	 * @throws IOException 
  	 * @throws MalformedURLException 
 	*/
-	public HashMap <String, String> Statistics (JSONArray array, String city, String state, String parameter, String from, String to) 
+	public HashMap <String, String> Statistics (ArrayList <City> list, String city, String state, String parameter, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
 		return utils.getStats(getArray(), city, state, parameter, from, to);
 	}

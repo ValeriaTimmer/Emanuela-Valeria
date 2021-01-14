@@ -17,6 +17,7 @@ import java.util.TreeMap;
 import java.time.LocalDate;
 import java.text.ParseException;
 import java.io.*;
+import org.json.simple.JSONValue;
 
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
@@ -33,9 +34,12 @@ import org.springframework.scheduling.annotation.Scheduled;
  *
  */
 @Service
+
 public class CityServiceImpl implements CityService {
 	
 	private Stats s;
+	
+	private Forecasts f;
 	
 	private JSONObject obj = new JSONObject();
 	
@@ -46,7 +50,9 @@ public class CityServiceImpl implements CityService {
 	
 	private JSONArray array;
 	
-	private ArrayList<Integer> o;
+	private ArrayList<City> o;
+	
+	private DataBase dB = new DataBase();
 	
 	
 	/**
@@ -54,7 +60,7 @@ public class CityServiceImpl implements CityService {
 	 */
 	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
 	ClassNotFoundException {
-		this.o = new ArrayList<Integer>();
+		this.o = new ArrayList<City>();
 		this.d = new DownloadCity();
 	}
 	
@@ -84,6 +90,12 @@ public class CityServiceImpl implements CityService {
 		return c;
 	}
 	
+	@Override 
+	public HashMap<String,String> getData(String city) { 
+		HashMap <String, String> data = new HashMap <String, String>();
+		data.put("Data", dB.getAllData(city).toString());
+		return data;
+	}
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return c JSONArray contenente le città filtrate per nome e stato
@@ -107,13 +119,12 @@ public class CityServiceImpl implements CityService {
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		this.d = new DownloadCity (city, state);
-		//this.obj = d.chiamataAPI();
-		this.array = d.chiamataAPI();
-		d.salvaFile(d.getFile());
-		d.ScheduledAtFixedRate();
+		DataBase dB = new DataBase ();
+		this.o = dB.getAllData(city);
+		
 		//this.array = d.caricaFile(d.getFile());
 		
-		this.s = new Stats(array);
+		this.s = new Stats(this.o);
 		//this.obj = d1.caricaFile(file);
 		//String file = d.getFileName();
 		
@@ -124,6 +135,11 @@ public class CityServiceImpl implements CityService {
 		return  s.Statistics(s.getArray(), d.getCityName() , d.getStateCode(), type, from, to);
 		
 	}
+	
+	//@Override
+	//public HashMap <String, String> getForecasts (String city, String state){
+		//return ;
+	//}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia

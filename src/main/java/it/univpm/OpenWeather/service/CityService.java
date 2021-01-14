@@ -35,6 +35,7 @@ public interface CityService {
 	 */
 	//public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
 	
+	public abstract HashMap <String, String> getData (String city);
 	/**
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return JSONArray delle statistiche effettute 
@@ -45,6 +46,7 @@ public interface CityService {
 	public abstract HashMap <String, String> getStats(String city, String state, String type, String from, String to) 
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException;
 	
+	//public abstract HashMap <String, String> getForecasts (String city, String state);
 	/**
 	 * Metodo che permette di selezionare in base a degli intervalli di umidità scelti (in percentuale)
 	 * @param param1 Estremo inferiore dell'intervallo di umidità

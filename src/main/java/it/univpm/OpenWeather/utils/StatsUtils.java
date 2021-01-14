@@ -2,6 +2,7 @@ package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.model.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import java.net.MalformedURLException;
  *
  */
 public class StatsUtils{
+	
 	
 	private HashMap<String,String> stats;
 	 
@@ -77,14 +79,14 @@ public class StatsUtils{
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
 	 */
-	public void getValues (JSONArray array, String type, String from, String to)
+	public void getValues (ArrayList <City> list, String type, String from, String to)
 	throws DataFormatException, ParseException {
 		
 		ArrayList <String> allDates = DateUtils.date(from, to);
 	        
         	for (int i=0; i< allDates.size(); i++) {
         		 
-        		 for(Object o: array) {
+        		 for(Object o: list) {
      				if(o instanceof JSONObject) {
      					JSONObject o1 = (JSONObject) o;
      					if(type.equals("humidity")) {
@@ -120,11 +122,11 @@ public class StatsUtils{
 	 * @throws IOException 
 	 * @throws MalformedURLException 
 	 */
-	public HashMap<String, String> getStats(JSONArray array, String city, String state, String type, String from, String to) 
+	public HashMap<String, String> getStats(ArrayList <City> list, String city, String state, String type, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
 		
 		//HashMap <String, String> stats = new HashMap <String, String>();
-		this.getValues(array, type, from, to);
+		this.getValues(list, type, from, to);
 		
 		try {
 			

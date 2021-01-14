@@ -48,10 +48,17 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 
-
+@Component
 public class DownloadCity {
 	
-	private JSONObject obj;
+	private Parser p = new Parser();
+	
+	private String date;
+	
+	
+	private JSONObject obj = new JSONObject();
+	
+	private JSONObject jsonOb = new JSONObject();
 	
 	private JSONArray download;
 	
@@ -90,9 +97,7 @@ public class DownloadCity {
 	/**
 	 * File su cui vengono salvati i dati
 	 */
-	File file = new File ("file.json");
-
-	
+	File file = new File ("fileValue.json");
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -165,232 +170,59 @@ public class DownloadCity {
 	}
 
 	/**
-	 * Metodo che permette di salvare i dati ogni ora
-	 */
-	@Bean
-	public void ScheduledAtFixedRate() throws UrlException {
-		try {			
-
-					/**
-					 * Costruttore della classe Date di java.lang.Object che iniziailizza 
-					 * il momento di inizio del metodo
-					 * 
-					 * @Deprecated : Alloca un oggetto Date e lo inizializza in modo che rappresenti la mezzanotte, 
-					 * dell'ora locale, all'inizio del giorno specificato dagli argomenti anno, mese e data.
-					 */
-					Date firstTime = new Date(121, 1, 8);
-					
-					/**
-					 * Costruttore della classe Timer di java.lang.Object
-					 */
-					Timer timer = new Timer();
-					/*
-					 * Costruttore della classe TimerTask che effettua l'override del metodo run
-					 * dell'interfaccia Runnable di java.lang.Object
-					 */
-					TimerTask task = new TimerTask() {
-					/*
-					 * Metodo che salva le informazioni delle città scelte in un arrayList
-					 * Effettua l'override del metodo run() della classe TimerTask
-					 */
-						@Override
-					public void run(){ 
-							try {
-								salvaFile(getFile());
-							} catch (UrlException e) {
-								e.printStackTrace();
-							} catch (ParseException e) {
-								e.printStackTrace();
-							}
-						}
-					};
-					
-					/*
-					* Metodo che ripete il salvataggio ogni ora, a partire da una data scelta (firstTime)
-					 */
-					timer.scheduleAtFixedRate (task, firstTime, 30000);
-					
-					} catch (IllegalArgumentException e) {
-							// Viene lanciata se firstTime.getTime() < 0 o period <= 0
-							e.printStackTrace();
-					} catch (IllegalStateException e) {
-							// Viene lanciata se l'attività era già pianificata o annullata,
-							// il timer è stato annullato o il thread del timer è stato terminato
-							System.out.println ("Errore Scheduler");
-							System.out.println ("Messaggio: " + e.getMessage());
-							System.out.println ("Causa: " + e.getCause());
-					} catch (NullPointerException e) {
-							// Viene lanciata se task o fistTime sono null
-							e.printStackTrace();
-					}
-	}
-	
-	/**
-	 * Metodo che permette di salvare un JSONArray in un file binario
-	 * 
-	 * @param nome_file Nome del file su cui voglio salvare il JSONArray
-	 * @throws ParseException 
-	 */
-	@Bean
-	public void salvaFile (File file) throws UrlException, ParseException {
-		try {
-			FileWriter file_output = new FileWriter(file,true);
-			file_output.append(this.download.toString());
-			file_output.close();
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Metodo che permette di leggere i dati da un file
-	 * 
-	 * @param nome_file Nome del file da cui leggere il JSONArray
-	 * @throws ParseException 
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
-	 * @throws ClassNotFoundException 
-	 */
-	
-	/*
-	public JSONArray caricaFile (File file) throws FileNotFoundException, IOException, ParseException, ClassNotFoundException {
-
-		ArrayList <City> list = new ArrayList<City>();
-		
-		file = getFile();
-		
-        BufferedReader input_file = new BufferedReader(new FileReader(file));
-		
-		String str = "";
-		
-		while ((str = input_file.readLine()) != null){
-		
-		this.obj = (JSONObject) JSONValue.parseWithException(str);
-		
-		JSONObject citta = (JSONObject) obj.get("city");
-		this.cityName = (String) citta.get("name");
-		this.stateCode = (String) citta.get("country");
-		JSONArray lista = (JSONArray) obj.get("list");
-         
-		  
-		  for(Object ob: lista)
-		 
-		  {
-			  if(ob instanceof JSONObject)
-			  {
-				  JSONObject op = (JSONObject) ob;
-				  JSONObject main = (JSONObject) op.get("main");
-				  //String hum = (String) main.get("humidity");
-				  //String temp = (String) main.get("temp");
-				  this.humidity = Double.parseDouble(main.get("humidity").toString());
-				  Double temp = Double.parseDouble(main.get("temp").toString());
-				  this.temperature = this.getTemperaturaInCelsius(temp);
-				  JSONArray weather = (JSONArray) op.get("weather");
-				  for(Object o: weather)
-				  {
-					  if(o instanceof JSONObject)
-					  {
-						  JSONObject op2 = (JSONObject)o;
-						  this.weather = (String) op2.get("description");
-					  }
-				  }
-			  }
-		  }
-		
-		
-		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
-		}
-		/*  JSONObject dati = new JSONObject();
-		  dati.put("citta", this.getCityName());
-		  dati.put("country",this.getStateCode());
-		  dati.put("humidity",this.humidity);
-		  dati.put("temperature", this.temperature);
-		  dati.put("tempo", this.weather);
-		  this.download.add(dati);
-		  
-		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-		return this.download;
-	}
-	*/
-	
-	/**
-	 * Metodo che effettua il Parsing dal sito di OpenWeather
+	 * Metodo che effettua il Parsing dei dati desiderati dal sito di OpenWeather
 	 * 
 	 * @return JSONObject contenete i dati parsati
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
 	 */
-	public JSONArray chiamataAPI() throws UrlException, ParseException, MalformedURLException, IOException {
-		
-			URLConnection openConnection = new URL("https://api.openweathermap.org/data/2.5/forecast?q=" +
-					getCityName() + "," + getStateCode() + "&appid=" + getApiKey() ).openConnection();
-			InputStream in = openConnection.getInputStream();
-			
-			//String informazioni = "";
-			String inputLine = "";
-			
-				InputStreamReader inR = new InputStreamReader( in );
-				BufferedReader buf = new BufferedReader( inR );
-				ArrayList<City> list = new ArrayList<City>();
+	@Bean 
+	public JSONArray Parsing (JSONArray val) throws UrlException, ParseException, MalformedURLException, IOException {
 				
-				while(( inputLine = buf.readLine())!=null){
-				/*
-					informazioni += inputLine;
-				}
-			}finally {
-				in.close();
-			}
-				this.obj = (JSONObject) JSONValue.parseWithException(informazioni);
-				return obj;
-				*/
-					this.obj = (JSONObject) JSONValue.parseWithException(inputLine);
+		ArrayList<City> list = new ArrayList<City>();
+				
+		val = p.caricaFile(Config.getName());
+		
+		for (Object o : val) {
+			
+			JSONObject obj = (JSONObject) o;
 					
-					JSONObject citta = (JSONObject) obj.get("city");
-					this.cityName = (String) citta.get("name");
-					this.stateCode = (String) citta.get("country");
-					JSONArray lista = (JSONArray) obj.get("list");
+			JSONObject citta = (JSONObject) obj.get("city");
+				this.cityName = (String) citta.get("name");
+				this.stateCode = (String) citta.get("country");
+			JSONArray lista = (JSONArray) obj.get("list");
 			     
-					  
-					  for(Object ob: lista)
+			for(Object ob: lista)
 					 
-					  {
-						  if(ob instanceof JSONObject)
+				{
+					if(ob instanceof JSONObject)
 						  {
-							  JSONObject op = (JSONObject) ob;
-							  JSONObject main = (JSONObject) op.get("main");
-							  //String hum = (String) main.get("humidity");
-							  //String temp = (String) main.get("temp");
-							  this.humidity = Double.parseDouble(main.get("humidity").toString());
-							  Double temp = Double.parseDouble(main.get("temp").toString());
-							  this.temperature = this.getTemperaturaInCelsius(temp);
-							  JSONArray weather = (JSONArray) op.get("weather");
-							  for(Object o: weather)
+							JSONObject op = (JSONObject) ob;
+							JSONObject main = (JSONObject) op.get("main");
+							this.humidity = Double.parseDouble(main.get("humidity").toString());
+							Double temp = Double.parseDouble(main.get("temp").toString());
+							this.temperature = this.getTemperaturaInCelsius(temp);
+							//this.date = (String) op.get("dt_txt");
+							JSONArray weather = (JSONArray) op.get("weather");
+							
+							for(Object o1: weather)
 							  {
-								  if(o instanceof JSONObject)
+								  if(o1 instanceof JSONObject)
 								  {
-									  JSONObject op2 = (JSONObject)o;
+									  JSONObject op2 = (JSONObject)o1;
 									  this.weather = (String) op2.get("description");
 								  }
 							  }
 						  }
 					  }
-					
-					
-					list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
-				    }
-					/*  JSONObject dati = new JSONObject();
-					  dati.put("citta", this.getCityName());
-					  dati.put("country",this.getStateCode());
-					  dati.put("humidity",this.humidity);
-					  dati.put("temperature", this.temperature);
-					  dati.put("tempo", this.weather);
-					  this.download.add(dati);
-					  */
-			  this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-			  return this.download;
-					
-			}
-	}	
+				
+			}	
+		
+		list = BuildingCity.Building(this.cityName, this.stateCode, this.humidity, this.temperature, this.weather);
+		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
+		return download;
+	}
+}
 
 
