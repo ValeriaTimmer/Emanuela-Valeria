@@ -18,26 +18,28 @@ import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.model.*;
 import java.util.ArrayList;
 
-@Component 
+@Component
 public class DataBase {
 	
 	@Autowired (required = true)
-	Parser p ;
+	private Parser p ;
 	
-	private JSONArray  arr = new JSONArray();
-	private JSONArray value = new JSONArray();
+	private JSONArray  arr;
+	private JSONArray value;
 	
 	@Autowired (required = true)
-	DownloadCity download = new DownloadCity();
+	DownloadCity download = new DownloadCity("Ancona","IT");
 	
-	JSONObject obj = new JSONObject();
+	private JSONObject obj = new JSONObject();
 	
 	public DataBase () throws UrlException, ParseException, MalformedURLException, IOException {
 		p = new Parser();
+		this.arr = new JSONArray();
+		this.value = new JSONArray();
 		this.addToDataBase();
 	}
 	
-	@Scheduled (cron = "0 0 */2 * * ?")
+	@Scheduled (cron = "0 0 */1 * * ?")
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		if (Config.getCall()) {

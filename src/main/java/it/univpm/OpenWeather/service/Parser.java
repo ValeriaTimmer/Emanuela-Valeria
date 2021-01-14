@@ -23,6 +23,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * Classe che si occupa di leggere i dati dall'API e di salvarli in un file 
@@ -37,15 +38,15 @@ public class Parser {
 	
 	private String StateCode;
 	
-	private String getCityName() {
+	public String getCityName() {
 		return this.cityName;
 	}
 	
-	private void setCityName(String name) {
+	public void setCityName(String name) {
 		this.cityName = name;
 	}
 	
-	private String getStateCode() {
+	public String getStateCode() {
 		return this.StateCode;
 	}
 	
@@ -64,14 +65,16 @@ public class Parser {
 	public void chiamataAPI (String cityName) {
 		
 		try {
-			URL oracle = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"&appid=" + Config.getApiKey());
-			HttpsURLConnection yc = (HttpsURLConnection) oracle.openConnection();
-			yc.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-			BufferedReader in = new BufferedReader (new InputStreamReader (yc.getInputStream()));
+			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"&appid=" + Config.getApiKey()).openConnection();
+			openConnection.addRequestProperty ( " User-Agent " , " Mozilla / 5.0 (Windows NT 6.1; WOW64; rv: 25.0) Gecko / 20100101 Firefox / 25.0 " );
+			InputStream in = openConnection.getInputStream();
 			String data = "";
 			String line = "";
 			try {
-				while ((line = in.readLine()) != null) 
+				InputStreamReader inR = new InputStreamReader(in);
+				BufferedReader buf = new BufferedReader(inR);
+				
+				while ((line = buf.readLine()) != null) 
 					data +=line;
 			} finally  {
 				in.close();
@@ -91,7 +94,7 @@ public class Parser {
 	
 
 	public void salvaFile (String nome_file) {
-		this.chiamataAPI(this.cityName);
+		this.chiamataAPI("Ancona");
 		try {
 			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file)));
 			file_output.println(this.jo);

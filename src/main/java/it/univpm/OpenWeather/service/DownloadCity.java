@@ -51,7 +51,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class DownloadCity {
 	
-	private Parser p = new Parser();
+	private Parser p;
 	
 	private String date;
 	
@@ -109,6 +109,7 @@ public class DownloadCity {
 		this.cityName = Name;
 		this.stateCode = Code;
 		this.obj = new JSONObject();
+		this.p = new Parser();
 	}
 	
 	/**

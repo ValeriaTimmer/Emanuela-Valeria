@@ -61,7 +61,6 @@ public class CityServiceImpl implements CityService {
 	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
 	ClassNotFoundException {
 		this.o = new ArrayList<City>();
-		this.d = new DownloadCity();
 	}
 	
 	/**
