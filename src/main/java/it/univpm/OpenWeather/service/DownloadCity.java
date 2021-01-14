@@ -51,7 +51,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class DownloadCity {
 	
-	private Parser p;
+	private Parser p = new Parser();
 	
 	private String date;
 	

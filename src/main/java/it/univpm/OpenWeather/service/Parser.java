@@ -30,10 +30,9 @@ import org.springframework.stereotype.Component;
  * @author ValeriaTimmer
  *
  */
-@Configuration
+@Component
 public class Parser {
-	
-	
+
 	private String cityName;
 	
 	private String StateCode;
@@ -95,8 +94,8 @@ public class Parser {
 	public void salvaFile (String nome_file) {
 		this.chiamataAPI("Ancona");
 		try {
-			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file)));
-			file_output.println(this.jo);
+			FileWriter file_output = new FileWriter (nome_file,true);
+			file_output.append(this.jo.toJSONString());
 			file_output.close();
 		} catch (IOException e) {
 			e.printStackTrace();

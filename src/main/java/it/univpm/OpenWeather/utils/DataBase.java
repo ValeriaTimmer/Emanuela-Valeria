@@ -8,17 +8,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Repository;
+
+import org.slf4j.*;
 
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.model.*;
 import java.util.ArrayList;
 
-@Component
+@Configuration
 public class DataBase {
 	
 	@Autowired (required = true)
@@ -39,17 +44,20 @@ public class DataBase {
 		this.addToDataBase();
 	}
 	
-	@Scheduled (cron = "0 0 */1 * * ?")
+	@Scheduled (cron = "0 0/1 * * * ?") //In questo modo effettua una chiamata ogni minuto
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
+		final Logger logger = LoggerFactory.getLogger(DataBase.class);
+		
 		if (Config.getCall()) {
-			
+				logger.info("Sto recuperando i dati della città di Ancona");
 				p.chiamataAPI("Ancona");
 				p.salvaFile(Config.getName());
-				download.Parsing(p.caricaFile(Config.getName()));
-				obj.put("date", DateUtils.today());
-				obj.put("values", download);
-				this.arr.add(obj);
+				
+				//download.Parsing(p.caricaFile(Config.getName()));
+				//obj.put("date", DateUtils.today());
+				//obj.put("values", download);
+				//this.arr.add(download);
 			}
 	}
 		
