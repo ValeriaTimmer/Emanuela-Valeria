@@ -55,12 +55,13 @@ public class DownloadCity {
 	
 	private String date;
 	
-	
 	private JSONObject obj = new JSONObject();
 	
 	private JSONObject jsonOb = new JSONObject();
 	
 	private JSONArray download;
+	
+	private JSONArray value;
 	
 	/*
 	 * Nome della città
@@ -149,54 +150,71 @@ public class DownloadCity {
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
-	 */ 
-	public JSONArray Parsing (JSONArray val) throws UrlException, ParseException, MalformedURLException, IOException {
-				
+	 *
+	public JSONArray Parsing (String nome_file) throws UrlException, ParseException, MalformedURLException, IOException {
+		
+		JSONParser parser = new JSONParser();
+		
 		ArrayList<City> list = new ArrayList<City>();
-				
-		val = p.caricaFile(Config.getName());
+			
+		try {
+		
+		p.salvaFile(nome_file, cityName);
+		
+		FileReader reader = new FileReader(nome_file);
+		
+		JSONArray val = (JSONArray) parser.parse(reader);
 		
 		for (Object o : val) {
 			
-			JSONObject obj = (JSONObject) o;
+			if (o instanceof JSONObject) {
+			
+				JSONObject obj = (JSONObject) o;
 					
-			JSONObject citta = (JSONObject) obj.get("city");
+				JSONObject citta = (JSONObject) obj.get("city");
 				this.cityName = (String) citta.get("name");
-			JSONArray lista = (JSONArray) obj.get("list");
+
+						
+				JSONArray lista = (JSONArray) citta.get("list");
 			     
-			for(Object ob: lista)
-					 
-				{
-					if(ob instanceof JSONObject)
-						  {
-							JSONObject op = (JSONObject) ob;
-							JSONObject main = (JSONObject) op.get("main");
-							this.humidity = Double.parseDouble(main.get("humidity").toString());
-							Double temp = Double.parseDouble(main.get("temp").toString());
-							this.temperature = this.getTemperaturaInCelsius(temp);
-							this.date = (String) op.get("dt_txt");
-							JSONArray weather = (JSONArray) op.get("weather");
+						for(Object ob: lista) {
 							
-							for(Object o1: weather)
-							  {
-								  if(o1 instanceof JSONObject)
-								  {
+							if(ob instanceof JSONObject) {
+							
+								JSONObject op = (JSONObject) ob;
+								JSONObject main = (JSONObject) op.get("main");
+								this.humidity = Double.parseDouble(main.get("humidity").toString());
+								Double temp = Double.parseDouble(main.get("temp").toString());
+								this.temperature = this.getTemperaturaInCelsius(temp);
+								String date = (String) op.get("dt_txt");
+								this.date = DateUtils.formatoData.format(date);
+								JSONArray weather = (JSONArray) op.get("weather");
+							
+								for(Object o1: weather){
+									
+								  if(o1 instanceof JSONObject) {
 									  JSONObject op2 = (JSONObject)o1;
 									  this.weather = (String) op2.get("description");
 								  }
 							  }
 						  }
 					  }
-				
+					}
 			}	
+		
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.weather);
 		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
 		obj.put ("date", this.date);
 		download.add(obj);
+		
 		return this.download;
-	
 	}
+	*/
 }
 
 

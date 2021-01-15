@@ -2,7 +2,7 @@ package it.univpm.OpenWeather.utils;
 
 public class Config {
 	
-	private static String fileName = "allValues.txt";
+	private static String fileName = "allValues.json";
 	
 	public static String getName() {
 		return fileName;

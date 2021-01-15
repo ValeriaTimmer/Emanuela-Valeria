@@ -118,14 +118,8 @@ public class CityServiceImpl implements CityService {
 		DataBase dB = new DataBase ();
 		this.array = dB.getAllData(city);
 		
-		//this.array = d.caricaFile(d.getFile());
 		
 		this.s = new Stats(this.array);
-		//this.obj = d1.caricaFile(file);
-		//String file = d.getFileName();
-		
-		//this.array_finale = d1.caricaFile(file);
-		
 		
 		
 		return  s.Statistics(s.getArray(), c.getCityName(), type, from, to);

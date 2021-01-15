@@ -79,10 +79,11 @@ public class DataBase {
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
 		
 		if (Config.getCall()) {
+					
 				logger.info("Sto recuperando i dati della città di Ancona");
-				p.chiamataAPI("Ancona");
-				p.salvaFile(Config.getName(), "Ancona");
-			}
+					p.salvaFile(Config.getName(),"Ancona");
+				}
+
 	}
 		
 		
@@ -101,35 +102,39 @@ public class DataBase {
 
 		ArrayList <String> msg = new ArrayList<String>();
 		
-		this.arr = download.Parsing(p.caricaFile(Config.getName()));
+		this.arr = p.caricaFile(Config.getName());
 				
 			for (Object o : this.arr) {
-			
-			JSONObject obj = new JSONObject();
-			
-			String name = (String) obj.get("city");
-			
-			if (name.equals(city)) {
 				
-				//String date = (String) obj.get("date");
-				Double humidity = Double.parseDouble( obj.get("humidity").toString());
-				Double temp = Double.parseDouble( obj.get("temp").toString());
-				String weather = (String) obj.get("weather");
+				if (o instanceof JSONObject) {
+			
+					JSONObject obj = new JSONObject();
+			
+					String cityName = (String) obj.get("city");
+
+					if (cityName.equals(city.toString())) {
 				
-				//obj.put("date", date);
-				obj.put("city", city);
-				obj.put("humidity", humidity);
-				obj.put("temperature", temp);
-				obj.put("weather", weather);
+						//String date = (String) obj.get("date");
+						Double humidity = Double.parseDouble( obj.get("humidity").toString());
+						Double temp = Double.parseDouble( obj.get("temp").toString());
+						String weather = (String) obj.get("weather");
 				
-				value.add(obj);
+						//obj.put("date", date);
+						obj.put("city", city);
+						obj.put("humidity", humidity);
+						obj.put("temperature", temp);
+						obj.put("weather", weather);
+				
+						value.add(obj);
+					}
+			
+					else {
+				
+						msg.add("La città attualmente non è monitorata, non sono presenti dati nel DataBase");
+						value.add( msg);
+					}
+				}
 			}
-			
-			else 
-				
-				msg.add("La città attualmente non è monitorata, non sono presenti dati nel DataBase");
-				value.add( msg);
-		}
 		
 		return value;
 	}

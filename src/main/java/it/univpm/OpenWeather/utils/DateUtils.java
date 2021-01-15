@@ -36,7 +36,7 @@ public class DateUtils {
 	/**
 	 *  DateFormat per il parsing della data in formato: "dd/MM/yyyy"
 	 */
-	private static DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+	public static DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	
 	/**
 	 * Metodo che genera la data odierna
@@ -51,11 +51,10 @@ public class DateUtils {
 		return formatoData.format(todayDate);
 	}
 	
-	public static String getDate() throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
-		DownloadCity d = new DownloadCity();
+	public static String getDate(String cityName) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
 		Parser p = new Parser();
 		String data = "";
-		JSONArray array = d.Parsing(p.caricaFile(Config.getName()));
+		JSONArray array = p.caricaFile(Config.getName());
 		for(Object o:array) {
 			if(o instanceof JSONObject) {
 				JSONObject ob = (JSONObject)o;

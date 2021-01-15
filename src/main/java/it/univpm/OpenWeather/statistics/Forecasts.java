@@ -63,16 +63,22 @@ public class Forecasts {
  				
  				JSONObject obj1 = new JSONObject();
  				
- 				try {
+ 				String data = (String) obj1.get("date");
  				
- 				Double hum = (Double) obj1.get("humidity");
- 				Double temp = (Double) obj1.get("temperature");
- 				String descr = (String) obj1.get("weather");
- 			
- 				} catch (Exception e) {
- 					e.printStackTrace();
+ 				if(data.compareTo(from.toString())>=0) {
+						
+ 					if(data.compareTo(to.toString())<=0) {
+
+ 						Double hum = (Double) obj1.get("humidity");
+ 						Double temp = (Double) obj1.get("temperature");
+ 						String descr = (String) obj1.get("weather");
+ 						
+ 						//if (hum.equals(obj) & temp.equals(obj) & descr.equals(anObject))
+ 							
+ 							return true;
+						
+ 					}
  				}
- 					
  			}
  		      
  		
