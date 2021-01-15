@@ -46,7 +46,8 @@ public class HumidityFilter implements Filter <Object, Object> {
 	 */
 	@Override
 	public JSONArray filtersCity (JSONArray arrayHumidity, Object city, Object period) {
-		return (JSONArray) utils.getHumidityFiltered (this.getArray(), city, period);
+		//return (JSONArray) utils.getHumidityFiltered (this.getArray(), city, period);
+		return arrayHumidity;	
 	}
 
 }

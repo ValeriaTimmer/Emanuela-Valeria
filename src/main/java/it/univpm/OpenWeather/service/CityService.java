@@ -31,15 +31,19 @@ public interface CityService {
 	public abstract HashMap <String, String> getMetadata();
 	
 	/**
-	 * Metodo che permette di selezionare le città filtrate
-	 * @return JSONArray delle città filtrate
+	 * metodo che ci permette di ritornare i valori di una determinata città
+	 * @param city nome della città
+	 * @return HashMap<String,String> con i valori desiderati della città 
+	 * @throws IllegalArgumentException
+	 * @throws UrlException
+	 * @throws MalformedURLException
+	 * @throws org.json.simple.parser.ParseException
+	 * @throws IOException
 	 */
-	//public abstract JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException;
-	
 	public abstract HashMap <String, String> getData (String city)  throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 	/**
 	 * Metodo che permette di selezionare le statistiche 
-	 * @return JSONArray delle statistiche effettute 
+	 * @return HashMap<String,String> delle statistiche effettute 
 	 * @throws org.json.simple.parser.ParseException 
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
@@ -48,28 +52,6 @@ public interface CityService {
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException;
 	
 	//public abstract HashMap <String, String> getForecasts (String city, String state);
-	/**
-	 * Metodo che permette di selezionare in base a degli intervalli di umidità scelti (in percentuale)
-	 * @param param1 Estremo inferiore dell'intervallo di umidità
-	 * @param param2 Estremo superiore dell'intervallo di umidità
-	 * @return JSONArray delle città filtrato
-	 */
-	//public abstract JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
-	
-	/**
-	 * Metodo che permette di selezionare in base a degli intervalli di temperatura scelti (in kelvin)
-	 * @param param1 Estremo inferiore dell'intervallo di temperatura
-	 * @param param2 Estremo superiore dell'intervallo di temperatura 
-	 * @return JSONArray filtrato
-	 */
-	//public abstract JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException;
-	
-	/**
-	 * Metodo che permette di selezionare la tipologia di meteo e la città
-	 * @param weather Tipo di meteo scelto
-	 * @param city Nome della città
-	 * @return JSONArray delle città filtrate
-	 */
-	 //public abstract JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException;
+	 
 	
 }

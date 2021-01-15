@@ -24,8 +24,8 @@ public class BuildingCity {
 	 * @param c Variabile della classe City
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
-	public static ArrayList <City> Building (String city, double hum, double temperature, String weather){
-		City c = new City (city, hum, temperature, weather);
+	public static ArrayList <City> Building (String city, double hum, double temperature){
+		City c = new City (city, hum, temperature);
 		list.add(c);
 		return list;
 	}

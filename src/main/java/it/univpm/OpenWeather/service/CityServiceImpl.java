@@ -75,8 +75,7 @@ public class CityServiceImpl implements CityService {
 		c.put("city", "Contiene il nome della città");
 		c.put("country", "Contiene la sigla dello stato corrispondente alla città");
 		c.put("humidity", "Contiene il valore dell'umidità in percentuale");
-		c.put("temp", "Contiene il valore della temperatura in kelvin");
-		c.put("description", "Contiene la descrizione del meteo della città");
+		c.put("temp", "Contiene il valore della temperatura in Celsius");
 		c.put("from", "Data iniziale del periodo scelto");
 		c.put("to", "Data finale del periodo scelto");
 		c.put("min", "Contiene il valore minimo dell'umidità o della temperatura in base al periodo scelto");
@@ -130,38 +129,5 @@ public class CityServiceImpl implements CityService {
 	//public HashMap <String, String> getForecasts (String city, String state){
 		//return ;
 	//}
-	
-	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return h JSONArray contenete le umidità filtrate
-	 
-	@Override
-	public JSONArray getHumidityFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
-		CityServiceImpl service = new CityServiceImpl();
-		HumidityFilter h = new HumidityFilter (service.getArray());
-		return h.filtersCity(h.getArray(), param1, param2);
-	}
-	*/
-	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return t JSONArray contenete le temperature filtrate
-	 
-	@Override
-	public JSONArray getTemperatureFiltered (String param1, String param2) throws UrlException, ClassNotFoundException {
-		CityServiceImpl service = new CityServiceImpl();
-		TemperatureFilter t = new TemperatureFilter(service.getArray());
-		return t.filtersCity(t.getTemperature(), param1, param2);
-	}
-	
-	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return w JSONArray contenente le città filtrate per tipo di meteo 
-	 
-	@Override
-	public JSONArray getWeatherFiltered (String weather, String city) throws UrlException, ClassNotFoundException {
-		CityServiceImpl service = new CityServiceImpl();
-		WeatherFilter w = new WeatherFilter(service.getArray());
-		return w.filtersCity (w.getWeather(), weather, city);
-	}
-	*/
+
 }

@@ -1,5 +1,9 @@
 package it.univpm.OpenWeather.model;
 
+import it.univpm.OpenWeather.service.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 /**
  * Classe che modella la città
  * @author Valeria Timmer
@@ -8,6 +12,10 @@ package it.univpm.OpenWeather.model;
 
 
 public class City {
+	
+	private JSONArray array = new JSONArray();
+	
+	private JSONObject jo = new JSONObject();
 	/*
 	 * Nome della città
 	 */
@@ -21,26 +29,22 @@ public class City {
 	 */
 	private double temperature;
 	/**
-	 * Descrizione del meteo della città
-	 */
-	private String weather;
-	/**
 	 * API privata
 	 */
 	private String apiKey;
+	
+	
 	/**
 	 * Costruttore 
 	 * 
 	 * @param name Nome della città
 	 * @param humidity Umidità della città
 	 * @param temp Temperatura della città
-	 * @param weather Descrizione del meteo della città
 	 */
-	public City(String name, double humidity, double temperature, String weather) {
+	public City(String name, double humidity, double temperature) {
 		this.cityName = name;
 		this.humidity = humidity;
 		this.temperature = temperature;
-		this.weather = weather;
 	}
 	
 	/**
@@ -110,20 +114,18 @@ public class City {
 		this.temperature = temperature;
 	}
 
-	/**
-	 * Metodo Getter della descrizione meteo della città
-	 * @return weather Ritorna un descrizione del meteo della città
-	 */
-	public String getWeather() {
-		return weather;
-	}
-	/**
-	 * Metodo Setter della descrizione meteo della città
-	 * @param weather Descrizione meteo della città passata dal metodo chiamante
-	 */
-
-	public void setWeather(String weather) {
-		this.weather = weather;
+	
+	public JSONArray getAllInformation(String city) {
+		Parser p = new Parser();
+		City c = new City(city);
+		this.cityName = city;
+		this.humidity = p.getHumidity();
+		this.temperature = p.getTemperature();
+		this.jo.put("city", this.cityName);
+		this.jo.put("humidity", this.humidity);
+		this.jo.put("temperature", this.temperature);
+		this.array.add(jo);
+		return this.array;
 	}
 	
 }

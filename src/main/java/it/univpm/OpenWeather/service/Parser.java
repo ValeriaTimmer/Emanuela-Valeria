@@ -66,10 +66,6 @@ public class Parser {
 	
 	private JSONObject obj = new JSONObject();
 	
-	/**
-	 * Descrizione del meteo della città
-	 */
-	private String weather;
 
 	/**
 	 * metodo getter del nome della città
@@ -79,6 +75,16 @@ public class Parser {
 		return this.cityName;
 	}
 	
+
+	public double getHumidity () {
+		return humidity;
+	}
+	
+	public Double getTemperature () {
+		return temperature;
+	}
+	
+	
 	/**
 	 * metodo setter del nome della città
 	 * @param name nome della città
@@ -87,10 +93,6 @@ public class Parser {
 		this.cityName = name;
 	}
 	
-	/**
-	 * JSONObject su cui vengono salvati i dati
-	 */
-	private JSONObject jo = null;
 	
 	/**
 	 * JSONArray che contiene i dati da leggere
@@ -103,7 +105,6 @@ public class Parser {
 	 * costruttore
 	 */
 	public Parser () {
-		this.jo = new JSONObject();
 		this.ja = new JSONArray();
 		this.c = new City();
 	}
@@ -119,7 +120,7 @@ public class Parser {
      * metodo che effettua il collegamento con il sito dell'api di OpenWeather
      * @param cityName città di cui si vogliono ottenere le informazioni
      */
-	public void chiamataAPI (String cityName) {
+	public JSONArray chiamataAPI (String cityName) {
 		
 		JSONParser parser = new JSONParser();
 		
@@ -127,45 +128,42 @@ public class Parser {
 			
 		
 		try {
-			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName +"&appid=" + Config.getApiKey()).openConnection();
+			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" +cityName+ "&appid=" + Config.getApiKey()).openConnection();
 			openConnection.addRequestProperty ( " User-Agent " , " Mozilla / 5.0 (Windows NT 6.1; WOW64; rv: 25.0) Gecko / 20100101 Firefox / 25.0 " );
 			BufferedReader in = new BufferedReader (new InputStreamReader (openConnection.getInputStream()));
-			String inputLine;
+			String inputLine = "";
+			String data = "";
 			while ((inputLine = in.readLine()) != null) {
-				
+				  data+=inputLine;
+			}
 							
-						JSONObject citta = (JSONObject) parser.parse("city");
+						JSONObject o = (JSONObject) parser.parse(data);
+						JSONObject citta = (JSONObject) o.get("city");
 						this.cityName = (String) citta.get("name");
 						
-						JSONObject main = (JSONObject) citta.get("main");
-						this.humidity = Double.parseDouble(main.get("humidity").toString());
-						Double temp = Double.parseDouble(main.get("temp").toString());
-						this.temperature = this.getTemperaturaInCelsius(temp);
-
-						JSONArray lista = (JSONArray) citta.get("list");
+						JSONArray lista = (JSONArray) o.get("list");
+						
 					     
 								for(Object ob: lista) {
 									
 									if(ob instanceof JSONObject) {
-									
-										JSONObject op = (JSONObject) ob;
 										
-										String date = (String) op.get("dt_txt");
-										this.date = DateUtils.formatoData.format(date);
+									    JSONObject ob2 = (JSONObject)ob;
+										JSONObject main = (JSONObject) ob2.get("main");
+										this.humidity = Double.parseDouble(main.get("humidity").toString());
+										Double temp = Double.parseDouble(main.get("temp").toString());
+										this.temperature = this.getTemperaturaInCelsius(temp);
 										
-										JSONArray weather = (JSONArray) op.get("weather");
-									
-										for(Object o1: weather){
-											
-										  if(o1 instanceof JSONObject) {
-											  JSONObject op2 = (JSONObject)o1;
-											  this.weather = (String) op2.get("description");
-										  }
+									    this.date = (String) ob2.get("dt_txt");
+										//this.date = DateUtils.formatoData.format(date);
+										
+										
+										  
 									  }
 								  }
-							  }
-							}
-			list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.weather);
+							  
+							
+			list = BuildingCity.Building(this.cityName, this.humidity, this.temperature);
 			this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
 			obj.put ("date", this.date);
 			download.add(obj);
@@ -179,6 +177,7 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+		return download;
 		
 	}
 	
@@ -187,10 +186,9 @@ public class Parser {
      * @param nome_file nome del file su cui si vanno a salvare i dati
      */
 	public void salvaFile (String nome_file, String cityName) {
-		this.chiamataAPI(cityName);
 		try {
 			FileWriter file_output = new FileWriter (nome_file,true);
-			file_output.write(this.ja.toJSONString());
+			file_output.write(this.chiamataAPI(cityName).toJSONString());
 			file_output.close();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.model.*;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -19,18 +20,19 @@ public class FilterUtils {
 	/**
 	 * Array che contiene i dati filtrati
 	 */
-	private static ArrayList<JSONObject> filtered = new ArrayList<JSONObject>();
+	private static JSONArray filtered = new JSONArray();
 	
 	
 	
 	/**
-	 * Metodo che filtra le città in base al nome e allo stato
+	 * Metodo che filtra le città in base al nome 
 	 * @param array Array da filtrare
-	 * @param city Nome della città
-	 * @param state Nome dello stato 
+	 * @param city Nome della città 
 	 * @return Filtered Ritorna l'array filtrato
-	 *
-	public ArrayList<JSONObject> getCityFiltered(JSONArray array, Object city, Object state) {
+	 */
+	public ArrayList<JSONObject> getCityFiltered(JSONArray array, Object city) {
+		
+		City c = new City(city.toString());
 		
 		for (Object o : array) {
 			
@@ -41,8 +43,8 @@ public class FilterUtils {
 				try {
 					
 					JSONObject citta = (JSONObject) o1.get("name");
-					if (o1.get("country").equals((String)state) & citta.get("name").equals((String)city)) {
-						filtered.add(o1);
+					if ( citta.get("name").equals((String)city)) {
+						filtered.add(c.getAllInformation(city.toString()));
 						
 					}
 					
@@ -60,7 +62,6 @@ public class FilterUtils {
 		
 		return filtered;
 	}
-	*/
 	
 	/**
 	 * Metodo che filtra l'umidità compresa tra due valori 
@@ -70,7 +71,7 @@ public class FilterUtils {
 	 * @return Filtered Ritorna l'array filtrato
 	 * @throws RuntimeException se la chiave non viene trovata o se il valore non è 
 	 * un oggetto Number che può essere convertito a numero
-	 */
+	 
 	public ArrayList<JSONObject> getHumidityFiltered (JSONArray array, Object city, Object period) throws RuntimeException {
 		
 		for (Object o : array) {
@@ -144,31 +145,5 @@ public class FilterUtils {
 		return filtered;
 	}
 	
-	public ArrayList<JSONObject> getWeatherFiltered(JSONArray array, Object weather, Object city) throws RuntimeException {
-		for(Object o:array) {
-			
-			if(o instanceof Object) {
-				
-				JSONObject o1 = (JSONObject) o;
-				
-				try {
-					
-					JSONObject tempo = (JSONObject) o1.get("description");
-					if(o1.get("name").equals((String)city) & tempo.get("description").equals((String)weather)) {
-						filtered.add(o1);
-					}
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		if(filtered == null || filtered.isEmpty()) {
-			JSONObject o2 = new JSONObject();
-			o2.put("Filtraggio abortito", "");
-			filtered.add(o2);
-		}
-		return filtered;
-	}
-*/
+	*/
 }
