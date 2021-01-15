@@ -84,24 +84,17 @@ public class CityServiceImpl implements CityService {
 		c.put("var", "Contiene il valore della varianza dell'umidità o della temperatura in base al periodo scelto");
 		return c;
 	}
-	
+	/**
+	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * @return data HashMap contenete i dati relativi ad una città
+	 */
 	@Override 
 	public HashMap<String,String> getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
 		HashMap <String, String> data = new HashMap <String, String>();
 		data.put("Data", dB.getAllData(city).toString());
 		return data;
 	}
-	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return c JSONArray contenente le città filtrate per nome e stato
-	 
-	@Override
-	public JSONArray getCityFiltered(String city, String state) throws UrlException, ClassNotFoundException {
-		CityServiceImpl service = new CityServiceImpl();
-		CityFilter c = new CityFilter (service.getArray());
-		return c.filtersCity (c.getCity(), city, state);
-	}
-	*/
+	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return JSONArray contenente le statistiche filtrate
@@ -117,11 +110,12 @@ public class CityServiceImpl implements CityService {
 		
 		DataBase dB = new DataBase ();
 		
-		this.array = dB.getAllData(city);
+		Parser p = new Parser();
+		
+		this.array = p.caricaFile(Config.getName());
 	
 		this.s = new Stats(this.array);
-		
-		
+
 		return  s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		
 	}

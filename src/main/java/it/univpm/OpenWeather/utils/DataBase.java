@@ -73,15 +73,16 @@ public class DataBase {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	@Scheduled (cron = "0 0/1 * * * ?") //In questo modo effettua una chiamata ogni minuto
+	@Scheduled (cron = "0 0/30 * * * ?") //In questo modo effettua una chiamata ogni minuto
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
 		
 		if (Config.getCall()) {
 					
-				logger.info("Sto recuperando i dati della città di Ancona");
-				p.salvaFile(Config.getName(),"Ancona");
+				logger.info("Sto recuperando i dati delle città di Londra e di Ancona");
+				p.salvaFile(Config.getName(),"Londra");
+				p.salvaFile(Config.getName(), "Ancona");
 				}
 
 	}
@@ -108,15 +109,15 @@ public class DataBase {
 				
 				if (o instanceof JSONObject) {
 			
-					JSONObject obj = new JSONObject();
+				JSONObject obj = (JSONObject)o;
 			
-					String cityName = (String) obj.get("city");
+				String cityName = (String) obj.get("city");
 
-					if (cityName.equals(city.toString())) {
+				if (cityName.equals(city.toString())) {
 						
-						City c = new City(city);
+					City c = new City(city);
 						
-						value = c.getAllInformation(city);
+					value = c.getAllInformation(city);
 				
 						//String date = (String) obj.get("date");
 						//Double humidity = Double.parseDouble( obj.get("humidity").toString());

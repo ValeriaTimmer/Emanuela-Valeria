@@ -40,7 +40,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Parser {
 	
-	private JSONArray download;
+	private JSONArray download = new JSONArray();
 	
 	private String date;
 	
@@ -98,11 +98,8 @@ public class Parser {
 	
 	private JSONObject jo;
 	
+	private JSONArray ja;
 	
-	/**
-	 * JSONArray che contiene i dati da leggere
-	 */
-	private JSONArray ja = null;
 	
 	private City c;
 	
@@ -139,6 +136,7 @@ public class Parser {
 			BufferedReader in = new BufferedReader (new InputStreamReader (openConnection.getInputStream()));
 			String inputLine = "";
 			String data = "";
+			
 			while ((inputLine = in.readLine()) != null) {
 				  data+=inputLine;
 			}
@@ -148,29 +146,22 @@ public class Parser {
 						this.cityName = (String) citta.get("name");
 						
 						JSONArray lista = (JSONArray) o.get("list");
-						
-					     
-								for(Object ob: lista) {
+
+							for(Object ob: lista) {
 									
-									if(ob instanceof JSONObject) {
+								if(ob instanceof JSONObject) {
 										
-									    JSONObject ob2 = (JSONObject)ob;
-										JSONObject main = (JSONObject) ob2.get("main");
+									JSONObject ob2 = (JSONObject)ob;
+									JSONObject main = (JSONObject) ob2.get("main");
 										this.humidity = Double.parseDouble(main.get("humidity").toString());
 										Double temp = Double.parseDouble(main.get("temp").toString());
 										this.temperature = this.getTemperaturaInCelsius(temp);
 										
 									    this.date = (String) ob2.get("dt_txt");
-										//this.date = DateUtils.formatoData.format(date);
 										
-										
-										  
 									  }
 								  }
 							  
-							
-			//list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.date);
-			
 			obj.put ("city", this.cityName);
 			obj.put ("humidity", this.humidity);
 			obj.put("temperature", this.temperature);
@@ -190,6 +181,11 @@ public class Parser {
 		
 	}
 	
+	/**
+	 * Metodo che permette di inserire un JSONObject in un JSONArray
+	 * @param jo JSONObject da aggiungere
+	 * @return JSONArray contenete il JSONObject
+	 */
 	public JSONArray insertObject (JSONObject jo) {
 		this.ja.add(jo);
 		return this.ja;
@@ -223,20 +219,42 @@ public class Parser {
      */
 	public JSONArray caricaFile (String nome_file) {
 		
+		JSONArray jsonArray = new JSONArray();
+		
+		ArrayList <String> values = new ArrayList<String>();
+		
+		String data = "";
+		
 		try {
-			Scanner file_input = new Scanner (new BufferedReader (new FileReader (nome_file)));
-			FileReader reader = new FileReader (nome_file);
-			String str = file_input.nextLine();
+			BufferedReader file_input = new BufferedReader (new FileReader (nome_file));
+			StringBuilder builder = new StringBuilder();
+			String line = file_input.readLine();
 			
-			this.ja = (JSONArray) JSONValue.parseWithException(str);
-
+			while (line != null) {
+				builder.append(line);
+				builder.append(System.lineSeparator());
+				line = file_input.readLine();
+			}
+			
+			data = builder.toString();
+			file_input.close();
 		} catch (IOException  e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return this.ja;
+		values.add(data);
+		
+		try {
+		
+		jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return jsonArray;
 	}
 
 }
