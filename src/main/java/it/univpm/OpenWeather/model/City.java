@@ -28,10 +28,11 @@ public class City {
 	 * Temperatura della città in kelvin
 	 */
 	private double temperature;
+	
 	/**
-	 * API privata
+	 * Data 
 	 */
-	private String apiKey;
+	private String date;
 	
 	
 	/**
@@ -40,11 +41,13 @@ public class City {
 	 * @param name Nome della città
 	 * @param humidity Umidità della città
 	 * @param temp Temperatura della città
+	 * @param date Data
 	 */
-	public City(String name, double humidity, double temperature) {
+	public City(String name, double humidity, double temperature, String date) {
 		this.cityName = name;
 		this.humidity = humidity;
 		this.temperature = temperature;
+		this.date = date;
 	}
 	
 	/**
@@ -121,9 +124,11 @@ public class City {
 		this.cityName = city;
 		this.humidity = p.getHumidity();
 		this.temperature = p.getTemperature();
+		this.date = p.getDate();
 		this.jo.put("city", this.cityName);
 		this.jo.put("humidity", this.humidity);
 		this.jo.put("temperature", this.temperature);
+		this.jo.put("date", this.date);
 		this.array.add(jo);
 		return this.array;
 	}

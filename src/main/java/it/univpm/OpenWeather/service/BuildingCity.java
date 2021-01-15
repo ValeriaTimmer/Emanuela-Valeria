@@ -21,11 +21,14 @@ public class BuildingCity {
 	 * Metodo che popola l'arrayLista di tipo City con i dati che ci servono 
 	 * richiama il metodo getInformation della classe City
 	 * 
-	 * @param c Variabile della classe City
+	 * @param city Nome della città
+	 * @param hum Parametro di Umidità
+	 * @param temperature Parametro di Temperatura
+	 * @param date Data
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
-	public static ArrayList <City> Building (String city, double hum, double temperature){
-		City c = new City (city, hum, temperature);
+	public static ArrayList <City> Building (String city, double hum, double temperature, String date){
+		City c = new City (city, hum, temperature, date);
 		list.add(c);
 		return list;
 	}

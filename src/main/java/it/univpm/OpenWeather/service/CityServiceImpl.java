@@ -114,10 +114,11 @@ public class CityServiceImpl implements CityService {
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 		this.c = new City(city);
+		
 		DataBase dB = new DataBase ();
+		
 		this.array = dB.getAllData(city);
-		
-		
+	
 		this.s = new Stats(this.array);
 		
 		

@@ -77,13 +77,16 @@ public class Parser {
 	
 
 	public double getHumidity () {
-		return humidity;
+		return this.humidity;
 	}
 	
 	public Double getTemperature () {
-		return temperature;
+		return this.temperature;
 	}
 	
+	public String getDate() {
+		return this.date;
+	}
 	
 	/**
 	 * metodo setter del nome della città
@@ -92,6 +95,8 @@ public class Parser {
 	public void setCityName(String name) {
 		this.cityName = name;
 	}
+	
+	private JSONObject jo;
 	
 	
 	/**
@@ -116,11 +121,12 @@ public class Parser {
 		return (int)(temperatura - 273.15);
 	}
 	
+	
     /**
      * metodo che effettua il collegamento con il sito dell'api di OpenWeather
      * @param cityName città di cui si vogliono ottenere le informazioni
      */
-	public JSONArray chiamataAPI (String cityName) {
+	public JSONObject chiamataAPI (String cityName) {
 		
 		JSONParser parser = new JSONParser();
 		
@@ -163,11 +169,13 @@ public class Parser {
 								  }
 							  
 							
-			list = BuildingCity.Building(this.cityName, this.humidity, this.temperature);
-			this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-			obj.put ("date", this.date);
-			download.add(obj);
-		
+			//list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.date);
+			
+			obj.put ("city", this.cityName);
+			obj.put ("humidity", this.humidity);
+			obj.put("temperature", this.temperature);
+			obj.put("date", this.date);
+
 		} catch (MalformedURLException e ) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -177,19 +185,32 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return download;
+		
+		return this.obj;
 		
 	}
+	
+	public JSONArray insertObject (JSONObject jo) {
+		this.ja.add(jo);
+		return this.ja;
+	}
+	
 	
     /**
      * metodo per salvare i dati presi dalla chiamata al sito in un file
      * @param nome_file nome del file su cui si vanno a salvare i dati
      */
 	public void salvaFile (String nome_file, String cityName) {
+		
 		try {
+			
+			this.download = this.insertObject(chiamataAPI(cityName));
+			
 			FileWriter file_output = new FileWriter (nome_file,true);
-			file_output.write(this.chiamataAPI(cityName).toJSONString());
+			file_output.write (this.download.toJSONString());
 			file_output.close();
+		
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -206,6 +227,7 @@ public class Parser {
 			Scanner file_input = new Scanner (new BufferedReader (new FileReader (nome_file)));
 			FileReader reader = new FileReader (nome_file);
 			String str = file_input.nextLine();
+			
 			this.ja = (JSONArray) JSONValue.parseWithException(str);
 
 		} catch (IOException  e) {

@@ -51,7 +51,7 @@ public class DateUtils {
 		return formatoData.format(todayDate);
 	}
 	
-	public static String getDate(String cityName) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
+	public static String getDate (String cityName) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
 		Parser p = new Parser();
 		String data = "";
 		JSONArray array = p.caricaFile(Config.getName());

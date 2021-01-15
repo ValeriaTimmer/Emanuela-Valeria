@@ -81,7 +81,7 @@ public class DataBase {
 		if (Config.getCall()) {
 					
 				logger.info("Sto recuperando i dati della città di Ancona");
-					p.salvaFile(Config.getName(),"Ancona");
+				p.salvaFile(Config.getName(),"Ancona");
 				}
 
 	}
@@ -113,19 +113,23 @@ public class DataBase {
 					String cityName = (String) obj.get("city");
 
 					if (cityName.equals(city.toString())) {
+						
+						City c = new City(city);
+						
+						value = c.getAllInformation(city);
 				
 						//String date = (String) obj.get("date");
-						Double humidity = Double.parseDouble( obj.get("humidity").toString());
-						Double temp = Double.parseDouble( obj.get("temp").toString());
-						String weather = (String) obj.get("weather");
+						//Double humidity = Double.parseDouble( obj.get("humidity").toString());
+						//Double temp = Double.parseDouble( obj.get("temp").toString());
+						//String weather = (String) obj.get("weather");
 				
 						//obj.put("date", date);
-						obj.put("city", city);
-						obj.put("humidity", humidity);
-						obj.put("temperature", temp);
-						obj.put("weather", weather);
+						//obj.put("city", city);
+						//obj.put("humidity", humidity);
+						//obj.put("temperature", temp);
+						//obj.put("weather", weather);
 				
-						value.add(obj);
+						//value.add(obj);
 					}
 			
 					else {
