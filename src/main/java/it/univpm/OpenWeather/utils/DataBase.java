@@ -24,6 +24,8 @@ import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.model.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 
 /**
  * Classe che ha la funzione di salvare i dati ogni ora e di ritornare i dati desiderati
@@ -84,7 +86,7 @@ public class DataBase {
 	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
-	@Scheduled (cron = "0 0/1 * * * ?") //In questo modo effettua una chiamata ogni minuto
+	@Scheduled (cron = "0 0/30 * * * ?") //In questo modo effettua una chiamata ogni minuto
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
@@ -100,6 +102,42 @@ public class DataBase {
 		}
 
 	}
+	
+	public JSONArray readFile(ArrayList<String> array, String city)  {
+		JSONObject jsonObject = new JSONObject();
+		Iterator<String> iter = array.iterator();
+		while(iter.hasNext()) {
+			ArrayList<String> list = new ArrayList<String>();
+			list = p.caricaFile(Config.getName());
+			for(int i =0; i<list.size(); i++) {
+				JSONArray arr = new JSONArray();
+			   for(Object o : arr ) {
+				   if(o instanceof JSONObject) {
+					   JSONObject obj = (JSONObject)o;
+					   String citta = (String) obj.get("city");
+						
+						if (citta.toString().equals(city)){
+							
+							Double hum = Double.parseDouble(obj.get("humidity").toString());
+							Double temp = Double.parseDouble(obj.get("temperature").toString());
+							String data = (String) obj.get("date");
+							
+							jsonObject.put("city", citta);
+							jsonObject.put("humidity", hum);
+							jsonObject.put("temperature", temp);
+							jsonObject.put("date", data);
+							
+							value.add(jsonObject);
+						}
+						
+					}
+					   
+				   }
+			   }
+			}
+			return value;
+		}
+	
 	
 	/**
 	 * Metodo che ritorna tutti i valori desiderati di una determinata città

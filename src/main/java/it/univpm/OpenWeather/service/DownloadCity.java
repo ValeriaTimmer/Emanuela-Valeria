@@ -45,8 +45,8 @@ import org.springframework.web.client.RestTemplate;
  * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
- *
  */
+ 
 
 @Component
 public class DownloadCity {
@@ -68,11 +68,6 @@ public class DownloadCity {
 	 */
 	private String cityName;
 	
-	/*
-	 * Nome del paese/stato della città
-	 */
-	private String stateCode;
-	
 	/**
 	 * Umidità della città in percentuale
 	 */
@@ -83,10 +78,6 @@ public class DownloadCity {
 	 */
 	private double temperature;
 	
-	/**
-	 * Descrizione del meteo della città
-	 */
-	private String weather;
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -132,9 +123,6 @@ public class DownloadCity {
 		return temperature;
 	}
 	
-	public String getWeather () {
-		return weather;
-	}
 
 	/**
 	 * metodo per convertire la temperatura da Kelvin in Celsius
@@ -150,71 +138,32 @@ public class DownloadCity {
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws IOException Errore di I/O
 	 * @throws MalformedURLException 
-	 *
-	public JSONArray Parsing (String nome_file) throws UrlException, ParseException, MalformedURLException, IOException {
+	 
+	public ArrayList<Object> Parsing (String nome_file) throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		JSONParser parser = new JSONParser();
 		
-		ArrayList<City> list = new ArrayList<City>();
+		ArrayList<Object> list = new ArrayList<Object>();
 			
-		try {
+		this.download = p.caricaFile(Config.getName());
 		
-		p.salvaFile(nome_file, cityName);
-		
-		FileReader reader = new FileReader(nome_file);
-		
-		JSONArray val = (JSONArray) parser.parse(reader);
-		
-		for (Object o : val) {
+		for (Object o : this.download) {
 			
-			if (o instanceof JSONObject) {
+					if(o instanceof JSONObject) {
 			
-				JSONObject obj = (JSONObject) o;
+				       JSONObject obj = (JSONObject) o;
 					
-				JSONObject citta = (JSONObject) obj.get("city");
-				this.cityName = (String) citta.get("name");
-
-						
-				JSONArray lista = (JSONArray) citta.get("list");
-			     
-						for(Object ob: lista) {
-							
-							if(ob instanceof JSONObject) {
-							
-								JSONObject op = (JSONObject) ob;
-								JSONObject main = (JSONObject) op.get("main");
-								this.humidity = Double.parseDouble(main.get("humidity").toString());
-								Double temp = Double.parseDouble(main.get("temp").toString());
-								this.temperature = this.getTemperaturaInCelsius(temp);
-								String date = (String) op.get("dt_txt");
-								this.date = DateUtils.formatoData.format(date);
-								JSONArray weather = (JSONArray) op.get("weather");
-							
-								for(Object o1: weather){
-									
-								  if(o1 instanceof JSONObject) {
-									  JSONObject op2 = (JSONObject)o1;
-									  this.weather = (String) op2.get("description");
-								  }
-							  }
-						  }
-					  }
+				       this.cityName = (String) obj.get("city");
+					   this.date = (String) obj.get("date");
+					   this.humidity = Double.parseDouble(obj.get("humidity").toString());
+					   this.temperature = Double.parseDouble(obj.get("temperature").toString());
 					}
-			}	
-		
-		
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.weather);
-		this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSON(list));
-		obj.put ("date", this.date);
-		download.add(obj);
-		
-		return this.download;
+				}
+			
+		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.date);
+		//this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONObject(list));
+		//return this.download;
+		return list;
 	}
 	*/
 }
-
-

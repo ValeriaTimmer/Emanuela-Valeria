@@ -217,8 +217,6 @@ public class Parser {
 		
 		try {
 			
-			//this.download = this.insertObject(chiamataAPI(cityName));
-			
 			FileWriter file_output = new FileWriter (nome_file,true);
 			file_output.write (insertObject(cityName).toJSONString());
 			file_output.close();
@@ -234,29 +232,23 @@ public class Parser {
      * @param nome_file nome del file contenente i dati da leggere
      * @return jsonArray JSONArray contenente i dati letti
      */
-	public JSONArray caricaFile (String nome_file) {
-		
+	public ArrayList<String> caricaFile (String nome_file) {
+		/*
 		try {
+	
+			Scanner file_input = new Scanner (new BufferedReader (new FileReader(nome_file)));
+			String str = file_input.nextLine();
+			this.ja = (JSONArray) JSONValue.parseWithException(str);
 			
-			BufferedReader in = new BufferedReader (new FileReader (nome_file));
-			
-			String inputLine = "";
-			String data = "";
-			
-			while ((inputLine = in.readLine()) != null) {
-				  data+=inputLine;
-			}
-			
-			//Scanner file_input = new Scanner (new BufferedReader (new FileReader(nome_file)));
-			//String str = file_input.nextLine();
-			this.ja = (JSONArray) JSONValue.parseWithException(data);
-			
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
+		}catch (IOException | ParseException e) {
+				e.printStackTrace();
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		/**
+		return ja;
+	}
+	*/
+		
 		JSONArray jsonArray = new JSONArray();
 		
 		ArrayList <String> values = new ArrayList<String>();
@@ -283,16 +275,18 @@ public class Parser {
 		
 		values.add(data);
 		
-		
+		/*
 		try {
 		
-		jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
+		//jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
 		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return jsonArray;
 		*/
-		return ja;
+		return values;
 	}
+
 
 }

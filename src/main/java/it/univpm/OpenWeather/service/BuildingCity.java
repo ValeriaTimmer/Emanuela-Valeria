@@ -15,7 +15,7 @@ public class BuildingCity {
 	/**
 	 * ArrayList che contiene tutti i dati delle città modellati
 	 */
-	private static ArrayList <City> list = new ArrayList<City>();
+	private static ArrayList <Object> list = new ArrayList<Object>();
 	
 	/**
 	 * Metodo che popola l'arrayLista di tipo City con i dati che ci servono 
@@ -27,9 +27,12 @@ public class BuildingCity {
 	 * @param date Data
 	 * @return lista Ritorna la lista degi dati modellati
 	 */
-	public static ArrayList <City> Building (String city, double hum, double temperature, String date){
-		City c = new City (city, hum, temperature, date);
-		list.add(c);
+	public static ArrayList <Object> Building (String city, double hum, double temperature, String date){
+		//City c = new City (city, hum, temperature, date);
+		list.add(0, city);
+		list.add(1, hum);
+		list.add(2, temperature);
+		list.add(3, date);
 		return list;
 	}
 	
