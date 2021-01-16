@@ -59,9 +59,9 @@ public class DownloadCity {
 	
 	private JSONObject jsonOb = new JSONObject();
 	
-	private JSONArray download;
+	private JSONArray download = new JSONArray();
 	
-	private JSONArray value;
+	private JSONArray value = new JSONArray();
 	
 	/*
 	 * Nome della città
@@ -122,7 +122,6 @@ public class DownloadCity {
 	public Double getTemperature () {
 		return temperature;
 	}
-	
 
 	/**
 	 * metodo per convertire la temperatura da Kelvin in Celsius
@@ -130,6 +129,126 @@ public class DownloadCity {
 	public int getTemperaturaInCelsius(double temperatura) {
 		return (int)(temperatura - 273.15);
 	}
+	
+	public JSONObject toOpenWeather (String cityName) {
+		try {
+			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" +cityName+ "&appid=" + Config.getApiKey()).openConnection();
+			InputStream in = openConnection.getInputStream();
+			String data = "";
+			String line = "";
+			try {
+				InputStreamReader inR = new InputStreamReader (in);
+				BufferedReader buf = new BufferedReader (inR);
+				while ((line = buf.readLine()) != null) data +=line;
+			} finally  {
+				in.close();
+			}
+			this.obj = (JSONObject) JSONValue.parseWithException(data);
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return this.obj;
+	}
+	
+	public JSONArray insertObject(String cityName) {
+		this.download.add(toOpenWeather(cityName));
+		return this.download;
+	}
+	
+	public void saveValues(String nome_file, String cityName) {
+		
+		try {
+			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file)));
+			file_output.println(insertObject(cityName));
+			file_output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public JSONArray getValues(String nome_file) {
+			
+			String data = "";
+			String line = "";
+			
+			try {
+				Scanner file_input = new Scanner (new BufferedReader (new FileReader (nome_file)));
+				String str = file_input.nextLine();
+				
+				this.download = (JSONArray) JSONValue.parseWithException(str);
+				
+				file_input.close();
+			} catch (IOException | ParseException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return this.download;
+		}
+	
+	public JSONArray Parsing () {
+		
+		JSONParser parser = new JSONParser();
+		
+		try {
+		
+		JSONArray arr = (JSONArray) parser.parse(this.getValues(Config.getName()).toJSONString());
+		
+		//JSONArray array = this.getValues(Config.getName());
+		
+		
+		for (Object o : arr) {
+			
+			if (o instanceof JSONObject) {
+				
+				JSONObject ob = (JSONObject)o;
+				
+				JSONObject citta = (JSONObject) ob.get("city");
+				
+				this.cityName = (String) citta.get("name");
+				
+				JSONArray lista = (JSONArray) ob.get("list");
+				
+				for (Object ob1 : lista) {
+					
+					if (ob1 instanceof JSONObject) {
+						
+						JSONObject ob2 = (JSONObject) ob1;
+						
+						JSONObject main = (JSONObject) ob2.get("main");
+						this.humidity = Double.parseDouble(main.get("humidity").toString());
+						Double temp = Double.parseDouble(main.get("temp").toString());
+						this.temperature = this.getTemperaturaInCelsius(temp);
+								
+						this.date = (String) ob2.get("dt_txt");
+									
+						obj.put("city", this.cityName);
+						obj.put("humidity", this.humidity);
+						obj.put("temperature", this.temperature);
+						obj.put("date", this.date);
+						
+					}
+				}
+				
+			}
+		}
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		this.value.add(obj);
+		
+		return this.value;
+		
+	}
+	
+	
 
 	/**
 	 * Metodo che effettua il Parsing dei dati desiderati dal sito di OpenWeather

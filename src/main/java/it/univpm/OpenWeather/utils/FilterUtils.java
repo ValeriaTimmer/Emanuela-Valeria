@@ -21,12 +21,20 @@ import java.util.Iterator;
  */
 public class FilterUtils {
 	
+	private JSONArray jsonArray = new JSONArray();
+	
 	/**
 	 * Array che contiene i dati filtrati
 	 */
 	private static JSONArray filtered = new JSONArray();
 	
 	private Parser p = new Parser();
+	
+	private DownloadCity d = new DownloadCity();
+	
+	public FilterUtils () {
+		this.jsonArray = d.Parsing();
+	}
 	
 	/**
 	 * Metodo che filtra le città in base al nome 
@@ -35,37 +43,21 @@ public class FilterUtils {
 	 * @param city Nome della città 
 	 * @return Filtered Ritorna l'array filtrato con tutte le informazioni di una determinata città
 	 */
-	public JSONArray getCityFiltered (ArrayList<String> arr, Object city) {
+	public JSONArray getCityFiltered (String city) {
 		
 		JSONObject jsonObject = new JSONObject();
 		
-		Iterator <String> val = arr.iterator();
-	
-		try {
+		JSONArray jsonArray = d.Parsing();
 		
-			while (val.hasNext()) {
-				
-				ArrayList <String> list = new ArrayList<String>();
-				
-				list = p.caricaFile(Config.getName());
-				
-				for (int i = 0; i < list.size(); i++) {
+			for (Object o : jsonArray) {
 					
-				for (Object ja : list)
-					
-					if (ja instanceof JSONArray) {
-						
-						JSONArray jsonArray = (JSONArray) ja;
-				
-						for (Object o : jsonArray) {
-					
-							if (o instanceof JSONObject) {
+				if (o instanceof JSONObject) {
 			
 								JSONObject obj = (JSONObject) o;
 
-								String citta = (String) obj.get("name");
+								String citta = (String) obj.get("city");
 			
-								if (citta.equals(city.toString())) {
+								if (citta.equals(city)) {
 						
 									Double hum = Double.parseDouble(obj.get("humidity").toString());
 									Double temp = Double.parseDouble(obj.get("temperature").toString());
@@ -81,13 +73,7 @@ public class FilterUtils {
 								}
 							}
 						}
-					}
-				}
-			}
 		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();

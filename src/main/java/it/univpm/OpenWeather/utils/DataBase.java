@@ -58,6 +58,9 @@ public class DataBase {
 	 */
 	private CityFilter cityFilter;
 	
+	@Autowired (required = true)
+	private DownloadCity d ;
+	
 	/**
 	 * JSONObject
 	 */
@@ -73,9 +76,10 @@ public class DataBase {
 	 */
 	public DataBase () throws UrlException, ParseException, MalformedURLException, IOException {
 		p = new Parser();
-		this.arr = p.caricaFile(Config.getName());
+		d = new DownloadCity();
+		this.arr = d.getValues(Config.getName());
 		//this.cityFilter = new CityFilter();
-		this.addToDataBase();
+		//this.addToDataBase();
 	}
 	
 	/**
@@ -94,22 +98,22 @@ public class DataBase {
 		if (Config.getCall()) {
 					
 				logger.info("Sto recuperando i dati delle città di Roma, Londra, Berlino e Parigi");
-				p.salvaFile(Config.getName(),"Roma");
-				p.salvaFile(Config.getName(), "Londra");
-				p.salvaFile(Config.getName(), "Berlino");
-				p.salvaFile(Config.getName(), "Parigi");
+				d.saveValues(Config.getName(),"Roma");
+				d.saveValues(Config.getName(), "Londra");
+				d.saveValues(Config.getName(), "Berlino");
+				d.saveValues(Config.getName(), "Parigi");
 				
 		}
 
 	}
-	
+	/*
 	public JSONArray ritornaCaricaFile () {
 		
 		JSONArray jsonArray = new JSONArray();
 		jsonArray = p.caricaFile(Config.getName());
 		return jsonArray;
 	}
-	
+	*/
 	/**
 	 * Metodo che permette di leggere tutti i valori contenuti nell'ArrayList
 	 * e seleziona i valori di una città desiderata
@@ -159,7 +163,8 @@ public class DataBase {
 			
 			
 		return (JSONArray) p.caricaFile(Config.getName());
-		}
+		
+	}
 	
 	
 	/**
@@ -174,9 +179,9 @@ public class DataBase {
 	 */
 	public JSONArray getAllData (String city) throws UrlException, MalformedURLException, ParseException, IOException {
 		
-		cityFilter = new CityFilter(p.caricaFile(Config.getName()));
+		cityFilter = new CityFilter();
 		
-		this.value = cityFilter.filtersCity(cityFilter.getCity(), city);
+		this.value = cityFilter.filtersCity(city);
 		
 		return value;
 	}

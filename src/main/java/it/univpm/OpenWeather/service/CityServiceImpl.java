@@ -92,9 +92,10 @@ public class CityServiceImpl implements CityService {
 	public HashMap<String,String> getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
 		HashMap <String, String> data = new HashMap <String, String>();
 		Parser p = new Parser();
+		DownloadCity d = new DownloadCity();
 		c = new City (city);
 		DataBase db = new DataBase();
-		data.put("Data", p.caricaFile(Config.getName()).toJSONString());
+		data.put("Data", d.Parsing().toString());
 		return data;
 	}
 	
@@ -117,7 +118,7 @@ public class CityServiceImpl implements CityService {
 		
 		//this.array = p.caricaFile(Config.getName());
 	
-		this.s = new Stats(this.array);
+		this.s = new Stats(dB.getAllData(c.getCityName()));
 
 		return  s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		

@@ -19,6 +19,6 @@ public interface Filter <C> {
 	 * @param param1 Primo parametro di filtraggio
 	 * @return Array filtrato mediante i parametri specificati
 	 */
-	abstract JSONArray filtersCity (ArrayList <String> arrayCity, C city);
+	abstract JSONArray filtersCity (C city);
 	
 }
