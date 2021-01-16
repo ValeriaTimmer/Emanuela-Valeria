@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.json.simple.parser.JSONParser;
@@ -140,7 +141,7 @@ public class Parser {
      * @param cityName città di cui si vogliono ottenere le informazioni
      * @return JSONObject contente i valori desiderati 
      */
-	public JSONObject chiamataAPI (String cityName) {
+	public JSONArray chiamataAPI (String cityName) {
 		
 		JSONParser parser = new JSONParser();
 		
@@ -163,26 +164,30 @@ public class Parser {
 						this.cityName = (String) citta.get("name");
 						
 						JSONArray lista = (JSONArray) o.get("list");
+						
+						for (int i = 0; i < lista.size(); i++) {
+					
+						//for (Object ob : lista) {
+							
+							//if (ob instanceof JSONObject) {
+								
+								JSONObject ob2 = (JSONObject) lista.get(i);
+										
+								JSONObject main = (JSONObject) ob2.get("main");
+								this.humidity = Double.parseDouble(main.get("humidity").toString());
+								Double temp = Double.parseDouble(main.get("temp").toString());
+								this.temperature = this.getTemperaturaInCelsius(temp);
+										
+								this.date = (String) ob2.get("dt_txt");
+											
+								obj.put("city", this.cityName);
+								obj.put("humidity", this.humidity);
+								obj.put("temperature", this.temperature);
+								obj.put("date", this.date);
+								download.add(obj);
+								
+							}
 
-							for(Object ob: lista) {
-									
-								if(ob instanceof JSONObject) {
-										
-									JSONObject ob2 = (JSONObject)ob;
-									JSONObject main = (JSONObject) ob2.get("main");
-										this.humidity = Double.parseDouble(main.get("humidity").toString());
-										Double temp = Double.parseDouble(main.get("temp").toString());
-										this.temperature = this.getTemperaturaInCelsius(temp);
-										
-									    this.date = (String) ob2.get("dt_txt");
-										
-									  }
-								  }
-							  
-			obj.put ("city", this.cityName);
-			obj.put ("humidity", this.humidity);
-			obj.put("temperature", this.temperature);
-			obj.put("date", this.date);
 
 		} catch (MalformedURLException e ) {
 			e.printStackTrace();
@@ -194,7 +199,7 @@ public class Parser {
 			e.printStackTrace();
 		} 
 		
-		return this.obj;
+		return this.download;
 		
 	}
 	
@@ -202,12 +207,12 @@ public class Parser {
 	 * Metodo che permette di inserire un JSONObject in un JSONArray
 	 * @param jo JSONObject da aggiungere
 	 * @return JSONArray contenete il JSONObject
-	 */
-	public JSONArray insertObject (String city) {
+	 *
+	public JSONArray insertArray (String city) {
 		this.download.add(chiamataAPI(city));
 		return this.download;
 	}
-	
+	*/
 	
     /**
      * Metodo per salvare i dati presi dalla chiamata al sito in un file
@@ -218,7 +223,7 @@ public class Parser {
 		try {
 			
 			FileWriter file_output = new FileWriter (nome_file,true);
-			file_output.write (insertObject(cityName).toJSONString());
+			file_output.write (chiamataAPI(cityName).toJSONString());
 			file_output.close();
 		
 		
@@ -232,23 +237,26 @@ public class Parser {
      * @param nome_file nome del file contenente i dati da leggere
      * @return jsonArray JSONArray contenente i dati letti
      */
-	public ArrayList<String> caricaFile (String nome_file) {
-		/*
+	public JSONArray caricaFile (String nome_file) {
+		/**
+		JSONArray jsonArray = new JSONArray();
+		
 		try {
 	
 			Scanner file_input = new Scanner (new BufferedReader (new FileReader(nome_file)));
 			String str = file_input.nextLine();
-			this.ja = (JSONArray) JSONValue.parseWithException(str);
+			jsonArray = (JSONArray) JSONValue.parseWithException(str);
 			
 		}catch (IOException | ParseException e) {
 				e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ja;
-	}
-	*/
 		
+		return this.ja.put(jsonArray.toJSONString());
+	}
+	
+		*/
 		JSONArray jsonArray = new JSONArray();
 		
 		ArrayList <String> values = new ArrayList<String>();
@@ -257,14 +265,13 @@ public class Parser {
 		
 		try {
 			BufferedReader file_input = new BufferedReader (new FileReader (nome_file));
-			StringBuilder builder = new StringBuilder();
 			String line = file_input.readLine();
-			
+			StringBuilder builder = new StringBuilder();
 			while (line != null) {
 				builder.append(line);
 				line = file_input.readLine();
 			}
-			
+		
 			data = builder.toString();
 			file_input.close();
 		} catch (IOException  e) {
@@ -275,18 +282,19 @@ public class Parser {
 		
 		values.add(data);
 		
-		/*
+		
 		try {
 		
-		//jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
+			jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
 		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
 		return jsonArray;
-		*/
-		return values;
+
 	}
+	
 
 
 }

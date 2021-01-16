@@ -1,6 +1,8 @@
 package it.univpm.OpenWeather.filter;
 
 import org.json.simple.JSONArray;
+import java.util.ArrayList;
+
 
 /**
  * Interfaccia per la gestione dei filtri
@@ -17,6 +19,6 @@ public interface Filter <C> {
 	 * @param param1 Primo parametro di filtraggio
 	 * @return Array filtrato mediante i parametri specificati
 	 */
-	abstract JSONArray filtersCity (JSONArray arrayCity, C city);
+	abstract JSONArray filtersCity (ArrayList <String> arrayCity, C city);
 	
 }

@@ -34,7 +34,6 @@ import org.springframework.scheduling.annotation.Scheduled;
  *
  */
 @Service
-
 public class CityServiceImpl implements CityService {
 	
 	private Stats s;
@@ -95,7 +94,7 @@ public class CityServiceImpl implements CityService {
 		Parser p = new Parser();
 		c = new City (city);
 		DataBase db = new DataBase();
-		data.put("Data", dB.readFile(p.caricaFile(Config.getName()), city).toString());
+		data.put("Data", p.caricaFile(Config.getName()).toJSONString());
 		return data;
 	}
 	

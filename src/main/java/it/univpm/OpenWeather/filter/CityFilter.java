@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.filter;
 import it.univpm.OpenWeather.utils.*;
 
 import org.json.simple.JSONArray;
+import java.util.ArrayList;
 
 /**
  * Classe che implementa l'interfaccia Filter
@@ -17,7 +18,7 @@ public class CityFilter implements Filter <Object> {
 	/**
 	 * Array contenente le città
 	 */
-	private JSONArray arrayCity;
+	private ArrayList<String> arrayCity;
 	
 	/**
 	 * Variabile usata per richiamare il metodo della classe FilterUtils
@@ -27,7 +28,7 @@ public class CityFilter implements Filter <Object> {
 	/**
 	 * Costruttore 
 	 */
-	public CityFilter(JSONArray array) {
+	public CityFilter(ArrayList<String> array) {
 		this.arrayCity = array;
 		this.utils = new FilterUtils();
 	}
@@ -36,7 +37,7 @@ public class CityFilter implements Filter <Object> {
 	 * Metodo Getter dell'array di città
 	 * @return arrayCity Ritorna l'array di città
 	 */
-	public JSONArray getCity() {
+	public ArrayList<String> getCity() {
 		return arrayCity;
 	}
 	
@@ -45,7 +46,7 @@ public class CityFilter implements Filter <Object> {
 	 * richiama il metodo della classe FiltereUtils
 	 */
 	@Override
-	public JSONArray filtersCity (JSONArray arrayCity, Object city1) {
+	public JSONArray filtersCity (ArrayList<String> array, Object city1) {
 		return (JSONArray) utils.getCityFiltered (this.getCity(), city1);
 	}
 	

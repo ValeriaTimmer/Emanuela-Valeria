@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.model.*;
+import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -25,6 +26,8 @@ public class FilterUtils {
 	 */
 	private static JSONArray filtered = new JSONArray();
 	
+	private Parser p = new Parser();
+	
 	/**
 	 * Metodo che filtra le città in base al nome 
 	 * 
@@ -32,28 +35,54 @@ public class FilterUtils {
 	 * @param city Nome della città 
 	 * @return Filtered Ritorna l'array filtrato con tutte le informazioni di una determinata città
 	 */
-	public JSONArray getCityFiltered (JSONArray array, Object city) {
+	public JSONArray getCityFiltered (ArrayList<String> arr, Object city) {
 		
-		City c = new City(city.toString());
+		JSONObject jsonObject = new JSONObject();
 		
-		JSONParser parser = new JSONParser();
-		
+		Iterator <String> val = arr.iterator();
+	
 		try {
 		
-			JSONArray arr = (JSONArray) parser.parse(array.toJSONString());
-		
-			Iterator <Object> val = arr.iterator();
-		
 			while (val.hasNext()) {
+				
+				ArrayList <String> list = new ArrayList<String>();
+				
+				list = p.caricaFile(Config.getName());
+				
+				for (int i = 0; i < list.size(); i++) {
+					
+				for (Object ja : list)
+					
+					if (ja instanceof JSONArray) {
+						
+						JSONArray jsonArray = (JSONArray) ja;
+				
+						for (Object o : jsonArray) {
+					
+							if (o instanceof JSONObject) {
 			
-				Object o = val.next();
-			
-				JSONObject obj = (JSONObject) o;
+								JSONObject obj = (JSONObject) o;
 
-				String citta = (String) obj.get("name");
+								String citta = (String) obj.get("name");
 			
-				if (citta.equals(city))
-					filtered.add(c.getAllInformation(city.toString()));
+								if (citta.equals(city.toString())) {
+						
+									Double hum = Double.parseDouble(obj.get("humidity").toString());
+									Double temp = Double.parseDouble(obj.get("temperature").toString());
+									String data = (String) obj.get("date");
+					
+									jsonObject.put("city", citta);
+									jsonObject.put("humidity", hum);
+									jsonObject.put("temperature", temp);
+									jsonObject.put("date", data);
+					
+					
+									filtered.add(jsonObject.toString());
+								}
+							}
+						}
+					}
+				}
 			}
 		
 		} catch (Exception e) {

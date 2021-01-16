@@ -103,17 +103,39 @@ public class DataBase {
 
 	}
 	
-	public JSONArray readFile(ArrayList<String> array, String city)  {
+	public JSONArray ritornaCaricaFile () {
+		
+		JSONArray jsonArray = new JSONArray();
+		jsonArray = p.caricaFile(Config.getName());
+		return jsonArray;
+	}
+	
+	/**
+	 * Metodo che permette di leggere tutti i valori contenuti nell'ArrayList
+	 * e seleziona i valori di una città desiderata
+	 * 
+	 * @param array ArrayList contenente i dati 
+	 * @param city Nome della città di cui si vogliono ottenere i dati
+	 * @return JSONArray che contiene i dati della città 
+	 */
+	public JSONArray readFile(String city)  {
+		
 		JSONObject jsonObject = new JSONObject();
-		Iterator<String> iter = array.iterator();
-		while(iter.hasNext()) {
-			ArrayList<String> list = new ArrayList<String>();
-			list = p.caricaFile(Config.getName());
-			for(int i =0; i<list.size(); i++) {
-				JSONArray arr = new JSONArray();
-			   for(Object o : arr ) {
+		
+		JSONArray list = new JSONArray();
+			
+		list = p.caricaFile(Config.getName());
+			
+		for (int i =0; i<list.size(); i++) {
+
+			JSONArray jsonAr = (JSONArray) list.get(i);
+			   
+				for(Object o : jsonAr) {
+					
 				   if(o instanceof JSONObject) {
+					   
 					   JSONObject obj = (JSONObject)o;
+					   
 					   String citta = (String) obj.get("city");
 						
 						if (citta.toString().equals(city)){
@@ -134,8 +156,9 @@ public class DataBase {
 					   
 				   }
 			   }
-			}
-			return value;
+			
+			
+		return (JSONArray) p.caricaFile(Config.getName());
 		}
 	
 	
@@ -151,43 +174,9 @@ public class DataBase {
 	 */
 	public JSONArray getAllData (String city) throws UrlException, MalformedURLException, ParseException, IOException {
 		
-		JSONParser parser = new JSONParser();
+		cityFilter = new CityFilter(p.caricaFile(Config.getName()));
 		
-		JSONObject jsonObject = new JSONObject();
-		
-		City c = new City (city);
-		
-		JSONArray array = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONString(p.caricaFile(Config.getName())));
-		
-		for (Object o : array) {
-			
-			JSONObject obj = (JSONObject) o;
-		
-			String citta = (String) obj.get("city");
-			
-			if (citta.toString().equals(city)){
-				
-				Double hum = (Double) obj.get("humidity");
-				Double temp = (Double) obj.get("temperature");
-				Double data = (Double) obj.get("date");
-				
-				jsonObject.put("city", citta);
-				jsonObject.put("humidity", hum);
-				jsonObject.put("temperature", temp);
-				jsonObject.put("date", data);
-				
-				value.add(jsonObject);
-			}
-			
-		}
-			
-			if (value == null | value.isEmpty()) {
-				
-				jsonObject.put("Errore", "Non riesco a leggere l'array da caricaFile");
-				value.add(jsonObject);
-			}
-
-		
+		this.value = cityFilter.filtersCity(cityFilter.getCity(), city);
 		
 		return value;
 	}
