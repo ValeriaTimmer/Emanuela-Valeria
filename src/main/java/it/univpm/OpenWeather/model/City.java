@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.model;
 
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.utils.Config;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -117,19 +118,16 @@ public class City {
 		this.temperature = temperature;
 	}
 
-	
+	/**
+	 * Metodo che ritorna un JSONArray contenente tutti i dati di una determinata città
+	 * 
+	 * @param city Nome della città
+	 * @return this.array JSONArray contenente i dati 
+	 */
 	public JSONArray getAllInformation(String city) {
 		Parser p = new Parser();
 		City c = new City(city);
-		this.cityName = city;
-		this.humidity = p.getHumidity();
-		this.temperature = p.getTemperature();
-		this.date = p.getDate();
-		this.jo.put("city", this.cityName);
-		this.jo.put("humidity", this.humidity);
-		this.jo.put("temperature", this.temperature);
-		this.jo.put("date", this.date);
-		this.array.add(jo);
+		this.array.add(p.caricaFile(Config.getName()));
 		return this.array;
 	}
 	

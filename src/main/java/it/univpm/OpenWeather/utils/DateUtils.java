@@ -51,6 +51,7 @@ public class DateUtils {
 		return formatoData.format(todayDate);
 	}
 	
+	/**
 	public static String getDate (String cityName) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
 		Parser p = new Parser();
 		String data = "";
@@ -63,7 +64,7 @@ public class DateUtils {
 		}
 		return formatoData.format(data);
 	}
-	
+	*/
 	/**
 	 * Metodo che genera la data di ieri
 	 * @return String data di ieri

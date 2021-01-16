@@ -5,7 +5,7 @@ import org.json.simple.JSONArray;
 import it.univpm.OpenWeather.utils.FilterUtils;
 import it.univpm.OpenWeather.service.DownloadCity;
 
-public class WeatherFilter implements Filter <Object,Object> {
+public class WeatherFilter implements Filter <Object> {
 	
 	/**
 	 * array da filtrare
@@ -36,7 +36,7 @@ public class WeatherFilter implements Filter <Object,Object> {
      * @return ritorna l'array filtrato
      */
     @Override
-    public JSONArray filtersCity(JSONArray arrayCity, Object city, Object weather) {
+    public JSONArray filtersCity(JSONArray arrayCity, Object city) {
     	//return(JSONArray) utils.getWeatherFiltered(this.getWeather(), city, weather);
     	return arrayWeather;
     }

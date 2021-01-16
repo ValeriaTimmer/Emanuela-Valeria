@@ -1,17 +1,20 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.exception.*;
-import it.univpm.OpenWeather.service.*;
-import it.univpm.OpenWeather.model.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import java.text.ParseException;
-import java.util.Vector;
+
+import java.net.MalformedURLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import java.io.*;
-import java.net.MalformedURLException;
+
+
 
 /**
  * Classe che gestisce le statistiche

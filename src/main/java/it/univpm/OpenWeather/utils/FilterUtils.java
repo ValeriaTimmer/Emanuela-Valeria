@@ -1,18 +1,21 @@
 package it.univpm.OpenWeather.utils;
 
-import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.model.*;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Classe che implemeta i metodi di filtraggio
  * utilizzati dalle classi del package.filter
  * 
  * @author Emanuela Saleggia
- * @author ValeriaTimmer
+ * @author Valeria Timmer
  *
  */
 public class FilterUtils {
@@ -22,36 +25,39 @@ public class FilterUtils {
 	 */
 	private static JSONArray filtered = new JSONArray();
 	
-	
-	
 	/**
 	 * Metodo che filtra le città in base al nome 
+	 * 
 	 * @param array Array da filtrare
 	 * @param city Nome della città 
-	 * @return Filtered Ritorna l'array filtrato
+	 * @return Filtered Ritorna l'array filtrato con tutte le informazioni di una determinata città
 	 */
-	public ArrayList<JSONObject> getCityFiltered(JSONArray array, Object city) {
+	public JSONArray getCityFiltered (JSONArray array, Object city) {
 		
 		City c = new City(city.toString());
 		
-		for (Object o : array) {
+		JSONParser parser = new JSONParser();
+		
+		try {
+		
+			JSONArray arr = (JSONArray) parser.parse(array.toJSONString());
+		
+			Iterator <Object> val = arr.iterator();
+		
+			while (val.hasNext()) {
 			
-			if (o instanceof Object) {
-				
-				JSONObject o1 = (JSONObject) o;
-				
-				try {
-					
-					JSONObject citta = (JSONObject) o1.get("name");
-					if ( citta.get("name").equals((String)city)) {
-						filtered.add(c.getAllInformation(city.toString()));
-						
-					}
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				Object o = val.next();
+			
+				JSONObject obj = (JSONObject) o;
+
+				String citta = (String) obj.get("name");
+			
+				if (citta.equals(city))
+					filtered.add(c.getAllInformation(city.toString()));
 			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		if (filtered == null || filtered.isEmpty()) {

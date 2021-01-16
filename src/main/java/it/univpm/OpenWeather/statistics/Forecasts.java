@@ -25,7 +25,7 @@ public class Forecasts {
  	 * Metodo che verifica le previsioni
  	 * @return
  	 */
- 	 
+ 	 /**
  	public boolean verificaPrevisioni (JSONArray array,String city, long period) 
  			throws DataFormatException, ParseException {
  		
@@ -70,5 +70,6 @@ public class Forecasts {
  	}
  		return false;
  	}
+ 	*/
 }
 

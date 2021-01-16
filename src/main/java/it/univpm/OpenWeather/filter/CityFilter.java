@@ -1,7 +1,6 @@
 package it.univpm.OpenWeather.filter;
 
 import it.univpm.OpenWeather.utils.*;
-import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONArray;
 
@@ -13,7 +12,7 @@ import org.json.simple.JSONArray;
  * @author Valeria Timmer
  *
  */
-public class CityFilter implements Filter <Object, Object> {
+public class CityFilter implements Filter <Object> {
 	
 	/**
 	 * Array contenente le città
@@ -46,9 +45,8 @@ public class CityFilter implements Filter <Object, Object> {
 	 * richiama il metodo della classe FiltereUtils
 	 */
 	@Override
-	public JSONArray filtersCity (JSONArray arrayCity, Object city, Object state) {
-		//return (JSONArray) utils.getCityFiltered (this.getCity(), city, state);
-		return arrayCity;
+	public JSONArray filtersCity (JSONArray arrayCity, Object city1) {
+		return (JSONArray) utils.getCityFiltered (this.getCity(), city1);
 	}
 	
 

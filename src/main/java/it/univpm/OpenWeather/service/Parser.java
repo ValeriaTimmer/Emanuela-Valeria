@@ -4,33 +4,27 @@ import it.univpm.OpenWeather.utils.*;
 import it.univpm.OpenWeather.model.*;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+
 import org.springframework.stereotype.Component;
+
 
 /**
  * Classe che si occupa di leggere i dati dall'API e di salvarli in un file 
@@ -40,10 +34,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class Parser {
 	
+	/**
+	 * JSONArray
+	 */
 	private JSONArray download = new JSONArray();
 	
-	private String date;
-	
+	/**
+	 * JSONArray
+	 */
+	private JSONArray ja;
+
+	/**
+	 * JSONObject
+	 */
+	private JSONObject obj = new JSONObject();
+
 	/*
 	 * Nome della città
 	 */
@@ -60,51 +65,62 @@ public class Parser {
 	private double humidity;
 	
 	/**
-	 * Temperatura della città in kelvin
+	 * Temperatura della città in Celsius
 	 */
 	private double temperature;
 	
-	private JSONObject obj = new JSONObject();
-	
-
 	/**
-	 * metodo getter del nome della città
-	 * @return cityName nome della città
+	 * Data
+	 */
+	private String date;
+	
+	/**
+	 * Metodo Getter del nome della città
+	 * @return cityName Nome della città
 	 */
 	public String getCityName() {
 		return this.cityName;
 	}
 	
-
+	/**
+	 * Metodo Getter del valore dell'umidità
+	 * @return humidity Valore dell'umidità
+	 */
 	public double getHumidity () {
 		return this.humidity;
 	}
 	
+	/**
+	 * Metodo Getter del valore della temperatura
+	 * @return temperature Valore della Temperatura
+	 */
 	public Double getTemperature () {
 		return this.temperature;
 	}
 	
+	/**
+	 * Metodo Gettere della data
+	 * @return date Data (stringa)
+	 */
 	public String getDate() {
 		return this.date;
 	}
 	
 	/**
-	 * metodo setter del nome della città
+	 * mMtodo Setter del nome della città
 	 * @param name nome della città
 	 */
 	public void setCityName(String name) {
 		this.cityName = name;
 	}
 	
-	private JSONObject jo;
-	
-	private JSONArray ja;
-	
-	
+	/**
+	 * Variabile della classe City
+	 */
 	private City c;
 	
 	/**
-	 * costruttore
+	 * Costruttore
 	 */
 	public Parser () {
 		this.ja = new JSONArray();
@@ -112,7 +128,7 @@ public class Parser {
 	}
 	
 	/**
-	 * metodo per convertire la temperatura da Kelvin in Celsius
+	 * Metodo per convertire la temperatura da Kelvin in Celsius
 	 */
 	public int getTemperaturaInCelsius(double temperatura) {
 		return (int)(temperatura - 273.15);
@@ -120,8 +136,9 @@ public class Parser {
 	
 	
     /**
-     * metodo che effettua il collegamento con il sito dell'api di OpenWeather
+     * Metodo che effettua il collegamento con il sito dell'api di OpenWeather
      * @param cityName città di cui si vogliono ottenere le informazioni
+     * @return JSONObject contente i valori desiderati 
      */
 	public JSONObject chiamataAPI (String cityName) {
 		
@@ -186,24 +203,24 @@ public class Parser {
 	 * @param jo JSONObject da aggiungere
 	 * @return JSONArray contenete il JSONObject
 	 */
-	public JSONArray insertObject (JSONObject jo) {
-		this.ja.add(jo);
-		return this.ja;
+	public JSONArray insertObject (String city) {
+		this.download.add(chiamataAPI(city));
+		return this.download;
 	}
 	
 	
     /**
-     * metodo per salvare i dati presi dalla chiamata al sito in un file
+     * Metodo per salvare i dati presi dalla chiamata al sito in un file
      * @param nome_file nome del file su cui si vanno a salvare i dati
      */
 	public void salvaFile (String nome_file, String cityName) {
 		
 		try {
 			
-			this.download = this.insertObject(chiamataAPI(cityName));
+			//this.download = this.insertObject(chiamataAPI(cityName));
 			
 			FileWriter file_output = new FileWriter (nome_file,true);
-			file_output.write (this.download.toJSONString());
+			file_output.write (insertObject(cityName).toJSONString());
 			file_output.close();
 		
 		
@@ -213,12 +230,33 @@ public class Parser {
 	}
 	
     /**
-     * metodo per leggere i dati contenuti nel file
+     * Metodo per leggere i dati contenuti nel file
      * @param nome_file nome del file contenente i dati da leggere
-     * @return ja JSONArray contenente i dati letti
+     * @return jsonArray JSONArray contenente i dati letti
      */
 	public JSONArray caricaFile (String nome_file) {
 		
+		try {
+			
+			BufferedReader in = new BufferedReader (new FileReader (nome_file));
+			
+			String inputLine = "";
+			String data = "";
+			
+			while ((inputLine = in.readLine()) != null) {
+				  data+=inputLine;
+			}
+			
+			//Scanner file_input = new Scanner (new BufferedReader (new FileReader(nome_file)));
+			//String str = file_input.nextLine();
+			this.ja = (JSONArray) JSONValue.parseWithException(data);
+			
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/**
 		JSONArray jsonArray = new JSONArray();
 		
 		ArrayList <String> values = new ArrayList<String>();
@@ -232,7 +270,6 @@ public class Parser {
 			
 			while (line != null) {
 				builder.append(line);
-				builder.append(System.lineSeparator());
 				line = file_input.readLine();
 			}
 			
@@ -246,6 +283,7 @@ public class Parser {
 		
 		values.add(data);
 		
+		
 		try {
 		
 		jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
@@ -253,8 +291,8 @@ public class Parser {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		return jsonArray;
+		*/
+		return ja;
 	}
 
 }

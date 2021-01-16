@@ -9,15 +9,14 @@ import org.json.simple.JSONArray;
  * @author Valeria Timmer
  *
  */
-public interface Filter <C,S> {
+public interface Filter <C> {
 	
 	/**
 	 * Metodo che viene implementato dalle singole classi 
 	 * @param arrayCity Array sul quale si applicano i filtri
 	 * @param param1 Primo parametro di filtraggio
-	 * @param param2 Secondo parametro di filtraggio 
 	 * @return Array filtrato mediante i parametri specificati
 	 */
-	abstract JSONArray filtersCity (JSONArray arrayCity, C city, S period);
+	abstract JSONArray filtersCity (JSONArray arrayCity, C city);
 	
 }

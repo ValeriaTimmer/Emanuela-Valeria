@@ -7,23 +7,27 @@ import java.net.MalformedURLException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+
 import org.json.simple.parser.ParseException;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Repository;
 
 import org.slf4j.*;
 
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.filter.*;
 import it.univpm.OpenWeather.model.*;
+
 import java.util.ArrayList;
+
 /**
- * classe che si permette di ottenere i dati desiderati
+ * Classe che ha la funzione di salvare i dati ogni ora e di ritornare i dati desiderati
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
@@ -31,21 +35,26 @@ import java.util.ArrayList;
 @Configuration
 public class DataBase {
 	
+	/**
+	 * Variabile della classe Parser
+	 */
 	@Autowired (required = true)
 	private Parser p ;
 	
 	/**
 	 * JSONArray che contiene i dati letti dal file
 	 */
-	private JSONArray  arr;
+	private ArrayList<String>  arr;
 	
 	/**
 	 * JSONArray che contiene i dati desiderati
 	 */
 	private JSONArray value;
 	
-	@Autowired (required = true)
-	DownloadCity download = new DownloadCity();
+	/**
+	 * Variabile della classe CityFilter
+	 */
+	private CityFilter cityFilter;
 	
 	/**
 	 * JSONObject
@@ -53,93 +62,94 @@ public class DataBase {
 	private JSONObject obj = new JSONObject();
 	
 	/**
-	 * costruttore
-	 * @throws UrlException eccezione personalizzata
-	 * @throws ParseException errore di Parsing
-	 * @throws MalformedURLException eccezione che viene lanciata se l'url è sbagliato
-	 * @throws IOException errore di I/O
+	 * Costruttore
+	 * 
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws ParseException Errore di Parsing
+	 * @throws MalformedURLException Errore formato dell'Url
+	 * @throws IOException Errore di I/O
 	 */
 	public DataBase () throws UrlException, ParseException, MalformedURLException, IOException {
 		p = new Parser();
-		this.arr = new JSONArray();
-		this.value = new JSONArray();
+		this.arr = p.caricaFile(Config.getName());
+		//this.cityFilter = new CityFilter();
 		this.addToDataBase();
 	}
 	
 	/**
-	 * metodo che salva ogni ora i dati di alcune città monitorate
-	 * @throws UrlException
-	 * @throws ParseException
-	 * @throws MalformedURLException
-	 * @throws IOException
+	 * Metodo che salva ogni ora i dati di alcune città costantemente monitorate
+	 * 
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws ParseException Errore di Parsing
+	 * @throws MalformedURLException Errore formato dell'Url
+	 * @throws IOException Errore di I/O
 	 */
-	@Scheduled (cron = "0 0/30 * * * ?") //In questo modo effettua una chiamata ogni minuto
+	@Scheduled (cron = "0 0/1 * * * ?") //In questo modo effettua una chiamata ogni minuto
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
 		
 		if (Config.getCall()) {
 					
-				logger.info("Sto recuperando i dati delle città di Londra e di Ancona");
-				p.salvaFile(Config.getName(),"Londra");
-				p.salvaFile(Config.getName(), "Ancona");
-				}
+				logger.info("Sto recuperando i dati delle città di Roma, Londra, Berlino e Parigi");
+				p.salvaFile(Config.getName(),"Roma");
+				p.salvaFile(Config.getName(), "Londra");
+				p.salvaFile(Config.getName(), "Berlino");
+				p.salvaFile(Config.getName(), "Parigi");
+				
+		}
 
 	}
-		
-		
 	
 	/**
 	 * Metodo che ritorna tutti i valori desiderati di una determinata città
 	 * 
 	 * @param city Città di cui si vogliono ottenere i parametri
 	 * @return arr JSONArray che contiene i dati da analizzare
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws MalformedURLException 
-	 * @throws UrlException 
+	 * @throws IOException Errore di I/O
+	 * @throws ParseException Errore di Parsing
+	 * @throws MalformedURLException Errore di formato dell'Url
+	 * @throws UrlException Eccezione personalizzata
 	 */
 	public JSONArray getAllData (String city) throws UrlException, MalformedURLException, ParseException, IOException {
-
-		ArrayList <String> msg = new ArrayList<String>();
 		
-		this.arr = p.caricaFile(Config.getName());
-				
-			for (Object o : this.arr) {
-				
-				if (o instanceof JSONObject) {
+		JSONParser parser = new JSONParser();
+		
+		JSONObject jsonObject = new JSONObject();
+		
+		City c = new City (city);
+		
+		JSONArray array = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONString(p.caricaFile(Config.getName())));
+		
+		for (Object o : array) {
 			
-				JSONObject obj = (JSONObject)o;
+			JSONObject obj = (JSONObject) o;
+		
+			String citta = (String) obj.get("city");
 			
-				String cityName = (String) obj.get("city");
-
-				if (cityName.equals(city.toString())) {
-						
-					City c = new City(city);
-						
-					value = c.getAllInformation(city);
+			if (citta.toString().equals(city)){
 				
-						//String date = (String) obj.get("date");
-						//Double humidity = Double.parseDouble( obj.get("humidity").toString());
-						//Double temp = Double.parseDouble( obj.get("temp").toString());
-						//String weather = (String) obj.get("weather");
+				Double hum = (Double) obj.get("humidity");
+				Double temp = (Double) obj.get("temperature");
+				Double data = (Double) obj.get("date");
 				
-						//obj.put("date", date);
-						//obj.put("city", city);
-						//obj.put("humidity", humidity);
-						//obj.put("temperature", temp);
-						//obj.put("weather", weather);
+				jsonObject.put("city", citta);
+				jsonObject.put("humidity", hum);
+				jsonObject.put("temperature", temp);
+				jsonObject.put("date", data);
 				
-						//value.add(obj);
-					}
-			
-					else {
-				
-						msg.add("La città attualmente non è monitorata, non sono presenti dati nel DataBase");
-						value.add( msg);
-					}
-				}
+				value.add(jsonObject);
 			}
+			
+		}
+			
+			if (value == null | value.isEmpty()) {
+				
+				jsonObject.put("Errore", "Non riesco a leggere l'array da caricaFile");
+				value.add(jsonObject);
+			}
+
+		
 		
 		return value;
 	}

@@ -13,7 +13,7 @@ import org.json.simple.JSONArray;
  * @author Valeria Timmer
  *
  */
-public class HumidityFilter implements Filter <Object, Object> {
+public class HumidityFilter implements Filter <Object> {
 	/**
 	 * Array da filtrare
 	 */
@@ -45,7 +45,7 @@ public class HumidityFilter implements Filter <Object, Object> {
 	 * @return Ritorna l'array filtrato 
 	 */
 	@Override
-	public JSONArray filtersCity (JSONArray arrayHumidity, Object city, Object period) {
+	public JSONArray filtersCity (JSONArray arrayHumidity, Object city) {
 		//return (JSONArray) utils.getHumidityFiltered (this.getArray(), city, period);
 		return arrayHumidity;	
 	}
