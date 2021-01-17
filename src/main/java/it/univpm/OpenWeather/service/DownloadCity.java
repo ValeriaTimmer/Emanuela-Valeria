@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.service;
 import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
+import it.univpm.OpenWeather.service.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
 import java.util.Scanner;
+import java.util.HashMap;
 import java.nio.file.Files;
 
 import org.json.simple.JSONValue;
@@ -40,8 +42,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
- * Humidity, Temperature, Weather
- * I campi cityName e stateCode vengono passati come argomento
+ * Humidity, Temperature
  * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
@@ -51,16 +52,28 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class DownloadCity {
 	
+	/**
+	 * Variabile della classe Parser
+	 */
 	private Parser p = new Parser();
 	
-	private String date;
-	
+	/**
+	 * JSONObject
+	 */
 	private JSONObject obj = new JSONObject();
 	
 	private JSONObject jsonOb = new JSONObject();
 	
+	private JSONArray array = new JSONArray();
+	
+	/**
+	 * JSONArray che contiene tutti i valori prelevati da OpenWeather
+	 */
 	private JSONArray download = new JSONArray();
 	
+	/**
+	 * JSONArray che contiene solo i valori desiderati 
+	 */
 	private JSONArray value = new JSONArray();
 	
 	/*
@@ -78,6 +91,11 @@ public class DownloadCity {
 	 */
 	private double temperature;
 	
+	/**
+	 * Data
+	 */
+	private String date;
+	
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -92,45 +110,75 @@ public class DownloadCity {
 	}
 	
 	/**
-	 * costruttore senza parametri
+	 * Costruttore senza parametri
 	 */
 	public DownloadCity() {
 	}
 	
-	
+	/**
+	 * Metodo Gettere del nome della città
+	 * @return cityName Nome della città
+	 */
 	public String getCityName () {
 		return cityName;
 	}
 	
-	
+	/**
+	 * Metodo Getter del valore dell'umidità
+	 * @return humidity Valore dell'umidità
+	 */
 	public double getHumidity () {
 		return humidity;
 	}
 	
+	/**
+	 * Metodo Setter del valore dell'umidità
+	 * @param humidity Valore dell'umidità
+	 */
 	public void setHumidity(double humidity){
 		this.humidity = humidity;
 	}
 	
-	public JSONObject getArray() {
-		return obj;
+	/**
+	 * Metodo Getter del valore della temperatura
+	 * @return temperature Valore della temperatura
+	 */
+	public double getTemperature () {
+		return this.temperature;
 	}
 	
-	public void setArray(JSONObject obj) {
+	/**
+	 * Metodo Getter del JSONObject
+	 * @return obj JSONObject
+	 */
+	public JSONObject getObject() {
+		return this.obj;
+	}
+	
+	/**
+	 * Metodo Setter del JSONObject
+	 * @param obj JSONObject
+	 */
+	public void setObject(JSONObject obj) {
 		this.obj = obj;
-	}
-	
-	public Double getTemperature () {
-		return temperature;
 	}
 
 	/**
-	 * metodo per convertire la temperatura da Kelvin in Celsius
+	 * Metodo per convertire la temperatura da Kelvin in Celsius
 	 */
 	public int getTemperaturaInCelsius(double temperatura) {
 		return (int)(temperatura - 273.15);
 	}
 	
+	/**
+	 * Metodo che effettua il collegamento con il sito di OpenWeather
+	 * @param cityName Nome della città di cui si vogliono ottenere i valori
+	 * @return obj JSONObject contenente tutti i valori della città
+	 */
 	public JSONObject toOpenWeather (String cityName) {
+		
+		JSONParser parser = new JSONParser();
+		
 		try {
 			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" +cityName+ "&appid=" + Config.getApiKey()).openConnection();
 			InputStream in = openConnection.getInputStream();
@@ -140,6 +188,7 @@ public class DownloadCity {
 				InputStreamReader inR = new InputStreamReader (in);
 				BufferedReader buf = new BufferedReader (inR);
 				while ((line = buf.readLine()) != null) data +=line;
+				
 			} finally  {
 				in.close();
 			}
@@ -153,11 +202,21 @@ public class DownloadCity {
 		return this.obj;
 	}
 	
+	/**
+	 * Metodo che permette di aggiungere un JSONObject in un JSONArray
+	 * @param cityName Nome della città
+	 * @return download JSONArray contenente i JSONObject
+	 */
 	public JSONArray insertObject(String cityName) {
 		this.download.add(toOpenWeather(cityName));
 		return this.download;
 	}
 	
+	/**
+	 * Metodo che permette di salvare i valori scaricati da OpenWeather in un file
+	 * @param nome_file Nome del file in cui vengono salvati i dati 
+	 * @param cityName Nome della città di cui si vogliono salvare i dati 
+	 */
 	public void saveValues(String nome_file, String cityName) {
 		
 		try {
@@ -170,6 +229,11 @@ public class DownloadCity {
 	
 	}
 	
+	/**
+	 * Metodo che permette di leggere i dati da un file
+	 * @param nome_file Nome del file da cui si vogliono leggere i dati
+	 * @return download JSONArray contenente tutti i dati letti
+	 */
 	public JSONArray getValues(String nome_file) {
 			
 			String data = "";
@@ -182,6 +246,7 @@ public class DownloadCity {
 				this.download = (JSONArray) JSONValue.parseWithException(str);
 				
 				file_input.close();
+				
 			} catch (IOException | ParseException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
@@ -191,63 +256,67 @@ public class DownloadCity {
 			return this.download;
 		}
 	
-	public JSONArray Parsing () {
+	/**
+	 * Metodo che permette di selezionare i dati desiderati da un JSONArray
+	 * @return values JSONArray contenete i dati desiderati 
+	 */
+	public ArrayList<String> Parsing () {
 		
-		JSONParser parser = new JSONParser();
+		JSONArray jsonArray = new JSONArray();
 		
-		try {
+		ArrayList <String> list = new ArrayList<String>();
 		
-		JSONArray arr = (JSONArray) parser.parse(this.getValues(Config.getName()).toJSONString());
+		JSONArray arr = this.getValues(Config.getName());
 		
-		//JSONArray array = this.getValues(Config.getName());
+		for (int i = 0; i<arr.size(); i++) {
 		
-		
-		for (Object o : arr) {
-			
-			if (o instanceof JSONObject) {
+			JSONObject ob = (JSONObject) arr.get(i);
 				
-				JSONObject ob = (JSONObject)o;
-				
-				JSONObject citta = (JSONObject) ob.get("city");
+			JSONObject citta = (JSONObject) ob.get("city");
 				
 				this.cityName = (String) citta.get("name");
+
+			JSONArray lista = (JSONArray) ob.get("list");
 				
-				JSONArray lista = (JSONArray) ob.get("list");
-				
-				for (Object ob1 : lista) {
-					
-					if (ob1 instanceof JSONObject) {
+			for (int n = 0; n < arr.size(); n++) {
 						
-						JSONObject ob2 = (JSONObject) ob1;
+				JSONObject ob2 = (JSONObject) lista.get(n);
 						
-						JSONObject main = (JSONObject) ob2.get("main");
-						this.humidity = Double.parseDouble(main.get("humidity").toString());
-						Double temp = Double.parseDouble(main.get("temp").toString());
-						this.temperature = this.getTemperaturaInCelsius(temp);
+				JSONObject main = (JSONObject) ob2.get("main");
+							
+				this.humidity = Double.parseDouble(main.get("humidity").toString());
+				Double temp = Double.parseDouble(main.get("temp").toString());
+				this.temperature = this.getTemperaturaInCelsius(temp);
 								
-						this.date = (String) ob2.get("dt_txt");
-									
-						obj.put("city", this.cityName);
-						obj.put("humidity", this.humidity);
-						obj.put("temperature", this.temperature);
-						obj.put("date", this.date);
-						
-					}
-				}
+				this.date = (String) ob2.get("dt_txt");
 				
+				obj.put("city", this.cityName);
+				obj.put("humidity", this.humidity);
+				obj.put("temperature", this.temperature);
+				obj.put("date", this.date);
+				
+				list.add(obj.toString());
+				
+				/**
+				try {
+					
+				jsonArray = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONString(list));
+				
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}	
+*/
+			
 			}
 		}
+		//this.value.add (jsonArray);
+
+		return list;
 		
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		this.value.add(obj);
-		
-		return this.value;
-		
-	}
 	
+	}
+}
 	
 
 	/**
@@ -285,4 +354,3 @@ public class DownloadCity {
 		return list;
 	}
 	*/
-}

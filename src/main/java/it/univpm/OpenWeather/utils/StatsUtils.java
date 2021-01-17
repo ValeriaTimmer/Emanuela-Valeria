@@ -84,7 +84,7 @@ public class StatsUtils{
 		
 		ArrayList <String> allDates = DateUtils.date(from, to);
 	        
-        	for (int i=0; i< allDates.size(); i++) {
+        	for (int i = 0; i< allDates.size(); i++) {
         		 
         		 for(Object o: list) {
         			 

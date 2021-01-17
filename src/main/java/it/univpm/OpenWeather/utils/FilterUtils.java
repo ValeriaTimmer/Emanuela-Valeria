@@ -23,6 +23,8 @@ public class FilterUtils {
 	
 	private JSONArray jsonArray = new JSONArray();
 	
+	private ArrayList <String> arrayList = new ArrayList<String>();
+	
 	/**
 	 * Array che contiene i dati filtrati
 	 */
@@ -33,7 +35,7 @@ public class FilterUtils {
 	private DownloadCity d = new DownloadCity();
 	
 	public FilterUtils () {
-		this.jsonArray = d.Parsing();
+		this.arrayList = d.Parsing();
 	}
 	
 	/**
@@ -47,21 +49,23 @@ public class FilterUtils {
 		
 		JSONObject jsonObject = new JSONObject();
 		
-		JSONArray jsonArray = d.Parsing();
+		ArrayList<String> arrayList = d.Parsing();
 		
-			for (Object o : jsonArray) {
-					
-				if (o instanceof JSONObject) {
+		for (int i = 0; i< arrayList.size(); i++) {
+	
+			Object o = (Object) arrayList.get(i);
 			
-								JSONObject obj = (JSONObject) o;
+			if (o instanceof JSONObject) {
+				
+				JSONObject ob = (JSONObject) o;
 
-								String citta = (String) obj.get("city");
+				String citta = (String) ob.get("city");
 			
-								if (citta.equals(city)) {
+						if (citta.equals(city)) {
 						
-									Double hum = Double.parseDouble(obj.get("humidity").toString());
-									Double temp = Double.parseDouble(obj.get("temperature").toString());
-									String data = (String) obj.get("date");
+								Double hum = Double.parseDouble(ob.get("humidity").toString());
+								Double temp = Double.parseDouble(ob.get("temperature").toString());
+								String data = (String) ob.get("date");
 					
 									jsonObject.put("city", citta);
 									jsonObject.put("humidity", hum);
@@ -72,8 +76,8 @@ public class FilterUtils {
 									filtered.add(jsonObject.toString());
 								}
 							}
-						}
-		
+						
+		}
 		
 		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();

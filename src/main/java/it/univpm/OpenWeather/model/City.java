@@ -24,11 +24,11 @@ public class City {
 	/**
 	 * Umidità della città in percentuale
 	 */
-	private double humidity;
+	private Double humidity;
 	/**
 	 * Temperatura della città in kelvin
 	 */
-	private double temperature;
+	private Double temperature;
 	
 	/**
 	 * Data 
@@ -44,7 +44,7 @@ public class City {
 	 * @param temp Temperatura della città
 	 * @param date Data
 	 */
-	public City(String name, double humidity, double temperature, String date) {
+	public City(String name, Double humidity, Double temperature, String date) {
 		this.cityName = name;
 		this.humidity = humidity;
 		this.temperature = temperature;
