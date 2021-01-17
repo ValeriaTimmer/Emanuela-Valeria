@@ -50,40 +50,32 @@ public class FilterUtils {
 	 */
 	public JSONArray getCityFiltered (String city) {
 		
-		JSONObject jsonObject = new JSONObject();
+		JSONArray filtered = new JSONArray();
 
-		JSONArray jsonArray = d.Parsing();
+		jsonArray = d.Parsing();
 		
 		for (int i = 0; i< jsonArray.size(); i++) {
 	
-			String o = (String) jsonArray.get(i);
+			JSONObject o = (JSONObject) jsonArray.get(i);
 			
-			try {
+			String citta = (String) o.get("city");
 			
-			this.obj = (JSONObject) JSONValue.parseWithException(o);
-			
-			} catch (org.json.simple.parser.ParseException e) {
-				
-				e.printStackTrace();
-			}
-			
-			String citta = (String) obj.get("city");
-			
-					if (citta.equals(city)) {
+				if (citta.equals(city)) {
 						
-							Double hum = Double.parseDouble(obj.get("humidity").toString());
-							Double temp = Double.parseDouble(obj.get("temperature").toString());
-							String data = (String) obj.get("date");
+						Double hum = Double.parseDouble(o.get("humidity").toString());
+						Double temp = Double.parseDouble(o.get("temperature").toString());
+						String data = (String) o.get("date");
+						
+						JSONObject jsonObject = new JSONObject();
 					
-									jsonObject.put("city", citta);
-									jsonObject.put("humidity", hum);
-									jsonObject.put("temperature", temp);
-									jsonObject.put("date", data);
+						jsonObject.put("city", citta);
+						jsonObject.put("humidity", hum);
+						jsonObject.put("temperature", temp);
+						jsonObject.put("date", data);
 					
-					
-									filtered.add(jsonObject);
-								}
-							}
+						filtered.add(jsonObject);
+				}
+		}
 						
 		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();

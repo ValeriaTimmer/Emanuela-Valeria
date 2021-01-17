@@ -95,7 +95,7 @@ public class CityServiceImpl implements CityService {
 		DownloadCity d = new DownloadCity();
 		c = new City (city);
 		DataBase db = new DataBase();
-		data.put("Data", d.Parsing().toString());
+		data.put("Data", dB.getAllData(city).toString());
 		return data;
 	}
 	

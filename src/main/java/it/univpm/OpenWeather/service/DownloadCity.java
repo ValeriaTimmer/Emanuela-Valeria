@@ -280,8 +280,6 @@ public class DownloadCity {
 		
 		JSONArray jsonArray = new JSONArray();
 		
-		ArrayList <String> list = new ArrayList<String>();
-		
 		JSONArray arr = this.getValues(Config.getName());
 		
 		for (int i = 0; i<arr.size(); i++) {
@@ -307,67 +305,21 @@ public class DownloadCity {
 				this.date = (String) ob2.get("dt_txt");
 				//this.date = formatOutput.format (date);
 				
-				obj.put("city", this.cityName);
-				obj.put("humidity", this.humidity);
-				obj.put("temperature", this.temperature);
-				obj.put("date", this.date);
+				JSONObject jsonObject = new JSONObject();
 				
-				jsonArray.add(obj.toJSONString());
+				jsonObject.put("city", this.cityName);
+				jsonObject.put("humidity", this.humidity);
+				jsonObject.put("temperature", this.temperature);
+				jsonObject.put("date", this.date);
 				
-				/**
-				try {
-					
-				jsonArray = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONString(list));
+				jsonArray.add(jsonObject);
 				
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			
 			}
 		}
-		//this.value.add (jsonArray);
-		 */
-			}
-		}
+		
 		return jsonArray;
 		
 	
 	}
 }
 	
-
-	/**
-	 * Metodo che effettua il Parsing dei dati desiderati dal sito di OpenWeather
-	 * 
-	 * @return JSONObject contenete i dati parsati
-	 * @throws UrlException Eccezione personalizzata
-	 * @throws IOException Errore di I/O
-	 * @throws MalformedURLException 
-	 
-	public ArrayList<Object> Parsing (String nome_file) throws UrlException, ParseException, MalformedURLException, IOException {
-		
-		JSONParser parser = new JSONParser();
-		
-		ArrayList<Object> list = new ArrayList<Object>();
-			
-		this.download = p.caricaFile(Config.getName());
-		
-		for (Object o : this.download) {
-			
-					if(o instanceof JSONObject) {
-			
-				       JSONObject obj = (JSONObject) o;
-					
-				       this.cityName = (String) obj.get("city");
-					   this.date = (String) obj.get("date");
-					   this.humidity = Double.parseDouble(obj.get("humidity").toString());
-					   this.temperature = Double.parseDouble(obj.get("temperature").toString());
-					}
-				}
-			
-		list = BuildingCity.Building(this.cityName, this.humidity, this.temperature, this.date);
-		//this.download = (JSONArray) JSONValue.parseWithException(ParsingJSON.ParsingToJSONObject(list));
-		//return this.download;
-		return list;
-	}
-	*/
