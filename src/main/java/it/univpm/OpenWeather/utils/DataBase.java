@@ -90,7 +90,7 @@ public class DataBase {
 	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
-	@Scheduled (cron = "0 0/30 * * * ?") //In questo modo effettua una chiamata ogni minuto
+	@Scheduled (cron = "0 0/5 * * * ?") //In questo modo effettua una chiamata ogni minuto
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);

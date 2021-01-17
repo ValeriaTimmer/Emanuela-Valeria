@@ -17,6 +17,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.nio.file.Files;
+import java.text.DateFormat;
 
 import org.json.simple.JSONValue;
 //import org.json.simple.JSONObject;
@@ -100,18 +101,14 @@ public class DownloadCity {
 	private String date;
 	
 	/**
-	 * Formato data del sito OpenWeather
-	 */
-	private String DATE_FORMAT_I = "yyyy-MM-dd'T'HH:mm:ss";
-	
-	/**
 	 * Formato data desiderato
 	 */
 	private String DATE_FORMAT_O = "yyyy-MM-dd";
 	
-	SimpleDateFormat formatInput = new SimpleDateFormat(DATE_FORMAT_I);
-	SimpleDateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
-	
+	/**
+	 * Nuovo Formato data
+	 */
+	DateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -299,12 +296,17 @@ public class DownloadCity {
 				JSONObject main = (JSONObject) ob2.get("main");
 							
 				this.humidity = Double.parseDouble(main.get("humidity").toString());
-				Double temp = Double.parseDouble(main.get("temp").toString());
+					Double temp = Double.parseDouble(main.get("temp").toString());
 				this.temperature = this.getTemperaturaInCelsius(temp);
-								
-				this.date = (String) ob2.get("dt_txt");
-				//this.date = formatOutput.format (date);
+							
+				long unixSeconds = Long.parseLong(ob2.get("dt").toString());
 				
+					Date d = new Date (unixSeconds*1000L);
+				
+					formatOutput.setTimeZone(java.util.TimeZone.getTimeZone("Europe/Rome"));
+				
+				this.date = formatOutput.format(d);
+
 				JSONObject jsonObject = new JSONObject();
 				
 				jsonObject.put("city", this.cityName);

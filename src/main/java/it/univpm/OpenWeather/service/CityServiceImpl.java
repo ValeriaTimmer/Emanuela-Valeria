@@ -89,13 +89,13 @@ public class CityServiceImpl implements CityService {
 	 * @return data HashMap contenete i dati relativi ad una città
 	 */
 	@Override 
-	public HashMap<String,String> getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
-		HashMap <String, String> data = new HashMap <String, String>();
+	public JSONArray getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
+		JSONArray data = new JSONArray();
 		Parser p = new Parser();
 		DownloadCity d = new DownloadCity();
 		c = new City (city);
 		DataBase db = new DataBase();
-		data.put("Data", dB.getAllData(city).toString());
+		data = dB.getAllData(city);
 		return data;
 	}
 	

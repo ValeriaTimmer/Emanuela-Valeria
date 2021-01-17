@@ -40,7 +40,7 @@ public interface CityService {
 	 * @throws org.json.simple.parser.ParseException
 	 * @throws IOException
 	 */
-	public abstract HashMap <String, String> getData (String city)  throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+	public abstract JSONArray getData (String city)  throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 	/**
 	 * Metodo che permette di selezionare le statistiche 
 	 * @return HashMap<String,String> delle statistiche effettute 

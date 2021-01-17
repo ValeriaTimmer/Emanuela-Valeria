@@ -50,6 +50,9 @@ public class DateUtils {
 	 */
 	private String DATE_FORMAT_O = "yyyy-MM-dd";
 	
+	DateFormat formatInput = new SimpleDateFormat(DATE_FORMAT_I);
+	DateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
+	
 
 	/**
 	 * Metodo che permette di trasformare una data dal formato DATE_FORMAT_I
@@ -58,13 +61,14 @@ public class DateUtils {
 	 * @param date Data da trasformare
 	 * @return dateString Data nel formato desiderato
 	 */
-	public String formatDate (String date) {
+	public String formatDate (long unixSeconds) {
 	
-		SimpleDateFormat formatInput = new SimpleDateFormat(DATE_FORMAT_I);
-		SimpleDateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
-	
-		String dateString = formatOutput.format(date);
-	
+		Date d = new Date (unixSeconds*1000L);
+		
+		formatOutput.setTimeZone(java.util.TimeZone.getTimeZone("Europe/Rome"));
+		
+		String dateString = formatOutput.format(d);
+
 		return dateString;
 		
 	}
