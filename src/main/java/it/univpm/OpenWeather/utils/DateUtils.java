@@ -38,7 +38,7 @@ public class DateUtils {
 	/**
 	 *  DateFormat per il parsing della data in formato: "dd/MM/yyyy"
 	 */
-	public static DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+	public static DateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 	
 	/**
 	 * Formato data del sito OpenWeather

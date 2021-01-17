@@ -275,7 +275,7 @@ public class Parser {
 		
 		JSONArray jsonArray = new JSONArray();
 		
-		ArrayList <String> values = new ArrayList<String>();
+		//ArrayList <String> values = new ArrayList<String>();
 		
 		String data = "";
 		
@@ -298,12 +298,12 @@ public class Parser {
 			e.printStackTrace();
 		}
 		
-		values.add(data);
+		//values.add(data);
 		
 		
 		try {
 		
-			jsonArray = (JSONArray) JSONValue.parseWithException (ParsingJSON.ParsingToJSONString(values));
+			jsonArray = (JSONArray) JSONValue.parseWithException (data);
 		
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -251,14 +251,16 @@ public class DownloadCity {
 			
 			String data = "";
 			String line = "";
+			JSONArray download = new JSONArray();
 			
 			try {
+				String str = "";
 				Scanner file_input = new Scanner (new BufferedReader (new FileReader (nome_file)));
-				String str = file_input.nextLine();
+				while(file_input.hasNext()) {
+				    str = file_input.nextLine();
+				}
+				download = (JSONArray) JSONValue.parseWithException(str);
 				
-				this.download = (JSONArray) JSONValue.parseWithException(str);
-				
-				file_input.close();
 				
 			} catch (IOException | ParseException e) {
 				e.printStackTrace();
@@ -266,7 +268,7 @@ public class DownloadCity {
 				e.printStackTrace();
 			}
 			
-			return this.download;
+			return download;
 		}
 	
 	/**
@@ -289,7 +291,7 @@ public class DownloadCity {
 
 			JSONArray lista = (JSONArray) ob.get("list");
 				
-			for (int n = 0; n < arr.size(); n++) {
+			for (int n = 0; n < lista.size(); n++) {
 						
 				JSONObject ob2 = (JSONObject) lista.get(n);
 						

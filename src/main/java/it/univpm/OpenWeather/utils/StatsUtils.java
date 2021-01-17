@@ -86,12 +86,13 @@ public class StatsUtils{
 	        
         	for (int i = 0; i< allDates.size(); i++) {
         		 
-        		 for(Object o: list) {
+        		 for(Object o : list) {
         			 
      				if(o instanceof JSONObject) {
      					
      					JSONObject o1 = (JSONObject) o;
      					String data = (String) o1.get("date");
+     					
      					
      					if(data.compareTo(from)>=0) {
      						if(data.compareTo(to)<=0) {
