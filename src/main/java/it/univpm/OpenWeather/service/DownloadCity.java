@@ -30,6 +30,7 @@ import java.lang.Number;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
@@ -40,6 +41,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Date;
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
  * Humidity, Temperature
@@ -95,6 +98,19 @@ public class DownloadCity {
 	 * Data
 	 */
 	private String date;
+	
+	/**
+	 * Formato data del sito OpenWeather
+	 */
+	private String DATE_FORMAT_I = "yyyy-MM-dd'T'HH:mm:ss";
+	
+	/**
+	 * Formato data desiderato
+	 */
+	private String DATE_FORMAT_O = "yyyy-MM-dd";
+	
+	SimpleDateFormat formatInput = new SimpleDateFormat(DATE_FORMAT_I);
+	SimpleDateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
 	
 	
 	/**
@@ -260,7 +276,7 @@ public class DownloadCity {
 	 * Metodo che permette di selezionare i dati desiderati da un JSONArray
 	 * @return values JSONArray contenete i dati desiderati 
 	 */
-	public ArrayList<String> Parsing () {
+	public JSONArray Parsing () {
 		
 		JSONArray jsonArray = new JSONArray();
 		
@@ -289,13 +305,14 @@ public class DownloadCity {
 				this.temperature = this.getTemperaturaInCelsius(temp);
 								
 				this.date = (String) ob2.get("dt_txt");
+				//this.date = formatOutput.format (date);
 				
 				obj.put("city", this.cityName);
 				obj.put("humidity", this.humidity);
 				obj.put("temperature", this.temperature);
 				obj.put("date", this.date);
 				
-				list.add(obj.toString());
+				jsonArray.add(obj.toJSONString());
 				
 				/**
 				try {
@@ -305,14 +322,14 @@ public class DownloadCity {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-			}	
-*/
 			
 			}
 		}
 		//this.value.add (jsonArray);
-
-		return list;
+		 */
+			}
+		}
+		return jsonArray;
 		
 	
 	}

@@ -33,10 +33,41 @@ public class DateUtils {
 	 */
 	private static Date dateTo;
 	
+	private DownloadCity d = new DownloadCity();
+	
 	/**
 	 *  DateFormat per il parsing della data in formato: "dd/MM/yyyy"
 	 */
 	public static DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+	
+	/**
+	 * Formato data del sito OpenWeather
+	 */
+	private String DATE_FORMAT_I = "yyyy-MM-dd'T'HH:mm:ss";
+	
+	/**
+	 * Formato data desiderato
+	 */
+	private String DATE_FORMAT_O = "yyyy-MM-dd";
+	
+
+	/**
+	 * Metodo che permette di trasformare una data dal formato DATE_FORMAT_I
+	 * al formato DATE_FORMAT_0
+	 * 
+	 * @param date Data da trasformare
+	 * @return dateString Data nel formato desiderato
+	 */
+	public String formatDate (String date) {
+	
+		SimpleDateFormat formatInput = new SimpleDateFormat(DATE_FORMAT_I);
+		SimpleDateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
+	
+		String dateString = formatOutput.format(date);
+	
+		return dateString;
+		
+	}
 	
 	/**
 	 * Metodo che genera la data odierna

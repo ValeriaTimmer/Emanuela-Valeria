@@ -4,6 +4,7 @@ import it.univpm.OpenWeather.model.*;
 import it.univpm.OpenWeather.service.*;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
@@ -25,6 +26,8 @@ public class FilterUtils {
 	
 	private ArrayList <String> arrayList = new ArrayList<String>();
 	
+	private JSONObject obj = new JSONObject();
+	
 	/**
 	 * Array che contiene i dati filtrati
 	 */
@@ -35,7 +38,7 @@ public class FilterUtils {
 	private DownloadCity d = new DownloadCity();
 	
 	public FilterUtils () {
-		this.arrayList = d.Parsing();
+		this.jsonArray = d.Parsing();
 	}
 	
 	/**
@@ -48,24 +51,29 @@ public class FilterUtils {
 	public JSONArray getCityFiltered (String city) {
 		
 		JSONObject jsonObject = new JSONObject();
-		
-		ArrayList<String> arrayList = d.Parsing();
-		
-		for (int i = 0; i< arrayList.size(); i++) {
-	
-			Object o = (Object) arrayList.get(i);
-			
-			if (o instanceof JSONObject) {
-				
-				JSONObject ob = (JSONObject) o;
 
-				String citta = (String) ob.get("city");
+		JSONArray jsonArray = d.Parsing();
+		
+		for (int i = 0; i< jsonArray.size(); i++) {
+	
+			String o = (String) jsonArray.get(i);
 			
-						if (citta.equals(city)) {
+			try {
+			
+			this.obj = (JSONObject) JSONValue.parseWithException(o);
+			
+			} catch (org.json.simple.parser.ParseException e) {
+				
+				e.printStackTrace();
+			}
+			
+			String citta = (String) obj.get("city");
+			
+					if (citta.equals(city)) {
 						
-								Double hum = Double.parseDouble(ob.get("humidity").toString());
-								Double temp = Double.parseDouble(ob.get("temperature").toString());
-								String data = (String) ob.get("date");
+							Double hum = Double.parseDouble(obj.get("humidity").toString());
+							Double temp = Double.parseDouble(obj.get("temperature").toString());
+							String data = (String) obj.get("date");
 					
 									jsonObject.put("city", citta);
 									jsonObject.put("humidity", hum);
@@ -73,12 +81,10 @@ public class FilterUtils {
 									jsonObject.put("date", data);
 					
 					
-									filtered.add(jsonObject.toString());
+									filtered.add(jsonObject);
 								}
 							}
 						
-		}
-		
 		if (filtered == null || filtered.isEmpty()) {
 			JSONObject o2 = new JSONObject();
 			o2.put("Filtraggio abortito", "");
