@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 
 import org.json.simple.parser.ParseException;
 import org.slf4j.LoggerFactory;
@@ -21,10 +19,9 @@ import org.slf4j.*;
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.filter.*;
-import it.univpm.OpenWeather.model.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 
 /**
@@ -38,10 +35,10 @@ import java.util.Iterator;
 public class DataBase {
 	
 	/**
-	 * Variabile della classe Parser
+	 * Variabile della classe DownloadCity
 	 */
 	@Autowired (required = true)
-	private Parser p ;
+	private DownloadCity d ;
 	
 	/**
 	 * JSONArray che contiene i dati letti dal file
@@ -58,9 +55,6 @@ public class DataBase {
 	 */
 	private CityFilter cityFilter;
 	
-	@Autowired (required = true)
-	private DownloadCity d ;
-	
 	/**
 	 * JSONObject
 	 */
@@ -75,22 +69,22 @@ public class DataBase {
 	 * @throws IOException Errore di I/O
 	 */
 	public DataBase () throws UrlException, ParseException, MalformedURLException, IOException {
-		p = new Parser();
 		d = new DownloadCity();
 		this.arr = d.getValues(Config.getName());
-		//this.cityFilter = new CityFilter();
-		//this.addToDataBase();
+	
 	}
 	
 	/**
 	 * Metodo che salva ogni ora i dati di alcune città costantemente monitorate
+	 * 
+	 * Le città monitorate sono ROMA, LONDRA, BERLINO, PARIGI
 	 * 
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
 	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
-	@Scheduled (cron = "0 0/5 * * * ?") //In questo modo effettua una chiamata ogni minuto
+	@Scheduled (cron = "0 0/59 * * * ?") 
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
@@ -106,72 +100,13 @@ public class DataBase {
 		}
 
 	}
-	/*
-	public JSONArray ritornaCaricaFile () {
-		
-		JSONArray jsonArray = new JSONArray();
-		jsonArray = p.caricaFile(Config.getName());
-		return jsonArray;
-	}
-	*/
-	/**
-	 * Metodo che permette di leggere tutti i valori contenuti nell'ArrayList
-	 * e seleziona i valori di una città desiderata
-	 * 
-	 * @param array ArrayList contenente i dati 
-	 * @param city Nome della città di cui si vogliono ottenere i dati
-	 * @return JSONArray che contiene i dati della città 
-	 */
-	public JSONArray readFile(String city)  {
-		
-		JSONObject jsonObject = new JSONObject();
-		
-		JSONArray list = new JSONArray();
-			
-		list = p.caricaFile(Config.getName());
-			
-		for (int i =0; i<list.size(); i++) {
-
-			JSONArray jsonAr = (JSONArray) list.get(i);
-			   
-				for(Object o : jsonAr) {
-					
-				   if(o instanceof JSONObject) {
-					   
-					   JSONObject obj = (JSONObject)o;
-					   
-					   String citta = (String) obj.get("city");
-						
-						if (citta.toString().equals(city)){
-							
-							Double hum = Double.parseDouble(obj.get("humidity").toString());
-							Double temp = Double.parseDouble(obj.get("temperature").toString());
-							String data = (String) obj.get("date");
-							
-							jsonObject.put("city", citta);
-							jsonObject.put("humidity", hum);
-							jsonObject.put("temperature", temp);
-							jsonObject.put("date", data);
-							
-							value.add(jsonObject);
-						}
-						
-					}
-					   
-				   }
-			   }
-			
-			
-		return (JSONArray) p.caricaFile(Config.getName());
-		
-	}
-	
 	
 	/**
-	 * Metodo che ritorna tutti i valori desiderati di una determinata città
+	 * Metodo che ritorna tutti i valori desiderati di una determinata città 
+	 * presenti nel dataBase
 	 * 
 	 * @param city Città di cui si vogliono ottenere i parametri
-	 * @return arr JSONArray che contiene i dati da analizzare
+	 * @return arr JSONArray che contiene tutti i dati della città
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 * @throws MalformedURLException Errore di formato dell'Url

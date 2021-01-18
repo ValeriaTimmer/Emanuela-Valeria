@@ -1,49 +1,29 @@
 package it.univpm.OpenWeather.service;
 
-import it.univpm.OpenWeather.model.*;
-import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
-import it.univpm.OpenWeather.service.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.Iterator;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import java.io.*;
 import java.util.Scanner;
-import java.util.HashMap;
-import java.nio.file.Files;
+
 import java.text.DateFormat;
 
 import org.json.simple.JSONValue;
-//import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
-import java.lang.reflect.Array;
-import java.lang.Number;
+
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.StandardOpenOption;
+
 import java.text.SimpleDateFormat;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
+
 /**
  * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
  * Humidity, Temperature
@@ -66,8 +46,14 @@ public class DownloadCity {
 	 */
 	private JSONObject obj = new JSONObject();
 	
+	/**
+	 * JSONObject
+	 */
 	private JSONObject jsonOb = new JSONObject();
 	
+	/**
+	 * JSONArray
+	 */
 	private JSONArray array = new JSONArray();
 	
 	/**
@@ -99,16 +85,6 @@ public class DownloadCity {
 	 * Data
 	 */
 	private String date;
-	
-	/**
-	 * Formato data desiderato
-	 */
-	private String DATE_FORMAT_O = "yyyy-MM-dd";
-	
-	/**
-	 * Nuovo Formato data
-	 */
-	DateFormat formatOutput = new SimpleDateFormat(DATE_FORMAT_O);
 	
 	/**
 	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
@@ -185,6 +161,7 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che effettua il collegamento con il sito di OpenWeather
+	 * 
 	 * @param cityName Nome della città di cui si vogliono ottenere i valori
 	 * @return obj JSONObject contenente tutti i valori della città
 	 */
@@ -217,6 +194,7 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che permette di aggiungere un JSONObject in un JSONArray
+	 * 
 	 * @param cityName Nome della città
 	 * @return download JSONArray contenente i JSONObject
 	 */
@@ -227,6 +205,7 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che permette di salvare i valori scaricati da OpenWeather in un file
+	 * 
 	 * @param nome_file Nome del file in cui vengono salvati i dati 
 	 * @param cityName Nome della città di cui si vogliono salvare i dati 
 	 */
@@ -244,6 +223,7 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che permette di leggere i dati da un file
+	 * 
 	 * @param nome_file Nome del file da cui si vogliono leggere i dati
 	 * @return download JSONArray contenente tutti i dati letti
 	 */
@@ -273,6 +253,7 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che permette di selezionare i dati desiderati da un JSONArray
+	 * 
 	 * @return values JSONArray contenete i dati desiderati 
 	 */
 	public JSONArray Parsing () {
@@ -305,9 +286,9 @@ public class DownloadCity {
 				
 					Date d = new Date (unixSeconds*1000L);
 				
-					formatOutput.setTimeZone(java.util.TimeZone.getTimeZone("Europe/Rome"));
+					Config.formatoData.setTimeZone(java.util.TimeZone.getTimeZone("Europe/Rome"));
 				
-				this.date = formatOutput.format(d);
+				this.date = Config.formatoData.format(d);
 
 				JSONObject jsonObject = new JSONObject();
 				

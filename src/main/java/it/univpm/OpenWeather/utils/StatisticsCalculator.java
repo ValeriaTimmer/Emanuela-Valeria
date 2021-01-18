@@ -1,25 +1,29 @@
 package it.univpm.OpenWeather.utils;
 
 import java.util.ArrayList;
-import java.util.Vector;
+
 import java.lang.Math;
 
 /**
- * Classe che calcola le statistiche
+ * Classe che effettua i calcoli per le statistiche
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  * 
  */
 
 public class StatisticsCalculator {
+	
 	/**
      * Valore minimo
      */
 	private double min;
+	
 	/**
 	 * Valore massimo
 	 */
 	private double max;
+	
 	/**
 	 * Somma
 	 */
@@ -60,26 +64,20 @@ public class StatisticsCalculator {
 	}
 	
 	/**
-	 * Metodo Getter della media
-	 * @return average Ritorna il valore medio
-	 *
-	public double getAverage() {
-		return sum/counter;
-	}
-	
-	/
 	 * Metodo Getter per il calcolo della media
+	 * (I valori restituiti vengono arrotondati alla seconda cifra significativa)
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la media
 	 * @return valore Double della media
 	 */
 	public Double getAverage (ArrayList <Double> a) {
 		for (int i = 0; i < a.size(); i++)
 			sum += a.get(i);
-		return (Double) sum/a.size();
+		return (double) Math.round((sum/a.size())*100d)/100d;
 	}
 	
 	/**
 	 * Metodo Getter per il calcolo della varianza
+	 * (I valori restituiti vengono arrotondati alla seconda cifra significativa)
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la varianza
 	 * @return valore Double della varianza
 	 */
@@ -88,35 +86,7 @@ public class StatisticsCalculator {
 		Double eps = 0.0;
 		for (int i = 0; i < a.size(); i++)
 			eps += (a.get(i) - avg) * (a.get(i) - avg);
-		return eps/a.size();
+		return (double) Math.round((eps/a.size())*100d)/100d;
 	}
 	
-	/**
-	 * Metodo Getter della varianza
-	 * @return variance Ritorna il valore della varianza
-	 *
-	public Double getVariance() {
-		Double average = this.getAverage();
-		Double t = 0.0;
-		for(Double num: value) 
-			t += Math.pow((num = average), 2);
-			return t/counter;
-			
-	}
-	
-	**
-	 * Metodo che aggiorna il contatore e i valori massimi e minimi;
-	 * inoltre aggiunge il valore passato come parametro all'ArrayList
-	 * @param num Valore che viene aggiunto all'array
-	 *
-	public void addCounter(Double num) {
-		this.counter++;
-		this.sum += num;
-		if(num>this.max) 
-			this.max=num;
-		if(num<this.min) 
-			this.min=num;
-		this.value.add(num);
-	}
-	*/
 }

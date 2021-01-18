@@ -31,7 +31,8 @@ public class StatsUtils{
 	private HashMap<String,String> stats;
 	 
 	 /**
-	  * ArrayList sul quale vengono i dati scelti su cui si effettuano le statistiche
+	  * ArrayList sul quale vengono salvati i
+	  * dati scelti su cui si effettuano le statistiche
 	  */
 	 private ArrayList <Double> arr;
 	
@@ -49,33 +50,29 @@ public class StatsUtils{
 		 this.stats = new HashMap<String,String>();
 	 }
 	 
-	 
-	
 	 /**
-	  * Metodo Getter dell'array parsato
-	  * @return arraCity Ritorna l'array con i dati parsati
-	  
-	public JSONArray getArray() throws UrlException {
- 		this.arrayCity = d.Parser();
- 		return arrayCity;
- 	}
-	*/
-	 
+	  * Metodo Getter dell'ArrayList <Double>
+	  * @return arr ArrayList <Double>
+	  */
 	 public ArrayList<Double> getArray(){
 		 return arr;
 	 }
 	 
+	 /**
+	  * Metodo Setter dell'ArrayList <Double>
+	  * @param array ArrayList<Double>
+	  */
 	 public void setArray(ArrayList<Double> array) {
 		 this.arr = array;
 	 }
 	
 	/**
-	 * Metodo che preleva i dati desiderati e li salva in un ArrayList
-	 * @param array Array contenente i dati da analizzare
+	 * Metodo che preleva i dati desiderati e li salva in un ArrayList<Double>
+	 * @param list JSONArray contenente i dati da analizzare
 	 * @param type Tipo di dato da analizzare (humidity/temperature)
 	 * @param from Data di inizio
 	 * @param to Data di fine
-	 * @return arr ArrayList che contiene i dati sui quali vengono effettuate le statistiche
+	 * @return arr ArrayList<Double> che contiene i dati sui quali vengono effettuate le statistiche
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
 	 */
@@ -91,6 +88,7 @@ public class StatsUtils{
      				if(o instanceof JSONObject) {
      					
      					JSONObject o1 = (JSONObject) o;
+     					
      					String data = (String) o1.get("date");
      					
      					
@@ -118,23 +116,23 @@ public class StatsUtils{
 	}
 	
 	/**
-	 * Metodo inserisce le statistiche su un' HashMap
-	 * @param array Array sul quale vengono effettuate le statistiche
+	 * Metodo che inserisce le statistiche su un' HashMap<String,String>
+	 * @param list JSONArray sul quale vengono effettuate le statistiche
 	 * @param city Nome della città
-	 * @param state Nome dello stato 
 	 * @param type Tipo di dato sul quale si vogliono effettuare le statistiche
 	 * (temperature / humidity)
 	 * @param from Data dal quale si vogliono effettuare le statistiche
 	 * @param to Data fino al quale si vogliono effettuare le statistiche
-	 * @return stats HashMap che contiene i dati delle statistiche 
+	 * @return stats HashMap<String,String> che contiene i dati delle statistiche 
 	 * @throws ParseException Errore di parsing
-	 * @throws org.json.simple.parser.ParseException 
-	 * @throws IOException 
-	 * @throws MalformedURLException 
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws MalformedURLException Errore nel formato dell'URL
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
+
 	 */
 	public HashMap<String, String> getStats(JSONArray list, String city, String type, String from, String to) 
 			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
-		
 		
 		try {
 			

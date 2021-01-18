@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 
+//Classe da eliminare!
 
 /**
  * Classe che si occupa di leggere i dati dall'API e di salvarli in un file 

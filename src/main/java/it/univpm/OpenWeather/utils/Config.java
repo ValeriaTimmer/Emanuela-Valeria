@@ -1,5 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Classe che riguarda metodi statici 
@@ -25,6 +27,16 @@ public class Config {
 	 * Se call = false allora lo @Scheduled non effettua le chiamate al sito di OpenWeather
 	 */
 	private static Boolean call = true;
+	
+	/**
+	 * Formato data desiderato
+	 */
+	private static String DATE_FORMAT_O = "yyyy-MM-dd";
+	
+	/**
+	 *  DateFormat per il parsing della data 
+	 */
+	public static DateFormat formatoData = new SimpleDateFormat(Config.getDateFormat());
 	
 	/**
 	 * Metodo Getter del nome del file
@@ -74,6 +86,21 @@ public class Config {
 	public static void setCall(Boolean value) {
 		Config.call = value;
 	}
-
+	
+	/**
+	 * Metodo Getter del formato Data
+	 * @return DATE_FORMAT_O Formato data di Output
+	 */
+	public static String getDateFormat() {
+		return DATE_FORMAT_O;
+	}
+	
+	/**
+	 * Metodo Settere del formato Data
+	 * @param dateFormat Formato data 
+	 */
+	public static void setDateFormat(String dateFormat) {
+		Config.DATE_FORMAT_O = dateFormat;
+	}
 	
 }

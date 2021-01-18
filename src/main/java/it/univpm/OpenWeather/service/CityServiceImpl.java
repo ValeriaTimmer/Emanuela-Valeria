@@ -1,7 +1,7 @@
 package it.univpm.OpenWeather.service;
 
 import it.univpm.OpenWeather.model.*;
-import it.univpm.OpenWeather.filter.*;
+
 import it.univpm.OpenWeather.statistics.*;
 import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.*;
@@ -9,22 +9,16 @@ import it.univpm.OpenWeather.utils.*;
 import java.net.MalformedURLException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.util.Collection;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+
 import java.time.LocalDate;
 import java.text.ParseException;
 import java.io.*;
-import org.json.simple.JSONValue;
+
 
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
+
 
 /**
  * Classe che implementa l'interfaccia
@@ -36,19 +30,34 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Service
 public class CityServiceImpl implements CityService {
 	
+	/**
+	 * Variabile della classe @it.univpm.OpenWeather.statistics.Stats
+	 */
 	private Stats s;
 	
+	/**
+	 * Variabile della classe @it.univpm.OpenWeather.statistics.Forecast
+	 */
 	private Forecasts f;
 	
+	/**
+	 * JSONObject
+	 */
 	private JSONObject obj = new JSONObject();
 	
 	/**
-	 * Variabile della classe DownloadCity
+	 * Variabile della classe @it.univpm.OpenWeather.model.City
 	 */
 	private City c;
 	
+	/**
+	 * JSONArray
+	 */
 	private JSONArray array;
 	
+	/**
+	 * Variabile della classe @it.univpm.OpenWeather.utils.DataBase
+	 */
 	private DataBase dB = new DataBase();
 	
 	
@@ -59,11 +68,6 @@ public class CityServiceImpl implements CityService {
 	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
 	ClassNotFoundException {
 	}
-	
-	/**
-	 * Variabile della classe Stats
-	 */
-	//private Stats s = new Stats();
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -84,44 +88,72 @@ public class CityServiceImpl implements CityService {
 		c.put("var", "Contiene il valore della varianza dell'umidità o della temperatura in base al periodo scelto");
 		return c;
 	}
+	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * @return data HashMap contenete i dati relativi ad una città
+	 * @throws IllegalArgumentException Errore di argomento
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws MalformedUrlException Errore del formato dell'Url
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
+	 * @throws ParseException Errore di Parsing
 	 */
 	@Override 
-	public JSONArray getData(String city) throws IllegalArgumentException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException { 
+	public HashMap <String, String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
+	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException { 
+		
 		JSONArray data = new JSONArray();
-		Parser p = new Parser();
-		DownloadCity d = new DownloadCity();
+		
+		LocalDate from = LocalDate.parse (DateUtils.today());
+		
 		c = new City (city);
-		DataBase db = new DataBase();
-		//data = dB.getAllData(city);
-		data = d.Parsing();
-		return data;
+		
+		data = dB.getAllData(city);
+		
+		this.s = new Stats(data);
+		
+		for (Object o : data) {
+			
+			if (o instanceof JSONObject) {
+				
+				JSONObject o1 = (JSONObject) o;
+					
+					String date = (String) o1.get("date");
+					
+					while (date.compareTo(from.toString()) <= 0) {
+						
+						from = from.minusDays(1);
+					}
+			}
+		}
+		
+		return s.Statistics(s.getArray(), c.getCityName(), type, from.toString(), DateUtils.today());
+
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return JSONArray contenente le statistiche filtrate
-	 * @throws org.json.simple.parser.ParseException 
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * @return HashMap<String,Sting> contenente le statistiche filtrate per periodo
+	 * @throws UrlExceptin Eccezione personalizzata
+	 * @throws ClassNotFoundException Errore di classe non trovata
+	 * @throws ParseException Errore di Parsing
+	 * @throws FileNotFoundException Errore di file non trovato
+	 * @throws IOException Errore di I/O
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 */
 	@Override 
 	public HashMap <String, String> getStats (String city, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
 	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+		
 		this.c = new City(city);
 		
 		DataBase dB = new DataBase ();
-		
-		Parser p = new Parser();
-		
-		//this.array = p.caricaFile(Config.getName());
 	
 		this.s = new Stats(dB.getAllData(c.getCityName()));
 
-		return  s.Statistics(s.getArray(), c.getCityName(), type, from, to);
+		return s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		
 	}
 	
