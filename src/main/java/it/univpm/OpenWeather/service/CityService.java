@@ -3,6 +3,10 @@ package it.univpm.OpenWeather.service;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,7 +42,7 @@ public interface CityService {
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 */
-	public abstract HashMap <String, String> getData (String city, String type)  throws IllegalArgumentException, UrlException, 
+	public abstract HashMap<String,String> getData (String city, String type)  throws IllegalArgumentException, UrlException, 
 	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException;
 	
 	/**
@@ -61,7 +65,32 @@ public interface CityService {
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, 
 			IOException, org.json.simple.parser.ParseException;
 	
-	//public abstract HashMap <String, String> getForecasts (String city, String state);
+	/**
+	 * metodo che ritorna le previsioni attuali e le salva in un file,
+	 * sostituendole a quelle che vi sono già
+	 * @param city nome della città
+	 * @return JSONArray
+	 * @throws IllegalArgumentException
+	 * @throws UrlException
+	 * @throws MalformedURLException
+	 * @throws org.json.simple.parser.ParseException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	public abstract JSONArray getSalvaData(String city) throws IllegalArgumentException, UrlException, 
+	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException;
+	
+	/**
+	 * metodo che permette di determinare le previsioni azzeccate
+	 * @param date data
+	 * @param city nome della città
+	 * @return JSONObject contenente il valore del contatore
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws MalformedURLException errore nel formato dell'url
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 */
+	public abstract JSONObject getForecasts (String date, String city)throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
 	 
 	
 }

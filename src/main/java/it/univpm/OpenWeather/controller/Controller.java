@@ -88,6 +88,41 @@ public class Controller {
 		return c.getStats(city, type, from, to);
 		
 	}
+	
+	/**
+	 * metodo che gestisce la chiamata "POST/salvaData
+	 * @param city nome della città
+	 * @return JSONArray contenente le previsioni attuali
+	 * @throws UrlException
+	 * @throws IllegalArgumentException
+	 * @throws MalformedURLException
+	 * @throws org.json.simple.parser.ParseException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/salvaData", method = RequestMethod.POST)
+	public ResponseEntity <Object> getSalvaData(@RequestParam (value = "City", defaultValue = "") String city) 
+					throws UrlException, IllegalArgumentException, MalformedURLException,
+					org.json.simple.parser.ParseException, IOException, ParseException{
+		return new ResponseEntity<>(c.getSalvaData(city.toString()), HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * Rotta che gestisce la chiamata "POST/forecasts"
+	 * @param date data
+	 * @param city nome della città
+	 * @return JSONObject contenente il valore del contatore
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'url non è corretto
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 */
+	@RequestMapping(value = "/forecasts", method = RequestMethod.POST)
+	public ResponseEntity <Object> getForecasts (@RequestParam(value = "date", defaultValue = "")String date,
+			@RequestParam(value = "city", defaultValue = "")String city) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
+		return new ResponseEntity<>(c.getForecasts(date.toString(), city.toString()), HttpStatus.OK);
+	}
 }
 
 

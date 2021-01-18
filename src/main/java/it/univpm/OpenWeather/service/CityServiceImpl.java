@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.time.LocalDate;
 import java.text.ParseException;
 import java.io.*;
-
+import java.awt.*;
+import javax.swing.*;
 
 import org.springframework.stereotype.Service;
 
@@ -100,7 +101,7 @@ public class CityServiceImpl implements CityService {
 	 * @throws ParseException Errore di Parsing
 	 */
 	@Override 
-	public HashMap <String, String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
+	public HashMap<String,String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
 	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException { 
 		
 		JSONArray data = new JSONArray();
@@ -110,6 +111,7 @@ public class CityServiceImpl implements CityService {
 		c = new City (city);
 		
 		data = dB.getAllData(city);
+		
 		
 		this.s = new Stats(data);
 		
@@ -129,7 +131,27 @@ public class CityServiceImpl implements CityService {
 		}
 		
 		return s.Statistics(s.getArray(), c.getCityName(), type, from.toString(), DateUtils.today());
-
+        
+	}
+	
+	/**
+	 * metodo che effettua l'override del metodo dell'interfaccia
+	 * @param city nome della città
+	 */
+	@Override
+	public JSONArray getSalvaData(String city)throws IllegalArgumentException, UrlException, 
+	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException{
+        JSONArray data = new JSONArray();
+		
+		LocalDate from = LocalDate.parse (DateUtils.today());
+		
+		c = new City (city);
+		
+		data = dB.getAllData(city);
+		
+		dB.salvaData(Config.getName2(), city);
+		
+		return data;
 	}
 	
 	/**
@@ -156,10 +178,20 @@ public class CityServiceImpl implements CityService {
 		return s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		
 	}
+    
+	/**
+	 * metodo che effettua l'override del metodo dell'interfaccia
+	 * @return JSONObject contenente il valore del contatore
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws MalformedURLException errore nel formato dell'url
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 * 
+	 */
+	@Override
+	public JSONObject getForecasts (String date, String city) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
+		Forecasts previsioni = new Forecasts();
+		return previsioni.confrontaValori(date, city);
+	}
 	
-	//@Override
-	//public HashMap <String, String> getForecasts (String city, String state){
-		//return ;
-	//}
-
 }

@@ -1,7 +1,9 @@
 package it.univpm.OpenWeather.utils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 
 import org.json.simple.JSONArray;
@@ -15,12 +17,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.slf4j.*;
+import java.awt.*;
+import javax.swing.*;
 
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.filter.*;
 
 import java.util.ArrayList;
+
+
 
 
 
@@ -84,7 +90,7 @@ public class DataBase {
 	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
-	@Scheduled (cron = "0 0/59 * * * ?") 
+	@Scheduled (cron = "0 0 0/1 * * ?") 
 	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
@@ -117,8 +123,25 @@ public class DataBase {
 		cityFilter = new CityFilter();
 		
 		this.value = cityFilter.filtersCity(city);
-		
+	   
 		return value;
 	}
-
+	
+	/**
+	 * metodo per salvare le previsioni attuali 
+	 * @param file file che contiene le previsioni
+	 * @param city nome della città 
+	 * @throws IOException errore di I/O
+	 * @throws ParseException errore di Parsing
+	 */
+	public void salvaData(String file, String city) throws IOException, ParseException {
+		
+	    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+	    out.println(d.Parsing());
+	    out.close();
+	}
+		
 }
+	
+
+

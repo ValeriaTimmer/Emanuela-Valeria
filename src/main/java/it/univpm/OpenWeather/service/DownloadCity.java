@@ -2,8 +2,9 @@ package it.univpm.OpenWeather.service;
 
 import it.univpm.OpenWeather.utils.*;
 
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 import java.io.*;
 import java.util.Scanner;
 
@@ -22,6 +23,8 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Component;
+
+import com.google.gson.Gson;
 
 
 /**
@@ -212,9 +215,11 @@ public class DownloadCity {
 	public void saveValues(String nome_file, String cityName) {
 		
 		try {
-			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file)));
+			
+			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file, true)));
 			file_output.println(insertObject(cityName));
 			file_output.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

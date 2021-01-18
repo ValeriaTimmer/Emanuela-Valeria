@@ -3,7 +3,7 @@ package it.univpm.OpenWeather.service;
 import java.util.ArrayList;
 
 import it.univpm.OpenWeather.model.City;
-
+//classe da eliminare
 /**
  * Classe per la creazione degli arraylist di tipo City 
  * 

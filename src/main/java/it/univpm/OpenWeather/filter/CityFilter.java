@@ -47,8 +47,8 @@ public class CityFilter implements Filter <Object> {
 	 * richiama il metodo della classe FiltereUtils
 	 */
 	@Override
-	public JSONArray filtersCity (Object city1) {
-		return (JSONArray) utils.getCityFiltered (city1.toString());
+	public JSONArray filtersCity (Object city) {
+		return (JSONArray) utils.getCityFiltered (city.toString());
 	}
 	
 
