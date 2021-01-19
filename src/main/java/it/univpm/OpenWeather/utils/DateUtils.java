@@ -1,13 +1,10 @@
 package it.univpm.OpenWeather.utils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.DataFormatException;
 
 
@@ -60,7 +57,7 @@ public class DateUtils {
 	 * @throws DataFormatException Eccezione personalizzata 
 	 * @throws ParseException Errore di parsing
 	 */
-	private static void dateCheck (String from, String to) throws DataFormatException, ParseException {	
+	private static void dateCheck (String from, String to) throws DataFormatException {	
 		
 		if (from.equals("") && to.equals("")) {
 			from = today();
@@ -69,9 +66,16 @@ public class DateUtils {
 		else if (to.equals("")) {
 			to = today();
 		}
+	
+		try {
+			
+			dateFrom = Config.formatoData.parse(from);
+			dateTo = Config.formatoData.parse(to);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		dateFrom = Config.formatoData.parse(from);
-		dateTo = Config.formatoData.parse(to);
 
 	}
 	
@@ -83,9 +87,12 @@ public class DateUtils {
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
 	 */
-	public static long getPeriod (String from, String to) throws DataFormatException, ParseException {
+	public static long getPeriod (String from, String to) throws DataFormatException {
+		
 		dateCheck(from, to);
-		if (dateTo.before(dateFrom)) throw new DataFormatException();
+		if (dateTo.before(dateFrom))
+			throw new DataFormatException ("La data finale precede quella iniziale!", 0);
+		
 		return ((dateTo.getTime()- dateFrom.getTime()) / (24*60*60*1000));
 	}
 	
@@ -98,13 +105,20 @@ public class DateUtils {
 	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws ParseException Errore di parsing
 	 */
-	public static ArrayList<String> date (String from, String to) throws DataFormatException, ParseException{
+	public static ArrayList<String> date (String from, String to) throws DataFormatException {
+		
 		ArrayList<String> d = new ArrayList<String>();
+		
 		Long period = getPeriod(from, to);
+		
 		for (int i=0; i<=period; i++) {
+			
 			d.add(Config.formatoData.format(dateFrom));
+			
 			dateFrom.setTime(dateFrom.getTime()+(24*60*60*1000));
+		
 		}
+		
 		return d;
 	}
 }

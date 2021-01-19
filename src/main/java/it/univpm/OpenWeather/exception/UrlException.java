@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 
 /**
  * Classe di eccezione personalizzata per l'url
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *

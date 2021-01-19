@@ -23,7 +23,7 @@ public class FilterException extends IOException {
 	/**
 	 * Costruttore
 	 */
-	public FilterException(String message) {
+	public FilterException (String message) {
 		super(message);
 	}
 }

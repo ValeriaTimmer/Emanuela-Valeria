@@ -74,10 +74,9 @@ public class StatsUtils{
 	 * @param to Data di fine
 	 * @return arr ArrayList<Double> che contiene i dati sui quali vengono effettuate le statistiche
 	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di Parsing
 	 */
 	public ArrayList<Double> getValues (JSONArray list, String type, String from, String to)
-	throws DataFormatException, ParseException {
+			throws DataFormatException {
 		
 		ArrayList <String> allDates = DateUtils.date(from, to);
 	        
@@ -124,16 +123,16 @@ public class StatsUtils{
 	 * @param from Data dal quale si vogliono effettuare le statistiche
 	 * @param to Data fino al quale si vogliono effettuare le statistiche
 	 * @return stats HashMap<String,String> che contiene i dati delle statistiche 
-	 * @throws ParseException Errore di parsing
+	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedURLException Errore nel formato dell'URL
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 * @throws IOException Errore di I/O
 	 * @throws StatsException eccezione personalizzata
 
 	 */
 	public HashMap<String, String> getStats(JSONArray list, String city, String type, String from, String to) 
-			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException, StatsException{
+			throws DataFormatException, UrlException, org.json.simple.parser.ParseException, 
+				IOException, StatsException{
 		
 		try {
 			

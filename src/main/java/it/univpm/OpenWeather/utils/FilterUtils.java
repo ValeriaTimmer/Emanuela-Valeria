@@ -95,7 +95,7 @@ public class FilterUtils {
 	 * @return filtered Ritorna l'array filtrato
 	 */
 	 
-	public JSONArray getHumidityFiltered (String type) {
+	public JSONArray getTypeFiltered (String type) {
 		
 		StatisticsCalculator calc = new StatisticsCalculator();
 		

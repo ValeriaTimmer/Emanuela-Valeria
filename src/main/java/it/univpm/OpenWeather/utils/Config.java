@@ -17,6 +17,9 @@ public class Config {
 	 */
 	private static String fileName = "parsing.json";
 	
+	/**
+	 * Nome del file su cui vengono salvati i dati desiderati
+	 */
 	private static String file = "fileValue.json";
 	/**
 	 * Chiave privata per accedere al sito di OpenWeather
@@ -48,6 +51,10 @@ public class Config {
 		return fileName;
 	}
 	
+	/**
+	 * Metodo Getter del nome del file 
+	 * @return file Ritorna il nome del file
+	 */
 	public static String getName2() {
 		return file;
 	}
@@ -58,6 +65,14 @@ public class Config {
 	 */
 	private static void setName (String name) {
 		Config.fileName = name;
+	}
+	
+	/**
+	 * Metodo Setter del nome del file
+	 * @param name Nome del file
+	 */
+	private static void setName2 (String name) {
+		Config.file = name;
 	}
 	
 	/**

@@ -61,24 +61,22 @@ public class CityServiceImpl implements CityService {
 	 */
 	private DataBase dB = new DataBase();
 	
-	
-	
 	/**
 	 * Costruttore
 	 */
-	public CityServiceImpl() throws UrlException, IOException, org.json.simple.parser.ParseException,
-	ClassNotFoundException {
+	public CityServiceImpl() 
+			throws UrlException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException {
 	}
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * 
 	 * @return c HashMap contenente i metadata
 	 */
 	@Override
 	public HashMap <String, String > getMetadata(){
 		HashMap <String, String> c = new HashMap <String,String>();
 		c.put("city", "Contiene il nome della città");
-		c.put("country", "Contiene la sigla dello stato corrispondente alla città");
 		c.put("humidity", "Contiene il valore dell'umidità in percentuale");
 		c.put("temp", "Contiene il valore della temperatura in Celsius");
 		c.put("from", "Data iniziale del periodo scelto");
@@ -92,18 +90,18 @@ public class CityServiceImpl implements CityService {
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * @return data HashMap contenete i dati relativi ad una città
-	 * @throws IllegalArgumentException Errore di argomento
+	 * 
+	 * @return HashMap<String,String> con i valori desiderati delle città 
+	 * @throws IllegalArgumentException Errore di argomento errato
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedUrlException Errore del formato dell'Url
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
-	 * @throws StatsException eccezione personalizzata
+	 * @throws StatsException Eccezione personalizzata
 	 */
 	@Override 
 	public HashMap<String,String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
-	 org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
+		org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
 		
 		JSONArray data = new JSONArray();
 		
@@ -136,13 +134,21 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	/**
-	 * metodo che effettua l'override del metodo dell'interfaccia
-	 * @param city nome della città
+	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * 
+	 * @param city Nome della città
+	 * @return JSONArray contenete i dati filtrati
+	 * @throws IllegalArgumentException Errore di argomento errato
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
+	 * @throws ParseException Errore di Parsing
 	 */
 	@Override
 	public JSONArray getSalvaData(String city)throws IllegalArgumentException, UrlException, 
 	 org.json.simple.parser.ParseException, IOException, ParseException{
-        JSONArray data = new JSONArray();
+     
+		JSONArray data = new JSONArray();
 		
 		LocalDate from = LocalDate.parse (DateUtils.today());
 		
@@ -157,19 +163,20 @@ public class CityServiceImpl implements CityService {
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * 
 	 * @return HashMap<String,Sting> contenente le statistiche filtrate per periodo
-	 * @throws UrlExceptin Eccezione personalizzata
+	 * @throws UrlException Eccezione personalizzata
 	 * @throws ClassNotFoundException Errore di classe non trovata
-	 * @throws ParseException Errore di Parsing
-	 * @throws FileNotFoundException Errore di file non trovato
+	 * @throws DataFormatException Eccezione personalizzata
+	 * @throws FileNotFoundException Errore file non trovato
 	 * @throws IOException Errore di I/O
-	 * @throws org.json.simple.parser.ParseException Errore di Parsing
-	 * @throws StatsException eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing 
+	 * @throws StatsException Eccezione personalizzata
 	 */
 	@Override 
 	public HashMap <String, String> getStats (String city, String type, String from, String to ) 
-			throws UrlException, ClassNotFoundException,
-	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException, StatsException {
+			throws UrlException, ClassNotFoundException, DataFormatException, FileNotFoundException, IOException,
+			org.json.simple.parser.ParseException, StatsException {
 		
 		this.c = new City(city);
 		
@@ -179,20 +186,24 @@ public class CityServiceImpl implements CityService {
 
 		return s.Statistics(s.getArray(), c.getCityName(), type, from, to);
 		
+		
 	}
     
 	/**
-	 * metodo che effettua l'override del metodo dell'interfaccia
+	 * Metodo che effettua l'override del metodo dell'interfaccia
+	 * 
 	 * @return JSONObject contenente il valore del contatore
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedURLException errore nel formato dell'url
-	 * @throws org.json.simple.parser.ParseException errore di Parsing
-	 * @throws IOException errore di I/O
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
 	 * 
 	 */
 	@Override
-	public JSONObject getForecasts (String date, String city) throws UrlException,  org.json.simple.parser.ParseException, IOException{
+	public JSONObject getForecasts (String date, String city) throws UrlException,  
+		org.json.simple.parser.ParseException, IOException{
+		
 		Forecasts previsioni = new Forecasts();
+		
 		return previsioni.confrontaValori(date, city);
 	}
 	

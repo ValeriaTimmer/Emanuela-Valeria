@@ -4,27 +4,29 @@ import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.utils.Config;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 /**
  * Classe che modella la città
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  */
-
-
 public class City {
 	
+	/**
+	 * JSONArray
+	 */
 	private JSONArray array = new JSONArray();
 	
-	private JSONObject jo = new JSONObject();
 	/*
 	 * Nome della città
 	 */
 	private String cityName;
+	
 	/**
 	 * Umidità della città in percentuale
 	 */
 	private Double humidity;
+	
 	/**
 	 * Temperatura della città in kelvin
 	 */
@@ -34,7 +36,6 @@ public class City {
 	 * Data 
 	 */
 	private String date;
-	
 	
 	/**
 	 * Costruttore 
@@ -50,21 +51,20 @@ public class City {
 		this.temperature = temperature;
 		this.date = date;
 	}
+
+	/**
+	 * Costruttore di default
+	 */
+	public City () {}
 	
 	/**
 	 * Costruttore
 	 * 
 	 * @param name Nome della città
-	 * @param country Paese/Stato della città
 	 */
 	public City(String name) {
 		this.cityName = name;
 	}
-	
-	/**
-	 * Costruttore di default
-	 */
-	public City () {}
 	
 	/**
 	 * Metodo Getter del nome della città
@@ -82,7 +82,6 @@ public class City {
 		this.cityName = cityName;
 	}
 
-	
 	/**
 	 * Metodo Getter dell'umidità della città
 	 * @return humidity Ritorna l'umidità della città in percentuale
@@ -117,6 +116,22 @@ public class City {
 	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
+	
+	/**
+	 * Metodo Getter della data
+	 * @return date Valore della data
+	 */
+	public String getDate() {
+		return this.date;
+	}
+	
+	/**
+	 * Metodo Setter della data
+	 * @param date Data passata dal metodo chiamante
+	 */
+	public void setData(String date) {
+		this.date = date;
+	}
 
 	/**
 	 * Metodo che ritorna un JSONArray contenente tutti i dati di una determinata città
@@ -125,9 +140,9 @@ public class City {
 	 * @return this.array JSONArray contenente i dati 
 	 */
 	public JSONArray getAllInformation(String city) {
-		Parser p = new Parser();
+		DownloadCity d = new DownloadCity();
 		City c = new City(city);
-		this.array.add(p.caricaFile(Config.getName()));
+		this.array.add(d.getValues(Config.getName()));
 		return this.array;
 	}
 	

@@ -24,29 +24,28 @@ public interface CityService {
 	
 	/**
 	 * Metodo che crea la HashMap con i metadata
+	 * 
 	 * @return HashMap 
 	 */
 	public abstract HashMap <String, String> getMetadata();
 	
 	/**
 	 * Metodo che ci permette di ritornare le statistiche effettutate 
-	 * su una determinata città in base a tutti i valori presenti nello storico
+	 * su tutte le città in base ai valori presenti nello storico
 	 * 
-	 * @param city Nome della città
-	 * @param type Tipologia di statistica che si vuole ottenere (temperatura/umidità)
-	 * @return HashMap<String,String> con i valori desiderati della città 
+	 * @return HashMap<String,String> con i valori desiderati delle città 
 	 * @throws IllegalArgumentException Errore di argomento errato
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedURLException Errore del formato dell'Url
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
+	 * @throws StatsException Eccezione personalizzata
 	 */
 	public abstract HashMap<String,String> getData (String city, String type)  throws IllegalArgumentException, UrlException, 
-	 org.json.simple.parser.ParseException, IOException, ParseException, StatsException;
+	 		org.json.simple.parser.ParseException, IOException, ParseException, StatsException;
 	
 	/**
-	 * Metodo che permette di selezionare le statistiche 
+	 * Metodo che permette di filtrare le statistiche
 	 * 
 	 * @param city Nome della città
 	 * @param type Tipologia di statistica che si vuole ottenere (temperatura/umidità)
@@ -56,41 +55,42 @@ public interface CityService {
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ClassNotFoundException Errore di classe non trovata
 	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di Parsing
 	 * @throws FileNotFoundException Errore file non trovato
 	 * @throws IOException Errore di I/O
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing 
+	 * @throws StatsException Eccezione personalizzata
 	 */
 	public abstract HashMap <String, String> getStats(String city, String type, String from, String to) 
-			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, 
+			throws UrlException, ClassNotFoundException, DataFormatException, FileNotFoundException, 
 			IOException, org.json.simple.parser.ParseException, StatsException;
 	
 	/**
-	 * metodo che ritorna le previsioni attuali e le salva in un file,
-	 * sostituendole a quelle che vi sono già
-	 * @param city nome della città
-	 * @return JSONArray
-	 * @throws IllegalArgumentException
-	 * @throws UrlException
-	 * @throws MalformedURLException
-	 * @throws org.json.simple.parser.ParseException
-	 * @throws IOException
-	 * @throws ParseException
+	 * Metodo che ritorna le previsioni attuali e le salva in un file,
+	 * sostituendole a quelle già presenti
+	 * 
+	 * @param city Nome della città
+	 * @return JSONArray contenete i dati filtrati
+	 * @throws IllegalArgumentException Errore di argomento errato
+	 * @throws UrlException Eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
+	 * @throws ParseException Errore di Parsing
 	 */
 	public abstract JSONArray getSalvaData(String city) throws IllegalArgumentException, UrlException, 
-	 org.json.simple.parser.ParseException, IOException, ParseException;
+			org.json.simple.parser.ParseException, IOException, ParseException;
 	
 	/**
-	 * metodo che permette di determinare le previsioni azzeccate
-	 * @param date data
-	 * @param city nome della città
+	 * Metodo che permette di determinare le previsioni azzeccate
+	 * 
+	 * @param date Data
+	 * @param city Nome della città
 	 * @return JSONObject contenente il valore del contatore
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedURLException errore nel formato dell'url
-	 * @throws org.json.simple.parser.ParseException errore di Parsing
-	 * @throws IOException errore di I/O
+	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws IOException Errore di I/O
 	 */
-	public abstract JSONObject getForecasts (String date, String city)throws UrlException, org.json.simple.parser.ParseException, IOException;
+	public abstract JSONObject getForecasts (String date, String city)throws UrlException, 
+			org.json.simple.parser.ParseException, IOException;
 	 
 	
 }

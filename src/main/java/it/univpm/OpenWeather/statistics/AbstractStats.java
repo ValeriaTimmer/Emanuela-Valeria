@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 
 /**
  * Classe astratta che serve per calcolare le statistiche 
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
@@ -39,18 +40,20 @@ public abstract class AbstractStats {
 	
 	/**
 	 * Metodo astratto che viene poi implementato nella sottoclasse
-	 * @param array array contenente le città
+	 * 
+	 * @param list JSONArray contenente le città
 	 * @param city nome della città
 	 * @param parameter Parametro(umidità/temperatura) sul quale si effettua la statistica
 	 * @param from Data di inizio del periodo su cui si effettuano le statistiche
 	 * @param to Data di fine del periodo su cui si effettuano le statistiche
 	 * @return ritorna HashMap contenente le statistiche effettuate
+	 * @throws DataFormatException Eccezione personalizzata
 	 * @throws IOException Errore di I/O
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
-	 * @throws MalformedURLException Errore nel formato dell'URL
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws ParseException Errore di Parsing
+	 * @throws StatsException Eccezione personalizzata
 	 */
 	public abstract HashMap<String,String> Statistics(JSONArray list, String city, String parameter, String from, String to ) 
-			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException, StatsException;
+			throws DataFormatException, UrlException, org.json.simple.parser.ParseException, 
+			IOException, StatsException;
 }

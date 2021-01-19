@@ -4,7 +4,6 @@ import it.univpm.OpenWeather.utils.*;
 import it.univpm.OpenWeather.exception.*;
 
 import org.json.simple.JSONArray;
-import java.util.ArrayList;
 
 /**
  * Classe che implementa l'interfaccia Filter
@@ -26,6 +25,9 @@ public class CityFilter implements Filter <Object> {
 	 */
 	private FilterUtils utils = new FilterUtils();
 	
+	/**
+	 * Costruttore
+	 */
 	public CityFilter() {}
 	
 	/**
@@ -50,7 +52,9 @@ public class CityFilter implements Filter <Object> {
 	 */
 	@Override
 	public JSONArray filtersCity (Object city) throws FilterException {
+		
 		if(city == null)throw new FilterException("Nome della città nullo!");
+		
 		return (JSONArray) utils.getCityFiltered (city.toString());
 	}
 	

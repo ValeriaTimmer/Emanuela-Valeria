@@ -2,13 +2,10 @@ package it.univpm.OpenWeather.service;
 
 import it.univpm.OpenWeather.utils.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 import java.io.*;
 import java.util.Scanner;
-
-import java.text.DateFormat;
 
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
@@ -16,20 +13,16 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
-
 import java.net.URL;
 import java.net.URLConnection;
 
-import java.text.SimpleDateFormat;
-
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
 
 
 /**
- * Classe che serve per parsare il JSON ricevuto dall'API e popola i campi
- * Humidity, Temperature
+ * Classe che effettua il collegamento con il sito 
+ * e salva i dati in un file.json 
  * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
@@ -38,36 +31,16 @@ import com.google.gson.Gson;
 
 @Component
 public class DownloadCity {
-	
-	/**
-	 * Variabile della classe Parser
-	 */
-	private Parser p = new Parser();
-	
+		
 	/**
 	 * JSONObject
 	 */
 	private JSONObject obj = new JSONObject();
 	
 	/**
-	 * JSONObject
-	 */
-	private JSONObject jsonOb = new JSONObject();
-	
-	/**
-	 * JSONArray
-	 */
-	private JSONArray array = new JSONArray();
-	
-	/**
 	 * JSONArray che contiene tutti i valori prelevati da OpenWeather
 	 */
 	private JSONArray download = new JSONArray();
-	
-	/**
-	 * JSONArray che contiene solo i valori desiderati 
-	 */
-	private JSONArray value = new JSONArray();
 	
 	/*
 	 * Nome della città
@@ -98,7 +71,6 @@ public class DownloadCity {
 	public DownloadCity (String Name) {
 		this.cityName = Name;
 		this.obj = new JSONObject();
-		this.p = new Parser();
 	}
 	
 	/**
@@ -309,7 +281,6 @@ public class DownloadCity {
 		
 		return jsonArray;
 		
-	
 	}
 }
 	

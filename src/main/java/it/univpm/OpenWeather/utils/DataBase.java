@@ -17,8 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.slf4j.*;
-import java.awt.*;
-import javax.swing.*;
 
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
@@ -48,11 +46,6 @@ public class DataBase {
 	private DownloadCity d ;
 	
 	/**
-	 * JSONArray che contiene i dati letti dal file
-	 */
-	private ArrayList<String>  arr;
-	
-	/**
 	 * JSONArray che contiene i dati desiderati
 	 */
 	private JSONArray value;
@@ -63,19 +56,18 @@ public class DataBase {
 	private CityFilter cityFilter;
 	
 	/**
-	 * JSONObject
+	 * JSONArray
 	 */
-	private JSONObject obj = new JSONObject();
+	private JSONArray arr;
 	
 	/**
 	 * Costruttore
 	 * 
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
-	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
-	public DataBase () throws UrlException, ParseException, MalformedURLException, IOException {
+	public DataBase () throws UrlException, ParseException, IOException {
 		d = new DownloadCity();
 		this.arr = d.getValues(Config.getName());
 	
@@ -88,11 +80,10 @@ public class DataBase {
 	 * 
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
-	 * @throws MalformedURLException Errore formato dell'Url
 	 * @throws IOException Errore di I/O
 	 */
 	@Scheduled (cron = "0 0 0/1 * * ?") 
-	public void addToDataBase() throws UrlException, ParseException, MalformedURLException, IOException {
+	public void addToDataBase() throws UrlException, ParseException, IOException {
 		
 		final Logger logger = LoggerFactory.getLogger(DataBase.class);
 		
@@ -116,10 +107,9 @@ public class DataBase {
 	 * @return arr JSONArray che contiene tutti i dati della città
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
-	 * @throws MalformedURLException Errore di formato dell'Url
 	 * @throws UrlException Eccezione personalizzata
 	 */
-	public JSONArray getAllData (String city) throws UrlException, MalformedURLException, ParseException, IOException {
+	public JSONArray getAllData (String city) throws UrlException, ParseException, IOException {
 		
 		cityFilter = new CityFilter();
 		
@@ -129,7 +119,8 @@ public class DataBase {
 	}
 	
 	/**
-	 * metodo per salvare le previsioni attuali 
+	 * Metodo per salvare le previsioni attuali 
+	 * 
 	 * @param file file che contiene le previsioni
 	 * @param city nome della città 
 	 * @throws IOException errore di I/O

@@ -12,7 +12,9 @@ import it.univpm.OpenWeather.utils.*;
 import it.univpm.OpenWeather.exception.*;
 
 /**
- * classe che testa i metodi delle statistiche
+ * Classe che testa i metodi utilizzati per il calcolo
+ * delle statistiche e la rispettiva eccezione personalizzata
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  *
@@ -25,11 +27,11 @@ class StatsTest {
 	private ArrayList<Double> a2 = null;
 
 	/**
-	 * inizializzazione dei componenti necessari per effettuare i test
+	 * Inizializzazione dei componenti necessari per effettuare i test
 	 * @throws Exception 
 	 */
 	@BeforeEach
-	void setUp() throws Exception{
+	void setUp() throws Exception {
 		s1 = new StatisticsCalculator();
 		s2 = new StatisticsCalculator();
 		a1 = new ArrayList<Double>();
@@ -41,20 +43,21 @@ class StatsTest {
 	}
 	
 	/**
-	 * annullamento dei valori inizializzati nel metodo setUp
+	 * Annullamento dei valori inizializzati nel metodo setUp
 	 * @throws Exception
 	 */
 	@AfterEach
-	void tearDown()throws Exception{
+	void tearDown() throws Exception {
 		
 	}
 	
 	/**
-	 * test che verifica i calcoli dei metodi delle statistiche
+	 * Test che verifica i calcoli dei metodi delle statistiche 
+	 * implementati dalla classe @it.univpm.OpenWeather.utils.StatisticsCalculator
 	 * @throws StatsException 
 	 */
 	@Test
-	@DisplayName("Test per verificare i calcoli del calcolatore di statistiche")
+	@DisplayName ("Test per verificare i calcoli del calcolatore di statistiche")
 	void test1() throws StatsException {
 		assertEquals(6.0, s1.getMax(a1));
 		assertEquals(2.0, s1.getMin(a1));
@@ -62,9 +65,9 @@ class StatsTest {
 		assertEquals(18.67, s1.getVariance(a1) );
 	}
 	
-	
 	/**
-	 * test che verifica se l'eccezione viene lanciata correttamente
+	 * Test che verifica l'eccezione personalizzata della classe
+	 * @it.univpm.OpenWeather.exception.StatsException
 	 */
 	@Test
 	@DisplayName("Test eccezione StatsException")

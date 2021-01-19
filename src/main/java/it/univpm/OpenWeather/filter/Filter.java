@@ -4,8 +4,6 @@ import org.json.simple.JSONArray;
 
 import it.univpm.OpenWeather.exception.FilterException;
 
-import java.util.ArrayList;
-
 
 /**
  * Interfaccia per la gestione dei filtri
@@ -18,9 +16,9 @@ public interface Filter <C> {
 	
 	/**
 	 * Metodo che viene implementato dalle singole classi 
-	 * @param arrayCity Array sul quale si applicano i filtri
-	 * @param param1 Primo parametro di filtraggio
+	 * @param city Parametro di filtraggio
 	 * @return Array filtrato mediante i parametri specificati
+	 * @throws FilterException Eccezione personalizzata
 	 */
 	abstract JSONArray filtersCity (C city) throws FilterException;
 	

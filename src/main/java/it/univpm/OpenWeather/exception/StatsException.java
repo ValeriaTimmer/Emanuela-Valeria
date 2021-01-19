@@ -1,6 +1,5 @@
 package it.univpm.OpenWeather.exception;
 
-
 /**
  * Classe di eccezione personalizzata per le statistiche
  * 
@@ -18,12 +17,12 @@ public class StatsException extends Exception{
 	 * del mittente, la deserializzazione si tradurrà in un InvalidClassException 
 	 */
 	protected static final long serialVersionUID = 1L;
+	
 	/**
 	 * Costruttore
 	 */
 	public StatsException (String message) {
 		super(message);
-		//System.out.println ("La statistisca non è esistente!");
 	}
 	
 }
