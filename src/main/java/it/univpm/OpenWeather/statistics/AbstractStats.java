@@ -1,6 +1,6 @@
 package it.univpm.OpenWeather.statistics;
 
-import it.univpm.OpenWeather.exception.UrlException;
+import it.univpm.OpenWeather.exception.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,5 +52,5 @@ public abstract class AbstractStats {
 	 * @throws ParseException Errore di Parsing
 	 */
 	public abstract HashMap<String,String> Statistics(JSONArray list, String city, String parameter, String from, String to ) 
-			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException, StatsException;
 }

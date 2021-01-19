@@ -43,7 +43,7 @@ public interface CityService {
 	 * @throws ParseException Errore di Parsing
 	 */
 	public abstract HashMap<String,String> getData (String city, String type)  throws IllegalArgumentException, UrlException, 
-	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException;
+	 org.json.simple.parser.ParseException, IOException, ParseException, StatsException;
 	
 	/**
 	 * Metodo che permette di selezionare le statistiche 
@@ -63,7 +63,7 @@ public interface CityService {
 	 */
 	public abstract HashMap <String, String> getStats(String city, String type, String from, String to) 
 			throws UrlException, ClassNotFoundException, DataFormatException, ParseException, FileNotFoundException, 
-			IOException, org.json.simple.parser.ParseException;
+			IOException, org.json.simple.parser.ParseException, StatsException;
 	
 	/**
 	 * metodo che ritorna le previsioni attuali e le salva in un file,
@@ -78,7 +78,7 @@ public interface CityService {
 	 * @throws ParseException
 	 */
 	public abstract JSONArray getSalvaData(String city) throws IllegalArgumentException, UrlException, 
-	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException;
+	 org.json.simple.parser.ParseException, IOException, ParseException;
 	
 	/**
 	 * metodo che permette di determinare le previsioni azzeccate
@@ -90,7 +90,7 @@ public interface CityService {
 	 * @throws org.json.simple.parser.ParseException errore di Parsing
 	 * @throws IOException errore di I/O
 	 */
-	public abstract JSONObject getForecasts (String date, String city)throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException;
+	public abstract JSONObject getForecasts (String date, String city)throws UrlException, org.json.simple.parser.ParseException, IOException;
 	 
 	
 }

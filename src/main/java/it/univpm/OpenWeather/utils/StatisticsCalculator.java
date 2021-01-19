@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
 import java.util.ArrayList;
+import it.univpm.OpenWeather.exception.*;
 
 import java.lang.Math;
 
@@ -17,17 +18,17 @@ public class StatisticsCalculator {
 	/**
      * Valore minimo
      */
-	private double min;
+	private Double min;
 	
 	/**
 	 * Valore massimo
 	 */
-	private double max;
+	private Double max;
 	
 	/**
 	 * Somma
 	 */
-	private double sum;
+	private Double sum;
 	
 	/**
 	 * Costruttore
@@ -44,10 +45,11 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il minimo
 	 * @return min Ritorna il valore minimo
 	 */
-	public Double getMin (ArrayList <Double> a) {
+	public Double getMin (ArrayList <Double> a) throws StatsException {
 		for (int i = 0; i < a.size(); i++)
 			if (a.get(i) < min)
 				min = a.get(i);
+		if(min == Double.MAX_VALUE)throw new StatsException("Non sono stati prelevati dati!");
 		return min;
 	}
 	
@@ -56,10 +58,11 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il massimo
 	 * @return max Ritorna il valore massimo
 	 */
-	public Double getMax(ArrayList <Double> a) {
+	public Double getMax(ArrayList <Double> a)  throws StatsException{
 		for (int i = 0; i< a.size(); i++)
 			if (a.get(i) > max)
 				max = a.get(i);
+		if(max == -Double.MAX_VALUE) throw new StatsException("Non sono stati prelevati dati!");
 		return max;
 	}
 	
@@ -69,7 +72,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la media
 	 * @return valore Double della media
 	 */
-	public Double getAverage (ArrayList <Double> a) {
+	public Double getAverage (ArrayList <Double> a) throws StatsException {
 		for (int i = 0; i < a.size(); i++)
 			sum += a.get(i);
 		return (double) Math.round((sum/a.size())*100d)/100d;
@@ -81,7 +84,7 @@ public class StatisticsCalculator {
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la varianza
 	 * @return valore Double della varianza
 	 */
-	public Double getVariance (ArrayList <Double> a) {
+	public Double getVariance (ArrayList <Double> a) throws StatsException {
 		Double avg = getAverage(a);
 		Double eps = 0.0;
 		for (int i = 0; i < a.size(); i++)

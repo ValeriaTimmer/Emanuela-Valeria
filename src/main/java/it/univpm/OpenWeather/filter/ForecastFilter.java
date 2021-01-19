@@ -1,5 +1,7 @@
 package it.univpm.OpenWeather.filter;
 import org.json.simple.JSONArray;
+
+import it.univpm.OpenWeather.exception.FilterException;
 import it.univpm.OpenWeather.utils.*;
 
 public class ForecastFilter {
@@ -21,7 +23,8 @@ public class ForecastFilter {
 	 * @param array JSONArray da filtrare
 	 * @return JSONArray array filtrato
 	 */
-	public JSONArray filtersCity (Object date, Object city, JSONArray array) {
+	public JSONArray filtersCity (Object date, Object city, JSONArray array) throws FilterException{
+		if(city == null || date == null) throw new FilterException("parametri di filtraggio nulli!");
 		return (JSONArray) utils.getDateFiltered (date.toString(), city.toString(), array);
 	}
 }

@@ -1,15 +1,15 @@
 package it.univpm.OpenWeather.exception;
 
-import java.net.MalformedURLException;
 
 /**
- * Classe di eccezione personalizzata per l'url
- * @author Valeria Timmer
+ * Classe di eccezione personalizzata per le statistiche
+ * 
  * @author Emanuela Saleggia
+ * @author Valeria Timmer
  *
  */
-public class UrlException extends MalformedURLException {
-	
+public class StatsException extends Exception{
+
 	/**
 	 * Numero che viene utilizzato durante la deserializzazione per verificare che il mittente 
 	 * e il destinatario di un oggetto serializzato abbiano caricato classi per quell'oggetto 
@@ -18,14 +18,12 @@ public class UrlException extends MalformedURLException {
 	 * del mittente, la deserializzazione si tradurrà in un InvalidClassException 
 	 */
 	protected static final long serialVersionUID = 1L;
-	
 	/**
 	 * Costruttore
 	 */
-	
-	public UrlException() {
-		super();
-		System.out.println ("Connesione al sito effettuata in modo errato");
+	public StatsException (String message) {
+		super(message);
+		//System.out.println ("La statistisca non è esistente!");
 	}
-
+	
 }

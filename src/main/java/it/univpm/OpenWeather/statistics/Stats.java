@@ -46,10 +46,11 @@ public class Stats extends AbstractStats{
 	* @throws MalformedURLException Errore nel formato dell'URL
  	* @throws org.json.simple.parser.ParseException Errore di Parsing 
  	* @throws IOException Errore di I/O
+ 	 * @throws StatsException eccezione personalizzata
   
 	*/
 	public HashMap <String, String> Statistics (JSONArray array, String city, String parameter, String from, String to) 
-			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException {
+			throws ParseException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException, StatsException {
 		return utils.getStats(getArray(), city, parameter, from, to);
 	}
 		

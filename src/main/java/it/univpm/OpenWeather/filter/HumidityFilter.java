@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.filter;
 
 import it.univpm.OpenWeather.utils.FilterUtils;
+import it.univpm.OpenWeather.exception.FilterException;
 import it.univpm.OpenWeather.service.DownloadCity;
 
 import org.json.simple.JSONArray;
@@ -45,7 +46,8 @@ public class HumidityFilter implements Filter <Object> {
 	 * @return Ritorna l'array filtrato 
 	 */
 	@Override
-	public JSONArray filtersCity (Object type) {
+	public JSONArray filtersCity (Object type) throws FilterException{
+		if(type == null)throw new FilterException("tipo nullo");
 		return (JSONArray) utils.getHumidityFiltered (type.toString());
 		
 	}

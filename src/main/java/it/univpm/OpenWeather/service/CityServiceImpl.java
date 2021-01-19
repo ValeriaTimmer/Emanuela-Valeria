@@ -66,7 +66,7 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Costruttore
 	 */
-	public CityServiceImpl() throws UrlException, MalformedURLException, IOException, org.json.simple.parser.ParseException,
+	public CityServiceImpl() throws UrlException, IOException, org.json.simple.parser.ParseException,
 	ClassNotFoundException {
 	}
 	
@@ -99,10 +99,11 @@ public class CityServiceImpl implements CityService {
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
+	 * @throws StatsException eccezione personalizzata
 	 */
 	@Override 
 	public HashMap<String,String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
-	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException { 
+	 org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
 		
 		JSONArray data = new JSONArray();
 		
@@ -140,7 +141,7 @@ public class CityServiceImpl implements CityService {
 	 */
 	@Override
 	public JSONArray getSalvaData(String city)throws IllegalArgumentException, UrlException, 
-	MalformedURLException, org.json.simple.parser.ParseException, IOException, ParseException{
+	 org.json.simple.parser.ParseException, IOException, ParseException{
         JSONArray data = new JSONArray();
 		
 		LocalDate from = LocalDate.parse (DateUtils.today());
@@ -163,11 +164,12 @@ public class CityServiceImpl implements CityService {
 	 * @throws FileNotFoundException Errore di file non trovato
 	 * @throws IOException Errore di I/O
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
+	 * @throws StatsException eccezione personalizzata
 	 */
 	@Override 
 	public HashMap <String, String> getStats (String city, String type, String from, String to ) 
 			throws UrlException, ClassNotFoundException,
-	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+	 ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException, StatsException {
 		
 		this.c = new City(city);
 		
@@ -189,7 +191,7 @@ public class CityServiceImpl implements CityService {
 	 * 
 	 */
 	@Override
-	public JSONObject getForecasts (String date, String city) throws UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException{
+	public JSONObject getForecasts (String date, String city) throws UrlException,  org.json.simple.parser.ParseException, IOException{
 		Forecasts previsioni = new Forecasts();
 		return previsioni.confrontaValori(date, city);
 	}

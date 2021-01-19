@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author Valeria Timmer
  *
  */
-public class FilterNotFoundException extends IOException {
+public class FilterException extends IOException {
 	
 	/**
 	 * Numero che viene utilizzato durante la deserializzazione per verificare che il mittente 
@@ -23,8 +23,7 @@ public class FilterNotFoundException extends IOException {
 	/**
 	 * Costruttore
 	 */
-	public FilterNotFoundException() {
-		super();
-		System.out.println("Errore: Filtraggio abortito!");
+	public FilterException(String message) {
+		super(message);
 	}
 }

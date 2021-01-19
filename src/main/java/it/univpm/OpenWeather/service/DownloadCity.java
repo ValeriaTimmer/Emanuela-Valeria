@@ -216,7 +216,7 @@ public class DownloadCity {
 		
 		try {
 			
-			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file, true)));
+			PrintWriter file_output = new PrintWriter (new BufferedWriter (new FileWriter (nome_file)));
 			file_output.println(insertObject(cityName));
 			file_output.close();
 			

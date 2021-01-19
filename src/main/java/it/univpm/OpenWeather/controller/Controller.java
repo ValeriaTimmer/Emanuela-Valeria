@@ -53,12 +53,13 @@ public class Controller {
 	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'URL non è corretto
 	 * @throws org.json.simple.parser.ParseException eccezione che viene lanciata nel caso di un errore di Parsing
 	 * @throws IOException errore di I/O
+	 * @throws StatsException eccezione personalizzata
 	 */
 	@RequestMapping (value = "/data", method = RequestMethod.POST)
 	public ResponseEntity <Object> getData(@RequestParam (value = "City", defaultValue = "") String city,
 			@RequestParam(value = "type", defaultValue = "humidity") String type) 
 					throws UrlException, IllegalArgumentException, MalformedURLException,
-					org.json.simple.parser.ParseException, IOException, ParseException{
+					org.json.simple.parser.ParseException, IOException, ParseException, StatsException{
 		return new ResponseEntity<>(c.getData(city.toString(), type.toString()), HttpStatus.OK);
 	}
 	
@@ -69,7 +70,7 @@ public class Controller {
 	 * @param from Data iniziale da quando si vogliono far partire le statistiche
 	 * @param to Data finale entro il quale si vogliono visualizzare le statistiche
 	 * @return HashMap<String,String> contenente le statistiche
-	 * @throws StatsNotFoundException Eccezione personalizzata 
+	 * @throws StatsException Eccezione personalizzata 
 	 * @throws UrlException Eccezione personalizzata 
 	 * @throws org.json.simple.parser.ParseException eccezione che viene lanciata nel caso di un errore di Parsing
 	 * @throws IOException errore di I/O
@@ -78,7 +79,7 @@ public class Controller {
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.POST)
 	public HashMap <String, String> getStats (@RequestBody JSONObject body)
-			throws StatsNotFoundException, UrlException, ClassNotFoundException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
+			throws StatsException, UrlException, ClassNotFoundException, ParseException, FileNotFoundException, IOException, org.json.simple.parser.ParseException {
 			this.c = new CityServiceImpl();
 			String city = (String) body.get("city");
 			String type = (String) body.get("type");

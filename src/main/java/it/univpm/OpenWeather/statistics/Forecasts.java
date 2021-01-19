@@ -143,23 +143,9 @@ public class Forecasts {
  	 * @throws IOException errore di I/O
 	 */
 	public JSONArray previsioniAttuali(String city) throws UrlException, MalformedURLException, IOException {
-		
-        JSONParser parser = new JSONParser();
-		
-		try {
-			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" +city+ "&appid=" + Config.getApiKey()).openConnection();
-			InputStream in = openConnection.getInputStream();
-			String data = "";
-			String line = "";
-			try {
-				InputStreamReader inR = new InputStreamReader (in);
-				BufferedReader buf = new BufferedReader (inR);
-				while ((line = buf.readLine()) != null) data +=line;
-				
-			} finally  {
-				in.close();
-			}
-			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);
+	
+      
+			JSONObject obj = this.d.toOpenWeather(city);
 			JSONObject c = (JSONObject) obj.get("city");
 			
 			String citta = (String) c.get("name");
@@ -192,11 +178,7 @@ public class Forecasts {
 			
 		}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		return jsonArray;
 			
 	}

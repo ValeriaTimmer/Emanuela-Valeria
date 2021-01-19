@@ -1,6 +1,9 @@
 package it.univpm.OpenWeather.filter;
 
 import org.json.simple.JSONArray;
+
+import it.univpm.OpenWeather.exception.FilterException;
+
 import java.util.ArrayList;
 
 
@@ -19,6 +22,6 @@ public interface Filter <C> {
 	 * @param param1 Primo parametro di filtraggio
 	 * @return Array filtrato mediante i parametri specificati
 	 */
-	abstract JSONArray filtersCity (C city);
+	abstract JSONArray filtersCity (C city) throws FilterException;
 	
 }
