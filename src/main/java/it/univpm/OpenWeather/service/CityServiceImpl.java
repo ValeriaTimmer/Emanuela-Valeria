@@ -15,8 +15,7 @@ import java.util.HashMap;
 import java.time.LocalDate;
 import java.text.ParseException;
 import java.io.*;
-import java.awt.*;
-import javax.swing.*;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -100,36 +99,12 @@ public class CityServiceImpl implements CityService {
 	 * @throws StatsException Eccezione personalizzata
 	 */
 	@Override 
-	public HashMap<String,String> getData(String city, String type) throws IllegalArgumentException, UrlException, 
+	public JSONArray getData(String city, String type, String from, String to) throws IllegalArgumentException, UrlException, 
 		org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
+
+		//c = new City (city);
 		
-		JSONArray data = new JSONArray();
-		
-		LocalDate from = LocalDate.parse (DateUtils.today());
-		
-		c = new City (city);
-		
-		data = dB.getAllData(city);
-		
-		
-		this.s = new Stats(data);
-		
-		for (Object o : data) {
-			
-			if (o instanceof JSONObject) {
-				
-				JSONObject o1 = (JSONObject) o;
-					
-					String date = (String) o1.get("date");
-					
-					while (date.compareTo(from.toString()) <= 0) {
-						
-						from = from.minusDays(1);
-					}
-			}
-		}
-		
-		return s.Statistics(s.getArray(), c.getCityName(), type, from.toString(), DateUtils.today());
+		return dB.getStats(city, type, from, to);
         
 	}
 	

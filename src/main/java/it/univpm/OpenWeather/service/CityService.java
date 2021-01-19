@@ -30,8 +30,8 @@ public interface CityService {
 	public abstract HashMap <String, String> getMetadata();
 	
 	/**
-	 * Metodo che ci permette di ritornare le statistiche effettutate 
-	 * su tutte le città in base ai valori presenti nello storico
+	 * Metodo che ci permette di ritornare le statistiche giornalierie
+	 * di una data città presente nello storico
 	 * 
 	 * @return HashMap<String,String> con i valori desiderati delle città 
 	 * @throws IllegalArgumentException Errore di argomento errato
@@ -41,7 +41,7 @@ public interface CityService {
 	 * @throws ParseException Errore di Parsing
 	 * @throws StatsException Eccezione personalizzata
 	 */
-	public abstract HashMap<String,String> getData (String city, String type)  throws IllegalArgumentException, UrlException, 
+	public abstract JSONArray getData (String city, String type, String from, String to)  throws IllegalArgumentException, UrlException, 
 	 		org.json.simple.parser.ParseException, IOException, ParseException, StatsException;
 	
 	/**

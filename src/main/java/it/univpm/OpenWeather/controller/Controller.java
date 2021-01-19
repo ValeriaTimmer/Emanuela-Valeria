@@ -55,12 +55,14 @@ public class Controller {
 	 * @throws IOException errore di I/O
 	 * @throws StatsException eccezione personalizzata
 	 */
-	@RequestMapping (value = "/data", method = RequestMethod.POST)
+	@RequestMapping (value = "/data", method = RequestMethod.GET)
 	public ResponseEntity <Object> getData(@RequestParam (value = "City", defaultValue = "") String city,
-			@RequestParam(value = "type", defaultValue = "humidity") String type) 
+			@RequestParam(value = "type", defaultValue = "humidity") String type,
+			@RequestParam(value = "from", defaultValue = "") String from,
+			@RequestParam(value = "to", defaultValue = "")String to) 
 					throws UrlException, IllegalArgumentException, MalformedURLException,
 					org.json.simple.parser.ParseException, IOException, ParseException, StatsException{
-		return new ResponseEntity<>(c.getData(city.toString(), type.toString()), HttpStatus.OK);
+		return new ResponseEntity<>(c.getData(city.toString(), type.toString(), from.toString(), to.toString()), HttpStatus.OK);
 	}
 	
 	/**

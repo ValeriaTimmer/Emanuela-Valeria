@@ -18,14 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.slf4j.*;
 
+import it.univpm.OpenWeather.exception.DataFormatException;
+import it.univpm.OpenWeather.exception.StatsException;
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.filter.*;
 
 import java.util.ArrayList;
-
-
-
+import java.util.HashMap;
 
 
 /**
@@ -36,7 +36,6 @@ import java.util.ArrayList;
  *
  */
 @Configuration
-@EnableScheduling
 public class DataBase {
 	
 	/**
@@ -116,6 +115,70 @@ public class DataBase {
 		this.value = cityFilter.filtersCity(city);
 	   
 		return value;
+	}
+	
+	/**
+	 * metodo per ritornare le statistiche giornaliere di una città presente
+	 * nello storico
+	 * @param city nome della città
+	 * @param type umidità/temperatura
+	 * @return jsonArray JSONArray contenente le statistiche
+	 * @throws UrlException
+	 * @throws ParseException
+	 * @throws IOException
+	 * @throws StatsException
+	 * @throws DataFormatException 
+	 */
+	public JSONArray getStats(String city, String type, String from, String to) throws UrlException, ParseException, IOException, StatsException, DataFormatException {
+         
+		ArrayList<String> allDates = DateUtils.date(from, to);
+		
+		ArrayList<Double> array = new ArrayList<Double>();
+		
+		StatisticsCalculator s = new StatisticsCalculator();
+		
+		JSONArray jsonArray = new JSONArray();
+		
+		JSONArray data = new JSONArray();
+		
+		data = this.getAllData(city);
+		
+		for(int i=0; i<allDates.size(); i++) {
+			
+			String date1 = allDates.get(i);
+			
+			for(int j=0; j<data.size(); j++) {
+				JSONObject obj = (JSONObject) data.get(j);
+				
+				String date2 = (String) obj.get("date");
+				
+				if(date2.equals(date1)) {
+					if(type.equals("humidity")) {
+						Double hum = Double.parseDouble(obj.get("humidity").toString());
+						array.add(hum);
+					}
+					if(type.equals("temperature")) {
+						Double temp = Double.parseDouble(obj.get("temperature").toString());
+						array.add(temp);
+					}
+					JSONObject o = new JSONObject();
+					o.put("city", city);
+					o.put("date", date2);
+					o.put("min", s.getMin(array));
+					o.put("max", s.getMax(array));
+					o.put("avg", s.getAverage(array));
+					o.put("var", s.getVariance(array));
+					
+					jsonArray.add(o);
+				}
+				
+			}
+			
+			
+		
+		}
+		return jsonArray;
+		
 	}
 	
 	/**
