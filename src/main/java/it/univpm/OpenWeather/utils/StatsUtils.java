@@ -136,12 +136,15 @@ public class StatsUtils{
 		
 		try {
 			
-			stats.put("city", city);
-			stats.put("type", type);
-			stats.put ("min", calc.getMin(this.getValues(list, type, from, to)).toString());
-			stats.put ("max", calc.getMax(this.getValues(list, type, from, to)).toString());
-			stats.put ("avg", calc.getAverage(this.getValues(list, type, from, to)).toString());
-			stats.put ("var", calc.getVariance(this.getValues(list, type, from, to)).toString());
+				
+				   stats.put("name", city);
+			       stats.put("type", type);
+			       stats.put ("min", calc.getMin(this.getValues(list, type, from, to)).toString());
+			       stats.put ("max", calc.getMax(this.getValues(list, type, from, to)).toString());
+			       stats.put ("avg", calc.getAverage(this.getValues(list, type, from, to)).toString());
+			       stats.put ("var", calc.getVariance(this.getValues(list, type, from, to)).toString());
+				
+			
 		
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

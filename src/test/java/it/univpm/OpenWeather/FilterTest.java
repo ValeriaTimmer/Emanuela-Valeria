@@ -29,6 +29,8 @@ class FilterTest {
 	private Object city;
 	private Object date;
 	private Object type;
+	private String cityName;
+	private String filterType;
 	private String from;
 	private String to;
 	
@@ -46,6 +48,8 @@ class FilterTest {
 		city = null;
 		date = null;
 		type = null;
+		cityName = "";
+		filterType = "";
 		from = "2021-01-25";
 		to = "2021-01-21";
 	}
@@ -75,10 +79,11 @@ class FilterTest {
 	 * @it.univpm.OpenWeather.exception.FilterException
 	 */
 	@Test
-	@DisplayName ("Test eccezione FilterException nella classe HumidityFilter")
-	void testHumidityFilter() {
-		FilterException exception = assertThrows (FilterException.class, () -> {t.filtersCity(type);});
-		assertEquals(exception.getMessage(), "Parametro nullo!");
+	@DisplayName ("Test eccezione FilterException nella classe TypeFilter")
+	void testTypeFilter() {
+		FilterException exception = assertThrows (FilterException.class, () ->
+		{t.filtersCity(cityName,filterType,from,to);});
+		assertEquals(exception.getMessage(), "Parametri nulli!");
 	}
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe

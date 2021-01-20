@@ -57,7 +57,7 @@ public class Forecasts {
 		
 		JSONArray previsioniPassate = new JSONArray();
 		
-		previsioniFile = d.getValues(Config.getName2());
+		previsioniFile = d.Parsing();
 		
 		previsioniPassate = previsioni.filtersCity(date, city, previsioniFile);
 		
@@ -199,7 +199,7 @@ public class Forecasts {
 		  
 		  }
 		
-		obj.put("contatore", counter);
+		obj.put("Numero delle previsioni azzeccate per la città di " + city , counter);
 		
 		return obj;
 	}

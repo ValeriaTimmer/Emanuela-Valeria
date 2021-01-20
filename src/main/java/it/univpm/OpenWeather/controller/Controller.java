@@ -3,6 +3,7 @@ import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -44,6 +45,12 @@ public class Controller {
 		return new ResponseEntity<>(c.getMetadata(), HttpStatus.OK);
 	}
 	
+	@RequestMapping (value = "/data", method = RequestMethod.GET)
+	public ResponseEntity<Object> getData(@RequestParam ( value = "city", defaultValue = "")String city) throws UrlException,
+	org.json.simple.parser.ParseException, IOException{
+		return new ResponseEntity<>(c.getData(city), HttpStatus.OK);
+	}
+	
 	/**
 	 * Rotta che gestisce la chiamata "POST/data"
 	 * @param city nome della città
@@ -54,15 +61,15 @@ public class Controller {
 	 * @throws org.json.simple.parser.ParseException eccezione che viene lanciata nel caso di un errore di Parsing
 	 * @throws IOException errore di I/O
 	 * @throws StatsException eccezione personalizzata
-	 */
-	@RequestMapping (value = "/data", method = RequestMethod.GET)
+	 
+	@RequestMapping (value = "/dailystats", method = RequestMethod.GET)
 	public ResponseEntity <Object> getData(@RequestParam (value = "City", defaultValue = "") String city,
 			@RequestParam(value = "type", defaultValue = "humidity") String type,
 			@RequestParam(value = "from", defaultValue = "") String from,
 			@RequestParam(value = "to", defaultValue = "")String to) 
 					throws UrlException, IllegalArgumentException, MalformedURLException,
 					org.json.simple.parser.ParseException, IOException, ParseException, StatsException{
-		return new ResponseEntity<>(c.getData(city.toString(), type.toString(), from.toString(), to.toString()), HttpStatus.OK);
+		return new ResponseEntity<>(c.getDailyStats(city.toString(), type.toString(), from.toString(), to.toString()), HttpStatus.OK);
 	}
 	
 	/**
@@ -89,25 +96,17 @@ public class Controller {
 			String to = (String) body.get("to");
 		
 		return c.getStats(city, type, from, to);
-		
-	}
-	
-	/**
-	 * metodo che gestisce la chiamata "POST/salvaData
-	 * @param city nome della città
-	 * @return JSONArray contenente le previsioni attuali
-	 * @throws UrlException
-	 * @throws IllegalArgumentException
-	 * @throws MalformedURLException
-	 * @throws org.json.simple.parser.ParseException
-	 * @throws IOException
-	 * @throws ParseException
-	 */
-	@RequestMapping(value = "/salvaData", method = RequestMethod.POST)
-	public ResponseEntity <Object> getSalvaData(@RequestParam (value = "City", defaultValue = "") String city) 
-					throws UrlException, IllegalArgumentException, MalformedURLException,
-					org.json.simple.parser.ParseException, IOException, ParseException{
-		return new ResponseEntity<>(c.getSalvaData(city.toString()), HttpStatus.OK);
+		/*
+		 * for(int i=0; i<array.size(); i++){
+		 * JSONObject obj = (JSONObject) array.get(i);
+		 * String city = (String) obj.get("name");
+		 * 
+		 * map.put("values", c.getStats(city, type, from, to).toString();
+		 * 
+		 * }
+		 * 
+		 * return map;
+		 */
 	}
 	
 	

@@ -1,9 +1,16 @@
 package it.univpm.OpenWeather.filter;
 
 import it.univpm.OpenWeather.utils.FilterUtils;
+import it.univpm.OpenWeather.exception.DataFormatException;
 import it.univpm.OpenWeather.exception.FilterException;
+import it.univpm.OpenWeather.exception.StatsException;
+import it.univpm.OpenWeather.exception.UrlException;
+
+import java.io.IOException;
 
 import org.json.simple.JSONArray;
+
+import com.sun.el.parser.ParseException;
 
 
 /**
@@ -13,7 +20,7 @@ import org.json.simple.JSONArray;
  * @author Valeria Timmer
  *
  */
-public class TypeFilter implements Filter <Object> {
+public class TypeFilter {
 	
 	/**
 	 * Array da filtrare
@@ -43,18 +50,22 @@ public class TypeFilter implements Filter <Object> {
 	}
 	
 	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia e richiama il 
+	 * Metodo che richiama il 
 	 * metodo della classe FilterUtils
 	 * @param type Parametro di cui si vogliono ottenere i dati
 	 * @return Ritorna l'array filtrato 
-	 * @throws FilterException Eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException 
+	 * @throws StatsException 
+	 * @throws IOException 
+	 * @throws ParseException 
+	 * @throws DataFormatException 
+	 * @throws UrlException 
 	 */
-	@Override
-	public JSONArray filtersCity (Object type) throws FilterException{
+	public JSONArray filtersCity (String city, String type, String from, String to) throws UrlException, DataFormatException, ParseException, IOException, StatsException, org.json.simple.parser.ParseException{
 		
-		if (type == null) throw new FilterException ("Parametro nullo!");
+		if (type == "" || city == "") throw new FilterException ("Parametri nulli!");
 		
-		return (JSONArray) utils.getTypeFiltered (type.toString());
+		return (JSONArray) utils.getTypeFiltered (city,  type, from,  to);
 		
 	}
 

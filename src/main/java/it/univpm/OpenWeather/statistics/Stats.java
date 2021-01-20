@@ -6,6 +6,7 @@ import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.io.*;
 import java.net.MalformedURLException;
 

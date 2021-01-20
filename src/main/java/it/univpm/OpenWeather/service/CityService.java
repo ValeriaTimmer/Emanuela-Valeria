@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.service;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -29,6 +30,8 @@ public interface CityService {
 	 */
 	public abstract HashMap <String, String> getMetadata();
 	
+	public abstract JSONArray getData(String city)throws UrlException, org.json.simple.parser.ParseException, IOException ;
+	
 	/**
 	 * Metodo che ci permette di ritornare le statistiche giornalierie
 	 * di una data città presente nello storico
@@ -40,8 +43,8 @@ public interface CityService {
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 * @throws StatsException Eccezione personalizzata
-	 */
-	public abstract JSONArray getData (String city, String type, String from, String to)  throws IllegalArgumentException, UrlException, 
+	 
+	public abstract JSONArray getDailyStats (String city, String type, String from, String to)  throws IllegalArgumentException, UrlException, 
 	 		org.json.simple.parser.ParseException, IOException, ParseException, StatsException;
 	
 	/**
@@ -64,20 +67,7 @@ public interface CityService {
 			throws UrlException, ClassNotFoundException, DataFormatException, FileNotFoundException, 
 			IOException, org.json.simple.parser.ParseException, StatsException;
 	
-	/**
-	 * Metodo che ritorna le previsioni attuali e le salva in un file,
-	 * sostituendole a quelle già presenti
-	 * 
-	 * @param city Nome della città
-	 * @return JSONArray contenete i dati filtrati
-	 * @throws IllegalArgumentException Errore di argomento errato
-	 * @throws UrlException Eccezione personalizzata
-	 * @throws org.json.simple.parser.ParseException Errore di Parsing
-	 * @throws IOException Errore di I/O
-	 * @throws ParseException Errore di Parsing
-	 */
-	public abstract JSONArray getSalvaData(String city) throws IllegalArgumentException, UrlException, 
-			org.json.simple.parser.ParseException, IOException, ParseException;
+	
 	
 	/**
 	 * Metodo che permette di determinare le previsioni azzeccate

@@ -87,6 +87,11 @@ public class CityServiceImpl implements CityService {
 		return c;
 	}
 	
+	@Override
+	public JSONArray getData(String city) throws UrlException, org.json.simple.parser.ParseException, IOException {
+		
+		return dB.getAllData(city);
+	}
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * 
@@ -97,9 +102,9 @@ public class CityServiceImpl implements CityService {
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 * @throws StatsException Eccezione personalizzata
-	 */
+	 
 	@Override 
-	public JSONArray getData(String city, String type, String from, String to) throws IllegalArgumentException, UrlException, 
+	public JSONArray getDailyStats(String city, String type, String from, String to) throws IllegalArgumentException, UrlException, 
 		org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
 
 		//c = new City (city);
@@ -108,33 +113,7 @@ public class CityServiceImpl implements CityService {
         
 	}
 	
-	/**
-	 * Metodo che effettua l'override del metodo dell'interfaccia
-	 * 
-	 * @param city Nome della città
-	 * @return JSONArray contenete i dati filtrati
-	 * @throws IllegalArgumentException Errore di argomento errato
-	 * @throws UrlException Eccezione personalizzata
-	 * @throws org.json.simple.parser.ParseException Errore di Parsing
-	 * @throws IOException Errore di I/O
-	 * @throws ParseException Errore di Parsing
-	 */
-	@Override
-	public JSONArray getSalvaData(String city)throws IllegalArgumentException, UrlException, 
-	 org.json.simple.parser.ParseException, IOException, ParseException{
-     
-		JSONArray data = new JSONArray();
-		
-		LocalDate from = LocalDate.parse (DateUtils.today());
-		
-		c = new City (city);
-		
-		data = dB.getAllData(city);
-		
-		dB.salvaData(Config.getName2(), city);
-		
-		return data;
-	}
+	
 	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
@@ -157,9 +136,9 @@ public class CityServiceImpl implements CityService {
 		
 		DataBase dB = new DataBase ();
 	
-		this.s = new Stats(dB.getAllData(c.getCityName()));
+		this.s = new Stats(dB.getAllData(city));
 
-		return s.Statistics(s.getArray(), c.getCityName(), type, from, to);
+		return s.Statistics(s.getArray(), city, type, from, to);
 		
 		
 	}

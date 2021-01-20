@@ -1,9 +1,15 @@
 package it.univpm.OpenWeather.utils;
 
 import it.univpm.OpenWeather.service.*;
+import it.univpm.OpenWeather.exception.*;
 
 import org.json.simple.JSONObject;
+
+import com.sun.el.parser.ParseException;
+
 import org.json.simple.JSONArray;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -93,39 +99,80 @@ public class FilterUtils {
 
 	 * @param type Tipo di valore che si vuole ottenere (umidità/temperatura)
 	 * @return filtered Ritorna l'array filtrato
+	 * @throws org.json.simple.parser.ParseException 
 	 */
 	 
-	public JSONArray getTypeFiltered (String type) {
+	public JSONArray getTypeFiltered(String city, String type, String from, String to) throws UrlException, ParseException, 
+	IOException, StatsException, DataFormatException, org.json.simple.parser.ParseException {
 		
-		StatisticsCalculator calc = new StatisticsCalculator();
-		
-		JSONArray filtered = new JSONArray ();
-		
-		jsonArray = d.Parsing();
-		
-		for (int i = 0; i<jsonArray.size(); i++) {
+	         
+			String date2 = "";
 			
-			JSONObject o = (JSONObject) jsonArray.get(i);
+			StatsUtils utils = new StatsUtils();
 			
-			if ((type.toString()).equals("humidity")) {
+			DataBase db = new DataBase();
+			
+			ArrayList<String> allDates = DateUtils.date(from, to);
+			
+			ArrayList<Double> array = new ArrayList<Double>();
+			
+			StatisticsCalculator s = new StatisticsCalculator();
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			JSONArray data = new JSONArray();
+			
+			data = db.getAllData(city);
+			
+			for(int i=0; i<allDates.size(); i++) {
 				
-				JSONObject o1 = (JSONObject) o;
+				String date1 = allDates.get(i);
+			
 				
-					Double hum = (Double) o1.get("humidity");
-						
-						filtered.add(o1);
-					}
+				for( int j=0; j<data.size() ; j++) {
+					JSONObject obj = (JSONObject) data.get(j);
 					
-				
-			}
-		
-		if (filtered == null || filtered.isEmpty()) {
-			JSONObject o2 = new JSONObject();
-			o2.put("Filtraggio abortito", "");
-			filtered.add(o2);
+					date2 = (String) obj.get("date");
+					
+					
+				     if(date2.equals(date1)) {
+						if(type.equals("humidity")) {
+							for(Object ol: data) {
+								JSONObject json = (JSONObject) ol;
+							
+							    Double hum = Double.parseDouble(json.get("humidity").toString());
+							    array.add(hum);
+							}
+						}
+						if(type.equals("temperature")) {
+							for(Object o1:data) {
+								JSONObject json1 = (JSONObject) o1;
+							
+							Double temp = Double.parseDouble(json1.get("temperature").toString());
+							array.add(temp);
+							}
+						}
+						
+						JSONObject o = new JSONObject();
+						o.put("city", city);
+						o.put("date", date1);
+						o.put("min", s.getMin(array));
+						o.put("max", s.getMax(array));
+						o.put("avg", s.getAverage(array));
+						o.put("var", s.getVariance(array));
+						
+						jsonArray.add(o);
+				     }
+				}
+			
+			     }
+			
+			return jsonArray;
+			
 		}
-		return filtered;
-	}
+		
+		
+	
 	
 	/**
 	 * metodo che filtra le città in base al nome e alla data
