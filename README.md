@@ -106,7 +106,7 @@ Restituisce i dati nel seguente formato:
 ### Package Controller
 Package contente la classe che gestisce le chiamate al server
 
-![controller](https://user-images.githubusercontent.com/75066505/105203329-472d0000-5b43-11eb-8f14-df46672cbc79.png)
+![Schermata 2021-01-20 alle 23 05 25](https://user-images.githubusercontent.com/75066505/105247026-6a23d800-5b74-11eb-81cd-a3e67cf856a8.png)
 
 ### Package Exception
 Package contente le eccezioni personalizzate
