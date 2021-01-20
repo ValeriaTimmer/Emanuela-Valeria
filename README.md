@@ -107,6 +107,12 @@ GET  |/data | Restituisce le previsioni meteo per i successivi 5 giorni di una c
 POST |/forecast | Effettua le statistiche riguardo le previsioni meteoreologiche in base a paramtri scelti dall'utente
 
 ### Parametri richiesti:
+
+#### Rotta GET/metadata
+Restituisce i seguenti metadata nel seguente formato: 
+
+
+
 #### Rotta POST/stats
 Per visualizzare le statistiche desiderate viene richiesto all'utente di inserire alcuni parametri all'interno di 
 un JSONObject di questo formato: 
@@ -115,15 +121,27 @@ un JSONObject di questo formato:
 - "from" : data di inizio 
 - "to": data di fine
 
+Restituisce i dati nel seguente formato:
+
+
+
 #### Rotta GET/data
 Per visualizzare le previsioni per i successivi 5 giorni riguardo umidità e temperatura viene richiesto all'utente di 
 inserire alcuni parametri:
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 
+Restituisce i dati nel seguente formato: 
+
+
+
 #### Rotta POST/forecast
 Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "date" : giorno del quale si vogliono ottenere i risultati 
+
+Restituisce i dati nel seguente formato: 
+
+
 
 # Possibili Eccezioni 
 Dall'applicazione vengono gestite alcune eccezioni in maniera personalizzata:
