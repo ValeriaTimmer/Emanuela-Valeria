@@ -28,7 +28,7 @@ Le statistiche vengono effettuate su:
 Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodicità desiderata.
 
 Vengono inoltre effettute delle statistiche riguardo: 
- - Numero di previsioni azzeccate con una soglia di errore del 10% per ogni città
+ - Numero di previsioni azzeccate dell'umidità con una soglia di errore del 10% per ogni città
 
 # UML
 
@@ -109,20 +109,20 @@ POST |/forecast | Effettua le statistiche riguardo le previsioni meteoreologiche
 ### Parametri richiesti:
 #### Rotta POST/stats
 Per visualizzare le statistiche desiderate viene richiesto all'utente di inserire alcuni parametri all'interno di 
-un JSONObject di questo formato : 
-- "city" : nome della città. Può assumere i valori "Rome", "City of London", "Berlin" o "Paris"
-- "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori "humidity" o "temperature"
+un JSONObject di questo formato: 
+- "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
+- "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori *"humidity" o "temperature"*
 - "from" : data di inizio 
 - "to": data di fine
 
 #### Rotta GET/data
 Per visualizzare le previsioni per i successivi 5 giorni riguardo umidità e temperatura viene richiesto all'utente di 
-inserire alcuni parametri :
-- "city" : nome della città. Può assumere i valori "Rome", "City of London", "Berlin" o "Paris"
+inserire alcuni parametri:
+- "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 
 #### Rotta POST/forecast
-Per visualizzare le statistiche riguardo le previsioni metereologiche viene richiesto all'utente di inserire alcuni paramtri:
-- "city" : nome della città. Può assumere i valori "Rome", "City of London", "Berlin" o "Paris"
+Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
+- "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "date" : giorno del quale si vogliono ottenere i risultati 
 
 # Possibili Eccezioni 
@@ -133,17 +133,17 @@ Dall'applicazione vengono gestite alcune eccezioni in maniera personalizzata:
 - UrlException 
 
 In particolare: 
-- *DataFormatException :* segnala che si è verificato un errore di formato dati
+- *DataFormatException :* segnala che si è verificato un errore di formato dati.
 Questa eccezione estende da java.text.ParseException la quale segnala che è stato raggiunto un errore inaspettatamente 
-durante l'analisi dei dati 
+durante l'analisi dei dati.
 Può essere lanciata quando le date inserite dall'utente nelle chiamate non sono corrette, in particolare 
-la data di fine precede la data di inizio
-- *FilterException :* segnala che si è verificato un errore nel filtraggio dei dati
-Questa eccezione estende da java.io.IOException la quale segnala operazioni di I / O non riuscite 
-Può essere lanciata quando i parametri di filtraggio inseriti dall'utente sono nulli 
-- *StatsException :* segnala che si è verificato un errore nel calcolo delle statistiche
-Questa eccezione estende da java.lang.Exception
-Può essere lanciata quando non sono disponibili i valori per effettuare le statistiche
-- *UrlException :* segnala che si è verificato un errore nella connessione al sito
-Questa eccezione estende da java.net.MalformedURLException la quale segnala che si è verificato un URL non valido
-Può essere lanciata quando l'Url del sito risulta errato
+la data di fine precede la data di inizio.
+- *FilterException :* segnala che si è verificato un errore nel filtraggio dei dati.
+Questa eccezione estende da java.io.IOException la quale segnala operazioni di I / O non riuscite. 
+Può essere lanciata quando i parametri di filtraggio inseriti dall'utente sono nulli.
+- *StatsException :* segnala che si è verificato un errore nel calcolo delle statistiche.
+Questa eccezione estende da java.lang.Exception.
+Può essere lanciata quando non sono disponibili i valori per effettuare le statistiche.
+- *UrlException :* segnala che si è verificato un errore nella connessione al sito.
+Questa eccezione estende da java.net.MalformedURLException la quale segnala che si è verificato un URL non valido.
+Può essere lanciata quando l'Url del sito risulta errato.
