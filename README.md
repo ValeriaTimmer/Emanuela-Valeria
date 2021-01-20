@@ -60,7 +60,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ![statistics](https://user-images.githubusercontent.com/75066505/105204229-3d57cc80-5b44-11eb-89eb-136411ddc484.png)
 
 ### Package Utils
-![utils](https://user-images.githubusercontent.com/75066510/103557783-003cda80-4eb4-11eb-9dab-bdfd2e47b7a8.png)
+![utils](https://user-images.githubusercontent.com/75066505/105204346-595b6e00-5b44-11eb-926a-4244b5b3fc3a.png)
 
 
 
