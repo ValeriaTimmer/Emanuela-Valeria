@@ -16,18 +16,20 @@ import it.univpm.OpenWeather.utils.FilterUtils;
 public class Filter {
 	
 	/**
-	 * variabile della classe @it.univpm.OpenWeather.utils.FilterUtils
+	 * variabile della classe FilterUtils
 	 */
 	protected FilterUtils utils;
 	/**
-	 * Array contenente le città
+	 * Array contenente le citta
 	 */
 	protected JSONArray arrayCity;
 	
 	/**
 	 * costruttore di default
 	 */
-	public Filter() {}
+	public Filter() {
+		this.utils = new FilterUtils();
+	}
 	
 	/**
 	 * costruttore che prende come parametro un JSONArray
@@ -39,8 +41,8 @@ public class Filter {
 	}
 	
 	/**
-	 * Metodo Getter dell'array di città
-	 * @return arrayCity Ritorna l'array di città
+	 * Metodo Getter dell'array di citta
+	 * @return arrayCity Ritorna l'array di citta
 	 */
 	public JSONArray getCity() {
 		return arrayCity;

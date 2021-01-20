@@ -61,37 +61,37 @@ public class Controller {
 	
 	/**
 	 * Rotta che gestisce la chiamata "GET/dailystats"
-	 * @param city nome della città
-	 * @return HashMap<String,String> contenente i dati della città
+	 * @param city nome della citta
+	 * @return HashMap contenente i dati della citta
 	 * @throws UrlException eccezione personalizzata
 	 * @throws IllegalArgumentException eccezione che indica che è stato passato un argomento errato
-	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'URL non è corretto
+	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'URL non e corretto
 	 * @throws org.json.simple.parser.ParseException eccezione che viene lanciata nel caso di un errore di Parsing
 	 * @throws IOException errore di I/O
 	 * @throws StatsException eccezione personalizzata
-	 
+	 * @throws com.sun.el.parser.ParseException 
+	 */
+	
 	@RequestMapping (value = "/dailystats", method = RequestMethod.GET)
 	public ResponseEntity <Object> getData(@RequestParam (value = "City", defaultValue = "") String city,
 			@RequestParam(value = "type", defaultValue = "humidity") String type,
 			@RequestParam(value = "from", defaultValue = "") String from,
 			@RequestParam(value = "to", defaultValue = "")String to) 
 					throws UrlException, IllegalArgumentException, MalformedURLException,
-					org.json.simple.parser.ParseException, IOException, ParseException, StatsException{
+					org.json.simple.parser.ParseException, IOException, ParseException, StatsException, com.sun.el.parser.ParseException{
 		return new ResponseEntity<>(c.getDailyStats(city.toString(), type.toString(), from.toString(), to.toString()), HttpStatus.OK);
 	}
 	
 	/**
 	 * Rotta che gestisce la chiamata "POST/stats"
-	 * @param city Nome della città
-	 * @param type Parametro sul quale vengono effettuate le statistiche
-	 * @param from Data iniziale da quando si vogliono far partire le statistiche
-	 * @param to Data finale entro il quale si vogliono visualizzare le statistiche
-	 * @return HashMap<String,String> contenente le statistiche
+	 * @return HashMap contenente le statistiche
 	 * @throws StatsException Eccezione personalizzata 
 	 * @throws UrlException Eccezione personalizzata 
+	 * @throws ClassNotFoundException
 	 * @throws org.json.simple.parser.ParseException eccezione che viene lanciata nel caso di un errore di Parsing
 	 * @throws IOException errore di I/O
 	 * @throws FileNotFoundException eccezione che viene lanciata quando non viene trovato il file
+	 * @throws ParseException errore di Parsing
 	*/
 	
 	@RequestMapping (value = "/stats", method = RequestMethod.POST)
@@ -121,10 +121,10 @@ public class Controller {
 	/**
 	 * Rotta che gestisce la chiamata "POST/forecasts"
 	 * @param date data
-	 * @param city nome della città
+	 * @param city nome della citta
 	 * @return JSONObject contenente il valore del contatore
 	 * @throws UrlException Eccezione personalizzata
-	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'url non è corretto
+	 * @throws MalformedURLException eccezione che viene lanciata nel caso in cui l'url non e corretto
 	 * @throws org.json.simple.parser.ParseException errore di Parsing
 	 * @throws IOException errore di I/O
 	 */

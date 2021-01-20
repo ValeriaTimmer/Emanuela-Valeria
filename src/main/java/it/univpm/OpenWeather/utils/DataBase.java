@@ -39,7 +39,7 @@ import java.util.HashMap;
 public class DataBase {
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.service.DownloadCity;
+	 * Variabile della classe DownloadCity;
 	 */
 	@Autowired (required = true)
 	private DownloadCity d ;
@@ -50,7 +50,7 @@ public class DataBase {
 	private JSONArray value;
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.filter.CityFilter;
+	 * Variabile della classe CityFilter;
 	 */
 	private CityFilter cityFilter;
 	
@@ -73,11 +73,11 @@ public class DataBase {
 	}
 	
 	/**
-	 * Metodo che salva ogni ora i dati di alcune città costantemente monitorate
+	 * Metodo che salva ogni ora i dati di alcune citta costantemente monitorate
 	 * 
-	 * Le città monitorate sono ROMA, LONDRA, BERLINO, PARIGI
-	 * (i nomi delle città posso essere modificati nella classe
-	 * @it.univpm.OpenWeather.utils.Config)
+	 * Le citta monitorate sono ROMA, LONDRA, BERLINO, PARIGI
+	 * (i nomi delle citta possono essere modificati nella classe
+	 * Config)
 	 * 
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
@@ -102,11 +102,11 @@ public class DataBase {
 	}
 	
 	/**
-	 * Metodo che ritorna tutti i valori desiderati di una determinata città 
+	 * Metodo che ritorna tutti i valori desiderati di una determinata citta 
 	 * presenti nel dataBase
 	 * 
-	 * @param city Città di cui si vogliono ottenere i parametri
-	 * @return arr JSONArray che contiene tutti i dati della città
+	 * @param city Citta di cui si vogliono ottenere i parametri
+	 * @return arr JSONArray che contiene tutti i dati della citta
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 * @throws UrlException Eccezione personalizzata

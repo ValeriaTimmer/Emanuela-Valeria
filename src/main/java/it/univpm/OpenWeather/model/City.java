@@ -6,7 +6,7 @@ import it.univpm.OpenWeather.utils.Config;
 import org.json.simple.JSONArray;
 
 /**
- * Classe che modella la città
+ * Classe che modella la citta
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  */
@@ -18,17 +18,17 @@ public class City {
 	private JSONArray array = new JSONArray();
 	
 	/**
-	 * Nome della città
+	 * Nome della citta
 	 */
 	private String cityName;
 	
 	/**
-	 * Umidità della città in percentuale
+	 * Umidità della citta in percentuale
 	 */
 	private Double humidity;
 	
 	/**
-	 * Temperatura della città in kelvin
+	 * Temperatura della citta in kelvin
 	 */
 	private Double temperature;
 	
@@ -40,9 +40,9 @@ public class City {
 	/**
 	 * Costruttore 
 	 * 
-	 * @param name Nome della città
-	 * @param humidity Umidità della città
-	 * @param temp Temperatura della città
+	 * @param name Nome della citta
+	 * @param humidity Umidità della citta
+	 * @param temperature Temperatura della citta
 	 * @param date Data
 	 */
 	public City(String name, Double humidity, Double temperature, String date) {
@@ -60,22 +60,22 @@ public class City {
 	/**
 	 * Costruttore
 	 * 
-	 * @param name Nome della città
+	 * @param name Nome della citta
 	 */
 	public City(String name) {
 		this.cityName = name;
 	}
 	
 	/**
-	 * Metodo Getter del nome della città
-	 * @return cityName Ritorna il nome della città
+	 * Metodo Getter del nome della citta
+	 * @return cityName Ritorna il nome della citta
 	 */
 	public String getCityName() {
 		return cityName;
 	}
 
 	/**
-	 * Metodo Setter del nome della città
+	 * Metodo Setter del nome della citta
 	 * @param cityName Nome passato dal metodo chiamante
 	 */
 	public void setCityName(String cityName) {
@@ -83,8 +83,8 @@ public class City {
 	}
 
 	/**
-	 * Metodo Getter dell'umidità della città
-	 * @return humidity Ritorna l'umidità della città in percentuale
+	 * Metodo Getter dell'umidità della citta
+	 * @return humidity Ritorna l'umidita della citta in percentuale
 	 */
 	
 	public double getHumidity() {
@@ -92,16 +92,16 @@ public class City {
 	}
 
 	/**
-	 * Metodo Setter dell'umidità della città
-	 * @param humidity Umidità passata dal metodo chiamante
+	 * Metodo Setter dell'umidita della citta
+	 * @param humidity Umidita passata dal metodo chiamante
 	 */
 	public void setHumidity(double humidity) {
 		this.humidity = humidity;
 	}
 
 	/**
-	 * Metodo Getter della temperatura della città
-	 * @return temperature Ritorna la temperatura della città in kelvin
+	 * Metodo Getter della temperatura della citta
+	 * @return temperature Ritorna la temperatura della citta in kelvin
 	 */
 	
 	public double getTemperature() {
@@ -109,8 +109,8 @@ public class City {
 	}
     
 	/**
-	 * Metodo Setter della temperatura della città
-	 * @param temperature Temperatura della città passata dal metodo chiamante in kelvin
+	 * Metodo Setter della temperatura della citta
+	 * @param temperature Temperatura della citta passata dal metodo chiamante in kelvin
 	 */
 	
 	public void setTemperature(double temperature) {
@@ -134,9 +134,9 @@ public class City {
 	}
 
 	/**
-	 * Metodo che ritorna un JSONArray contenente tutti i dati di una determinata città
+	 * Metodo che ritorna un JSONArray contenente tutti i dati di una determinata citta
 	 * 
-	 * @param city Nome della città
+	 * @param city Nome della citta
 	 * @return this.array JSONArray contenente i dati 
 	 */
 	public JSONArray getAllInformation(String city) {

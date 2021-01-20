@@ -5,7 +5,7 @@ import it.univpm.OpenWeather.exception.FilterException;
 import it.univpm.OpenWeather.utils.*;
 
 /**
- * Classe che si occupa del filtraggio delle città per 
+ * Classe che si occupa del filtraggio delle citta per 
  * il calcolo delle previsioni azzeccate
  * 
  * @author Valeria Timmer
@@ -25,7 +25,7 @@ public class ForecastFilter extends Filter{
 	/**
 	 * Metodo che richiama il metodo della classe FilterUtils
 	 * @param date Data
-	 * @param city Nome della città
+	 * @param city Nome della citta
 	 * @param array JSONArray da filtrare
 	 * @return JSONArray Array filtrato
 	 * @throws FilterException Eccezione personalizzata

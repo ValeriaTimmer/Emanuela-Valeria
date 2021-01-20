@@ -3,7 +3,7 @@ package it.univpm.OpenWeather.exception;
 import java.text.ParseException;
 
 /**
- * Classe che gestisce l'eccezione che segnala che si è
+ * Classe che gestisce l'eccezione che segnala che si e
  * verificato un errore di formato dati
  * 
  * @author Valeria Timmer
@@ -17,7 +17,7 @@ public class DataFormatException extends ParseException {
 	 * e il destinatario di un oggetto serializzato abbiano caricato classi per quell'oggetto 
 	 * compatibili rispetto alla serializzazione. Se il destinatario ha caricato una classe 
 	 * per l'oggetto che ha una diversa serialVersionUIDda quella della corrispondente classe 
-	 * del mittente, la deserializzazione si tradurrà in un InvalidClassException 
+	 * del mittente, la deserializzazione si tradurra in un InvalidClassException 
 	 */
 	protected static final long serialVersionUID = 1L;
 	

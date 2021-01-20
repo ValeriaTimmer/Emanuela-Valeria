@@ -24,28 +24,28 @@ public class Config {
 	private static String apiKey = "bed1a816d94554cecab782b0804bec47" ;
 	
 	/**
-	 * nome della prima città
+	 * nome della prima citta
 	 */
 	private static String city1 = "Roma";
 	
 	/**
-	 * nome della seconda città
+	 * nome della seconda citta
 	 */
 	private static String city2 = "Londra";
 	
 	/**
-	 * nome della terza città
+	 * nome della terza citta
 	 */
 	private static String city3 = "Berlino";
 	
 	/**
-	 * nome della quarta città
+	 * nome della quarta citta
 	 */
 	private static String city4 = "Parigi";
 	/**
-	 * Variabile Booleana che riguarda le chiamate dello @Scheduled
-	 * Se call = true allora lo @Scheduled effettua le chiamate al sito di OpenWeather
-	 * Se call = false allora lo @Scheduled non effettua le chiamate al sito di OpenWeather
+	 * Variabile Booleana che riguarda le chiamate dello Scheduled
+	 * Se call = true allora lo Scheduled effettua le chiamate al sito di OpenWeather
+	 * Se call = false allora lo Scheduled non effettua le chiamate al sito di OpenWeather
 	 */
 	private static Boolean call = true;
 	
@@ -76,7 +76,7 @@ public class Config {
 	}
 	
 	/**
-	 * metodo getter della prima città
+	 * metodo getter della prima citta
 	 * @return city1
 	 */
 	public static String getCity1() {
@@ -84,7 +84,7 @@ public class Config {
 	}
 	
 	/**
-	 * metodo getter della seconda città
+	 * metodo getter della seconda citta
 	 * @return city2
 	 */
 	public static String getCity2() {
@@ -92,7 +92,7 @@ public class Config {
 	}
 	
 	/**
-	 * metodo getter della terza città
+	 * metodo getter della terza citta
 	 * @return city3
 	 */
 	public static String getCity3() {
@@ -100,7 +100,7 @@ public class Config {
 	}
 	
 	/**
-	 * metodo gettere della quarta città
+	 * metodo gettere della quarta citta
 	 * @return city4
 	 */
 	public static String getCity4() {
@@ -123,7 +123,7 @@ public class Config {
 	}
 	
 	/**
-	 * Metodo Getter del valore booleano utilizzato dallo @Scheduled
+	 * Metodo Getter del valore booleano utilizzato dallo Scheduled
 	 * @return call Valore della variabile booleana
 	 */
 	public static Boolean getCall() {
@@ -131,7 +131,7 @@ public class Config {
 	}
 	
 	/**
-	 * Metodo Setter del valore booleano utilizzato dallo @Scheduled
+	 * Metodo Setter del valore booleano utilizzato dallo Scheduled
 	 * @param value Valore che deve assumere la variabile (true/false)
 	 */
 	public static void setCall(Boolean value) {

@@ -43,7 +43,7 @@ class FilterTest {
 		array = new JSONArray();
 		c = new CityFilter();
 		f = new ForecastFilter();
-		t = new TypeFilter(array);
+		t = new TypeFilter();
 		dateUtils = new DateUtils();
 		city = null;
 		date = null;
@@ -65,7 +65,7 @@ class FilterTest {
 	
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe 
-	 * @it.univpm.OpenWeather.exception.FilterException
+	 * FilterException
 	 */
 	@Test
 	@DisplayName ("Test eccezione FilterException nella classe CityFilter")
@@ -76,7 +76,7 @@ class FilterTest {
 	
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe
-	 * @it.univpm.OpenWeather.exception.FilterException
+	 * FilterException
 	 */
 	@Test
 	@DisplayName ("Test eccezione FilterException nella classe TypeFilter")
@@ -87,7 +87,7 @@ class FilterTest {
 	}
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe
-	 * @it.univpm.OpenWeather.exception.FilterException
+	 * FilterException
 	 */
 	@Test
 	@DisplayName ("Test eccezione FilterException nella classe ForecastFilter")
@@ -98,7 +98,7 @@ class FilterTest {
 	
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe
-	 * @it.univpm.OpenWeather.exception.DataFormatException
+	 * DataFormatException
 	 */
 	@Test
 	@DisplayName ("Test eccezione DataFormatException nella classe DateUtils")

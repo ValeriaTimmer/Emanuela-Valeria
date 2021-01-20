@@ -50,7 +50,7 @@ public abstract class AbstractStats {
 	 * Metodo astratto che viene poi implementato nella sottoclasse
 	 * 
 	 * @param list JSONArray contenente le città
-	 * @param city nome della città
+	 * @param city nome della citta
 	 * @param parameter Parametro(umidità/temperatura) sul quale si effettua la statistica
 	 * @param from Data di inizio del periodo su cui si effettuano le statistiche
 	 * @param to Data di fine del periodo su cui si effettuano le statistiche

@@ -36,12 +36,12 @@ public class Forecasts {
 	private JSONArray jsonArray = new JSONArray();
 	
  	/**
- 	 * Metodo per creare il vettore contenente i valori dell'umidità
+ 	 * Metodo per creare il vettore contenente i valori dell'umidita
  	 * delle previsioni salvate sul file
  	 * 
  	 * @param date Data
- 	 * @param city Nome della città
- 	 * @return valori ArrayList<Double> contenente i valori dell'umidità
+ 	 * @param city Nome della citta
+ 	 * @return valori ArrayList contenente i valori dell'umidita
  	 * @throws UrlException Eccezione personalizzata
  	 * @throws org.json.simple.parser.ParseException errore di Parsing
  	 * @throws IOException Errore di I/O
@@ -77,8 +77,8 @@ public class Forecasts {
 	/**
 	 * Metodo per andare a parsare dal sito di OpenWeather le previsioni attuali
 	 * 
-	 * @param city Nome della città 
-	 * @return valori ArrayList<Double> contenente i valori dell'umidità
+	 * @param city Nome della citta 
+	 * @return valori ArrayList contenente i valori dell'umidita
 	 * @throws UrlException eccezione personalizzata
  	 * @throws IOException errore di I/O
 	 */
@@ -123,12 +123,12 @@ public class Forecasts {
 	}
 	
 	/**
-	 * Metodo per creare il vettore contenente i valori dell'umidità
+	 * Metodo per creare il vettore contenente i valori dell'umidita
 	 * delle previsioni attuali
 	 * 
 	 * @param date Data
 	 * @param city Nome della città 
-	 * @return valori ArrayList<Double> contenente i valori dell'umidità
+	 * @return valori ArrayList contenente i valori dell'umidità
 	 * @throws UrlException eccezione personalizzata
  	 * @throws IOException errore di I/O
 	 */
@@ -161,7 +161,7 @@ public class Forecasts {
 	
 	
 	/**
-	 * Metodo per confrontare i valori dell'umidità. Nel caso in cui questi siano uguali,
+	 * Metodo per confrontare i valori dell'umidita. Nel caso in cui questi siano uguali,
 	 * viene incrementato un contatore, che sta ad indicare il numero di previsioni azzeccate
 	 * 
 	 * @param date Data

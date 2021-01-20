@@ -4,6 +4,7 @@ import it.univpm.OpenWeather.model.*;
 
 import it.univpm.OpenWeather.statistics.*;
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.filter.TypeFilter;
 import it.univpm.OpenWeather.utils.*;
 
 import java.net.MalformedURLException;
@@ -31,12 +32,12 @@ import org.springframework.stereotype.Service;
 public class CityServiceImpl implements CityService {
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.statistics.Stats
+	 * Variabile della classe Stats
 	 */
 	private Stats s;
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.statistics.Forecast
+	 * Variabile della classe Forecast
 	 */
 	private Forecasts f;
 	
@@ -46,7 +47,7 @@ public class CityServiceImpl implements CityService {
 	private JSONObject obj = new JSONObject();
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.model.City
+	 * Variabile della classe City
 	 */
 	private City c;
 	
@@ -56,7 +57,7 @@ public class CityServiceImpl implements CityService {
 	private JSONArray array;
 	
 	/**
-	 * Variabile della classe @it.univpm.OpenWeather.utils.DataBase
+	 * Variabile della classe DataBase
 	 */
 	private DataBase dB = new DataBase();
 	
@@ -77,7 +78,7 @@ public class CityServiceImpl implements CityService {
 		HashMap <String, String> c = new HashMap <String,String>();
 		c.put("city", "Contiene il nome della città");
 		c.put("humidity", "Contiene il valore dell'umidità in percentuale");
-		c.put("temp", "Contiene il valore della temperatura in Celsius");
+		c.put("temperature", "Contiene il valore della temperatura in Celsius");
 		c.put("from", "Data iniziale del periodo scelto");
 		c.put("to", "Data finale del periodo scelto");
 		c.put("min", "Contiene il valore minimo dell'umidità o della temperatura in base al periodo scelto");
@@ -90,7 +91,7 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * metodo che effettua l'override del metodo dell'interfaccia
 	 * 
-	 * @param city nome della città
+	 * @param city nome della citta
 	 * @return JSONArray contenente le previsioni attuali e dei successivi 5 giorni
 	 * @throws UrlException eccezione personalizzata
 	 * @throws org.json.simple.parser.ParseException errore di Parsing
@@ -105,21 +106,22 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * 
-	 * @return HashMap<String,String> con i valori desiderati delle città 
+	 * @return HashMap con i valori desiderati delle città 
 	 * @throws IllegalArgumentException Errore di argomento errato
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
 	 * @throws IOException Errore di I/O
 	 * @throws ParseException Errore di Parsing
 	 * @throws StatsException Eccezione personalizzata
-	 
+	 * @throws com.sun.el.parser.ParseException 
+	 */
+	
 	@Override 
 	public JSONArray getDailyStats(String city, String type, String from, String to) throws IllegalArgumentException, UrlException, 
-		org.json.simple.parser.ParseException, IOException, ParseException, StatsException { 
+		org.json.simple.parser.ParseException, IOException, ParseException, StatsException, com.sun.el.parser.ParseException { 
 
-		//c = new City (city);
-		
-		return dB.getStats(city, type, from, to);
+		TypeFilter t = new TypeFilter();
+		return t.filtersCity(city,type,from,to);
         
 	}
 	
@@ -128,7 +130,7 @@ public class CityServiceImpl implements CityService {
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * 
-	 * @return HashMap<String,Sting> contenente le statistiche filtrate per periodo
+	 * @return HashMap contenente le statistiche filtrate per periodo
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ClassNotFoundException Errore di classe non trovata
 	 * @throws DataFormatException Eccezione personalizzata

@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 
 /**
  * Classe che implementa l'interfaccia Filter
- * Filtra la città e lo stato
+ * Filtra la citta e lo stato
  * 
  * @author Emanuela Saleggia
  * @author Valeria Timmer

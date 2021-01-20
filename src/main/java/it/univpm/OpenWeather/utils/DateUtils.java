@@ -85,7 +85,6 @@ public class DateUtils {
 	 * @param to Data finale
 	 * @return Periodo 
 	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di parsing
 	 */
 	public static long getPeriod (String from, String to) throws DataFormatException {
 		
@@ -103,7 +102,6 @@ public class DateUtils {
 	 * @param to Data finale
 	 * @return d Vettore contenente le date
 	 * @throws DataFormatException Eccezione personalizzata
-	 * @throws ParseException Errore di parsing
 	 */
 	public static ArrayList<String> date (String from, String to) throws DataFormatException {
 		

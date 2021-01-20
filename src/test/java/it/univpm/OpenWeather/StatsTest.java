@@ -53,7 +53,7 @@ class StatsTest {
 	
 	/**
 	 * Test che verifica i calcoli dei metodi delle statistiche 
-	 * implementati dalla classe @it.univpm.OpenWeather.utils.StatisticsCalculator
+	 * implementati dalla classe StatisticsCalculator
 	 * @throws StatsException 
 	 */
 	@Test
@@ -67,7 +67,7 @@ class StatsTest {
 	
 	/**
 	 * Test che verifica l'eccezione personalizzata della classe
-	 * @it.univpm.OpenWeather.exception.StatsException
+	 * StatsException
 	 */
 	@Test
 	@DisplayName("Test eccezione StatsException")

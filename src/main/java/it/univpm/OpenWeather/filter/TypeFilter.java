@@ -24,17 +24,19 @@ public class TypeFilter extends Filter{
 	
 	/**
 	 * Costruttore 
-	 * @param array Array da filtrare
 	 */
-	public TypeFilter(JSONArray array) {
-		super(array);
+	public TypeFilter() {
+		super();
 	}
 	
 	
 	/**
 	 * Metodo che richiama il 
 	 * metodo della classe FilterUtils
+	 * @param city nome della citta
 	 * @param type Parametro di cui si vogliono ottenere i dati
+	 * @param from data di inizio del periodo
+	 * @param to data di fine del periodo
 	 * @return Ritorna l'array filtrato 
 	 * @throws org.json.simple.parser.ParseException errore di Parsing
 	 * @throws StatsException eccezione personalizzata

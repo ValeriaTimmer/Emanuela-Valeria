@@ -42,18 +42,18 @@ public class DownloadCity {
 	 */
 	private JSONArray download = new JSONArray();
 	
-	/*
-	 * Nome della città
+	/**
+	 * Nome della citta
 	 */
 	private String cityName;
 	
 	/**
-	 * Umidità della città in percentuale
+	 * Umidità della citta in percentuale
 	 */
 	private double humidity;
 	
 	/**
-	 * Temperatura della città in kelvin
+	 * Temperatura della citta in kelvin
 	 */
 	private double temperature;
 	
@@ -63,10 +63,9 @@ public class DownloadCity {
 	private String date;
 	
 	/**
-	 * Costruttore che prende in ingresso il nome della città e il suo stato/paese
+	 * Costruttore che prende in ingresso il nome della citta e il suo stato/paese
 	 * 
-	 * @param Name Nome della città
-	 * @param Code Sigla dello Stato/Paese della città
+	 * @param Name Nome della citta
 	 */
 	public DownloadCity (String Name) {
 		this.cityName = Name;
@@ -80,24 +79,24 @@ public class DownloadCity {
 	}
 	
 	/**
-	 * Metodo Gettere del nome della città
-	 * @return cityName Nome della città
+	 * Metodo Gettere del nome della citta
+	 * @return cityName Nome della citta
 	 */
 	public String getCityName () {
 		return cityName;
 	}
 	
 	/**
-	 * Metodo Getter del valore dell'umidità
-	 * @return humidity Valore dell'umidità
+	 * Metodo Getter del valore dell'umidita
+	 * @return humidity Valore dell'umidita
 	 */
 	public double getHumidity () {
 		return humidity;
 	}
 	
 	/**
-	 * Metodo Setter del valore dell'umidità
-	 * @param humidity Valore dell'umidità
+	 * Metodo Setter del valore dell'umidita
+	 * @param humidity Valore dell'umidita
 	 */
 	public void setHumidity(double humidity){
 		this.humidity = humidity;
@@ -138,7 +137,7 @@ public class DownloadCity {
 	 * Metodo che effettua il collegamento con il sito di OpenWeather
 	 * 
 	 * @param cityName Nome della città di cui si vogliono ottenere i valori
-	 * @return obj JSONObject contenente tutti i valori della città
+	 * @return obj JSONObject contenente tutti i valori della citta
 	 */
 	public JSONObject toOpenWeather (String cityName) {
 		
@@ -169,7 +168,7 @@ public class DownloadCity {
 	/**
 	 * Metodo che permette di aggiungere un JSONObject in un JSONArray
 	 * 
-	 * @param cityName Nome della città
+	 * @param cityName Nome della citta
 	 * @return download JSONArray contenente i JSONObject
 	 */
 	public JSONArray insertObject(String cityName) {

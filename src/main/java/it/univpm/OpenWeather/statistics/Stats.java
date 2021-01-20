@@ -31,12 +31,11 @@ public class Stats extends AbstractStats{
  	/**
 	* Metodo che ritorna l'array contenente i valori delle statistiche 
 	* @param array Array contenente tutti i dati 
-	* @param city nome della città
-	* @param parameter Parametro(umidità/temperatura) sul quale si effettua la statistica
+	* @param city nome della citta
+	* @param parameter Parametro(umidita/temperatura) sul quale si effettua la statistica
 	* @param from Data d'inizio del periodo sul quale si effettuano le statistiche
 	* @param to Data di fine del periodo sul quale si effettuano le statistiche
-	* @return ritorna HashMap<String,String> contenente le statistiche effettuate
-	* @throws ParseException Errore di parsing
+	* @return ritorna HashMap contenente le statistiche effettuate
 	* @throws UrlException Eccezione personalizzata
 	* @throws MalformedURLException Errore nel formato dell'URL
  	* @throws org.json.simple.parser.ParseException Errore di Parsing 
