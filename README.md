@@ -88,9 +88,15 @@ l'eccezione personalizzata StatsException
 ## SequenceDiagram
 
 ### Prima parte
+- Chiamata **/metadata** : il Controller effettua una chiamata al metodo getMetadata() della classe CityServiceImpl per la restituizione dei metadata.
+- Chiamata **/data?city=cityName** : il Controller effettua una chiamata al metodo getData() della classe CityServiceImpl per la resituzione dei dati. Successivamente la classe CityServiceImpl chiama il metodo getAllData() della classe DataBase, la quale a sua volta chiama il metodo filtersCity() della classe CityFilter. Quest'ultima richiama poi il metodo getCityFiltered() della classe FiltersUtils che effettua il filtraggio dei dati, richiamando il metodo Parsing() della classe DownloadCity(), in base al nome della città inserito.
+Infine il controller resituisce i valori di umidità e temperatura previsti per i successivi 5 giorni per la città desiderata.
 ![diagramma_delle_sequenze](https://user-images.githubusercontent.com/75066510/105205242-50b76780-5b45-11eb-9cb3-119c2bd1ff3f.png)
 
 ### Seconda parte 
+- Chiamata **/stats** : il Controller effettua una chiamata al metodo getStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo Statistics() della classe Stats la quale si occupa di ritornare i valori delle statistiche. A sua volta questa classe richiama il metodo getStats() della classe StatsUtils che si occupa della manipolazione dei dati richiamando i metodi presenti nella classe StatisticsCalculator (calcolatore di statistiche). Le statistiche vengono effettuate sui dati presenti nel JSONArray ritornato dal metodo getAllData() della classe DataBase, il quale richiama in modo diretto i metodi per il filtraggio delle città (filtersCity() della classe CityFilter e getCityFiltered() della classe FiltersUtils i quali a loro volta richiamano il metodo Parsing() della classe DownloadCity() che ha un legame diretto con il sito di OpenWeather).
+Infine il controller restituisce i valori delle statistiche di umidità/temperatura di una determinata città relativamente ad un particolare periodo desiderato. 
+- Chiamata **/forecasts?date=data&city=cityName** : il Controller effettua una chiamata al metodo getForecasts() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo confrontaValori() della classe Forecasts il quale ritornerà un JSONObject contente il numero di valori di umidità azzeccati. Il metodo confrontaValori() richiama a sua volta due metodi arrayPrevisioni1() ed arrayPrevisioni2(): il primo richiama il metodo Parsing() della classe DownloadCity() andando a prelevare i dati desiderati salvati in precedenza; il secondo richiama il metodo previsioniAttuali() che a sua volta richiama il metodo toOpenWeather() della classe DownloadCity() il quale effettua una chiamata direttamente al sito di OpenWeather. Il confronto dunque avviene tra i valori presenti nel file *parsing.json* che costituisce lo storico e i valori restituiti dal sito. Infine il controller restituisce il numero dei valori dell'umidità azzeccati di una determinata città.
 ![Diagramma_statistiche](https://user-images.githubusercontent.com/75066510/105205377-7fcdd900-5b45-11eb-83b7-8b3a9dc9d52d.png)
 
 
@@ -104,7 +110,7 @@ TIPO | ROTTA | DESCRIZIONE
 GET  |/metadata | Restituisce i metadata 
 POST |/stats  | Effettua le statistiche in base a parametri scelti dall'utente 
 GET  |/data | Restituisce le previsioni meteo per i successivi 5 giorni di una città
-POST |/forecast | Effettua le statistiche riguardo le previsioni meteoreologiche in base a paramtri scelti dall'utente
+POST |/forecasts | Effettua le statistiche riguardo le previsioni meteoreologiche in base a paramtri scelti dall'utente
 
 ### Parametri richiesti:
 
@@ -136,17 +142,6 @@ Restituisce i dati nel seguente formato:
 
 ![screen_stats](https://user-images.githubusercontent.com/75066510/105228745-3a200900-5b63-11eb-87ea-a513253e3572.png)
 
-
-
-
-
-
-
-
-
-
-
-
 #### Rotta GET/data
 Per visualizzare le previsioni per i successivi 5 giorni riguardo umidità e temperatura viene richiesto all'utente di 
 inserire alcuni parametri:
@@ -156,7 +151,7 @@ Restituisce i dati nel seguente formato:
 
 
 
-#### Rotta POST/forecast
+#### Rotta POST/forecasts
 Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
 ![screen_parametriForecast](https://user-images.githubusercontent.com/75066510/105229845-d1399080-5b64-11eb-8845-8900d34ddd27.png)
 
