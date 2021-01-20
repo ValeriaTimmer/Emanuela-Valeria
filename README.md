@@ -65,6 +65,15 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ### Test effettuati sull'applicazione 
 ![test](https://user-images.githubusercontent.com/75066505/105204471-7ee87780-5b44-11eb-8a17-74ad7c540883.png)
 
+## SequenceDiagram
+
+### Prima parte
+
+
+### Seconda parte 
+
+
+
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
 differiscono in base alle diverse rotte mostrate nella tabella sottostante
