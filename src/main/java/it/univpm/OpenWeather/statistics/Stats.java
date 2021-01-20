@@ -19,11 +19,6 @@ import java.net.MalformedURLException;
  *
  */
 public class Stats extends AbstractStats{
-     
-     /**
- 	 * Variabile utilizzata per richiamare il metodo della classe StatsUtils
- 	 */
- 	private StatsUtils utils;
     
     /**
      * Costruttore
@@ -31,7 +26,6 @@ public class Stats extends AbstractStats{
      */
      public Stats(JSONArray array){
     	super(array);
-    	this.utils = new StatsUtils();
      }
 
  	/**

@@ -99,7 +99,7 @@ public class FilterUtils {
 
 	 * @param type Tipo di valore che si vuole ottenere (umidità/temperatura)
 	 * @return filtered Ritorna l'array filtrato
-	 * @throws org.json.simple.parser.ParseException 
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
 	 */
 	 
 	public JSONArray getTypeFiltered(String city, String type, String from, String to) throws UrlException, ParseException, 

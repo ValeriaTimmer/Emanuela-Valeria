@@ -76,7 +76,6 @@ public class Forecasts {
 	
 	/**
 	 * Metodo per andare a parsare dal sito di OpenWeather le previsioni attuali
-	 * delle previsioni attuali
 	 * 
 	 * @param city Nome della città 
 	 * @return valori ArrayList<Double> contenente i valori dell'umidità

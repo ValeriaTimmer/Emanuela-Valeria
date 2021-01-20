@@ -41,7 +41,7 @@ class FilterTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		array = new JSONArray();
-		c = new CityFilter(array);
+		c = new CityFilter();
 		f = new ForecastFilter();
 		t = new TypeFilter(array);
 		dateUtils = new DateUtils();

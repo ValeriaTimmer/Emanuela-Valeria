@@ -1,6 +1,7 @@
 package it.univpm.OpenWeather.statistics;
 
 import it.univpm.OpenWeather.exception.*;
+import it.univpm.OpenWeather.utils.StatsUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,6 +18,11 @@ import org.json.simple.JSONArray;
  *
  */
 public abstract class AbstractStats {
+	
+	/**
+	 * Variabile utilizzata per richiamare il metodo della classe @it.univpm.OpenWeather.utils.StatsUtils
+	 */
+	protected StatsUtils utils;
 
 	/**
 	 * JSONArray contenente i dati
@@ -29,6 +35,7 @@ public abstract class AbstractStats {
 	 */
 	public AbstractStats (JSONArray array) {
 		this.arr = array;
+		this.utils = new StatsUtils();
 	}
 	
 	/**

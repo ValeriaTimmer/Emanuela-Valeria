@@ -45,6 +45,14 @@ public class Controller {
 		return new ResponseEntity<>(c.getMetadata(), HttpStatus.OK);
 	}
 	
+	/**
+	 * rotta che gestisce la chiamata della rotta "GET/data"
+	 * @param city nome della città
+	 * @return JSONArray contenente le previsioni attuali e quelle dei successivi 5 giorni
+	 * @throws UrlException eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 */
 	@RequestMapping (value = "/data", method = RequestMethod.GET)
 	public ResponseEntity<Object> getData(@RequestParam ( value = "city", defaultValue = "")String city) throws UrlException,
 	org.json.simple.parser.ParseException, IOException{
@@ -52,7 +60,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Rotta che gestisce la chiamata "POST/data"
+	 * Rotta che gestisce la chiamata "GET/dailystats"
 	 * @param city nome della città
 	 * @return HashMap<String,String> contenente i dati della città
 	 * @throws UrlException eccezione personalizzata

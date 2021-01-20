@@ -142,7 +142,6 @@ public class DownloadCity {
 	 */
 	public JSONObject toOpenWeather (String cityName) {
 		
-		JSONParser parser = new JSONParser();
 		
 		try {
 			URLConnection openConnection = new URL ("https://api.openweathermap.org/data/2.5/forecast?q=" +cityName+ "&appid=" + Config.getApiKey()).openConnection();

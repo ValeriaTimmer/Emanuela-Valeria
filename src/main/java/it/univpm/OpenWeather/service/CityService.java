@@ -30,6 +30,15 @@ public interface CityService {
 	 */
 	public abstract HashMap <String, String> getMetadata();
 	
+	/**
+	 * metodo che permette di visualizzare le previsioni attuali e quelle 
+	 * dei successivi 5 giorni
+	 * @param city nome della città
+	 * @return JSONArray contenente le previsioni
+	 * @throws UrlException eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 */
 	public abstract JSONArray getData(String city)throws UrlException, org.json.simple.parser.ParseException, IOException ;
 	
 	/**

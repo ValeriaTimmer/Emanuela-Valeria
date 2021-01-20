@@ -87,6 +87,16 @@ public class CityServiceImpl implements CityService {
 		return c;
 	}
 	
+	/**
+	 * metodo che effettua l'override del metodo dell'interfaccia
+	 * 
+	 * @param city nome della città
+	 * @return JSONArray contenente le previsioni attuali e dei successivi 5 giorni
+	 * @throws UrlException eccezione personalizzata
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws IOException errore di I/O
+	 * 
+	 */
 	@Override
 	public JSONArray getData(String city) throws UrlException, org.json.simple.parser.ParseException, IOException {
 		

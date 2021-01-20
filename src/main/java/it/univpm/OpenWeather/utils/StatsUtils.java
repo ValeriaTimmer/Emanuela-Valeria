@@ -37,7 +37,7 @@ public class StatsUtils{
 	 private ArrayList <Double> arr;
 	
 	/**
-	 * Calcolatore di statistiche
+	 * Calcolatore di statistiche 
 	 */
 	private StatisticsCalculator calc;
 	

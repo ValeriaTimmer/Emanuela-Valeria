@@ -3,6 +3,7 @@ package it.univpm.OpenWeather.filter;
 import org.json.simple.JSONArray;
 
 import it.univpm.OpenWeather.exception.FilterException;
+import it.univpm.OpenWeather.utils.FilterUtils;
 
 
 /**
@@ -12,14 +13,39 @@ import it.univpm.OpenWeather.exception.FilterException;
  * @author Valeria Timmer
  *
  */
-public interface Filter <C> {
+public class Filter {
 	
 	/**
-	 * Metodo che viene implementato dalle singole classi 
-	 * @param city Parametro di filtraggio
-	 * @return Array filtrato mediante i parametri specificati
-	 * @throws FilterException Eccezione personalizzata
+	 * variabile della classe @it.univpm.OpenWeather.utils.FilterUtils
 	 */
-	abstract JSONArray filtersCity (C city) throws FilterException;
+	protected FilterUtils utils;
+	/**
+	 * Array contenente le città
+	 */
+	protected JSONArray arrayCity;
+	
+	/**
+	 * costruttore di default
+	 */
+	public Filter() {}
+	
+	/**
+	 * costruttore che prende come parametro un JSONArray
+	 * @param array
+	 */
+	public Filter(JSONArray array) {
+		this.arrayCity = array;
+		this.utils = new FilterUtils();
+	}
+	
+	/**
+	 * Metodo Getter dell'array di città
+	 * @return arrayCity Ritorna l'array di città
+	 */
+	public JSONArray getCity() {
+		return arrayCity;
+	}
+
+
 	
 }

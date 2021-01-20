@@ -20,46 +20,28 @@ import com.sun.el.parser.ParseException;
  * @author Valeria Timmer
  *
  */
-public class TypeFilter {
-	
-	/**
-	 * Array da filtrare
-	 */
-	private JSONArray arrayHumidity;
-	
-	/**
-	 * Variabile che richiama il metodo della classe FilterUtils
-	 */
-	private FilterUtils utils;
+public class TypeFilter extends Filter{
 	
 	/**
 	 * Costruttore 
 	 * @param array Array da filtrare
 	 */
 	public TypeFilter(JSONArray array) {
-		this.arrayHumidity = array;
-		this.utils = new FilterUtils();
+		super(array);
 	}
 	
-	/**
-	 * Metodo Getter dell'array 
-	 * @return arrayCity Ritorna l'array
-	 */
-	public JSONArray getArray() {
-		return arrayHumidity;
-	}
 	
 	/**
 	 * Metodo che richiama il 
 	 * metodo della classe FilterUtils
 	 * @param type Parametro di cui si vogliono ottenere i dati
 	 * @return Ritorna l'array filtrato 
-	 * @throws org.json.simple.parser.ParseException 
-	 * @throws StatsException 
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws DataFormatException 
-	 * @throws UrlException 
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws StatsException eccezione personalizzata
+	 * @throws IOException errore di I/O
+	 * @throws ParseException errore di Parsing
+	 * @throws DataFormatException eccezione personalizzata
+	 * @throws UrlException eccezione personalizzata
 	 */
 	public JSONArray filtersCity (String city, String type, String from, String to) throws UrlException, DataFormatException, ParseException, IOException, StatsException, org.json.simple.parser.ParseException{
 		

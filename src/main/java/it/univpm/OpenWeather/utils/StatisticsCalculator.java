@@ -45,6 +45,7 @@ public class StatisticsCalculator {
 	 * Metodo Getter del valore minimo
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il minimo
 	 * @return min Ritorna il valore minimo
+	 * @throws StatsException eccezione personalizzata
 	 */
 	public Double getMin (ArrayList <Double> a) throws StatsException {
 		
@@ -63,6 +64,7 @@ public class StatisticsCalculator {
 	 * Metodo Getter del valore massimo
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare il massimo
 	 * @return max Ritorna il valore massimo
+	 * @throws StatsException eccezione personalizzata
 	 */
 	public Double getMax(ArrayList <Double> a)  throws StatsException{
 		
@@ -82,6 +84,7 @@ public class StatisticsCalculator {
 	 * (I valori restituiti vengono arrotondati alla seconda cifra significativa)
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la media
 	 * @return valore Double della media
+	 * @throws StatsException eccezione personalizzata
 	 */
 	public Double getAverage (ArrayList <Double> a) throws StatsException {
 		
@@ -97,6 +100,7 @@ public class StatisticsCalculator {
 	 * (I valori restituiti vengono arrotondati alla seconda cifra significativa)
 	 * @param a ArrayList che contiene tutti i dati su cui calcolare la varianza
 	 * @return valore Double della varianza
+	 * @throws StatsException eccezione personalizzata
 	 */
 	public Double getVariance (ArrayList <Double> a) throws StatsException {
 		

@@ -12,17 +12,15 @@ import it.univpm.OpenWeather.utils.*;
  * @author Emanuela Saleggia
  *
  */
-public class ForecastFilter {
+public class ForecastFilter extends Filter{
     
-	/**
-	 * Variabile della classe FilterUtils
-	 */
-	private FilterUtils utils = new FilterUtils();
 	
 	/**
 	 * Costruttore
 	 */
-	public ForecastFilter() {}
+	public ForecastFilter() {
+		super();
+	}
 	
 	/**
 	 * Metodo che richiama il metodo della classe FilterUtils

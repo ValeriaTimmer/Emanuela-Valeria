@@ -24,6 +24,25 @@ public class Config {
 	private static String apiKey = "bed1a816d94554cecab782b0804bec47" ;
 	
 	/**
+	 * nome della prima città
+	 */
+	private static String city1 = "Roma";
+	
+	/**
+	 * nome della seconda città
+	 */
+	private static String city2 = "Londra";
+	
+	/**
+	 * nome della terza città
+	 */
+	private static String city3 = "Berlino";
+	
+	/**
+	 * nome della quarta città
+	 */
+	private static String city4 = "Parigi";
+	/**
 	 * Variabile Booleana che riguarda le chiamate dello @Scheduled
 	 * Se call = true allora lo @Scheduled effettua le chiamate al sito di OpenWeather
 	 * Se call = false allora lo @Scheduled non effettua le chiamate al sito di OpenWeather
@@ -48,8 +67,6 @@ public class Config {
 		return fileName;
 	}
 	
-	
-	
 	/**
 	 * Metodo Setter del nome del file
 	 * @param name Nome del file
@@ -58,8 +75,37 @@ public class Config {
 		Config.fileName = name;
 	}
 	
+	/**
+	 * metodo getter della prima città
+	 * @return city1
+	 */
+	public static String getCity1() {
+		return city1;
+	}
 	
+	/**
+	 * metodo getter della seconda città
+	 * @return city2
+	 */
+	public static String getCity2() {
+		return city2;
+	}
 	
+	/**
+	 * metodo getter della terza città
+	 * @return city3
+	 */
+	public static String getCity3() {
+		return city3;
+	}
+	
+	/**
+	 * metodo gettere della quarta città
+	 * @return city4
+	 */
+	public static String getCity4() {
+		return city4;
+	}
 	/**
 	 * Metodo Getter della chiave API
 	 * @return apiKey Valore della chiave privata

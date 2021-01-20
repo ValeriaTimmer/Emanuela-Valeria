@@ -39,7 +39,7 @@ import java.util.HashMap;
 public class DataBase {
 	
 	/**
-	 * Variabile della classe DownloadCity
+	 * Variabile della classe @it.univpm.OpenWeather.service.DownloadCity;
 	 */
 	@Autowired (required = true)
 	private DownloadCity d ;
@@ -50,7 +50,7 @@ public class DataBase {
 	private JSONArray value;
 	
 	/**
-	 * Variabile della classe CityFilter
+	 * Variabile della classe @it.univpm.OpenWeather.filter.CityFilter;
 	 */
 	private CityFilter cityFilter;
 	
@@ -76,6 +76,8 @@ public class DataBase {
 	 * Metodo che salva ogni ora i dati di alcune città costantemente monitorate
 	 * 
 	 * Le città monitorate sono ROMA, LONDRA, BERLINO, PARIGI
+	 * (i nomi delle città posso essere modificati nella classe
+	 * @it.univpm.OpenWeather.utils.Config)
 	 * 
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws ParseException Errore di Parsing
@@ -88,11 +90,12 @@ public class DataBase {
 		
 		if (Config.getCall()) {
 					
-				logger.info("Sto recuperando i dati delle città di Roma, Londra, Berlino e Parigi");
-				d.saveValues(Config.getName(),"Roma");
-				d.saveValues(Config.getName(), "Londra");
-				d.saveValues(Config.getName(), "Berlino");
-				d.saveValues(Config.getName(), "Parigi");
+			logger.info("Sto recuperando i dati delle città di " + Config.getCity1() + " , " + Config.getCity2() + " , " 
+			+ Config.getCity3() +  " , " + Config.getCity4());
+			d.saveValues(Config.getName(),Config.getCity1());
+			d.saveValues(Config.getName(),Config.getCity2());
+			d.saveValues(Config.getName(),Config.getCity3());
+			d.saveValues(Config.getName(),Config.getCity4());
 				
 		}
 

@@ -17,7 +17,7 @@ public class City {
 	 */
 	private JSONArray array = new JSONArray();
 	
-	/*
+	/**
 	 * Nome della città
 	 */
 	private String cityName;
