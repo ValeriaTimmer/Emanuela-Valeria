@@ -34,7 +34,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 # UML
 
 ## UseCaseDiagram
-![Schermata 2020-12-16 alle 16 36 37](https://user-images.githubusercontent.com/75066505/102387556-cfface00-3fd0-11eb-830d-dce24ca7ded2.png)
+![Casi d'uso](https://user-images.githubusercontent.com/75066505/105203213-24025080-5b43-11eb-9d64-5973a1c0cc40.png)
 
 ## ClassDiagram
 
