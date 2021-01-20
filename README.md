@@ -123,7 +123,7 @@ un JSONObject di questo formato:
 - "to": data di fine
 
 Restituisce i dati nel seguente formato:
-
+![screen_stats](https://user-images.githubusercontent.com/75066510/105228745-3a200900-5b63-11eb-87ea-a513253e3572.png)
 
 
 #### Rotta GET/data
