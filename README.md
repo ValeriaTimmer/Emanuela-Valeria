@@ -62,7 +62,8 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ### Package Utils
 ![utils](https://user-images.githubusercontent.com/75066505/105204346-595b6e00-5b44-11eb-926a-4244b5b3fc3a.png)
 
-
+### Test effettuati sull'applicazione 
+![test](https://user-images.githubusercontent.com/75066505/105204471-7ee87780-5b44-11eb-8a17-74ad7c540883.png)
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
