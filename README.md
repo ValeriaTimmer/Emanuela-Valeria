@@ -110,7 +110,7 @@ POST |/forecast | Effettua le statistiche riguardo le previsioni meteoreologiche
 
 #### Rotta GET/metadata
 Restituisce i seguenti metadata nel seguente formato: 
-
+![screen_metadata](https://user-images.githubusercontent.com/75066510/105228126-769f3500-5b62-11eb-86da-097e1000c364.png)
 
 
 #### Rotta POST/stats
