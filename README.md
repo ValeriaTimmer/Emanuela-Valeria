@@ -119,6 +119,8 @@ un JSONObject di questo formato:
 ![screen_body](https://user-images.githubusercontent.com/75066510/105228436-e57c8e00-5b62-11eb-8a70-91bd140c4a7a.png)
 
 
+
+
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori *"humidity" o "temperature"*
 - "from" : data di inizio 
@@ -152,6 +154,9 @@ Restituisce i dati nel seguente formato:
 
 #### Rotta POST/forecast
 Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
+![screen_parametriForecast](https://user-images.githubusercontent.com/75066510/105229845-d1399080-5b64-11eb-8845-8900d34ddd27.png)
+
+
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "date" : giorno del quale si vogliono ottenere i risultati 
 
