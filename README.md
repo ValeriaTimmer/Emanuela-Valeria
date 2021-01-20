@@ -116,7 +116,11 @@ Restituisce i seguenti metadata nel seguente formato:
 #### Rotta POST/stats
 Per visualizzare le statistiche desiderate viene richiesto all'utente di inserire alcuni parametri all'interno di 
 un JSONObject di questo formato: 
+
+
 ![screen_body](https://user-images.githubusercontent.com/75066510/105228436-e57c8e00-5b62-11eb-8a70-91bd140c4a7a.png)
+
+
 
 
 
@@ -161,6 +165,8 @@ Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene ri
 - "date" : giorno del quale si vogliono ottenere i risultati 
 
 Restituisce i dati nel seguente formato: 
+
+![screen_forecast](https://user-images.githubusercontent.com/75066510/105230251-5cb32180-5b65-11eb-81a6-429ffbf7e3d7.png)
 
 
 
