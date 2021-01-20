@@ -71,6 +71,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ![diagramma_delle_sequenze](https://user-images.githubusercontent.com/75066510/105205242-50b76780-5b45-11eb-9cb3-119c2bd1ff3f.png)
 
 ### Seconda parte 
+![Diagramma_statistiche](https://user-images.githubusercontent.com/75066510/105205377-7fcdd900-5b45-11eb-83b7-8b3a9dc9d52d.png)
 
 
 
