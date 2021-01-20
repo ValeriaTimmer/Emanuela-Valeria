@@ -57,7 +57,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ![service](https://user-images.githubusercontent.com/75066505/105204106-23b68500-5b44-11eb-8a06-3ffb2856c066.png)
 
 ### Package Statistics
-![Schermata 2020-12-31 alle 12 02 08](https://user-images.githubusercontent.com/75066505/103407865-6ba74500-4b60-11eb-80f7-e18568592a45.png)
+![statistics](https://user-images.githubusercontent.com/75066505/105204229-3d57cc80-5b44-11eb-89eb-136411ddc484.png)
 
 ### Package Utils
 ![utils](https://user-images.githubusercontent.com/75066510/103557783-003cda80-4eb4-11eb-9dab-bdfd2e47b7a8.png)
