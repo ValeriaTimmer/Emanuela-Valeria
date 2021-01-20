@@ -44,6 +44,9 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ## Package Controller
 ![controller](https://user-images.githubusercontent.com/75066505/105203329-472d0000-5b43-11eb-8f14-df46672cbc79.png)
 
+### Package Exception
+![exception](https://user-images.githubusercontent.com/75066505/105203453-688dec00-5b43-11eb-8e10-da99438949e9.png)
+
 ### Package Model
 ![Schermata 2020-12-23 alle 17 53 15](https://user-images.githubusercontent.com/75066505/103020437-ab5ea300-4548-11eb-9f12-024db0a67abb.png)
 
@@ -59,8 +62,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ### Package Utils
 ![utils](https://user-images.githubusercontent.com/75066510/103557783-003cda80-4eb4-11eb-9dab-bdfd2e47b7a8.png)
 
-### Package Exception
-![Schermata 2021-01-04 alle 08 48 19](https://user-images.githubusercontent.com/75066505/103512819-b9c28e00-4e69-11eb-919a-602b9b290dc6.png)
+
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
