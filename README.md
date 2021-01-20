@@ -68,7 +68,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ## SequenceDiagram
 
 ### Prima parte
-
+![diagramma_delle_sequenze](https://user-images.githubusercontent.com/75066510/105205242-50b76780-5b45-11eb-9cb3-119c2bd1ff3f.png)
 
 ### Seconda parte 
 
