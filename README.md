@@ -47,11 +47,11 @@ Tali statistiche saranno soggette inoltre ad un filtraggio in base alla periodic
 ### Package Exception
 ![exception](https://user-images.githubusercontent.com/75066505/105203453-688dec00-5b43-11eb-8e10-da99438949e9.png)
 
+### Package Filter
+![filter](https://user-images.githubusercontent.com/75066505/105203543-88bdab00-5b43-11eb-9095-ded5409542a9.png)
+
 ### Package Model
 ![Schermata 2020-12-23 alle 17 53 15](https://user-images.githubusercontent.com/75066505/103020437-ab5ea300-4548-11eb-9f12-024db0a67abb.png)
-
-### Package Filter
-![Schermata 2020-12-30 alle 19 50 49](https://user-images.githubusercontent.com/75066505/103375044-67841480-4ad9-11eb-94ff-cca8c853bb99.png)
 
 ### Package Service
 ![Schermata 2021-01-04 alle 08 26 52](https://user-images.githubusercontent.com/75066505/103511229-e6c17180-4e66-11eb-8ad3-af0e69d064e0.png)
