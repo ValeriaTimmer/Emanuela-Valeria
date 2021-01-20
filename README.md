@@ -42,30 +42,37 @@ Vengono inoltre effettute delle statistiche riguardo:
 
 ## Package Controller
 Package contente la classe che gestisce le chiamate al server
+
 ![controller](https://user-images.githubusercontent.com/75066505/105203329-472d0000-5b43-11eb-8f14-df46672cbc79.png)
 
 ### Package Exception
 Package contente le eccezioni personalizzate
+
 ![exception](https://user-images.githubusercontent.com/75066505/105203453-688dec00-5b43-11eb-8e10-da99438949e9.png)
 
 ### Package Filter
 Package contente le classi per la gestione dei filtri 
+
 ![filter](https://user-images.githubusercontent.com/75066505/105203543-88bdab00-5b43-11eb-9095-ded5409542a9.png)
 
 ### Package Model
 Package contente la classe che modella i dati 
+
 ![model](https://user-images.githubusercontent.com/75066505/105203991-0386c600-5b44-11eb-824b-aa2b39972440.png)
 
 ### Package Service
 Package contente le classi necessarie per l'elaborazione dei metodi richiamati dal Controller
+
 ![service](https://user-images.githubusercontent.com/75066505/105204106-23b68500-5b44-11eb-8a06-3ffb2856c066.png)
 
 ### Package Statistics
 Package contenente le classi per la generazione delle statistiche
+
 ![statistics](https://user-images.githubusercontent.com/75066505/105204229-3d57cc80-5b44-11eb-89eb-136411ddc484.png)
 
 ### Package Utils
 Package contenete le classi di supporto per l'elaborazione e la manipolazione dei dati 
+
 ![utils](https://user-images.githubusercontent.com/75066505/105204346-595b6e00-5b44-11eb-926a-4244b5b3fc3a.png)
 
 ### Test effettuati sull'applicazione
@@ -75,6 +82,7 @@ In particolare la classe:
 l'eccezione personalizzata StatsException
 - *FilterTest* esegue quattro test: i primi tre riguardanti l'eccezione personalizzata FilterException
 (utilizzata in tre differenti classi), il quarto tiguardante l'eccezione personalizzata DataFormatException
+
 ![test](https://user-images.githubusercontent.com/75066505/105204471-7ee87780-5b44-11eb-8a17-74ad7c540883.png)
 
 ## SequenceDiagram
@@ -130,12 +138,12 @@ Questa eccezione estende da java.text.ParseException la quale segnala che è sta
 durante l'analisi dei dati 
 Può essere lanciata quando le date inserite dall'utente nelle chiamate non sono corrette, in particolare 
 la data di fine precede la data di inizio
-*FilterException :* segnala che si è verificato un errore nel filtraggio dei dati
+- *FilterException :* segnala che si è verificato un errore nel filtraggio dei dati
 Questa eccezione estende da java.io.IOException la quale segnala operazioni di I / O non riuscite 
 Può essere lanciata quando i parametri di filtraggio inseriti dall'utente sono nulli 
-*StatsException :* segnala che si è verificato un errore nel calcolo delle statistiche
+- *StatsException :* segnala che si è verificato un errore nel calcolo delle statistiche
 Questa eccezione estende da java.lang.Exception
 Può essere lanciata quando non sono disponibili i valori per effettuare le statistiche
-*UrlException :* segnala che si è verificato un errore nella connessione al sito
+- *UrlException :* segnala che si è verificato un errore nella connessione al sito
 Questa eccezione estende da java.net.MalformedURLException la quale segnala che si è verificato un URL non valido
 Può essere lanciata quando l'Url del sito risulta errato
