@@ -154,7 +154,7 @@ Package contente la classe che modella i dati
 ### Package Service
 Package contente le classi necessarie per l'elaborazione dei metodi richiamati dal Controller
 
-![service](https://user-images.githubusercontent.com/75066505/105204106-23b68500-5b44-11eb-8a06-3ffb2856c066.png)
+![Service](https://user-images.githubusercontent.com/75066505/105338447-dbe33c80-5bdb-11eb-918b-2771e6c48614.png)
 
 ### Package Statistics
 Package contenente le classi per la generazione delle statistiche
