@@ -32,7 +32,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio relativo ad un period
 essere effettutate anche su periodicità giornaliera.
 
 Vengono inoltre effettute delle statistiche riguardo: 
-  Numero di previsioni azzeccate dell'umidità con una soglia di errore del 20% per ogni città.
+  Numero di previsioni azzeccate dell'umidità con una soglia di errore del 10% per ogni città.
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
@@ -176,7 +176,7 @@ l'eccezione personalizzata StatsException
 
 ### Prima parte
 - Chiamata **/metadata** : il Controller effettua una chiamata al metodo getMetadata() della classe CityServiceImpl per la restituizione dei metadata.
-- Chiamata **/data?city=cityName** : il Controller effettua una chiamata al metodo getData() della classe CityServiceImpl per la resituzione dei dati. Successivamente la classe CityServiceImpl chiama il metodo getAllData() della classe DataBase, la quale a sua volta chiama il metodo filtersCity() della classe CityFilter. Quest'ultima richiama poi il metodo getCityFiltered() della classe FiltersUtils che effettua il filtraggio dei dati, richiamando il metodo Parsing() della classe DownloadCity(), in base al nome della città inserito.
+- Chiamata **/data?city=cityName** : il Controller effettua una chiamata al metodo getData() della classe CityServiceImpl per la resituzione dei dati. Successivamente la classe CityServiceImpl chiama il metodo getAllData() della classe DataBase, la quale a sua volta chiama il metodo filtersCity() della classe CityFilter. Quest'ultima richiama poi il metodo getCityFiltered() della classe FiltersUtils che effettua il filtraggio dei dati, richiamando il metodo Parsing() della classe DownloadCity, in base al nome della città inserita.
 Dunque il controller resituisce i valori di umidità e temperatura previsti per i successivi 5 giorni per la città desiderata *(cityName)*.
 ![diagramma_delle_sequenze](https://user-images.githubusercontent.com/75066510/105337527-cfaaaf80-5bda-11eb-9d50-5eb8fff55ade.png)
 
