@@ -14,6 +14,13 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
  - Restituire delle statistiche su alcuni dati in formato JSON 
  - Restituire statistiche riguardo il numero di previsioni azzeccate in formato JSON
  
+ 
+ L'applicativo è in grado di salvare i dati di quattro città costantemente monitorate
+ (*Rome, City of London, Berlin, Paris*) ogni ora utilizzando l'annotazione @Scheduled di
+ SpringBoot che effettua la chiamata al sito di OpenWeather e crea uno storico con i dati
+ salvati nel file *allValues.json*. Inoltre nel file *parsing.json* vengono salvati gli
+ ultimi dati della chiamata al sito. 
+ 
 ## Statistiche
 Le statistiche riguardano: 
 - Valore minimo
@@ -74,6 +81,7 @@ Restituisce i dati nel seguente formato:
 
 #### Rotta POST/forecasts
 Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
+
 ![screen_parametriForecast](https://user-images.githubusercontent.com/75066510/105229845-d1399080-5b64-11eb-8845-8900d34ddd27.png)
 
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
