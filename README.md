@@ -59,6 +59,9 @@ Restituisce i seguenti metadata nel seguente formato:
 #### Rotta GET/data
 Per visualizzare le previsioni per i successivi 5 giorni riguardo umidità e temperatura viene richiesto all'utente di 
 inserire alcuni parametri:
+
+![screen_data](https://user-images.githubusercontent.com/75066510/105322383-1a233080-5bc9-11eb-8162-52562d8e45eb.png)
+
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 
 Restituisce i dati nel seguente formato: 
