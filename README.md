@@ -66,6 +66,8 @@ inserire alcuni parametri:
 
 Restituisce i dati nel seguente formato: 
 
+![screen_data1](https://user-images.githubusercontent.com/75066510/105322557-55bdfa80-5bc9-11eb-98f1-a5dd0e523e1e.png)
+
 
 #### Rotta POST/stats
 Per visualizzare le statistiche desiderate viene richiesto all'utente di inserire alcuni parametri all'interno di 
