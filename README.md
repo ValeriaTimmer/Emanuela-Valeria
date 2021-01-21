@@ -36,7 +36,7 @@ Tali statistiche saranno soggette inoltre ad un filtraggio relativo ad un period
 essere effettutate anche su periodicità giornaliera.
 
 Vengono inoltre effettute delle statistiche riguardo: 
- - Numero di previsioni azzeccate dell'umidità con una soglia di errore del 10% per ogni città.
+  Numero di previsioni azzeccate dell'umidità con una soglia di errore del 20% per ogni città.
 
 # Rotte Applicazione
 Attraverso delle API REST (GET o POST) si possono eseguire delle richieste che 
@@ -99,7 +99,8 @@ Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene ri
 
 Restituisce i dati nel seguente formato: 
 
-![screen_forecast](https://user-images.githubusercontent.com/75066510/105230251-5cb32180-5b65-11eb-81a6-429ffbf7e3d7.png)
+![screen_forecast2](https://user-images.githubusercontent.com/75066510/105325443-e3e7b000-5bcc-11eb-91aa-8c9963942666.png)
+
 
 #### Rotta POST/dailystats
 Per visualizzare le statistiche su periodicità giornaliera viene richiesto all'utente di inserire alcuni parametri: 
