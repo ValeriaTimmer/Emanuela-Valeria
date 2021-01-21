@@ -1,10 +1,6 @@
 # Emanuela-Valeria
 Esame UNIVPM Programmazione ad Oggetti gennaio 2021
 
-# Autori 
-- Emanuela Saleggia 50%
-- Valeria Timmer 50%
-
 # SpringBoot REST API OpenWeather OOP
  L'applicazione utilizza l'API **Call 5 day / 3 hour forecast data** di OpenWeather
  e ne manipola i dati con lo scopo di ottenere informazioni riguardo alle previsioni
@@ -185,10 +181,10 @@ Dunque il controller resituisce i valori di umidità e temperatura previsti per 
 ![diagramma_delle_sequenze](https://user-images.githubusercontent.com/75066510/105337527-cfaaaf80-5bda-11eb-9d50-5eb8fff55ade.png)
 
 ### Seconda parte 
-- Chiamata **/stats** : il Controller effettua una chiamata al metodo getStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo Statistics() della classe Stats la quale si occupa di ritornare i valori delle statistiche. A sua volta questa classe richiama il metodo getStats() della classe StatsUtils che si occupa della manipolazione dei dati richiamando i metodi presenti nella classe StatisticsCalculator (calcolatore di statistiche). Le statistiche vengono effettuate sui dati presenti nel JSONArray ritornato dal metodo getAllData() della classe DataBase, il quale richiama in modo diretto i metodi per il filtraggio delle città (filtersCity() della classe CityFilter e getCityFiltered() della classe FiltersUtils i quali a loro volta richiamano il metodo Parsing() della classe DownloadCity() che ha un legame diretto con il sito di OpenWeather).
+- Chiamata **/stats** : il Controller effettua una chiamata al metodo getStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo Statistics() della classe Stats la quale si occupa di ritornare i valori delle statistiche. A sua volta questa classe richiama il metodo getStats() della classe StatsUtils che si occupa della manipolazione dei dati richiamando i metodi presenti nella classe StatisticsCalculator (calcolatore di statistiche). Le statistiche vengono effettuate sui dati presenti nel JSONArray ritornato dal metodo getAllDataStorico() della classe DataBase, il quale richiama in modo diretto i metodi per il filtraggio delle città (filtersCity() della classe CityFilter e getCityFiltered() della classe FiltersUtils i quali a loro volta richiamano il metodo Parsing() della classe DownloadCity() che ha un legame diretto con il sito di OpenWeather).
 Dunque il controller restituisce i valori delle statistiche di umidità o temperatura di una determinata città relativamente ad un particolare periodo desiderato. 
 - Chiamata **/forecasts?date=data&city=cityName** : il Controller effettua una chiamata al metodo getForecasts() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo confrontaValori() della classe Forecasts il quale ritornerà un JSONObject contente il numero di valori di umidità azzeccati. Il metodo confrontaValori() richiama a sua volta due metodi arrayPrevisioni1() ed arrayPrevisioni2(): il primo richiama il metodo Parsing() della classe DownloadCity() andando a prelevare i dati desiderati salvati in precedenza; il secondo richiama il metodo previsioniAttuali() che a sua volta richiama il metodo toOpenWeather() della classe DownloadCity() il quale effettua una chiamata direttamente al sito di OpenWeather. Il confronto dunque avviene tra i valori presenti nel file *parsing.json* che costituisce lo storico e i valori restituiti dal sito. Dunque il controller restituisce il numero dei valori dell'umidità azzeccati di una determinata città *(cityName)* relativamente alla data inserita dall'utente *(data)*.
-- Chiamata **/dailystats/?city=cityName&type=parameter&from=date1&to=date2** : il Controller effettua una chiamata al metodo getDailyStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo filtersCity() della classe TypeFilter() che a sua volta richiama il metodo getTypeFiltered() della classe FilterUtils. Quest'ultimo richiamando il metodo getAllData() della classe DataBase e il metodo Statistics della classe StatUtils ritorna un JSONArray contente le statistiche di una determinata città con periodicità giornaliera. Dunque il controller restituisce i valori delle statistiche di umidità o temperatura *(parameter)* di una determinata città *(cityName)* relativamente ad un periodo desiderato *(from, to)* in base ad una periodicità giornalierà.
+- Chiamata **/dailystats/?city=cityName&type=parameter&from=date1&to=date2** : il Controller effettua una chiamata al metodo getDailyStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo filtersCity() della classe TypeFilter() che a sua volta richiama il metodo getTypeFiltered() della classe FilterUtils. Quest'ultimo richiamando il metodo getAllDataStorico() della classe DataBase e il metodo Statistics della classe StatUtils ritorna un JSONArray contente le statistiche di una determinata città con periodicità giornaliera. Dunque il controller restituisce i valori delle statistiche di umidità o temperatura *(parameter)* di una determinata città *(cityName)* relativamente ad un periodo desiderato *(from, to)* in base ad una periodicità giornalierà.
 
 ![Diagramma_statistiche](https://user-images.githubusercontent.com/75066510/105337710-f963d680-5bda-11eb-91a0-5d8d84002154.png)
 
@@ -214,3 +210,11 @@ Può essere lanciata quando non sono disponibili i valori per effettuare le stat
 - *UrlException :* segnala che si è verificato un errore nella connessione al sito.
 Questa eccezione estende da java.net.MalformedURLException la quale segnala che si è verificato un URL non valido.
 Può essere lanciata quando l'Url del sito risulta errato.
+
+## Documentazione
+Il codice java è stato documentato in JavaDoc
+
+# Autori 
+- Emanuela Saleggia 50%
+- Valeria Timmer 50%
+
