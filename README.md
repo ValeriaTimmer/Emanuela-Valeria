@@ -13,9 +13,8 @@ Esame UNIVPM Programmazione ad Oggetti gennaio 2021
  
  L'applicativo è in grado di salvare i dati di quattro città costantemente monitorate
  (*Rome, City of London, Berlin, Paris*) ogni ora utilizzando l'annotazione @Scheduled di
- SpringBoot che effettua la chiamata al sito di OpenWeather e crea uno storico con i dati
- salvati nel file *allValues.json*. Inoltre nel file *parsing.json* vengono salvati gli
- ultimi dati della chiamata al sito. 
+ SpringBoot che effettua la chiamata al sito di OpenWeather. I nuovi dati vengono salvati  
+ nel file *parsing.json*. Il file *fileValue.json*, invece costituisce uno storico.
  
 ## Statistiche
 Le statistiche riguardano: 
