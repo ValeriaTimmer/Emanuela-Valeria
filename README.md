@@ -112,7 +112,10 @@ Per visualizzare le statistiche su periodicità giornaliera viene richiesto all'
 - "from" : data di inizio 
 - "to": data di fine
 
-Restituisce i dati nel seguente formato: 
+Restituisce i dati nel seguente formato:
+
+![screen_dailystats1](https://user-images.githubusercontent.com/75066510/105323475-776bb180-5bca-11eb-9802-ffeead309abe.png)
+
 
 # UML
 
