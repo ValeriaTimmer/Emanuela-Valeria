@@ -144,7 +144,7 @@ Package contente le eccezioni personalizzate
 ### Package Filter
 Package contente le classi per la gestione dei filtri 
 
-![filter](https://user-images.githubusercontent.com/75066505/105203543-88bdab00-5b43-11eb-9095-ded5409542a9.png)
+![Filter](https://user-images.githubusercontent.com/75066505/105338353-be15d780-5bdb-11eb-94ca-f8f42ee17ab4.png)
 
 ### Package Model
 Package contente la classe che modella i dati 
