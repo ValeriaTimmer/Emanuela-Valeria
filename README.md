@@ -118,6 +118,7 @@ Restituisce i dati nel seguente formato:
 
 ![screen_dailystats2](https://user-images.githubusercontent.com/75066510/105323617-9c602480-5bca-11eb-9d66-570eae53cf8e.png)
 
+![screen_dailystats3](https://user-images.githubusercontent.com/75066510/105323774-d16c7700-5bca-11eb-9aaf-feea095aa6ed.png)
 
 # UML
 
