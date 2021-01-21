@@ -45,7 +45,7 @@ differiscono in base alle diverse rotte mostrate nella tabella sottostante
 TIPO | ROTTA | DESCRIZIONE
 -----|-------|------------
 GET  |/metadata | Restituisce i metadata 
-GET  |/data | Restituisce le previsioni meteo per i successivi 5 giorni di una città
+GET  |/data | Restituisce le previsioni meteo  ogni 3 ore per i successivi 5 giorni di una città
 POST |/stats  | Effettua le statistiche in base a parametri scelti dall'utente 
 POST |/forecasts | Effettua le statistiche riguardo le previsioni meteoreologiche in base a paramtri scelti dall'utente
 POST |/dailystats | Effettua le statistiche in base a parametri scelti dall'utente su periodicità giornaliera
@@ -171,7 +171,7 @@ In particolare la classe:
 - *StatsTest* esegue due test: il primo riguardante il calcolo delle statistiche, il secondo riguardante
 l'eccezione personalizzata StatsException
 - *FilterTest* esegue quattro test: i primi tre riguardanti l'eccezione personalizzata FilterException
-(utilizzata in tre differenti classi), il quarto tiguardante l'eccezione personalizzata DataFormatException
+(utilizzata in tre differenti classi), il quarto riguardante l'eccezione personalizzata DataFormatException
 
 ![test](https://user-images.githubusercontent.com/75066505/105204471-7ee87780-5b44-11eb-8a17-74ad7c540883.png)
 
@@ -188,9 +188,10 @@ Dunque il controller resituisce i valori di umidità e temperatura previsti per 
 Dunque il controller restituisce i valori delle statistiche di umidità o temperatura di una determinata città relativamente ad un particolare periodo desiderato. 
 - Chiamata **/forecasts?date=data&city=cityName** : il Controller effettua una chiamata al metodo getForecasts() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo confrontaValori() della classe Forecasts il quale ritornerà un JSONObject contente il numero di valori di umidità azzeccati. Il metodo confrontaValori() richiama a sua volta due metodi arrayPrevisioni1() ed arrayPrevisioni2(): il primo richiama il metodo Parsing() della classe DownloadCity() andando a prelevare i dati desiderati salvati in precedenza; il secondo richiama il metodo previsioniAttuali() che a sua volta richiama il metodo toOpenWeather() della classe DownloadCity() il quale effettua una chiamata direttamente al sito di OpenWeather. Il confronto dunque avviene tra i valori presenti nel file *parsing.json* che costituisce lo storico e i valori restituiti dal sito. Dunque il controller restituisce il numero dei valori dell'umidità azzeccati di una determinata città *(cityName)* relativamente alla data inserita dall'utente *(data)*.
 - Chiamata **/dailystats/?city=cityName&type=parameter&from=date1&to=date2** : il Controller effettua una chiamata al metodo getDailyStats() della classe CityServiceImpl per la restituzione dei dati desiderati. Quest'ultima richiama il metodo filtersCity() della classe TypeFilter() che a sua volta richiama il metodo getTypeFiltered() della classe FilterUtils. Quest'ultimo richiamando il metodo getAllData() della classe DataBase e il metodo Statistics della classe StatUtils ritorna un JSONArray contente le statistiche di una determinata città con periodicità giornaliera. Dunque il controller restituisce i valori delle statistiche di umidità o temperatura *(parameter)* di una determinata città *(cityName)* relativamente ad un periodo desiderato *(from, to)* in base ad una periodicità giornalierà.
-![Diagramma_statistiche](https://user-images.githubusercontent.com/75066510/105205377-7fcdd900-5b45-11eb-83b7-8b3a9dc9d52d.png)
 
-# Possibili Eccezioni 
+![Diagramma_statistiche](https://user-images.githubusercontent.com/75066510/105324020-23150180-5bcb-11eb-9eff-b7dd3d23603c.png)
+
+## Possibili eccezioni
 Dall'applicazione vengono gestite alcune eccezioni in maniera personalizzata:
 - DataFormatException
 - FilterException 
