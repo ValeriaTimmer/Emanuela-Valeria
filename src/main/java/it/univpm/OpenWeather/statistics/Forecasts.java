@@ -188,9 +188,9 @@ public class Forecasts {
 			
 		  for(int j=0; j<array2.size(); j++) {
 			  
-			 Double min = array1.get(i) - 0.2*(array1.get(i));
+			 Double min = array1.get(i) - 0.1*(array1.get(i));
 			 
-			 Double max = array1.get(i) + 0.2*(array1.get(i));
+			 Double max = array1.get(i) + 0.1*(array1.get(i));
 			 
 			 if(array2.get(j)>=min && array2.get(j)<max)
 				 
