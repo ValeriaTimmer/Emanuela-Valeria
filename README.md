@@ -164,7 +164,7 @@ Package contenente le classi per la generazione delle statistiche
 ### Package Utils
 Package contenete le classi di supporto per l'elaborazione e la manipolazione dei dati 
 
-![utils](https://user-images.githubusercontent.com/75066505/105204346-595b6e00-5b44-11eb-926a-4244b5b3fc3a.png)
+![Utils](https://user-images.githubusercontent.com/75066505/105338533-f7e6de00-5bdb-11eb-83de-982ae6f79093.png)
 
 ### Test effettuati sull'applicazione
 Sono stati effettuati test sul statistiche e eccezioni 
