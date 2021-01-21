@@ -87,6 +87,8 @@ Restituisce i dati nel seguente formato:
 
 ![screen_stats](https://user-images.githubusercontent.com/75066510/105228745-3a200900-5b63-11eb-87ea-a513253e3572.png)
 
+![screen_stats2](https://user-images.githubusercontent.com/75066510/105323013-ea285d00-5bc9-11eb-836e-9a1394e714b5.png)
+
 #### Rotta POST/forecasts
 Per visualizzare le statistiche riguardo i valori di umidità azzeccati viene richiesto all'utente di inserire alcuni parametri:
 
