@@ -104,6 +104,9 @@ Restituisce i dati nel seguente formato:
 #### Rotta POST/dailystats
 Per visualizzare le statistiche su periodicità giornaliera viene richiesto all'utente di inserire alcuni parametri: 
 
+![screen_dailystats_param](https://user-images.githubusercontent.com/75066510/105323195-252a9080-5bca-11eb-80ad-bb852f804644.png)
+
+
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori *"humidity" o "temperature"*
 - "from" : data di inizio 
