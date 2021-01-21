@@ -1,8 +1,6 @@
 package it.univpm.OpenWeather.statistics;
 
 import java.io.IOException;
-
-import java.net.MalformedURLException;
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.utils.*;
 import it.univpm.OpenWeather.service.*;
@@ -51,13 +49,13 @@ public class Forecasts {
 		
 		ArrayList<Double> valori = new ArrayList<Double>();
 		
-		ForecastFilter previsioni = new ForecastFilter();
+		ForecastFilter previsioni = new ForecastFilter(Config.getNameStorico());
 		
 		JSONArray previsioniFile= new JSONArray();
 		
 		JSONArray previsioniPassate = new JSONArray();
 		
-		previsioniFile = d.Parsing();
+		previsioniFile = d.Parsing(Config.getNameStorico());
 		
 		previsioniPassate = previsioni.filtersCity(date, city, previsioniFile);
 		
@@ -127,8 +125,8 @@ public class Forecasts {
 	 * delle previsioni attuali
 	 * 
 	 * @param date Data
-	 * @param city Nome della città 
-	 * @return valori ArrayList contenente i valori dell'umidità
+	 * @param city Nome della citta
+	 * @return valori ArrayList contenente i valori dell'umidita
 	 * @throws UrlException eccezione personalizzata
  	 * @throws IOException errore di I/O
 	 */
@@ -136,7 +134,7 @@ public class Forecasts {
 		
         JSONObject Counter = new JSONObject();
 		
-		ForecastFilter filter = new ForecastFilter();
+		ForecastFilter filter = new ForecastFilter(Config.getNameStorico());
 		
 		ArrayList<Double> valori = new ArrayList<Double>();
 		
@@ -161,8 +159,8 @@ public class Forecasts {
 	
 	
 	/**
-	 * Metodo per confrontare i valori dell'umidita. Nel caso in cui questi siano uguali,
-	 * viene incrementato un contatore, che sta ad indicare il numero di previsioni azzeccate
+	 * Metodo per confrontare i valori dell'umidita, con una 
+	 * soglia di errore del 20%
 	 * 
 	 * @param date Data
 	 * @param city Nome della città
@@ -190,7 +188,11 @@ public class Forecasts {
 			
 		  for(int j=0; j<array2.size(); j++) {
 			  
-			 if(array2.get(j).equals(array1.get(i)))
+			 Double min = array1.get(i) - 0.2*(array1.get(i));
+			 
+			 Double max = array1.get(i) + 0.2*(array1.get(i));
+			 
+			 if(array2.get(j)>=min && array2.get(j)<max)
 				 
 				 counter++;
 			 

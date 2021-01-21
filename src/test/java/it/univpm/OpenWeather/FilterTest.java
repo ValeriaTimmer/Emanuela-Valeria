@@ -41,9 +41,9 @@ class FilterTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		array = new JSONArray();
-		c = new CityFilter();
-		f = new ForecastFilter();
-		t = new TypeFilter();
+		c = new CityFilter(Config.getNameStorico());
+		f = new ForecastFilter(Config.getNameStorico());
+		t = new TypeFilter(Config.getNameStorico());
 		dateUtils = new DateUtils();
 		city = null;
 		date = null;
@@ -70,7 +70,7 @@ class FilterTest {
 	@Test
 	@DisplayName ("Test eccezione FilterException nella classe CityFilter")
 	void testCityFilter() {
-		FilterException exception = assertThrows(FilterException.class,() -> { c.filtersCity(city);});
+		FilterException exception = assertThrows(FilterException.class,() -> { c.filtersCity(city,Config.getNameStorico());});
 		assertEquals(exception.getMessage(),"Nome della città nullo!");
 	}
 	

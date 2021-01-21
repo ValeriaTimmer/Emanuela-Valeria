@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 /**
+ * 
  * Classe che effettua i calcoli per le statistiche
  * 
  * @author Valeria Timmer

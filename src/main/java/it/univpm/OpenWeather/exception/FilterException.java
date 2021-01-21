@@ -18,6 +18,7 @@ public class FilterException extends IOException {
 	 * per l'oggetto che ha una diversa serialVersionUIDda quella della corrispondente classe 
 	 * del mittente, la deserializzazione si tradurra in un InvalidClassException 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	/**

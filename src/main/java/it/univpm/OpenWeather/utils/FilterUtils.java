@@ -46,9 +46,10 @@ public class FilterUtils {
 	
 	/**
 	 * Costruttore
+	 * @param file nome del file
 	 */
-	public FilterUtils () {
-		this.jsonArray = d.Parsing();
+	public FilterUtils (String file) {
+		this.jsonArray = d.Parsing(file);
 	}
 	
 	/**
@@ -57,11 +58,11 @@ public class FilterUtils {
 	 * @param city Nome della citta
 	 * @return filtered Ritorna l'array filtrato con tutte le informazioni di una determinata citta
 	 */
-	public JSONArray getCityFiltered (String city) {
+	public JSONArray getCityFiltered (String city,String file) {
 		
 		JSONArray filtered = new JSONArray();
 
-		jsonArray = d.Parsing();
+		jsonArray = d.Parsing(file);
 		
 		for (int i = 0; i< jsonArray.size(); i++) {
 	
@@ -96,8 +97,8 @@ public class FilterUtils {
 	}
 	
 	/**
-	 * Metodo che filtra il valore massimo e il valore minimo di 
-	 * umidita/temperatura registrati nel DataBase
+	 * Metodo che serve per ritornare le statistiche giornaliere
+	 * di un determinato periodo
      * @param city nome della citta
 	 * @param type Tipo di valore che si vuole ottenere (umidita/temperatura)
 	 * @param from data di inizio del periodo
@@ -108,10 +109,9 @@ public class FilterUtils {
 	 * @throws IOException errore di I/O
 	 * @throws StatsException eccezione personalizzata
 	 * @throws DataFormatException eccezione personalizzata
-	 * @throws ParseException errore di parsing
 	 */
 	 
-	public JSONArray getTypeFiltered(String city, String type, String from, String to) throws UrlException, ParseException, 
+	public JSONArray getTypeFiltered(String city, String type, String from, String to) throws UrlException, 
 	IOException, StatsException, DataFormatException, org.json.simple.parser.ParseException {
 		
 	         JSONArray array = new JSONArray();
@@ -127,7 +127,7 @@ public class FilterUtils {
 	         for(Object o : allDates) {
 	        	 if(o instanceof String) {
 	        		 String data = (String) o;
-	        		 Stats s = new Stats(dB.getAllData(city));
+	        		 Stats s = new Stats(dB.getAllDataStorico(city));
 	        		 dailystats = s.Statistics(s.getArray(), city,type,data,data);
 	        		 array.add(data);
 	        		 array.add(dailystats);

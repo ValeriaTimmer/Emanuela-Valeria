@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 
 /**
  * Classe che modella la citta
+ * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
  */
@@ -83,7 +84,7 @@ public class City {
 	}
 
 	/**
-	 * Metodo Getter dell'umidità della citta
+	 * Metodo Getter dell'umidita della citta
 	 * @return humidity Ritorna l'umidita della citta in percentuale
 	 */
 	
@@ -129,7 +130,7 @@ public class City {
 	 * Metodo Setter della data
 	 * @param date Data passata dal metodo chiamante
 	 */
-	public void setData(String date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

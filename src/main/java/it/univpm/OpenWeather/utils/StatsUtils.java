@@ -5,10 +5,6 @@ import it.univpm.OpenWeather.exception.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.text.ParseException;
-
-import java.net.MalformedURLException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

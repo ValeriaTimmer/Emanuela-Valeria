@@ -8,7 +8,6 @@ import java.io.*;
 import java.util.Scanner;
 
 import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -95,14 +94,6 @@ public class DownloadCity {
 	}
 	
 	/**
-	 * Metodo Setter del valore dell'umidita
-	 * @param humidity Valore dell'umidita
-	 */
-	public void setHumidity(double humidity){
-		this.humidity = humidity;
-	}
-	
-	/**
 	 * Metodo Getter del valore della temperatura
 	 * @return temperature Valore della temperatura
 	 */
@@ -128,6 +119,8 @@ public class DownloadCity {
 
 	/**
 	 * Metodo per convertire la temperatura da Kelvin in Celsius
+	 * @param temperatura valore in kelvin
+	 * @return valore in celsius
 	 */
 	public int getTemperaturaInCelsius(double temperatura) {
 		return (int)(temperatura - 273.15);
@@ -228,14 +221,14 @@ public class DownloadCity {
 	
 	/**
 	 * Metodo che permette di selezionare i dati desiderati da un JSONArray
-	 * 
+	 * @param nome_file nome del file
 	 * @return values JSONArray contenete i dati desiderati 
 	 */
-	public JSONArray Parsing () {
+	public JSONArray Parsing (String nome_file) {
 		
 		JSONArray jsonArray = new JSONArray();
 		
-		JSONArray arr = this.getValues(Config.getName());
+		JSONArray arr = this.getValues(nome_file);
 		
 		for (int i = 0; i<arr.size(); i++) {
 		

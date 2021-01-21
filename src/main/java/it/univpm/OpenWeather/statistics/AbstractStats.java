@@ -4,10 +4,7 @@ import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.utils.StatsUtils;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.ParseException;
 import java.util.HashMap;
-import java.util.ArrayList;
 import org.json.simple.JSONArray;
 
 /**

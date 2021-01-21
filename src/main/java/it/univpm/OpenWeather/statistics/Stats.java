@@ -1,12 +1,9 @@
 package it.univpm.OpenWeather.statistics;
 
 import org.json.simple.JSONArray;
-import java.text.ParseException;
-import it.univpm.OpenWeather.utils.StatsUtils;
 import it.univpm.OpenWeather.exception.*;
 
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.io.*;
 import java.net.MalformedURLException;
 
@@ -36,15 +33,15 @@ public class Stats extends AbstractStats{
 	* @param from Data d'inizio del periodo sul quale si effettuano le statistiche
 	* @param to Data di fine del periodo sul quale si effettuano le statistiche
 	* @return ritorna HashMap contenente le statistiche effettuate
+	* @throws DataFormatException eccezione personalizzata
 	* @throws UrlException Eccezione personalizzata
-	* @throws MalformedURLException Errore nel formato dell'URL
  	* @throws org.json.simple.parser.ParseException Errore di Parsing 
  	* @throws IOException Errore di I/O
- 	 * @throws StatsException eccezione personalizzata
+ 	* @throws StatsException eccezione personalizzata
   
 	*/
 	public HashMap <String, String> Statistics (JSONArray array, String city, String parameter, String from, String to) 
-			throws DataFormatException, UrlException, MalformedURLException, org.json.simple.parser.ParseException, IOException,
+			throws DataFormatException, UrlException, org.json.simple.parser.ParseException, IOException,
 			StatsException {
 		return utils.getStats(getArray(), city, parameter, from, to);
 	}

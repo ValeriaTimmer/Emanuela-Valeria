@@ -18,7 +18,7 @@ public class UrlException extends MalformedURLException {
 	 * per l'oggetto che ha una diversa serialVersionUIDda quella della corrispondente classe 
 	 * del mittente, la deserializzazione si tradurra in un InvalidClassException 
 	 */
-	protected static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Costruttore

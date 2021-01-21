@@ -13,10 +13,14 @@ import java.text.SimpleDateFormat;
 public class Config {
 	
 	/**
-	 * Nome del file su cui vengono salvati i dati 
+	 * Nome del file su cui vengono salvati i nuovi dati 
 	 */
 	private static String fileName = "parsing.json";
 	
+	/**
+	 * Nome del file che contiene i dati storici
+	 */
+	private static String fileStorico = "fileValue.json";
 	
 	/**
 	 * Chiave privata per accedere al sito di OpenWeather
@@ -68,11 +72,29 @@ public class Config {
 	}
 	
 	/**
+	 * Metodo gettere del nome del file
+	 * che contiene lo storico dei dati
+	 * @return fileStorico Ritorna il nome del file
+	 */
+	public static String getNameStorico() {
+		return fileStorico;
+	}
+	
+	/**
 	 * Metodo Setter del nome del file
 	 * @param name Nome del file
 	 */
 	private static void setName (String name) {
 		Config.fileName = name;
+	}
+	
+	/**
+	 * Metodo Setter del nome del file
+	 * che contiene lo storico dei dati
+	 * @param name Nome del file
+	 */
+	private static void setNameStorico(String name) {
+		Config.fileStorico = name;
 	}
 	
 	/**

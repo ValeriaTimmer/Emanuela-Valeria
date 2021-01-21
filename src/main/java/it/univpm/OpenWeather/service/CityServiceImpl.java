@@ -7,16 +7,13 @@ import it.univpm.OpenWeather.exception.*;
 import it.univpm.OpenWeather.filter.TypeFilter;
 import it.univpm.OpenWeather.utils.*;
 
-import java.net.MalformedURLException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
 
-import java.time.LocalDate;
 import java.text.ParseException;
 import java.io.*;
-import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -63,6 +60,10 @@ public class CityServiceImpl implements CityService {
 	
 	/**
 	 * Costruttore
+	 * @throws UrlException eccezione personalizzata
+	 * @throws IOException errore di I/O
+	 * @throws org.json.simple.parser.ParseException errore di Parsing
+	 * @throws ClassNotFoundException errore di classe non trovata
 	 */
 	public CityServiceImpl() 
 			throws UrlException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException {
@@ -89,7 +90,7 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	/**
-	 * metodo che effettua l'override del metodo dell'interfaccia
+	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * 
 	 * @param city nome della citta
 	 * @return JSONArray contenente le previsioni attuali e dei successivi 5 giorni
@@ -103,10 +104,15 @@ public class CityServiceImpl implements CityService {
 		
 		return dB.getAllData(city);
 	}
+	
 	/**
 	 * Metodo che effettua l'override del metodo dell'interfaccia
 	 * 
-	 * @return HashMap con i valori desiderati delle città 
+	 * @param city nome della citta
+	 * @param type umidita/temperatura
+	 * @param from data di inizio del periodo
+	 * @param to data di fine del periodo
+	 * @return JSONArray con i valori desiderati delle città 
 	 * @throws IllegalArgumentException Errore di argomento errato
 	 * @throws UrlException Eccezione personalizzata
 	 * @throws org.json.simple.parser.ParseException Errore di Parsing
@@ -117,10 +123,12 @@ public class CityServiceImpl implements CityService {
 	 */
 	
 	@Override 
-	public JSONArray getDailyStats(String city, String type, String from, String to) throws IllegalArgumentException, UrlException, 
-		org.json.simple.parser.ParseException, IOException, ParseException, StatsException, com.sun.el.parser.ParseException { 
+	public JSONArray getDailyStats(String city, String type, String from, String to)
+			throws IllegalArgumentException, UrlException, 
+		org.json.simple.parser.ParseException, IOException, ParseException,
+		StatsException, com.sun.el.parser.ParseException { 
 
-		TypeFilter t = new TypeFilter();
+		TypeFilter t = new TypeFilter(Config.getNameStorico());
 		return t.filtersCity(city,type,from,to);
         
 	}
@@ -148,7 +156,7 @@ public class CityServiceImpl implements CityService {
 		
 		DataBase dB = new DataBase ();
 	
-		this.s = new Stats(dB.getAllData(city));
+		this.s = new Stats(dB.getAllDataStorico(city));
 
 		return s.Statistics(s.getArray(), city, type, from, to);
 		

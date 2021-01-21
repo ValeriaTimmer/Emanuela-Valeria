@@ -2,11 +2,10 @@ package it.univpm.OpenWeather.filter;
 import org.json.simple.JSONArray;
 
 import it.univpm.OpenWeather.exception.FilterException;
-import it.univpm.OpenWeather.utils.*;
 
 /**
  * Classe che si occupa del filtraggio delle citta per 
- * il calcolo delle previsioni azzeccate
+ * il calcolo delle previsioni azzeccate ed estende dalla classe Filter
  * 
  * @author Valeria Timmer
  * @author Emanuela Saleggia
@@ -17,13 +16,14 @@ public class ForecastFilter extends Filter{
 	
 	/**
 	 * Costruttore
+	 * @param name nome del file
 	 */
-	public ForecastFilter() {
-		super();
+	public ForecastFilter(String name) {
+		super(name);
 	}
 	
 	/**
-	 * Metodo che richiama il metodo della classe FilterUtils
+	 * Metodo che effettua il filtraggio in base ai parametri inseriti
 	 * @param date Data
 	 * @param city Nome della citta
 	 * @param array JSONArray da filtrare

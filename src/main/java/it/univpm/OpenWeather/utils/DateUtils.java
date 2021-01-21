@@ -55,7 +55,6 @@ public class DateUtils {
 	 * @param from Data iniziale
 	 * @param to Data finale
 	 * @throws DataFormatException Eccezione personalizzata 
-	 * @throws ParseException Errore di parsing
 	 */
 	private static void dateCheck (String from, String to) throws DataFormatException {	
 		

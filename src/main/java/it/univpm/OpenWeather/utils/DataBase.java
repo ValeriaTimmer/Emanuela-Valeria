@@ -1,13 +1,7 @@
 package it.univpm.OpenWeather.utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
-
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import org.json.simple.parser.ParseException;
 import org.slf4j.LoggerFactory;
@@ -15,17 +9,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.slf4j.*;
 
-import it.univpm.OpenWeather.exception.DataFormatException;
-import it.univpm.OpenWeather.exception.StatsException;
 import it.univpm.OpenWeather.exception.UrlException;
 import it.univpm.OpenWeather.service.*;
 import it.univpm.OpenWeather.filter.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -103,7 +92,7 @@ public class DataBase {
 	
 	/**
 	 * Metodo che ritorna tutti i valori desiderati di una determinata citta 
-	 * presenti nel dataBase
+	 * presenti nello storico del DataBase
 	 * 
 	 * @param city Citta di cui si vogliono ottenere i parametri
 	 * @return arr JSONArray che contiene tutti i dati della citta
@@ -111,15 +100,33 @@ public class DataBase {
 	 * @throws ParseException Errore di Parsing
 	 * @throws UrlException Eccezione personalizzata
 	 */
-	public JSONArray getAllData (String city) throws UrlException, ParseException, IOException {
+	public JSONArray getAllDataStorico (String city) throws UrlException, ParseException, IOException {
 		
-		cityFilter = new CityFilter();
+		cityFilter = new CityFilter(Config.getNameStorico());
 		
-		this.value = cityFilter.filtersCity(city);
+		this.value = cityFilter.filtersCity(city, Config.getNameStorico());
 	   
 		return value;
 	}
 	
+	/**
+	 * Metodo che ritorna tutti i valori attuali desiderati di una determinata citta 
+	 * 
+	 * 
+	 * @param city Citta di cui si vogliono ottenere i parametri
+	 * @return arr JSONArray che contiene tutti i dati della citta
+	 * @throws IOException Errore di I/O
+	 * @throws ParseException Errore di Parsing
+	 * @throws UrlException Eccezione personalizzata
+	 */
+    public JSONArray getAllData(String city) throws UrlException, ParseException, IOException {
+		
+		cityFilter = new CityFilter(Config.getName());
+		
+		this.value = cityFilter.filtersCity(city, Config.getName());
+	   
+		return value;
+	}
 		
 }
 	

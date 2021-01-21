@@ -2,12 +2,11 @@ package it.univpm.OpenWeather.filter;
 
 import org.json.simple.JSONArray;
 
-import it.univpm.OpenWeather.exception.FilterException;
 import it.univpm.OpenWeather.utils.FilterUtils;
 
 
 /**
- * Interfaccia per la gestione dei filtri
+ * Superclasse per la gestione dei filtri
  * 
  * @author Emanuela Saleggia
  * @author Valeria Timmer
@@ -16,7 +15,7 @@ import it.univpm.OpenWeather.utils.FilterUtils;
 public class Filter {
 	
 	/**
-	 * variabile della classe FilterUtils
+	 * Variabile della classe FilterUtils
 	 */
 	protected FilterUtils utils;
 	/**
@@ -25,19 +24,20 @@ public class Filter {
 	protected JSONArray arrayCity;
 	
 	/**
-	 * costruttore di default
+	 * Costruttore di default
 	 */
-	public Filter() {
-		this.utils = new FilterUtils();
+	public Filter(String name) {
+		this.utils = new FilterUtils(name);
 	}
 	
 	/**
-	 * costruttore che prende come parametro un JSONArray
-	 * @param array
+	 * Costruttore che prende come parametro un JSONArray
+	 * @param array JSONArray
+	 * @param name nome del file
 	 */
-	public Filter(JSONArray array) {
+	public Filter(JSONArray array, String name) {
 		this.arrayCity = array;
-		this.utils = new FilterUtils();
+		this.utils = new FilterUtils(name);
 	}
 	
 	/**
