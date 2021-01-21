@@ -76,6 +76,8 @@ un JSONObject di questo formato:
 
 ![screen_body](https://user-images.githubusercontent.com/75066510/105228436-e57c8e00-5b62-11eb-8a70-91bd140c4a7a.png)
 
+![screen_body2](https://user-images.githubusercontent.com/75066510/105322897-c36a2680-5bc9-11eb-8f94-e2dc661a8ff0.png)
+
 - "city" : nome della città. Può assumere i valori *"Rome", "City of London", "Berlin" o "Paris"*
 - "type" : parametro sul quale vengono effettuate le statistiche. Può assumere i valori *"humidity" o "temperature"*
 - "from" : data di inizio 
